@@ -1,0 +1,63 @@
+<nav class="nav nav-pills nav-fill sider">
+  <div class="inner-menu w-100">
+    <ul>
+      <li>
+        <a href="<%= prefixAdmin %>/dashboard" class="nav-link"
+          ><i class="bi bi-house-fill"></i>Tổng quan</a
+        >
+      </li>
+      <% if(roleAuth.permission.includes('product-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/products" class="nav-link"
+          ><i class="fa-solid fa-list-ul"></i>Sản phẩm</a
+        >
+      </li>
+      <% } %>
+
+      <!----------------------------------------------------------------------------------->
+      <% if(roleAuth.permission.includes('category-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/categories" class="nav-link"
+          ><i class="fa-solid fa-bars-staggered"></i>Danh mục</a
+        >
+      </li>
+      <% } %>
+
+      <!----------------------------------------------------------------------------------->
+      <% if(roleAuth.permission.includes('order-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/orders" class="nav-link"
+          ><i class="bi bi-bag-check-fill"></i>Đơn hàng</a
+        >
+      </li>
+      <% } %>
+
+      <!----------------------------------------------------------------------------------->
+      <% if(roleAuth.permission.includes('account-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/accounts" class="nav-link"
+          ><i class="bi bi-person-circle"></i>Tài khoản</a
+        >
+      </li>
+      <% } %>
+
+      <!----------------------------------------------------------------------------------->
+      <% if(roleAuth.permission.includes('role-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/roles" class="nav-link"
+          ><i class="fa-solid fa-users"></i>Nhóm quyền</a
+        >
+      </li>
+      <% } %>
+
+      <!----------------------------------------------------------------------------------->
+      <% if(roleAuth.permission.includes('permission-view')) {%>
+      <li>
+        <a href="<%= prefixAdmin %>/permissions" class="nav-link"
+          ><i class="fa-solid fa-users-gear"></i>Phân quyền</a
+        >
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

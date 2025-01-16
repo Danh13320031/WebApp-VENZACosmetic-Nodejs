@@ -1,0 +1,44 @@
+{
+  "name": "sellmarket",
+  "version": "1.0.0",
+  "description": "Web bán hàng online",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --inspect --exec babel-node app.js"
+  },
+  "keywords": [],
+  "author": "Danh Bùi",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.18.1",
+    "http-status-codes": "^2.3.0",
+    "method-override": "^3.0.0",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.7.1",
+    "mongoose-slug-updater": "^3.3.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.15",
+    "sass": "^1.79.5",
+    "socket.io": "^4.8.0",
+    "streamifier": "^0.1.1",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.25.8",
+    "@babel/node": "^7.25.7",
+    "@babel/preset-env": "^7.25.8",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "reload": "^3.3.0"
+  }
+}

@@ -1,0 +1,14 @@
+<form class="d-flex" id="sort">
+  <select name="sort" class="form-control w-75 sort-select">
+    <option value="" disabled>-- Danh mục sắp xếp --</option>
+    <option class="sort-option" value="position-desc" <% if(sortValue === "position-desc") {%>selected<% } %>>Vị trí giảm dần ⬇</option>
+    <option class="sort-option" value="position-asc" <% if(sortValue === "position-asc") {%>selected<% } %>>Vị trí tăng dần ⬆</option>
+    <option class="sort-option" value="price-asc" <% if(sortValue === "price-asc") {%>selected<% } %>>Giá tăng dần 💵↑</option>
+    <option class="sort-option" value="price-desc" <% if(sortValue === "price-desc") {%>selected<% } %>>Giá giảm dần 💵↓</option>
+    <option class="sort-option" value="title-asc" <% if(sortValue === "title-asc") {%>selected<% } %>>Tiêu đề A - Z 🇦🇿</option>
+    <option class="sort-option" value="title-desc" <% if(sortValue === "title-desc") {%>selected<% } %>>Tiên đề Z - A z🇦</option>
+  </select>
+  <button type="submit" class="btn btn-primary ms-1 sort-clear">
+    <i class="bi bi-eraser me-2"></i>Xóa
+  </button>
+</form>

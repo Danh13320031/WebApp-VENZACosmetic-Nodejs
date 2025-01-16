@@ -1,0 +1,41 @@
+<form
+  action="<%= prefixAdmin %>/<%= url %>/change-multi?_method=PATCH"
+  method="POST"
+  class="mb-3"
+  form-change-multi
+>
+  <div class="d-flex align-items-start">
+    <div class="form-group me-1">
+      <select name="type" class="form-control">
+        <option disabled selected>-- Danh mục lựa chọn --</option>
+          <% if(roleAuth.permission.includes(`${type}-change-status`)) {%>
+            <option <% if(url === 'roles') {%>
+              disabled class=""<% } %> value="active" class="text-success">🟢 Hoạt động
+            </option>
+            <option <% if(url === 'roles') {%>
+              disabled class=""<% } %> value="inactive" class="text-warning">🟡 Ngừng hoạt động
+            </option>
+          <% } %>
+
+        <!---------------------------------------------------------------------------------->
+        <% if(roleAuth.permission.includes(`${type}-sort-delete`)) {%>
+          <option value="soft-delete" class="text-danger">🗑 Xóa mềm tất cả</option>
+        <% } %>
+
+        <!---------------------------------------------------------------------------------->
+        <% if(roleAuth.permission.includes(`${type}-restore`)) {%>
+          <option value="restore" class="text-primary">🔄 Khôi phục tất cả</option>
+        <% } %>
+
+        <!---------------------------------------------------------------------------------->
+        <% if(roleAuth.permission.includes(`${type}-hard-delete`)) {%>
+          <option value="hard-delete" class="text-danger">🗑 Xóa vĩnh viễn tất cả</option>
+        <% } %>
+      </select>
+    </div>
+    <div class="form-group me-1 d-none">
+      <input type="text" name="ids" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary"><i class="bi bi-funnel me-1"></i>Áp dụng</button>
+  </div>
+</form>

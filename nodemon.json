@@ -1,0 +1,5 @@
+{
+  "watch": ["*.ejs", "*.css", "*.scss", "*.js"],
+  "ext": "ejs, css, scss, js",
+  "ignore": ["*.test.*"]
+}

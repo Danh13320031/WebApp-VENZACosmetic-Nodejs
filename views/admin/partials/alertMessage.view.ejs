@@ -1,0 +1,16 @@
+<% if(messages.alertSuccess) { %>
+<div class="alert alert-success" role="alert" data-time="5000" show-alert>
+  <i class="bi bi-check-circle text-success me-1 icon-check"></i>
+  <%= messages.alertSuccess %>
+  <i class="bi bi-x-lg text-success float-end icon-delete"></i>
+</div>
+<% } %>
+
+<!-- ----------------------------------------------------------------------------- -->
+<% if(messages.alertFailure) { %>
+<div class="alert alert-danger" role="alert" data-time="5000" show-alert>
+  <i class="bi bi-check-circle text-danger me-1 icon-check"></i>
+  <%= messages.alertFailure %>
+  <i class="bi bi-x-lg text-danger float-end icon-delete"></i>
+</div>
+<% } %>

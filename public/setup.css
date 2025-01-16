@@ -1,0 +1,82 @@
+/* Set up */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+/* Set up color */
+:root {
+  --primary-color: rgb(26, 114, 190);
+  --secondary-color: ;
+  --hover-color: rgb(53, 128, 194);
+}
+
+/* Setup scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Setup bootstrap */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+}
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-outline-primary:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-outline-primary.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.text-primary {
+  color: var(--primary-color) !important;
+}
+.form-control:focus {
+  color: var(--primary-color);
+  box-shadow: unset;
+  border: 1px solid var(--primary-color);
+}
+.nav-pills .nav-link {
+  border-radius: 0px !important;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: var(--bs-nav-pills-link-active-color);
+  background-color: var(--hover-color);
+}
+.table {
+  --bs-table-hover-bg: rgba(162, 203, 238, 0.2);
+}
+
+/* Set up font */
+:root {
+  --primary-font: ;
+  --secondary-font: ;
+
+  --heading-size: ;
+  --title-size: ;
+  --content-size: ;
+
+  --heading-weight: 700;
+  --title-weight: ;
+}
+
+/* Set up button */
+:root {
+  --btn-color-border: ;
+  --btn-padding: ;
+  --btn-radius: ;
+}

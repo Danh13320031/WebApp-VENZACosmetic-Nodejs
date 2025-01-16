@@ -1,0 +1,598 @@
+[{
+  "_id": {
+    "$oid": "670c9c4869ee8066c50a764e"
+  },
+  "title": "Essence Mascara Lash Princess",
+  "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+  "price": 9.99,
+  "rating": 4,
+  "discount": 7.17,
+  "warranty": "1 year",
+  "reviewer_name": "Bùi Pháp Danh",
+  "reviewer_email": "danh13320031@gmail.com",
+  "stock": 40,
+  "category": "makeup",
+  "brand": "Essence",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png",
+    "https://images-na.ssl-images-amazon.com/images/I/71dHypTEeOL.jpg",
+    "https://cdn05.zipify.com/7RoHrQXU8Px0gRsDP2gxs9fpGtg=/fit-in/1200x0/c40f8c72c6a84b138980842041dd9003/3000-x-3000-pink-show-lash-box-bottle-original-pow.jpeg",
+    "https://cdn.shoplightspeed.com/shops/615003/files/57341991/grande-cosmetics-grandelash-md-lash-enhancing-seru.jpg"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimension": {
+    "width": 23,
+    "height": 5.45,
+    "depth": 2.32
+  },
+  "position": 1,
+  "deletedAt": {
+    "$date": "2024-10-18T17:06:18.492Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e6fb0a571c98c460b451c"
+  },
+  "title": "Eyeshadow Palette with Mirror",
+  "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+  "price": 19.99,
+  "rating": 3,
+  "discount": 5.5,
+  "warranty": "1.5 years",
+  "reviewer_name": "Nguyễn Văn Thanh",
+  "reviewer_email": "thanhnguyen2321@gmail.com",
+  "stock": 44,
+  "category": "makeup",
+  "brand": "Glamour Beauty",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png",
+    "https://www.wondersmy.com/wp-content/uploads/2020/03/Glass.jpg",
+    "https://undone-beauty.com/cdn/shop/products/087327005819.PT03.JPG_dc014664-74f4-451a-b03d-b07a4b5e69cc_1200x.jpg?v=1576687242",
+    "https://m.media-amazon.com/images/I/6157uKlFd4S._SL1001_.jpg"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimension": {
+    "width": 24.16,
+    "height": 10.7,
+    "depth": 11.07
+  },
+  "position": 2,
+  "deletedAt": {
+    "$date": "2024-10-19T03:21:09.551Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-22T17:07:54.918Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e71afa571c98c460b451d"
+  },
+  "title": "Powder Canister",
+  "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+  "price": 14.99,
+  "rating": 4,
+  "discount": 18.14,
+  "warranty": "2 years",
+  "reviewer_name": "Hoàng Việt Thái",
+  "reviewer_email": "thaihoangviet123@gmail.com",
+  "stock": 59,
+  "category": "makeup",
+  "brand": "Velvet Touch",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png",
+    "https://photos.icheckcdn.net/HfGmOUJeyo276Pc4vxKYg44eLMJZBb73Ndm6vZpGpuE.jpg",
+    "https://product.hstatic.net/200000580395/product/3_2597ea67fb2b41d7a0ffbfa3152b60f1_master.jpg",
+    "https://product.hstatic.net/200000580395/product/ban_sao_cua_be_well_brand_8.8.2023_b0f875b07be34cd59d86c4aea5ee3a41_master.png"
+  ],
+  "status": "active",
+  "deleted": false,
+  "dimension": {
+    "width": 14.37,
+    "height": 13.94,
+    "depth": 14.6
+  },
+  "position": 3,
+  "deletedAt": {
+    "$date": "2024-10-19T03:21:09.551Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-22T17:07:36.673Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670fd8fcd9244cc349ce7881"
+  },
+  "title": "Red Lipstick",
+  "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+  "price": 30,
+  "rating": 5,
+  "discount": 19.03,
+  "warranty": "Lifetime",
+  "reviewer_name": "Nguyễn Thái Hà",
+  "reviewer_email": "thaiha0000@gmail.com",
+  "stock": 68,
+  "category": "skincare",
+  "brand": "Chic Cosmetics",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png",
+    "https://thechicconfidential.com/wp-content/uploads/2020/11/CT-red-lip-2-1440x1440.jpg",
+    "https://m.media-amazon.com/images/I/71zZ8pjGOjL._AC_UF894,1000_QL80_.jpg",
+    "https://m.media-amazon.com/images/I/71lB+TBNyaL._AC_UF1000,1000_QL80_.jpg"
+  ],
+  "status": "active",
+  "deleted": false,
+  "dimensions": {
+    "width": 14.37,
+    "height": 13.94,
+    "depth": 14.6
+  },
+  "position": 4,
+  "deletedAt": {
+    "$date": "2024-10-18T17:01:28.711Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T04:50:08.756Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670fdabfd9244cc349ce7882"
+  },
+  "title": "Red Nail Polish",
+  "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+  "price": 8.99,
+  "rating": 4,
+  "discount": 2.46,
+  "warranty": "1 year",
+  "reviewer_name": "Võ Trần Khánh Vi",
+  "reviewer_email": "khanhvi4869@gmail.com",
+  "stock": 71,
+  "category": "nailcare",
+  "brand": "Nail Couture",
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/1.png",
+    "https://images.squarespace-cdn.com/content/v1/602bf8acfff66b0cea81183b/3d7cc264-0cee-4e82-b140-cf7b3ae1c2e5/rock+the+runway+270+2.jpeg",
+    "https://www.classiquesupply.com/cdn/shop/files/Untitleddesign-2024-06-03T132032.338.png?v=1717435283&width=1445",
+    "https://cdn.perfecthair.ch/media/image/ee/7b/55/57494_b.png"
+  ],
+  "status": "active",
+  "deleted": false,
+  "dimensions": {
+    "width": 8.11,
+    "height": 10.89,
+    "depth": 29.06
+  },
+  "position": 5,
+  "deletedAt": {
+    "$date": "2024-10-18T17:08:32.168Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-22T17:07:36.673Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670fddcdbeb343cca7e5e4a6"
+  },
+  "title": "Gel TechnoSatin Lipstick",
+  "description": "An ideal lipstick that is super comfortable, light as air, with Stretch-Flex technology that hugs the lips with a moist satin texture and long-lasting color all day long.",
+  "price": 34.78,
+  "rating": 5,
+  "discount": 10.46,
+  "warranty": "2 years",
+  "reviewer_name": "Trần Quỳnh",
+  "reviewer_email": "quynhtran2003@gmail.com",
+  "stock": 66,
+  "category": "skincare",
+  "brand": "Shiseido Makeup",
+  "thumbnail": "https://www.shiseido.com.vn/dw/image/v2/BCSK_PRD/on/demandware.static/-/Sites-itemmaster_shiseido/default/dw14d75c28/images/products/18058/18058_S_01.jpg?sw=1000&sh=1000&sm=fit",
+  "images": [
+    "https://selena.vn/wp-content/uploads/2024/06/son-moi-ban-li-shiseido-visionairy-gel-lipstick-28-mau-12.jpg",
+    "https://www.shiseido.com.vn/dw/image/v2/BCSK_PRD/on/demandware.static/-/Sites-itemmaster_shiseido/default/dw974aecce/images/products/14835/14835_S_01.jpg?sw=1000&sh=1000&sm=fit",
+    "https://www.elle.vn/wp-content/uploads/2018/12/05/elle-viet-nam-thoi-son-8.jpg",
+    "https://baseapi.elle.vn/uploads/Thiet_ke_chua_co_ten_ac78ed6e4e.png"
+  ],
+  "status": "active",
+  "deleted": false,
+  "dimensions": {
+    "width": 8.45,
+    "height": 11.89,
+    "depth": 2.06
+  },
+  "position": 6,
+  "deletedAt": {
+    "$date": "2024-10-18T17:01:32.718Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:27:52.083Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6710ca690bdd1ba236937594"
+  },
+  "title": "CND Keratin Nail Treatment",
+  "description": "CND Keratin Nail Treatment is a nail care product that helps strengthen nails, especially for weak and brittle nails.",
+  "price": 5.22,
+  "rating": 5,
+  "discount": 1,
+  "warranty": "1.5 years",
+  "reviewer_name": "Thảo Trần",
+  "reviewer_email": "thaotran2003@gmail.com",
+  "stock": 30,
+  "category": "nailcare",
+  "brand": "Keratin CND",
+  "thumbnail": "http://shopkemnghia.com/image/cache/catalog/SẢN%20PHẨM%20MÓNG/sơn%20ngoại/cnd%20lớn-500x500.jpg",
+  "images": [
+    "https://product.hstatic.net/1000134629/product/z4146815652007_f80f7cd53fd4e032701a45fb414f1fca_047e10b29f1b459daf8662cca138d2c8_grande.jpg",
+    "https://newsummitcolors.com/cdn/shop/products/CNDRescueRXx_1200x1200.jpg?v=1631777302",
+    "https://camtudarling.vn/wp-content/uploads/2023/06/camtudarling-duong-mong-l10-d6-1.jpg",
+    "https://opivietnam.vn/wp-content/uploads/2023/10/405151427_742813357875745_8763886743900621458_n.jpg"
+  ],
+  "status": "active",
+  "deleted": false,
+  "dimensions": {
+    "width": 2.45,
+    "height": 10.89,
+    "depth": 2.56
+  },
+  "position": 7,
+  "deletedAt": {
+    "$date": "2024-10-18T17:01:34.702Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6710cc7b0bdd1ba236937595"
+  },
+  "title": "Antibacterial Shower Gel",
+  "description": "Deep cleansing shower gel, anti-bacterial 99.99%, anti-itch. Makes your skin smoother.",
+  "price": 4.78,
+  "rating": 3,
+  "discount": 1,
+  "warranty": "1.2 years",
+  "reviewer_name": "Bùi Thanh Hà",
+  "reviewer_email": "buithanhha0022@gmail.com",
+  "stock": 70,
+  "category": "bodycare",
+  "brand": "Biore Guard",
+  "thumbnail": "https://biorevietnam.vn/wp-content/uploads/2023/09/f98c44f12c1efe40a70f.jpg",
+  "images": [
+    "https://www.kao.com/content/dam/sites/kao/www-kao-com/vn/vi/products/biore/bio_bodyfoam_as_01.jpg",
+    "https://www.kao.com/content/dam/sites/kao/www-kao-com/vn/vi/products/biore/bio_bodyfoam_cool_02.jpg",
+    "https://kao-h.assetsadobe3.com/is/image/content/dam/sites/kao/www-kao-com/vn/vi/products/biore/bio_bodyfoam_cool_00.jpg?wid=840",
+    "https://product.hstatic.net/1000006063/product/1_948abe2021c8406793fd1ac998f23017_1024x1024_2e3dc7e7dc7d4bfd8143f2bf89f3e5f6_1024x1024.jpg"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimensions": {
+    "width": 5,
+    "height": 25.5,
+    "depth": 3.56
+  },
+  "position": 8,
+  "deletedAt": {
+    "$date": "2024-10-19T09:30:59.468Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6710ce7d0bdd1ba236937596"
+  },
+  "title": "GCOOP Shampoo",
+  "description": "GCOOP Shampoo contains essential nutrients to nourish hair according to the right fragrance standards. Herbal extracts help protect the hair surface, making it soft and shiny.",
+  "price": 12.17,
+  "rating": 4,
+  "discount": 24,
+  "warranty": "2 months",
+  "reviewer_name": "Nguyễn Thị Hường",
+  "reviewer_email": "huong1999@gmail.com",
+  "stock": 70,
+  "category": "haircare",
+  "brand": "Gcoop Shampoo",
+  "thumbnail": "https://gcoopviet.com/uploads/images/products-images/du-goi-goop-moi.jpg",
+  "images": [
+    "https://vn-test-11.slatic.net/p/abb288de239cd80a8d946fec1cd622ef.png",
+    "https://sg-live-01.slatic.net/p/31b228541ce70fb2ef68e2d2416936bd.png",
+    "https://static.wixstatic.com/media/284637_2867353af6e14b49a895795fcb52813c~mv2.png/v1/fill/w_560,h_560,al_c,lg_1,q_85,enc_auto/Nadimo%20Pro%20Shampoo.png",
+    "https://media3.scdn.vn/img4/2024/09_22/QFbGbPRmNSg7VYEHEGiG_simg_de2fe0_250x250_maxb.jpg"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimensions": {
+    "width": 5,
+    "height": 25.5,
+    "depth": 3.56
+  },
+  "position": 9,
+  "deletedAt": {
+    "$date": "2024-10-19T09:30:52.282Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-20T14:27:26.589Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6710d04b0bdd1ba236937597"
+  },
+  "title": "Natural Health Herbal Shampoo",
+  "description": "Natural Health Recovery Herbal Shampoo is the perfect choice for damaged, falling, dandruff, itchy hair. With 20 herbal ingredients, safe and effective, the product will help you regain strong, smooth and shiny hair.",
+  "price": 11.52,
+  "rating": 5,
+  "discount": 2,
+  "warranty": "2.5 months",
+  "reviewer_name": "Nguyễn Thị Hường",
+  "reviewer_email": "huong1999@gmail.com",
+  "stock": 43,
+  "category": "haircare",
+  "brand": "Dear Nature",
+  "thumbnail": "https://bizweb.dktcdn.net/thumb/1024x1024/100/452/346/products/dear-nature-dau-goi-thao-duoc-1.jpg?v=1699095578253",
+  "images": [
+    "https://bizweb.dktcdn.net/100/452/346/products/dear-nature-huong-dan-dung-dau-goi-thien-nhien-26f4936b-a7a3-4fe9-9dec-3f6efc3dfeba.jpg?v=1715074325090",
+    "https://bizweb.dktcdn.net/100/452/346/products/dear-nature-goi-500-ml-1688807498576.jpg?v=1724153487820",
+    "https://bizweb.dktcdn.net/100/452/346/products/dear-nature-goi-300-ml.jpg?v=1715074325090",
+    "https://bizweb.dktcdn.net/thumb/grande/100/452/346/products/dear-nature-my-pham-thien-nhien-11-44e03f61-7b28-4624-8a08-86347102eea3.jpg?v=1711860554597"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimensions": {
+    "width": 4.5,
+    "height": 26.5,
+    "depth": 4.56
+  },
+  "position": 10,
+  "deletedAt": {
+    "$date": "2024-10-19T14:55:44.071Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:35:16.741Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6710d3090bdd1ba236937598"
+  },
+  "title": "La Roche-Posay Tinted Mineral Sunscreen",
+  "description": "While the consistency is great (very lightweight) and it generally blends pretty well — the tinted nature of La Roche-Posay’s Tinted Mineral Sunscreen helps — it does have a bit of a “greyish” undertone.",
+  "price": 33.5,
+  "rating": 3,
+  "discount": 10,
+  "warranty": "Lifetime",
+  "reviewer_name": "Võ Thị Hà Linh",
+  "reviewer_email": "halinhthivo2326@gmail.com",
+  "stock": 50,
+  "category": "skincare",
+  "brand": "La Roche-Posay",
+  "thumbnail": "https://images.squarespace-cdn.com/content/v1/5e2608e21195f14156e7cece/1632334507502-GL3ETZXJRARF44LUPL4D/61RVZPlzX5L._SL1500_.jpg",
+  "images": [
+    "https://cdn.derma.pk/wp-content/uploads/2024/02/LA-ROCHE-POSAY-ANTHELIOS-MINERAL-SPF-50-INVISIBLE-FLUID.png",
+    "https://images-na.ssl-images-amazon.com/images/I/615iyGHoCHL.jpg",
+    "https://m.media-amazon.com/images/I/61TTr-3gPbL._AC_UF350,350_QL80_.jpg",
+    "https://m.media-amazon.com/images/I/61RR3zbXw4L._AC_UF350,350_QL80_.jpg"
+  ],
+  "status": "inactive",
+  "deleted": false,
+  "dimensions": {
+    "width": 4.5,
+    "height": 24.55,
+    "depth": 2.8
+  },
+  "position": 11,
+  "deletedAt": {
+    "$date": "2024-10-19T03:16:58.964Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T13:25:57.370Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "671520c8fac217431eca72c0"
+  },
+  "title": "Sản phẩm số 01",
+  "description": "Mô tả sản phẩm số 01",
+  "price": 100.23,
+  "rating": 4,
+  "discount": 12,
+  "warranty": "Lifetime",
+  "stock": 76,
+  "category": "skincare",
+  "thumbnail": "https://pos.nvncdn.com/8474b8-24031/ps/20211008_fJV17Wwbnh9LO1moi4tjwdYO.png",
+  "images": [],
+  "status": "active",
+  "deleted": false,
+  "position": 12,
+  "createdAt": {
+    "$date": "2024-10-20T15:24:56.468Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T04:50:47.955Z"
+  },
+  "slug": "san-pham-so-01",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6715220efac217431eca72c8"
+  },
+  "title": "Sản phẩm số 02",
+  "description": "Mô tả sản phẩm số 02",
+  "price": 45.32,
+  "rating": 5,
+  "discount": 10,
+  "warranty": "2 years",
+  "stock": 56,
+  "category": "nailcare",
+  "thumbnail": "https://www.essie.com/-/media/project/loreal/brand-sites/essie/americas/us/articles/tips_trends/essie-nailstrengthener-brush-violet.jpg",
+  "images": [],
+  "status": "inactive",
+  "deleted": false,
+  "position": 13,
+  "createdAt": {
+    "$date": "2024-10-20T15:30:22.683Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-22T17:49:11.964Z"
+  },
+  "slug": "san-pham-so-02",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2024-10-20T16:09:47.002Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67152271fac217431eca72d0"
+  },
+  "title": "Sản phẩm số 03",
+  "description": "Mô tả sản phẩm số 03",
+  "price": 70,
+  "rating": 3,
+  "discount": 15,
+  "warranty": "No warranty",
+  "stock": 76,
+  "category": "bodycare",
+  "thumbnail": "https://tesori.vn/wp-content/uploads/2022/09/Pack-Shot-for-TMDT37-hoa-sen.jpg",
+  "images": [],
+  "status": "active",
+  "deleted": false,
+  "position": 14,
+  "createdAt": {
+    "$date": "2024-10-20T15:32:01.110Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:40:13.485Z"
+  },
+  "slug": "san-pham-so-03",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2024-10-23T10:39:25.384Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67152302fac217431eca72de"
+  },
+  "title": "Sản phẩm số 04",
+  "description": "Mô tả sản phẩm số 04",
+  "price": 24.42,
+  "rating": 4,
+  "discount": 3,
+  "warranty": "1.5 years",
+  "stock": 55,
+  "category": "makeup",
+  "thumbnail": "https://www.shiseido.com.vn/dw/image/v2/BCSK_PRD/on/demandware.static/-/Sites-itemmaster_shiseido/default/dw09291c6c/images/products/14830/14830_S_01.jpg?sw=1000&sh=1000&sm=fit",
+  "images": [],
+  "status": "inactive",
+  "deleted": false,
+  "position": 15,
+  "createdAt": {
+    "$date": "2024-10-20T15:34:26.038Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:40:43.746Z"
+  },
+  "slug": "san-pham-so-04",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2024-10-23T10:40:34.405Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67152371fac217431eca72ec"
+  },
+  "title": "Sản phẩm số 05",
+  "description": "Mô tả sản phẩm số 05",
+  "price": 66.65,
+  "rating": 5,
+  "discount": 10,
+  "warranty": "Lifetime",
+  "stock": 70,
+  "category": "makeup",
+  "thumbnail": "https://bizweb.dktcdn.net/100/353/847/products/website-2022-09-01t094143-391.jpg?v=1662000141050",
+  "images": [],
+  "status": "inactive",
+  "deleted": false,
+  "position": 16,
+  "createdAt": {
+    "$date": "2024-10-20T15:36:17.657Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:40:45.155Z"
+  },
+  "slug": "san-pham-so-05",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2024-10-23T10:40:32.460Z"
+  },
+  "brand": "La Roche-Posay"
+},
+{
+  "_id": {
+    "$oid": "67152447fac217431eca7304"
+  },
+  "title": "Sản phẩm số 06",
+  "description": "Mô tả sản phẩm số 06",
+  "price": 102.78,
+  "rating": 5,
+  "discount": 12,
+  "warranty": "2 years",
+  "stock": 33,
+  "category": "skincare",
+  "thumbnail": "https://edbeauty.vn/wp-content/uploads/2023/05/Kem-duong-am-danh-cho-da-mong-nhay-cam-A-Derma-Hydrating-Universal-Cream.png",
+  "images": [],
+  "status": "active",
+  "deleted": false,
+  "position": 17,
+  "createdAt": {
+    "$date": "2024-10-20T15:39:51.746Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T10:40:46.812Z"
+  },
+  "slug": "san-pham-so-06",
+  "__v": 0,
+  "deletedAt": {
+    "$date": "2024-10-23T10:40:30.306Z"
+  },
+  "brand": ""
+},
+{
+  "_id": {
+    "$oid": "6718f76e1836076829fa7682"
+  },
+  "title": "Sản phẩm thử nghiệm",
+  "description": "Mô tả sản phẩm thử nghiệm",
+  "price": 60,
+  "rating": 5,
+  "discount": 10,
+  "warranty": "1.5 years",
+  "stock": 89,
+  "category": "skincare",
+  "brand": "La Roche-Posay",
+  "thumbnail": "/uploads/1729689454667-639151185-sua-tam-goi-bebble-400ml.jpg",
+  "images": [],
+  "status": "active",
+  "deleted": false,
+  "position": 18,
+  "createdAt": {
+    "$date": "2024-10-23T13:17:34.686Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-23T13:19:32.625Z"
+  },
+  "slug": "san-pham-thu-nghiem",
+  "__v": 0
+}]

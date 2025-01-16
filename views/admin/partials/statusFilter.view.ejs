@@ -1,0 +1,8 @@
+<% activeStatus.forEach(btnActive => { %>
+<button
+  class="btn btn-outline-primary btn-sm ml-1 mb-1 <%= btnActive.class %>"
+  btn-status-filter="<%= btnActive.status %>"
+>
+  <%= btnActive.name %>
+</button>
+<% }) %>

@@ -1,0 +1,7 @@
+<% categoryList.forEach(category => { %> <% const prefix = Array(level + 1).join("-- ") %>
+<option value="<%= category._id %>" <% if(category._id == parent_id) {%>selected<% } %>>
+  <%= prefix + category.title + " " + prefix %> <% if(category.children && category.children.length
+  > 0) {%> <%-include("./selecttree.view.ejs", {categoryList: category.children, level: level + 1, parent_id})
+  %> <% } %>
+</option>
+<% }) %>
