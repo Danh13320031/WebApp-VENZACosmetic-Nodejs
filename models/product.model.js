@@ -18,6 +18,20 @@ const objSchema = {
   thumbnail: { type: String, require: true },
   images: { type: Array, require: true },
   status: { type: String, require: true, default: 'inactive' },
+  createdBy: {
+    account_id: { type: String, require: true },
+    createdAt: { type: Date, default: Date.now },
+  },
+  updatedBy: [
+    {
+      account_id: { type: String, require: true },
+      updatedAt: { type: Date, default: Date.now },
+    },
+  ],
+  deletedBy: {
+    account_id: { type: String, require: true },
+    deletedAt: { type: Date },
+  },
   deleted: { type: Boolean, require: true, default: false },
   dimension: {
     width: { type: Number },
@@ -25,7 +39,6 @@ const objSchema = {
     depth: { type: Number },
   },
   position: { type: Number, require: true },
-  deletedAt: { type: Date },
   slug: { type: String, slug: 'title', unique: true },
 };
 

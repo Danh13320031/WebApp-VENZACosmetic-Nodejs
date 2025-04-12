@@ -12,11 +12,15 @@ import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
+import moment from 'moment';
 
 const app = express();
 
 connect();
+
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Config Public File

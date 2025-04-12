@@ -6,6 +6,7 @@ import priceFilterHelper from '../../helpers/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import accountModel from '../../models/account.model.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
 
@@ -47,6 +48,24 @@ const product = async (req, res) => {
       .sort(sort)
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
+
+    for (const product of productList) {
+      // Get account full name of createdBy
+      const accountCreated = await accountModel
+        .findById(product.createdBy.account_id)
+        .select('fullName');
+
+      if (accountCreated) {
+        product.accountFullNameCreate = accountCreated.fullName;
+      }
+
+      // Get account full name of updatedBy
+      const updatedBy = product.updatedBy[product.updatedBy.length - 1];
+      if (updatedBy) {
+        const accountUpdated = await accountModel.findById(updatedBy.account_id).select('fullName');
+        updatedBy.accountFullNameUpdate = accountUpdated.fullName;
+      }
+    }
 
     res.render('./admin/pages/product/product.view.ejs', {
       pageTitle: 'Danh sách sản phẩm',
@@ -90,6 +109,10 @@ const createProductPost = async (req, res) => {
     else req.body.position = countRecord + 1;
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
 
+    req.body.createdBy = {
+      account_id: res.locals.account._id,
+    };
+
     const newProduct = new productModel(req.body);
     await newProduct.save();
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
@@ -128,6 +151,10 @@ const updateProductGet = async (req, res) => {
 const updateProductPatch = async (req, res) => {
   try {
     const id = req.params.id;
+    const updated = {
+      account_id: res.locals.account._id,
+      updatedAt: new Date(),
+    };
 
     if (req.body.price) req.body.price = Number.parseFloat(req.body.price);
     if (req.body.discount) req.body.discount = Number.parseFloat(req.body.discount);
@@ -136,7 +163,10 @@ const updateProductPatch = async (req, res) => {
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
 
-    await productModel.findByIdAndUpdate(id, req.body);
+    await productModel.findByIdAndUpdate(id, {
+      ...req.body,
+      $push: { updatedBy: updated },
+    });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
   } catch (err) {
@@ -150,9 +180,14 @@ const updateProductPatch = async (req, res) => {
 const changeStatusProduct = async (req, res) => {
   try {
     const { id, status } = req.params;
+    const updated = {
+      account_id: res.locals.account._id,
+      updatedAt: new Date(),
+    };
 
     await productModel.findByIdAndUpdate(id, {
       status: status,
+      $push: { updatedBy: updated },
     });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
     res.redirect('back');
@@ -169,11 +204,18 @@ const changeMultiProduct = async (req, res) => {
     if (req.body.type && req.body.ids) {
       const { type, ids } = req.body;
       const idsArr = ids.split(', ');
+      const updated = {
+        account_id: res.locals.account._id,
+        updatedAt: new Date(),
+      };
 
       switch (type) {
         case 'active': {
           try {
-            await productModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'active' } });
+            await productModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { status: 'active' }, $push: { updatedBy: updated } }
+            );
             alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
           } catch (err) {
             alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
@@ -182,11 +224,12 @@ const changeMultiProduct = async (req, res) => {
             break;
           }
         }
+
         case 'inactive': {
           try {
             await productModel.updateMany(
               { _id: { $in: idsArr } },
-              { $set: { status: 'inactive' } }
+              { $set: { status: 'inactive' }, $push: { updatedBy: updated } }
             );
             alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
           } catch (err) {
@@ -196,11 +239,18 @@ const changeMultiProduct = async (req, res) => {
             break;
           }
         }
+
         case 'soft-delete': {
           try {
             await productModel.updateMany(
               { _id: { $in: idsArr } },
-              { $set: { deleted: true, deletedAt: new Date() } }
+              {
+                $set: {
+                  deleted: true,
+                  'deletedBy.account_id': res.locals.account._id,
+                  'deletedBy.deletedAt': new Date(),
+                },
+              }
             );
             alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
           } catch (err) {
@@ -210,6 +260,7 @@ const changeMultiProduct = async (req, res) => {
             break;
           }
         }
+
         case 'restore': {
           try {
             await productModel.updateMany({ _id: { $in: idsArr } }, { $set: { deleted: false } });
@@ -221,6 +272,7 @@ const changeMultiProduct = async (req, res) => {
             break;
           }
         }
+
         case 'hard-delete': {
           try {
             await productModel.deleteMany({ _id: { $in: idsArr } });
@@ -232,6 +284,7 @@ const changeMultiProduct = async (req, res) => {
             break;
           }
         }
+
         default:
           break;
       }
@@ -252,8 +305,10 @@ const deleteProduct = async (req, res) => {
   try {
     await productModel.findByIdAndUpdate(id, {
       deleted: true,
-      deletedAt: new Date(),
+      'deletedBy.account_id': res.locals.account._id,
+      'deletedBy.deletedAt': new Date(),
     });
+
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
   } catch (err) {
@@ -272,6 +327,11 @@ const garbageProduct = async (req, res) => {
   const productList = await productModel.find(find).sort({
     deletedAt: 'desc',
   });
+
+  for (const product of productList) {
+    const account = await accountModel.findById(product.deletedBy.account_id).select('fullName');
+    if (account) product.accountFullNameDelete = account.fullName;
+  }
 
   res.render('./admin/pages/product/garbage.view.ejs', {
     pageTitle: 'Thùng rác sản phẩm',

@@ -12,7 +12,7 @@ const requireAuth = async (req, res, next) => {
     return;
   }
 
-  const account = await accountModel.findOne({ token }).select('token roleId');
+  const account = await accountModel.findOne({ token });
   if (!account) {
     alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
@@ -20,8 +20,6 @@ const requireAuth = async (req, res, next) => {
   }
 
   const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
-
-  console.log(roleAuth);
 
   res.locals.account = account;
   res.locals.roleAuth = roleAuth;
