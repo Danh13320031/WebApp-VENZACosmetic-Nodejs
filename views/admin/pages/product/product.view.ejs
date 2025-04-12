@@ -97,6 +97,12 @@
                         Tiêu đề
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Người tạo
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Người cập nhật
+                      </th>
                       <% if(roleAuth.permission.includes('product-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
@@ -134,6 +140,24 @@
                             ></b
                           >
                           | Giá gốc: <%= item.price %>$
+                        </td>
+                        <td>
+                          <p><%= item.accountFullNameCreate%></p>
+                          <% if(item.accountFullNameCreate) { %>
+                          <p>
+                            <%= moment(item.createdBy.createdAt).format('DD/MM/YYYY - h:mm:ss')%>
+                          </p>
+                          <% } else { %>
+                          <p>Không tìm thấy</p>
+                          <% } %>
+                        </td>
+                        <td>
+                          <% let updatedBy = item.updatedBy.slice(-1)[0] %> <% if(updatedBy) { %>
+                          <p><%= updatedBy.accountFullNameUpdate %></p>
+                          <p><%= moment(updatedBy.updatedAt).format('DD/MM/YYYY - h:mm:ss')%></p>
+                          <% } else { %>
+                          <p>Không tìm thấy</p>
+                          <% } %>
                         </td>
                         <% if(roleAuth.permission.includes('product-change-status')) {%>
                         <td>

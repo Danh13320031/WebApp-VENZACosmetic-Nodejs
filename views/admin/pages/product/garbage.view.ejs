@@ -63,7 +63,7 @@
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Thời gian xóa
+                        Người xóa
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
@@ -98,7 +98,16 @@
                           >
                           | Giá gốc: <%= item.price %>$
                         </td>
-                        <td><%= item.deletedAt %></td>
+                        <td>
+                          <p><%= item.accountFullNameDelete%></p>
+                          <% if(item.accountFullNameDelete) { %>
+                          <p>
+                            <%= moment(item.deletedBy.deletedAt).format('DD/MM/YYYY - h:mm:ss')%>
+                          </p>
+                          <% } else { %>
+                          <p>Không có</p>
+                          <% } %>
+                        </td>
                         <td>
                           <% if(item.status === 'active') {%>
                           <a
