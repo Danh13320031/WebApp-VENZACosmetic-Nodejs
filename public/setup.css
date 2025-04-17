@@ -8,9 +8,9 @@
 
 /* Set up color */
 :root {
-  --primary-color: rgb(26, 114, 190);
-  --secondary-color: ;
-  --hover-color: rgb(53, 128, 194);
+  --primary-color-admin: rgb(26, 114, 190);
+  --secondary-color-admin: ;
+  --hover-color-admin: rgb(53, 128, 194);
 }
 
 /* Setup scrollbar */
@@ -20,34 +20,34 @@
 
 /* Setup bootstrap */
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary-color-admin);
+  border-color: var(--primary-color-admin);
 }
 .btn-primary:hover {
   color: var(--bs-btn-hover-color);
-  background-color: var(--hover-color);
-  border-color: var(--hover-color);
+  background-color: var(--hover-color-admin);
+  border-color: var(--hover-color-admin);
 }
 .btn-outline-primary {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+  color: var(--primary-color-admin);
+  border-color: var(--primary-color-admin);
 }
 .btn-outline-primary:hover {
   color: var(--bs-btn-hover-color);
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary-color-admin);
+  border-color: var(--primary-color-admin);
 }
 .btn-outline-primary.active {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary-color-admin);
+  border-color: var(--primary-color-admin);
 }
 .text-primary {
-  color: var(--primary-color) !important;
+  color: var(--primary-color-admin) !important;
 }
 .form-control:focus {
-  color: var(--primary-color);
+  color: var(--primary-color-admin);
   box-shadow: unset;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-color-admin);
 }
 .nav-pills .nav-link {
   border-radius: 0px !important;
@@ -55,7 +55,7 @@
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
-  background-color: var(--hover-color);
+  background-color: var(--hover-color-admin);
 }
 .table {
   --bs-table-hover-bg: rgba(162, 203, 238, 0.2);
