@@ -27,6 +27,16 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %>
         <h1><%= pageTitle %></h1>
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Thông tin tài khoản</div>
+              </div>
+              <div class="card-body"></div>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
             <div class="card">
@@ -99,6 +109,7 @@
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

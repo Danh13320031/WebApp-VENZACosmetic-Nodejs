@@ -116,8 +116,8 @@ const updateAccountGet = async (req, res) => {
 const updateAccountPatch = async (req, res) => {
   try {
     const id = req.params.id;
-
     const hassPassword = await bcrypt.hash(req.body.password, saltRounds);
+
     if (req.body.password) req.body.password = hassPassword;
 
     await accountModel.findByIdAndUpdate(id, req.body);

@@ -4,6 +4,7 @@ import cloudinaryPackageConfig from '../../configs/cloudinaryPackage.config.js';
 import accountController from '../../controllers/admin/account.controller.js';
 import productMiddleware from '../../middlewares/admin/product.middleware.js';
 import accountValidate from '../../validators/admin/account.validate.js';
+
 const accountRoute = express.Router();
 const upload = multer();
 

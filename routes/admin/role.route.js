@@ -1,6 +1,7 @@
 import express from 'express';
 import roleController from '../../controllers/admin/role.controller.js';
 import roleValidate from '../../validators/admin/role.validate.js';
+
 const roleRoute = express.Router();
 
 roleRoute.get('/', roleController.role);

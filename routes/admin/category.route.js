@@ -4,6 +4,7 @@ import cloudinaryPackageConfig from '../../configs/cloudinaryPackage.config.js';
 import categoryController from '../../controllers/admin/category.controller.js';
 import productMiddleware from '../../middlewares/admin/product.middleware.js';
 import categoryValidate from '../../validators/admin/category.validate.js';
+
 const categoryRoute = express.Router();
 const upload = multer();
 

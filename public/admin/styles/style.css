@@ -12,6 +12,50 @@
   font-weight: 700;
   text-decoration: none;
 }
+.header .inner-auth .account-button-info {
+  width: 30px;
+  height: 30px;
+  background-color: aliceblue;
+  border-radius: 50%;
+  position: relative;
+}
+.header .inner-auth .account-button-info .account-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  overflow: hidden;
+}
+.header .inner-auth .account-button-info .account-avatar img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.header .inner-auth .account-button-info .account-info-list {
+  width: 220px;
+  background: white;
+  display: none;
+  list-style: none;
+  position: absolute;
+  border: 1px solid #ccc;
+  top: 120%;
+  left: -610%;
+  padding: 10px;
+}
+.header .inner-auth .account-button-info .account-info-list.active {
+  display: block;
+  z-index: 9999;
+}
+.header .inner-auth .account-button-info .account-info-list::before {
+  width: 8px;
+  height: 8px;
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: 18px;
+  background: rgb(255, 255, 255);
+  transform: rotate(45deg);
+}
 /* End Header */
 
 /* Body */
