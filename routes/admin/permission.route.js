@@ -1,6 +1,6 @@
 import express from 'express';
 import permissionController from '../../controllers/admin/permission.controller.js';
-import authValidate from '../../validators/admin/auth.validate.js';
+
 const permissionRoute = express.Router();
 
 permissionRoute.get('/', permissionController.permission);

@@ -6,21 +6,40 @@
           <a href="/admin/dashboard"><i class="fa-solid fa-user-tie me-2"></i>ADMIN</a>
         </div>
       </div>
+
       <div class="col-6">
         <div class="inner-auth d-flex justify-content-end">
-          <a href="<%= prefixAdmin %>/auth/logout" class="btn btn-primary">Đăng xuất</a>
-          <!-- <div
-            class="ms-2 mt-1"
-            style="
-              width: 30px;
-              height: 30px;
-              background-color: aliceblue;
-              border-radius: 50%;
-              overflow: hidden;
-            "
-          >
-            <img src="/admin/images/Avatar.jpg" alt="avatar" width="100%" />
-          </div> -->
+          <div class="account-button-info ms-2 mt-1">
+            <div class="account-avatar">
+              <img src=<%= account.avatar %> alt="avatar" width="100%" />
+            </div>
+            <ul class="account-info-list card">
+              <li class="account-info-item">
+                <div class="account-info-name"><b><%= account.fullName %></b></div>
+                <div class="account-info-name"><%= account.email %></div>
+              </li>
+              <li class="account-info-item">
+                <hr />
+              </li>
+              <li class="account-info-item">
+                <a
+                  href="<%= prefixAdmin %>/profile"
+                  class="account-info-link btn btn-primary w-100"
+                  >Thông tin tài khoản</a
+                >
+              </li>
+              <li class="account-info-item">
+                <hr />
+              </li>
+              <li class="account-info-item">
+                <a
+                  href="<%= prefixAdmin %>/auth/logout"
+                  class="account-info-link btn btn-primary w-100"
+                  >Đăng xuất</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
