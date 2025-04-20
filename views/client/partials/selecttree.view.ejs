@@ -1,0 +1,10 @@
+<ul class="navheader-list-dropdown">
+  <% categoryListTree.forEach(category => { %>
+  <li class="navheader-menu-item">
+    <a href="" class="navheader-menu-link nav-link"><%= category.title %></a>
+    <% if(category.children && category.children.length > 0) {%> <%-
+    include("./selecttree.view.ejs", { categoryListTree: category.children, level: level + 1}) %> <%
+    } %>
+  </li>
+  <% }) %>
+</ul>

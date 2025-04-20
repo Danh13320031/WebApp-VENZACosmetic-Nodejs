@@ -156,14 +156,25 @@
   position: relative;
 }
 .navheader .navheader-menu .navheader-menu-list .navheader-menu-item .navheader-list-dropdown {
+  /* padding: 20px; */
   width: 200px;
   padding-left: unset;
   position: absolute;
   top: 70px;
+  left: 50%;
   background: var(--dark-gray-color);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.214);
   opacity: 0;
+  z-index: 999;
   visibility: hidden;
+}
+.navheader
+  .navheader-menu
+  .navheader-menu-list
+  .navheader-menu-item
+  .navheader-list-dropdown
+  .navheader-menu-item {
+  border-bottom: 1px solid var(--light-gray-color);
 }
 .navheader
   .navheader-menu
@@ -174,6 +185,9 @@
   opacity: 1;
   visibility: visible;
   transition: 0.4s ease-out;
+}
+.navheader .navheader-menu .navheader-menu-list .navheader-menu-item {
+  border-bottom: 1px solid var(--light-gray-color);
 }
 .navheader .navheader-menu .navheader-menu-list .navheader-menu-item .navheader-menu-link {
   padding: 13px 20px;

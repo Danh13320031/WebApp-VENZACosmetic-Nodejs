@@ -95,27 +95,11 @@
             <a href="/products.html" class="navheader-menu-link nav-link">Sản phẩm</a>
           </li>
           <li class="navheader-menu-item">
-            <a class="navheader-menu-link nav-link">Thể loại <i class="bx bx-chevron-down"></i></a>
-            <ul class="navheader-list-dropdown">
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Skincare</a>
-              </li>
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Bodycare</a>
-              </li>
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Haircare</a>
-              </li>
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Nailcare</a>
-              </li>
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Makeup</a>
-              </li>
-              <li class="navheader-menu-item">
-                <a href="" class="navheader-menu-link nav-link">Sản phẩm Perfume</a>
-              </li>
-            </ul>
+            <% const pathCategory = "/categories" %>
+            <a href="<%= pathCategory %>" class="navheader-menu-link nav-link"
+              >Thể loại <i class="bx bx-chevron-down"></i
+            ></a>
+            <%- include("./selecttree.view.ejs", { categoryListTree: categoryTree, level: 1}) %>
           </li>
           <li class="navheader-menu-item">
             <a href="/contact.html" class="navheader-menu-link nav-link">Tin tức</a>

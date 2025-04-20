@@ -31,26 +31,20 @@
     <!-- End Styles Library & Framework Link -->
   </head>
   <body>
-    <%-include("../../partials/header.view.ejs") %>
+    <%-include('../../partials/header.view.ejs', {categoryListTree: categoryTree}); %>
     <%-include("../../partials/header-mobile.view.ejs") %>
 
     <!-- Scripts File -->
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
-     <!-- End Scripts File -->
+    <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FontAwesome -->
-    <script
-      src="https://kit.fontawesome.com/aaf479b433.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
     <!-- SlickSlide -->
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-    ></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
       type="text/javascript"
       src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
