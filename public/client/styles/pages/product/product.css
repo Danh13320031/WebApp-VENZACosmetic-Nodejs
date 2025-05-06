@@ -1,0 +1,146 @@
+/* Product Filter */
+.product__filter {
+  background: #f7f7f7;
+}
+.product__filter .product__filter-delete {
+  display: none;
+}
+.product__filter .product__filter-category .filter__category-list {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+.product__filter .product__filter-category .filter__category-list .filter__category-item {
+  padding: 5px 10px;
+  background: var(--light-gray-color);
+  border-radius: 5px;
+  transition: 0.4s ease-out;
+}
+.product__filter
+  .product__filter-category
+  .filter__category-list
+  .filter__category-item
+  .filter__category-link {
+  width: 100%;
+  display: block;
+  color: var(--dark-gray-color);
+  text-decoration: none;
+  font-size: var(--content-font-size);
+  transition: 0.4s ease-out;
+}
+.product__filter .product__filter-category .filter__category-list .filter__category-item:hover {
+  background: var(--dark-gray-color);
+}
+.product__filter
+  .product__filter-category
+  .filter__category-list
+  .filter__category-item:hover
+  .filter__category-link {
+  color: var(--light-gray-color);
+}
+.product__filter .product__filter-delete .product__filter-close {
+  padding: var(--padding-button2);
+  background: rgba(255, 255, 255, 0);
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  transition: 0.4s ease;
+}
+.product__filter .product__filter-delete .product__filter-close:hover {
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+}
+/* End Product Filter */
+
+/* Product Card */
+.card__bg {
+  width: 100%;
+  padding: 10px;
+  height: auto;
+  color: var(--dark-gray-color);
+  font-family: var(--primary-font-family);
+  text-decoration: none;
+  box-shadow: 0px 0px 18px var(--primary-shadow-color);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.card__bg:hover {
+  background: var(--light-primary-color);
+  transform: translateY(-5px);
+  transition: 0.2s ease-in-out;
+}
+.card__bg .card__image {
+  width: 100%;
+  aspect-ratio: 3/3;
+}
+.card__bg .card__image .card__thumbnail {
+  object-fit: cover;
+}
+.card__bg .card__box {
+  margin: 3px 0px;
+  border-bottom: 1px solid var(--light-gray-color);
+  border-radius: 0.5px;
+}
+.card__bg:hover .card__box {
+  border-bottom: 1px solid var(--dark-gray-color);
+  transition: 0.4s ease-out;
+}
+.card__bg .card__box .card__price {
+  color: var(--primary-color);
+}
+.card__bg .card__box i {
+  padding: 6.5px 8px 5.5px 8px;
+  background: none;
+  color: var(--dark-gray-color);
+  font-size: var(--icon-font-size);
+}
+.card__bg .card__rating .card__star i {
+  font-size: var(--icon-font-size2);
+  color: var(--dark-gray-color);
+}
+.card__bg .card__rating i.bi-bag-check-fill {
+  font-size: var(--icon-font-size);
+  padding: 4px 8px;
+  color: var(--dark-gray-color);
+  background: none;
+  border: 1px solid var(--dark-gray-color);
+}
+.card__bg .card__rating i.bi-bag-check-fill:hover {
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  transition: 0.4s ease-out;
+}
+/* End Product Card */
+
+/* Product Filter Mobile */
+.product__filter-mobile {
+  display: none;
+}
+.product__filter-mobile .product__filter-quantity .filter__quantity-limit {
+  padding: var(--padding-button);
+  color: var(--dark-gray-color);
+  border: 1px solid var(--light-gray-color);
+  outline: none;
+}
+.product__filter-mobile .product__filter-button .filter__button-show {
+  padding: var(--padding-button);
+  background: white;
+  color: var(--dark-gray-color);
+  border: var(--border-thickness-button) solid var(--light-gray-color);
+}
+/* End Product Filter Mobile */
+
+/* Pagination */
+.product__pagination .product__pagination-item {
+  padding: 5px 12px;
+  margin: 0px 2px;
+  color: var(--dark-gray-color);
+  border: var(--border-thickness-button) solid var(--light-gray-color);
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+.product__pagination .product__pagination-item:hover {
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+}
+/* End Pagination */

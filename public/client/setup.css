@@ -13,7 +13,7 @@
 /* Color Setup */
 :root {
   --primary-color: rgb(245, 182, 7);
-  --light-primary-color: rgb(248, 243, 231);
+  --light-primary-color: rgb(255, 252, 245);
   --dark-primary-color: rgb(208, 159, 24);
 
   --secondary-color: ;
@@ -45,11 +45,12 @@
   --primary-font-family: 'Roboto', serif;
   --secondary-font-family: 'Lato', sans-serif;
 
-  --heading-font-size: 25px;
+  --heading-font-size: 30px;
   --title-font-size: 20px;
   --content-font-size: 15px;
   --paragraph-font-size: ;
-  --icon-font-size: 20px;
+  --icon-font-size: 15px;
+  --icon-font-size2: 12px;
 
   --heading-font-weight: 700;
   --title-font-weight: 600;
@@ -60,6 +61,7 @@
 /* Button Setup */
 :root {
   --padding-button: 6px 18px;
+  --padding-button2: 6px 10px;
   --border-thickness-button: 1px;
   --border-radius-button: 6px;
 }
@@ -88,3 +90,49 @@
   transition: 0.4s ease;
 }
 /* End Scrollbar Setup */
+
+/* Bootstrap Setup */
+.heading-font {
+  text-align: center;
+  font-size: var(--heading-font-size);
+  font-weight: var(--heading-font-weight);
+  padding: 40px 0px;
+}
+.title-font {
+  font-size: var(--title-font-size);
+  font-weight: var(--title-font-weight);
+}
+.content-font {
+  font-size: var(--content-font-size);
+  font-weight: var(--content-font-weight);
+}
+input[type='range'] {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--light-gray-color);
+  border-radius: 3px;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+input[type='checkbox'] {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--light-gray-color);
+  border: var(--border-thickness-button) solid rgba(0, 0, 0, 0.167);
+  border-radius: 50%;
+  cursor: pointer;
+}
+input[type='checkbox']:checked {
+  background: var(--primary-color);
+  border: var(--border-thickness-button) solid var(--primary-color);
+}
+/* End Bootstrap Setup */

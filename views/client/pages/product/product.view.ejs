@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/pages/product/product.css" />
+    <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- SlickSlide -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: '',
+    aboutActive: '', productActive: "active", newsActive: '', contactActive: '' }); %>
+    <%-include("../../partials/header-mobile.view.ejs") %>
+
+    <h1 class="heading-font product__list-heading">Danh Sách Sản Phẩm</h1>
+
+    <div class="container">
+      <div class="row">
+        <!-- Filter -->
+        <div class="col-lg-3 col-md-4 col-12">
+          <div class="product__filter p-3">
+            <div class="product__filter-delete mb-4 justify-content-between align-items-center">
+              <span>Bộ Lọc Sản Phẩm</span>
+              <button class="content-font product__filter-close"><i class="bi bi-x-lg"></i></button>
+            </div>
+
+            <div class="product__filter-category mb-4">
+              <h4 class="title-font filter__category-title">Danh mục</h4>
+              <ul class="filter__category-list">
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Nailcare</a>
+                </li>
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Haircare</a>
+                </li>
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Skincare</a>
+                </li>
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Bodycare</a>
+                </li>
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Makeup</a>
+                </li>
+                <li class="filter__category-item">
+                  <a href="" class="filter__category-link">Perfume</a>
+                </li>
+              </ul>
+              <hr />
+            </div>
+
+            <div class="product__filter-price mb-4">
+              <h4 class="title-font filter__price-title">Mức giá</h4>
+              <input
+                type="range"
+                class="filter__price-range w-100"
+                id="price"
+                value="2000000"
+                min="0"
+                max="10000000"
+                step="1000"
+              />
+              <div class="filter__price-minmax d-flex justify-content-between">
+                <span class="content-font filter__price-min">Từ: 1.000</span>
+                <span class="content-font filter__price-max">Đến: 10.000.000</span>
+              </div>
+              <hr />
+            </div>
+
+            <div class="product__filter-freeship mb-4">
+              <h4 class="title-font filter__freeship-title">Freeship</h4>
+              <label for="freeship" class="content-font">Miễn phí vận chuyển</label>
+              <input type="checkbox" class="filter__freeship-input ms-2" id="freeship" />
+              <hr />
+            </div>
+
+            <div class="product__filter-sale mb-4">
+              <h4 class="title-font filter__sale-title">Sale</h4>
+              <label for="sale" class="content-font">Đang giảm giá</label>
+              <input type="checkbox" class="filter__sale-input ms-2" id="sale" />
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- End filter -->
+
+        <div class="col-lg-9 col-md-8 col-12">
+          <!-- Filter close -->
+          <div class="product__filter-remove mb-1 d-none">
+            <ul class="filter__remove-list d-flex gap-1 ps-0">
+              <li class="filter__remove-item p-2 bg-light" category>
+                <span class="content-font filter__remove-title">Danh mục</span>
+                <i class="bi bi-x-lg"></i>
+              </li>
+              <li class="filter__remove-item p-2 bg-light" price>
+                <span class="content-font filter__remove-title">Mức giá</span>
+                <i class="bi bi-x-lg"></i>
+              </li>
+            </ul>
+          </div>
+          <!-- End filter close -->
+
+          <!-- Product filter mobile -->
+          <div class="product__filter-mobile justify-content-between mb-3">
+            <div class="content-font product__filter-quantity">
+              <select name="" id="" class="filter__quantity-limit">
+                <option value="" disabled selected class="filter__quantity-option">
+                  -- Hiển thị --
+                </option>
+                <option value="10" class="filter__quantity-option">10</option>
+                <option value="15" class="filter__quantity-option">15</option>
+                <option value="20" class="filter__quantity-option">20</option>
+              </select>
+            </div>
+
+            <div class="content-font product__filter-button">
+              <button class="filter__button-show">Bộ lọc<i class="bi bi-filter ms-2"></i></button>
+            </div>
+          </div>
+          <!-- End product filter mobile -->
+
+          <div class="product__list">
+            <!-- Product list -->
+            <div class="row g-2">
+              <!-- Card -->
+              <div class="col-lg-3 col-md-4 col-6">
+                <div class="card__bg">
+                  <div class="card__image">
+                    <img
+                      src="https://image.hsv-tech.io/1987x0/bbx/ahc-hyaluronic-dewy-radiance-cleansing-foam-1_ba661dc9ee4148a9a4877503206bae0f.jpg"
+                      alt="product"
+                      width="100%"
+                      class="card__thumbnail"
+                    />
+                  </div>
+                  <div class="content-font card__title mt-1">Sản phẩm 01</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">300$</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- End card -->
+            </div>
+            <!-- End product list -->
+
+            <!-- Product Pagination -->
+            <div class="row g-2">
+              <div class="product__pagination mt-5 d-flex justify-content-center">
+                <ul class="content-font product__pagination-list ps-0 d-flex">
+                  <li class="product__pagination-item page__prev">
+                    <i class="bi bi-arrow-left-short"></i>
+                  </li>
+                  <li class="product__pagination-item page__number">1</li>
+                  <li class="product__pagination-item page__number">2</li>
+                  <li class="product__pagination-item page__number">3</li>
+                  <li class="product__pagination-item page__number">4</li>
+                  <li class="product__pagination-item page__next">
+                    <i class="bi bi-arrow-right-short"></i>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- End product pagination -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts File -->
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/customInputRange.js"></script>
+    <script src="/client/scripts/product/showProductFilter.js"></script>
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- SlickSlide -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
