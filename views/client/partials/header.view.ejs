@@ -19,7 +19,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-2 col-12 header-logo mt-2">
-        <a href="./index.html" class="header-logo-link"
+        <a href="/" class="header-logo-link"
           ><img
             src="/client/images/Benefit_Cosmetics_logo.png"
             alt="logo"
@@ -53,22 +53,27 @@
           <div class="header-others-auth">
             <div class="auth-avatar">
               <i class="bi bi-person-circle"></i>
+              <ul class="auth-list">
+                <li class="auth-item">
+                  <a href="/login" class="auth-link"
+                    ><i class="fa-solid fa-right-to-bracket"></i>Đăng nhập</a
+                  >
+                </li>
+                <li class="auth-item">
+                  <a href="/login" class="auth-link"
+                    ><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a
+                  >
+                </li>
+                <li class="auth-item">
+                  <a href="<%= prefixAdmin %>/dashboard" class="auth-link"
+                    ><i class="fa-solid fa-right-from-bracket"></i>Quản trị</a
+                  >
+                </li>
+                <li class="auth-item">
+                  <a href="/setting" class="auth-link"><i class="fa-solid fa-gear"></i>Cài đặt</a>
+                </li>
+              </ul>
             </div>
-            <ul class="auth-list">
-              <li class="auth-item">
-                <a href="/login" class="auth-link"
-                  ><i class="fa-solid fa-right-to-bracket"></i>Đăng nhập</a
-                >
-              </li>
-              <li class="auth-item">
-                <a href="/login" class="auth-link"
-                  ><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a
-                >
-              </li>
-              <li class="auth-item">
-                <a href="/setting" class="auth-link"><i class="fa-solid fa-gear"></i>Cài đặt</a>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -84,15 +89,19 @@
       <div class="col-12 navheader-menu">
         <ul class="navheader-menu-list nav nav-pills nav-fill">
           <li class="navheader-menu-item">
-            <a href="/index.html" class="navheader-menu-link nav-link active" aria-current="page"
-              >Trang chủ</a
+            <a href="/" <% if(homeActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %> aria-current="page" >Trang chủ</a
             >
           </li>
           <li class="navheader-menu-item">
             <a href="/about.html" class="navheader-menu-link nav-link">Giới thiệu</a>
           </li>
           <li class="navheader-menu-item">
-            <a href="/products.html" class="navheader-menu-link nav-link">Sản phẩm</a>
+            <a href="/products" <% if(productActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %> >Sản phẩm</a
+            >
           </li>
           <li class="navheader-menu-item">
             <% const pathCategory = "/categories" %>
@@ -102,10 +111,16 @@
             <%- include("./selecttree.view.ejs", { categoryListTree: categoryTree, level: 1}) %>
           </li>
           <li class="navheader-menu-item">
-            <a href="/contact.html" class="navheader-menu-link nav-link">Tin tức</a>
+            <a href="/contact.html" <% if(newsActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %>>Tin tức</a
+            >
           </li>
           <li class="navheader-menu-item">
-            <a href="/contact.html" class="navheader-menu-link nav-link">Liên hệ & Giúp đỡ</a>
+            <a href="/contact.html" <% if(contactActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %>>Liên hệ & Giúp đỡ</a
+            >
           </li>
         </ul>
       </div>

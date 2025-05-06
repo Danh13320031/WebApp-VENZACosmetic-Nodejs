@@ -2,7 +2,7 @@
 .top-header {
   width: 100%;
   background: var(--light-gray-color);
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 1000;
 }
@@ -24,7 +24,7 @@
 
 /* Header */
 .header {
-  position: fixed;
+  position: sticky;
   z-index: 1000;
   top: 33px;
   width: 100%;
@@ -86,36 +86,63 @@
   border-radius: 20px;
   cursor: pointer;
 }
-.header .header-others .header-others-box .header-others-auth {
-  position: relative;
-}
 .header .header-others .header-others-box .header-others-auth .auth-avatar {
   margin-right: unset;
+  position: relative;
 }
-.header .header-others .header-others-box .header-others-auth .auth-list {
+.header .header-others .header-others-box .header-others-auth .auth-avatar .auth-list {
   width: 150px;
   padding-left: unset;
   position: absolute;
-  top: 50px;
-  left: -50px;
+  top: 60px;
+  left: -105px;
   background: var(--dark-gray-color);
   opacity: 0;
   visibility: hidden;
 }
-.header .header-others .header-others-box .header-others-auth:hover .auth-list {
-  top: 35px;
-  /* display: block; */
+.header .header-others .header-others-box .header-others-auth .auth-avatar:hover .auth-list {
+  top: 45px;
+  position: absolute;
   opacity: 1;
   visibility: visible;
   transition: 0.4s ease-out;
 }
-.header .header-others .header-others-box .header-others-auth .auth-list .auth-item .auth-link {
+.header .header-others .header-others-box .header-others-auth .auth-avatar .auth-list::before {
+  width: 8px;
+  height: 8px;
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: 20px;
+  background: var(--dark-gray-color);
+  transform: rotateZ(45deg);
+}
+.header-others .header-others-box .header-others-auth .auth-avatar .auth-list .auth-item:hover i,
+.auth-link {
+  color: var(--primary-color);
+}
+.header
+  .header-others
+  .header-others-box
+  .header-others-auth
+  .auth-avatar
+  .auth-list
+  .auth-item
+  .auth-link {
   padding: 5px 10px;
   display: block;
   color: var(--light-gray-color);
   text-decoration: none;
 }
-.header .header-others .header-others-box .header-others-auth .auth-list .auth-item .auth-link i {
+.header
+  .header-others
+  .header-others-box
+  .header-others-auth
+  .auth-avatar
+  .auth-list
+  .auth-item
+  .auth-link
+  i {
   margin-right: 10px;
 }
 .header .header-others .header-others-box .header-others-cart i,
@@ -139,7 +166,7 @@
 
 /* Nav */
 .navheader {
-  position: fixed;
+  position: sticky;
   top: 133px;
   z-index: 999;
   width: 100%;
@@ -155,8 +182,12 @@
 .navheader .navheader-menu .navheader-menu-list .navheader-menu-item {
   position: relative;
 }
+.navheader .navheader-menu .navheader-menu-list .navheader-menu-item .navheader-menu-link.active {
+  background: var(--primary-color);
+  color: var(--dark-gray-color);
+  transition: 0.4s ease-out;
+}
 .navheader .navheader-menu .navheader-menu-list .navheader-menu-item .navheader-list-dropdown {
-  /* padding: 20px; */
   width: 200px;
   padding-left: unset;
   position: absolute;
@@ -216,7 +247,7 @@
 
 /* Header Mobie */
 .header-mobie {
-  position: fixed;
+  position: sticky;
   top: 0px;
   left: 0px;
   z-index: 999;
@@ -249,12 +280,17 @@
   position: fixed;
   top: 40px;
   left: 0;
-  background: none;
+  background: rgba(0, 0, 0, 0.5);
   color: white;
+  opacity: 0;
+  visibility: hidden;
   cursor: pointer;
+  transition: 0.4s ease-out;
 }
 .navheader-mobie .navheader-mobie-box.active {
-  background: rgba(0, 0, 0, 0.468);
+  opacity: 1;
+  visibility: visible;
+  transition: 0.4s ease-out;
 }
 .navheader-mobie .navheader-mobie-box .navheader-mobie-bg {
   width: 68%;
