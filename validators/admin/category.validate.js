@@ -6,11 +6,6 @@ const createCategoryValidate = (req, res, next) => {
     res.redirect('back');
   }
 
-  if (!req.body.parent_id) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn danh mục cha');
-    res.redirect('back');
-  }
-
   if (!req.body.status) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
     res.redirect('back');
