@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= pageTitle %></title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
     <!-- Styles File -->
     <link rel="stylesheet" href="/client/setup.css" />
@@ -36,6 +37,586 @@
     <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive:
     "active", aboutActive: '', productActive: '', newsActive: '', contactActive: '' }); %>
     <%-include("../../partials/header-mobile.view.ejs") %>
+
+    <main class="main">
+      <!-- Banner Header -->
+      <section class="herobanner">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="single-item button__trans">
+                <div class="mx-1 herobanner__box">
+                  <img
+                    src="https://hali.vn/wp-content/uploads/2020/07/thiet-ke-banner-my-pham3.jpg"
+                    alt=""
+                    width="100%"
+                  />
+                </div>
+                <div class="mx-1 herobanner__box">
+                  <img
+                    src="https://treobangron.com.vn/wp-content/uploads/2022/09/banner-my-pham-23.jpg"
+                    alt=""
+                    width="100%"
+                  />
+                </div>
+                <div class="mx-1 herobanner__box">
+                  <img
+                    src="https://treobangron.com.vn/wp-content/uploads/2022/09/banner-my-pham-14.jpg"
+                    alt=""
+                    width="100%"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Banner Header -->
+
+      <!-- Product Type Card -->
+      <section class="product__type">
+        <div class="container">
+          <h3 class="heading-text text-center product__type-title">Các Loại Sản Phẩm</h3>
+          <div class="row g-2">
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://file.hstatic.net/200000073977/file/cac-buoc-trang-diem-cho-da-dau_af42aec374df4d48abfee094b920598a.jpeg"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://png.pngtree.com/background/20211216/original/pngtree-plant-beauty-daytime-cosmetics-indoor-still-life-posing-photography-map-with-picture-image_1540535.jpg"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://nuochoamc.com/upload/images/bai-viet/336/nuoc-hoa-creed-mui-thom-nhat-nam-2024.webp"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6 product__type-item">
+              <div class="card__bg">
+                <div class="card__overlay"></div>
+                <div class="card__text">
+                  <div class="title-font card__title">Nail care</div>
+                  <span class="content-font card__content">Chăm sóc móng</span>
+                </div>
+                <img
+                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
+                  alt=""
+                  class="card__img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Product Type Card -->
+
+      <!-- Feature Card Slide -->
+      <section class="card__feature-slide">
+        <div class="container">
+          <h3 class="heading-font text-center card__feature-heading">Sản Phẩm Nổi Bật</h3>
+          <div class="row">
+            <div class="col-12">
+              <div class="autoplay button__trans">
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Feature Card Slide -->
+
+      <!-- Banner Image -->
+      <section class="banner1 pt-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <a href="" class="banner1-link"
+                ><img
+                  src="https://tatthanh.com.vn/pic/Images/Module/News/images/image(4422).png"
+                  alt=""
+                  width="100%"
+                  class="banner1-img"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Banner Image -->
+
+      <!-- Sale Card Slide -->
+      <section class="card__feature-slide">
+        <div class="container">
+          <h3 class="heading-font text-center card__feature-heading">Sản Phẩm Đang Giảm Giá</h3>
+          <div class="row">
+            <div class="col-12">
+              <div class="autoplay button__trans">
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+
+                <div class="card__bg" title="">
+                  <div class="card__image">
+                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                  </div>
+                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="card__box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card__price">$300</h5>
+                    <div class="card__favorite">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </div>
+                  </div>
+                  <div class="card__rating d-flex justify-content-between align-items-center">
+                    <div class="card__star">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </div>
+                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                  </div>
+                </div>
+                <!-- End Card -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Sale Card Slide -->
+
+      <!-- Google Map - Location -->
+      <section class="location">
+        <div class="container">
+          <h3 class="heading-font text-center location__title">Vị Trí</h3>
+          <div class="row">
+            <div class="col-12">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3724.015028146711!2d105.84933997508097!3d21.032084680618116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zNyBQaOG7kSBIb8OgbmcsIFjDoyBMw6ogVmnhu4d0IMOdLCBIdXnhu4duIE3huqFjIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1730821024370!5m2!1svi!2s"
+                width="100%"
+                height="300"
+                class="p-1"
+                style="border: 1px solid #ccc"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Google Map - Location -->
+    </main>
 
     <!-- Scripts File -->
     <script src="/client/scripts/toggleHeaderMobile.js"></script>

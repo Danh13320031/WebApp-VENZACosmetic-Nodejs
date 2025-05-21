@@ -8,7 +8,7 @@
     display: block;
   }
   .single-item.slick-initialized.slick-slider {
-    margin-top: 80px;
+    margin-top: 20px;
   }
   .card-slide .button-trans .card-slide-bg .card-slide-title {
     font-size: var(--content-font-size);
@@ -34,7 +34,7 @@
     display: block;
   }
   .single-item.slick-initialized.slick-slider {
-    margin-top: 80px;
+    margin-top: 20px;
   }
 }
 
@@ -48,7 +48,7 @@
     display: block;
   }
   .single-item.slick-initialized.slick-slider {
-    margin-top: 80px;
+    margin-top: 20px;
   }
 }
 
