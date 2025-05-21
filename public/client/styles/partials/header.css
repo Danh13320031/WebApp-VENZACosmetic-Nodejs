@@ -286,6 +286,7 @@
   visibility: hidden;
   cursor: pointer;
   transition: 0.4s ease-out;
+  z-index: 998;
 }
 .navheader-mobie .navheader-mobie-box.active {
   opacity: 1;

@@ -2,23 +2,35 @@ $(document).ready(function () {
   $('.single-item').slick({
     slidesToShow: 1,
     autoplay: true,
+    prevArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+    nextArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
   });
 
   $('.autoplay').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
+    prevArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+    nextArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
           autoplay: true,
           speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
         },
       },
       {
@@ -28,6 +40,10 @@ $(document).ready(function () {
           slidesToScroll: 1,
           autoplay: true,
           speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
         },
       },
       {
@@ -37,18 +53,22 @@ $(document).ready(function () {
           slidesToScroll: 1,
           autoplay: true,
           speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
         },
       },
     ],
   });
 
-  const buttonPre = document.querySelectorAll('.button-trans .slick-arrow.slick-prev');
-  const buttonNext = document.querySelectorAll('.button-trans .slick-arrow.slick-next');
+  // const buttonPre = document.querySelectorAll('.button__trans .slick-arrow.slick-prev');
+  // const buttonNext = document.querySelectorAll('.button__trans .slick-arrow.slick-next');
 
-  buttonPre.forEach((btn) => {
-    btn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-  });
-  buttonNext.forEach((btn) => {
-    btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-  });
+  // buttonPre.forEach((btn) => {
+  //   btn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+  // });
+  // buttonNext.forEach((btn) => {
+  //   btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+  // });
 });
