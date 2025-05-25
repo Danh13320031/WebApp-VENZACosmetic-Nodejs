@@ -217,9 +217,9 @@
   visibility: visible;
   transition: 0.4s ease-out;
 }
-.navheader .navheader-menu .navheader-menu-list .navheader-menu-item {
+/* .navheader .navheader-menu .navheader-menu-list .navheader-menu-item {
   border-bottom: 1px solid var(--light-gray-color);
-}
+} */
 .navheader .navheader-menu .navheader-menu-list .navheader-menu-item .navheader-menu-link {
   padding: 13px 20px;
   display: block;
