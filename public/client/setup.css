@@ -106,6 +106,9 @@
   font-size: var(--content-font-size);
   font-weight: var(--content-font-weight);
 }
+.icon-font {
+  font-size: var(--icon-font-size);
+}
 input[type='range'] {
   appearance: none;
   width: 100%;

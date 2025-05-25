@@ -61,14 +61,4 @@ $(document).ready(function () {
       },
     ],
   });
-
-  // const buttonPre = document.querySelectorAll('.button__trans .slick-arrow.slick-prev');
-  // const buttonNext = document.querySelectorAll('.button__trans .slick-arrow.slick-next');
-
-  // buttonPre.forEach((btn) => {
-  //   btn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-  // });
-  // buttonNext.forEach((btn) => {
-  //   btn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-  // });
 });

@@ -1,0 +1,44 @@
+.footer {
+  padding: 80px 0px;
+}
+.footer li a {
+  color: var(--light-font-color);
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+.footer .footer__about-logo img {
+  border-radius: 8px;
+  padding: 4px;
+}
+.footer .footer__partner-item i {
+  font-size: 25px;
+}
+.footer li a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+.footer .footer__description,
+.footer .footer__location-item {
+  text-align: justify;
+}
+.footer .footer__payment .payment__method-list .payment__method-box {
+  width: 70px;
+  padding: 3px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.footer .footer__payment .payment__method-list .payment__method-box img {
+  width: 100%;
+}
+
+@media (max-width: 575.98px) {
+  .footer .footer__bottom {
+    flex-direction: column;
+  }
+}
+@media (max-width: 767.98px) {
+  .footer .footer__bottom {
+    flex-direction: column;
+  }
+}
