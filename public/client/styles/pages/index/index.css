@@ -257,13 +257,16 @@ button.slick-next.slick-arrow i:hover {
 /* End Card Slide */
 
 /* Product Card */
-.card__feature-slide .button__trans {
+.card__feature-slide .button__trans,
+.card__sale-slide .button__trans {
   display: flex;
 }
-.card__feature-slide .button__trans .slick-list {
+.card__feature-slide .button__trans .slick-list,
+.card__sale-slide .button__trans .slick-list {
   padding: 20px 0px;
 }
-.card__feature-slide .card__bg {
+.card__feature-slide .card__bg,
+.card__sale-slide .card__bg {
   width: 100%;
   padding: 10px;
   height: auto;
@@ -274,48 +277,58 @@ button.slick-next.slick-arrow i:hover {
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
-.card__feature-slide .card__bg:hover {
+.card__feature-slide .card__bg:hover,
+.card__sale-slide .card__bg:hover {
   background: var(--light-primary-color);
   transform: translateY(-5px);
   transition: 0.2s ease-in-out;
 }
-.card__feature-slide .card__bg .card__image {
+.card__feature-slide .card__bg .card__image,
+.card__sale-slide .card__bg .card__image {
   width: 100%;
   aspect-ratio: 3/3;
 }
-.card__feature-slide .card__bg .card__image .card__thumbnail {
+.card__feature-slide .card__bg .card__image .card__thumbnail,
+.card__sale-slide .card__bg .card__image .card__thumbnail {
   object-fit: cover;
 }
-.card__feature-slide .card__bg .card__box {
+.card__feature-slide .card__bg .card__box,
+.card__sale-slide .card__bg .card__box {
   margin: 3px 0px;
   border-bottom: 1px solid var(--light-gray-color);
   border-radius: 0.5px;
 }
-.card__feature-slide .card__bg:hover .card__box {
+.card__feature-slide .card__bg:hover .card__box,
+.card__sale-slide .card__bg:hover .card__box {
   border-bottom: 1px solid var(--dark-gray-color);
   transition: 0.4s ease-out;
 }
-.card__feature-slide .card__bg .card__box .card__price {
+.card__feature-slide .card__bg .card__box .card__price,
+.card__sale-slide .card__bg .card__box .card__price {
   color: var(--primary-color);
 }
-.card__feature-slide .card__bg .card__box i {
+.card__feature-slide .card__bg .card__box i,
+.card__sale-slide .card__bg .card__box i {
   padding: 6.5px 8px 5.5px 8px;
   background: none;
   color: var(--dark-gray-color);
   font-size: var(--icon-font-size);
 }
-.card__feature-slide .card__bg .card__rating .card__star i {
+.card__feature-slide .card__bg .card__rating .card__star i,
+.card__sale-slide .card__bg .card__rating .card__star i {
   font-size: var(--icon-font-size2);
   color: var(--dark-gray-color);
 }
-.card__feature-slide .card__bg .card__rating i.bi-bag-check-fill {
+.card__feature-slide .card__bg .card__rating i.bi-bag-check-fill,
+.card__sale-slide .card__bg .card__rating i.bi-bag-check-fill {
   font-size: var(--icon-font-size);
   padding: 4px 8px;
   color: var(--dark-gray-color);
   background: none;
   border: 1px solid var(--dark-gray-color);
 }
-.card__feature-slide .card__bg .card__rating i.bi-bag-check-fill:hover {
+.card__feature-slide .card__bg .card__rating i.bi-bag-check-fill:hover,
+.card__sale-slide .card__bg .card__rating i.bi-bag-check-fill:hover {
   color: var(--light-gray-color);
   background: var(--dark-gray-color);
   transition: 0.4s ease-out;

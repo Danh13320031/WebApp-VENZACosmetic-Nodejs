@@ -18,6 +18,7 @@ const objSchema = {
   thumbnail: { type: String, require: true },
   images: { type: Array, require: true },
   status: { type: String, require: true, default: 'inactive' },
+  featured: { type: String, require: true, default: '0' },
   createdBy: {
     account_id: { type: String, require: true },
     createdAt: { type: Date, default: Date.now },

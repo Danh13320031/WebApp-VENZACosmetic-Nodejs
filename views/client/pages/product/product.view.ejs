@@ -117,7 +117,7 @@
 
           <div class="col-lg-9 col-md-8 col-12">
             <!-- Filter close -->
-            <div class="product__filter-remove mb-1 d-none">
+            <div class="product__filter-remove mb-1">
               <ul class="filter__remove-list d-flex gap-1 ps-0">
                 <li class="filter__remove-item p-2 bg-light" category>
                   <span class="content-font filter__remove-title">Danh mục</span>
@@ -177,6 +177,9 @@
                       <div class="card__favorite">
                         <i class="bi bi-suit-heart-fill"></i>
                       </div>
+                    </div>
+                    <div class="content-font text-danger text-decoration-line-through">
+                      Giá gốc: $<%= product.price %>
                     </div>
                     <div class="card__rating d-flex justify-content-between align-items-center">
                       <div class="card__star">

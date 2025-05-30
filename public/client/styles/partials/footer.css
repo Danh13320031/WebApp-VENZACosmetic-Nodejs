@@ -1,5 +1,6 @@
 .footer {
   padding: 80px 0px;
+  margin-top: 80px;
 }
 .footer li a {
   color: var(--light-font-color);
@@ -36,9 +37,15 @@
   .footer .footer__bottom {
     flex-direction: column;
   }
+  .footer .footer__bottom .footer__payment .footer__payment-title {
+    text-align: center;
+  }
 }
 @media (max-width: 767.98px) {
   .footer .footer__bottom {
     flex-direction: column;
+  }
+  .footer .footer__bottom .footer__payment .footer__payment-title {
+    text-align: center;
   }
 }
