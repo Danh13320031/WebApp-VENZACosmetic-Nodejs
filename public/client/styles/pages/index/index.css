@@ -269,7 +269,7 @@ button.slick-next.slick-arrow i:hover {
 .card__sale-slide .card__bg {
   width: 100%;
   padding: 10px;
-  height: auto;
+  /* height: auto; */
   color: var(--dark-gray-color);
   font-family: var(--primary-font-family);
   text-decoration: none;
