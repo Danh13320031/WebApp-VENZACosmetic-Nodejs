@@ -244,197 +244,43 @@
           <div class="row">
             <div class="col-12">
               <div class="autoplay button__trans">
-                <div class="card__bg" title="">
+                <% productList.forEach((product) => { %> <% if(product. discount !== 0) {%>
+                <div class="card__bg" title="<%= product.title %>">
                   <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
+                    <img
+                      src="<%= product.thumbnail %>"
+                      alt="product"
+                      width="100%"
+                      class="card__thumbnail"
+                    />
                   </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
+                  <div class="content-font card__title mt-1">
+                    <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %>
+                    <% } else { %> <%= product.title %><% } %>
+                  </div>
                   <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
+                    <h5 class="title-font card__price">
+                      $<%= Number.parseFloat(product.price - (product.price / 100 *
+                      product.discount)).toFixed(2) %>
+                    </h5>
                     <div class="card__favorite">
                       <i class="bi bi-suit-heart-fill"></i>
                     </div>
                   </div>
+                  <div class="content-font text-danger text-decoration-line-through">
+                    Giá gốc: $<%= product.price %>
+                  </div>
                   <div class="card__rating d-flex justify-content-between align-items-center">
                     <div class="card__star">
+                      <% for(let i = 1; i <= product.rating; i++) { %>
                       <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
+                      <% } %>
                     </div>
                     <i title="add to cart" class="bi bi-bag-check-fill"></i>
                   </div>
                 </div>
                 <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
-
-                <div class="card__bg" title="">
-                  <div class="card__image">
-                    <img src="" alt="product" width="100%" class="card__thumbnail" />
-                  </div>
-                  <div class="content-font card__title mt-1">Product Title</div>
-                  <div class="card__box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card__price">$300</h5>
-                    <div class="card__favorite">
-                      <i class="bi bi-suit-heart-fill"></i>
-                    </div>
-                  </div>
-                  <div class="card__rating d-flex justify-content-between align-items-center">
-                    <div class="card__star">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                  </div>
-                </div>
-                <!-- End Card -->
+                <% } %> <% }) %>
               </div>
             </div>
           </div>
