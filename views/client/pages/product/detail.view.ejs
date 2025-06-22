@@ -43,66 +43,72 @@
       <!-- Prroduct detail -->
       <section class="product__detail pt-5">
         <div class="container">
-          <div class="row gx-5">
+          <div class="row">
             <div class="col-lg-6">
               <!-- Product detail thumbnail -->
               <div class="product__detail-thumbnail border mb-3 d-flex justify-content-center">
                 <img
-                  style="max-width: 100%; max-height: 100vh; margin: auto"
+                  width="100%"
                   class="product__thumbnail-image fit"
-                  src="https://www.guardian.com.vn/media/catalog/product/cache/30b2b44eba57cd45fd3ef9287600968e/7/7/77b6f223b9720c55606cd0a792460048b9f24f2ab8ef0b73c92124a140baab33.png"
-                  alt="tieu de"
+                  src="<%= product.thumbnail %>"
                 />
               </div>
 
               <!-- Product detail image list -->
               <div class="product__detail-image d-flex justify-content-center mb-3">
+                <% for(let i = 0; i < product.images.length; i++) { %>
                 <img
                   width="60"
                   height="60"
                   class="product__image-item border me-2"
                   src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp"
                 />
+                <% } %>
               </div>
             </div>
 
             <!-- Product details info -->
             <div class="col-lg-6">
               <div class="product__info ps-lg-3">
-                <h4 class="heading-font product__info-title mb-3">tiêu đề</h4>
+                <h4 class="heading-font product__info-title mb-3"><%= product.title %></h4>
                 <div class="d-flex flex-row my-3">
                   <div class="content-font product__info-rating rating__star mb-1 me-2">
-                    <i class="fas fa-star"></i>
-                    <span class="product__info-rating rating__number ms-1"> 5 </span>
+                    <% for (let i = 0; i < product.rating; i++) { %><i class="fas fa-star"></i><% }
+                    %>
+                    <span class="product__info-rating rating__number ms-1">
+                      <%= product.rating %>
+                    </span>
                   </div>
                   <span class="content-font product__info-stock mb-1"
-                    ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn ... mặt hàng</span
+                    ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn <%= product.stock %> mặt
+                    hàng</span
                   >
                   <span class="content-font text-success ms-2">trong kho</span>
                 </div>
 
                 <div class="mb-3">
-                  <span class="title-font product__info-discount h5">$300</span>
+                  <span class="title-font product__info-discount h5"
+                    >$<%= Number.parseFloat(product.price - (product.price / 100 *
+                    product.discount)).toFixed(2) %></span
+                  >
                   <span class="product__info-price content-font text-decoration-line-through"
-                    >$340</span
+                    >$<%= product.price %></span
                   >
                 </div>
 
-                <p class="content-font product__info-description text-align-justify mb-4">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, velit temporibus
-                  doloremque ab laboriosam aspernatur quae ipsum rerum nam consectetur culpa ex ad
-                  animi explicabo autem quidem ullam nostrum vero.
+                <p class="content-font product__info-description mb-4">
+                  <%= product.description %>
                 </p>
 
                 <div class="row">
                   <dt class="product__info-categoty category__title col-4">Thể loại:</dt>
                   <dd class="product__info-categoty category__content content-font col-8">
-                    tên thể loại
+                    <%= category.title %>
                   </dd>
 
                   <dt class="product__info-brand brand__title col-4">Thương hiệu:</dt>
                   <dd class="product__info-brand brand__content content-font col-8">
-                    tên thương hiệu
+                    <%= product.brand %>
                   </dd>
                 </div>
 
