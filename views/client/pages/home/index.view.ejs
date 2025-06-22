@@ -184,6 +184,11 @@
                       width="100%"
                       class="card__thumbnail"
                     />
+                    <div class="card__link">
+                      <a href="/products/detail/<%= product.slug %>" class="content-font card__link-detail"
+                        >Xem chi tiết</a
+                      >
+                    </div>
                   </div>
                   <div class="content-font card__title mt-1">
                     <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %>
@@ -253,6 +258,11 @@
                       width="100%"
                       class="card__thumbnail"
                     />
+                    <div class="card__link">
+                      <a href="/products/detail/<%= product.slug %>" class="content-font card__link-detail"
+                        >Xem chi tiết</a
+                      >
+                    </div>
                   </div>
                   <div class="content-font card__title mt-1">
                     <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %>

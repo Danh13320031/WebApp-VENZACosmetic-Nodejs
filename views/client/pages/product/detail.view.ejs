@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản phẩm <%= pageTitle %></title>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/pages/product/detail.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- SlickSlide -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: '',
+    aboutActive: '', productActive: "active", newsActive: '', contactActive: '' }); %>
+    <%-include("../../partials/header-mobile.view.ejs") %>
+
+    <main class="main">
+      <!-- Prroduct detail -->
+      <section class="product__detail pt-5">
+        <div class="container">
+          <div class="row gx-5">
+            <div class="col-lg-6">
+              <!-- Product detail thumbnail -->
+              <div class="product__detail-thumbnail border mb-3 d-flex justify-content-center">
+                <img
+                  style="max-width: 100%; max-height: 100vh; margin: auto"
+                  class="product__thumbnail-image fit"
+                  src="https://www.guardian.com.vn/media/catalog/product/cache/30b2b44eba57cd45fd3ef9287600968e/7/7/77b6f223b9720c55606cd0a792460048b9f24f2ab8ef0b73c92124a140baab33.png"
+                  alt="tieu de"
+                />
+              </div>
+
+              <!-- Product detail image list -->
+              <div class="product__detail-image d-flex justify-content-center mb-3">
+                <img
+                  width="60"
+                  height="60"
+                  class="product__image-item border me-2"
+                  src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp"
+                />
+              </div>
+            </div>
+
+            <!-- Product details info -->
+            <div class="col-lg-6">
+              <div class="product__info ps-lg-3">
+                <h4 class="heading-font product__info-title mb-3">tiêu đề</h4>
+                <div class="d-flex flex-row my-3">
+                  <div class="content-font product__info-rating rating__star mb-1 me-2">
+                    <i class="fas fa-star"></i>
+                    <span class="product__info-rating rating__number ms-1"> 5 </span>
+                  </div>
+                  <span class="content-font product__info-stock mb-1"
+                    ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn ... mặt hàng</span
+                  >
+                  <span class="content-font text-success ms-2">trong kho</span>
+                </div>
+
+                <div class="mb-3">
+                  <span class="title-font product__info-discount h5">$300</span>
+                  <span class="product__info-price content-font text-decoration-line-through"
+                    >$340</span
+                  >
+                </div>
+
+                <p class="content-font product__info-description text-align-justify mb-4">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, velit temporibus
+                  doloremque ab laboriosam aspernatur quae ipsum rerum nam consectetur culpa ex ad
+                  animi explicabo autem quidem ullam nostrum vero.
+                </p>
+
+                <div class="row">
+                  <dt class="product__info-categoty category__title col-4">Thể loại:</dt>
+                  <dd class="product__info-categoty category__content content-font col-8">
+                    tên thể loại
+                  </dd>
+
+                  <dt class="product__info-brand brand__title col-4">Thương hiệu:</dt>
+                  <dd class="product__info-brand brand__content content-font col-8">
+                    tên thương hiệu
+                  </dd>
+                </div>
+
+                <hr />
+
+                <div class="row mb-4">
+                  <div class="col-md-4 col-6 mb-3">
+                    <label class="mb-2 d-block">Số lượng</label>
+                    <div class="input-group mb-3" style="width: 170px">
+                      <button
+                        class="btn btn-white border border-secondary px-3"
+                        type="button"
+                        id="button-addon1"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <input
+                        type="text"
+                        class="form-control text-center border border-secondary"
+                        placeholder="14"
+                        aria-label="Example text with button addon"
+                        aria-describedby="button-addon1"
+                      />
+                      <button
+                        class="btn btn-white border border-secondary px-3"
+                        type="button"
+                        id="button-addon2"
+                        data-mdb-ripple-color="dark"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
+                <a href="#" class="btn btn-primary shadow-0">
+                  <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                </a>
+                <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3">
+                  <i class="me-1 fa fa-heart fa-lg"></i> Save
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End product detail -->
+    </main>
+
+    <%-include("../../partials/footer.view.ejs") %>
+
+    <!-- Scripts File -->
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/customInputRange.js"></script>
+    <script src="/client/scripts/product/showProductFilter.js"></script>
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- SlickSlide -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
