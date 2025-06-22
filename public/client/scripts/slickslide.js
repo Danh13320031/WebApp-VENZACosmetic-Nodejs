@@ -8,7 +8,7 @@ $(document).ready(function () {
       '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
   });
 
-  $('.autoplay').slick({
+  $('.autoplay, .card__related-autoplay').slick({
     infinite: false,
     speed: 300,
     slidesToShow: 5,

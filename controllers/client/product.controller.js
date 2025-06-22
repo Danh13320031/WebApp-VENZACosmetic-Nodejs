@@ -48,9 +48,32 @@ const getProductByCategory = async (req, res) => {
   });
 };
 
+// GET: /products/detail/:productSlug
+const getProductDetail = async (req, res) => {
+  const productSlug = req.params.productSlug;
+  const find = { status: 'active', deleted: false };
+  const categoryList = await categoryModel.find(find);
+  const categoryTree = categoryTreeHelper(categoryList);
+
+  const product = await productModel
+    .findOne({
+      ...find,
+      slug: productSlug,
+      status: 'active',
+      deleted: false,
+    })
+    .populate('category');
+
+  res.render('./client/pages/product/detail.view.ejs', {
+    pageTitle: product.title,
+    categoryTree: categoryTree,
+  });
+};
+
 const productController = {
   product,
   getProductByCategory,
+  getProductDetail,
 };
 
 export default productController;

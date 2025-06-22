@@ -59,22 +59,30 @@
                 <h4 class="title-font filter__category-title">Danh mục</h4>
                 <ul class="filter__category-list">
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Nailcare</a>
+                    <a href="/products/categories/nailcare" class="filter__category-link"
+                      >Nailcare</a
+                    >
                   </li>
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Haircare</a>
+                    <a href="/products/categories/haircare" class="filter__category-link"
+                      >Haircare</a
+                    >
                   </li>
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Skincare</a>
+                    <a href="/products/categories/skincare" class="filter__category-link"
+                      >Skincare</a
+                    >
                   </li>
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Bodycare</a>
+                    <a href="/products/categories/bodycare" class="filter__category-link"
+                      >Bodycare</a
+                    >
                   </li>
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Makeup</a>
+                    <a href="/products/categories/makeup" class="filter__category-link">Makeup</a>
                   </li>
                   <li class="filter__category-item">
-                    <a href="" class="filter__category-link">Perfume</a>
+                    <a href="/products/categories/perfume" class="filter__category-link">Perfume</a>
                   </li>
                 </ul>
                 <hr />
@@ -164,6 +172,11 @@
                         width="100%"
                         class="card__thumbnail"
                       />
+                      <div class="card__link">
+                        <a href="/products/detail/<%= product.slug %>" class="content-font card__link-detail"
+                          >Xem chi tiết</a
+                        >
+                      </div>
                     </div>
                     <div class="content-font card__title mt-1">
                       <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...'

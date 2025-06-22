@@ -4,5 +4,6 @@ const productRoute = express.Router();
 
 productRoute.get('/', productController.product);
 productRoute.get('/categories/:categorySlug', productController.getProductByCategory);
+productRoute.get('/detail/:productSlug', productController.getProductDetail);
 
 export default productRoute;

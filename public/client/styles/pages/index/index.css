@@ -12,13 +12,6 @@ button.slick-next.slick-arrow {
   border: none;
   background: none;
 }
-/* button.slick-prev.slick-arrow {
-  padding-right: 10px;
-}
-button.slick-next.slick-arrow {
-  display: block;
-  padding-left: 20px;
-} */
 button.slick-prev.slick-arrow i,
 button.slick-next.slick-arrow i {
   padding: 10px 12px;
@@ -269,7 +262,6 @@ button.slick-next.slick-arrow i:hover {
 .card__sale-slide .card__bg {
   width: 100%;
   padding: 10px;
-  /* height: auto; */
   color: var(--dark-gray-color);
   font-family: var(--primary-font-family);
   text-decoration: none;
@@ -287,10 +279,44 @@ button.slick-next.slick-arrow i:hover {
 .card__sale-slide .card__bg .card__image {
   width: 100%;
   aspect-ratio: 3/3;
+  position: relative;
+  overflow: hidden;
 }
 .card__feature-slide .card__bg .card__image .card__thumbnail,
 .card__sale-slide .card__bg .card__image .card__thumbnail {
   object-fit: cover;
+  position: absolute;
+  z-index: 499;
+}
+.card__feature-slide .card__bg .card__image .card__link,
+.card__sale-slide .card__bg .card__image .card__link {
+  width: 100%;
+  height: 100%;
+  background: #0000009e;
+  object-fit: cover;
+  position: absolute;
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-101%);
+  transition: 0.3s ease-out;
+}
+.card__feature-slide .card__bg:hover .card__image .card__link,
+.card__sale-slide .card__bg:hover .card__image .card__link {
+  transform: translateY(0%);
+}
+.card__feature-slide .card__bg .card__image .card__link .card__link-detail,
+.card__sale-slide .card__bg .card__image .card__link .card__link-detail {
+  display: block;
+  text-decoration: none;
+  color: var(--primary-color);
+  padding: var(--padding-button);
+  border: var(--border-thickness-button) solid var(--primary-color);
+}
+.card__feature-slide .card__bg .card__image .card__link .card__link-detail:hover,
+.card__sale-slide .card__bg .card__image .card__link .card__link-detail:hover {
+  text-decoration: underline;
 }
 .card__feature-slide .card__bg .card__box,
 .card__sale-slide .card__bg .card__box {
