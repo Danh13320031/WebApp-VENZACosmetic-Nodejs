@@ -64,9 +64,17 @@ const getProductDetail = async (req, res) => {
     })
     .populate('category');
 
+  const category = await categoryModel
+    .findOne({
+      _id: product.category,
+    })
+    .select('title parent_id');
+
   res.render('./client/pages/product/detail.view.ejs', {
     pageTitle: product.title,
     categoryTree: categoryTree,
+    product: product,
+    category: category,
   });
 };
 

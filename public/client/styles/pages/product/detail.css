@@ -2,6 +2,9 @@
   text-align: left;
   padding: 0px;
 }
+.product__info-description {
+  text-align: justify;
+}
 .product__info-rating {
   color: var(--primary-color);
 }
