@@ -51,6 +51,21 @@
 }
 /* End Product Filter */
 
+/* Product Filter Remove */
+.product__filter-remove .product__remove-search .product__search-keyword {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.product__filter-remove .filter__remove-list .filter__remove-item {
+  background: var(--light-gray-color);
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+.product__filter-remove .filter__remove-list .filter__remove-item:hover {
+  background: var(--primary-color);
+}
+/* End Product Filter Remove */
+
 /* Product Card */
 .card__bg {
   width: 100%;

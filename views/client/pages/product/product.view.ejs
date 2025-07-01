@@ -94,14 +94,14 @@
                   type="range"
                   class="filter__price-range w-100"
                   id="price"
-                  value="2000000"
+                  value="5"
                   min="0"
-                  max="10000000"
-                  step="1000"
+                  max="200"
+                  step="5"
                 />
                 <div class="filter__price-minmax d-flex justify-content-between">
-                  <span class="content-font filter__price-min">Từ: 1.000</span>
-                  <span class="content-font filter__price-max">Đến: 10.000.000</span>
+                  <span class="content-font filter__price-min">Từ: $0</span>
+                  <span class="content-font filter__price-max">Đến: $200</span>
                 </div>
                 <hr />
               </div>
@@ -126,13 +126,31 @@
           <div class="col-lg-9 col-md-8 col-12">
             <!-- Filter close -->
             <div class="product__filter-remove mb-1">
-              <ul class="filter__remove-list d-flex gap-1 ps-0">
-                <li class="filter__remove-item p-2 bg-light" category>
+              <% if(keyword) { %>
+              <h4 class="title-font product__remove-search mb-3 d-block">
+                Từ khóa đang tìm kiếm:
+                <span class="product__search-keyword"><b><%= keyword %></b></span>
+              </h4>
+              <% } %>
+              <ul class="filter__remove-list d-flex gap-1 flex-wrap ps-0">
+                <li class="filter__remove-item p-2" category>
+                  <span class="content-font filter__remove-title">Tìm kiếm</span>
+                  <i class="bi bi-x-lg"></i>
+                </li>
+                <li class="filter__remove-item p-2" category>
                   <span class="content-font filter__remove-title">Danh mục</span>
                   <i class="bi bi-x-lg"></i>
                 </li>
-                <li class="filter__remove-item p-2 bg-light" price>
+                <li class="filter__remove-item p-2" price>
                   <span class="content-font filter__remove-title">Mức giá</span>
+                  <i class="bi bi-x-lg"></i>
+                </li>
+                <li class="filter__remove-item p-2" price>
+                  <span class="content-font filter__remove-title">Miễn phí vận chuyển</span>
+                  <i class="bi bi-x-lg"></i>
+                </li>
+                <li class="filter__remove-item p-2" price>
+                  <span class="content-font filter__remove-title">Đang giảm giá</span>
                   <i class="bi bi-x-lg"></i>
                 </li>
               </ul>
@@ -161,7 +179,9 @@
             <div class="product__list">
               <!-- Product list -->
               <div class="row g-2">
-                <% productList.forEach(product => { %>
+                <% if(productList.length === 0) { %><span class="content-font text-center"
+                  >(Không tìm thấy sản phẩm phù hợp)</span
+                ><% } %> <% productList.forEach(product => { %>
                 <!-- Card -->
                 <div class="col-lg-3 col-md-4 col-6">
                   <div class="card__bg" title="<%= product.title %>">
@@ -173,7 +193,9 @@
                         class="card__thumbnail"
                       />
                       <div class="card__link">
-                        <a href="/products/detail/<%= product.slug %>" class="content-font card__link-detail"
+                        <a
+                          href="/products/detail/<%= product.slug %>"
+                          class="content-font card__link-detail"
                           >Xem chi tiết</a
                         >
                       </div>

@@ -1,5 +1,6 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import getSubCategoryHelper from '../../helpers/getSubCategory.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
 
@@ -7,13 +8,19 @@ import productModel from '../../models/product.model.js';
 const product = async (req, res) => {
   const find = { status: 'active', deleted: false };
   const categoryList = await categoryModel.find(find);
-  const productList = await productModel.find(find).sort({ createdAt: 'desc' });
   const categoryTree = categoryTreeHelper(categoryList);
+
+  // Search
+  const objSearch = searchHelper(req.query);
+  if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+  const productList = await productModel.find(find).sort({ createdAt: 'desc' });
 
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
     categoryTree: categoryTree,
     productList: productList,
+    keyword: objSearch.keyword,
   });
 };
 
@@ -23,6 +30,10 @@ const getProductByCategory = async (req, res) => {
   const categorySlug = req.params.categorySlug;
   const categoryList = await categoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
+
+  // Search
+  const objSearch = searchHelper(req.query);
+  if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
 
   const category = await categoryModel.findOne({
     slug: categorySlug,
@@ -45,6 +56,7 @@ const getProductByCategory = async (req, res) => {
     pageTitle: 'Danh sách sản phẩm',
     categoryTree: categoryTree,
     productList: productCategoryList,
+    keyword: objSearch.keyword,
   });
 };
 
