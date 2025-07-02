@@ -1,4 +1,5 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import getSubCategoryHelper from '../../helpers/getSubCategory.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
@@ -9,10 +10,16 @@ const product = async (req, res) => {
   const find = { status: 'active', deleted: false };
   const categoryList = await categoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
+  const productMaxPrice = await productModel.findOne(find).sort({ price: 'desc' });
 
   // Search
   const objSearch = searchHelper(req.query);
   if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+  // Filter by price
+  const objectFilterByPrice = filterByPriceHelper(req.query);
+  if (!objectFilterByPrice.from && objectFilterByPrice.to)
+    find.price = { $gte: objectFilterByPrice.from, $lte: objectFilterByPrice.to };
 
   const productList = await productModel.find(find).sort({ createdAt: 'desc' });
 
@@ -21,6 +28,8 @@ const product = async (req, res) => {
     categoryTree: categoryTree,
     productList: productList,
     keyword: objSearch.keyword,
+    priceFilter: objectFilterByPrice,
+    productMaxPrice: productMaxPrice,
   });
 };
 

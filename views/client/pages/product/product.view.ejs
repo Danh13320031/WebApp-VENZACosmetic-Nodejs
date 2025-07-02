@@ -94,14 +94,20 @@
                   type="range"
                   class="filter__price-range w-100"
                   id="price"
-                  value="5"
+                  value="<%= priceFilter.to %>"
                   min="0"
-                  max="200"
-                  step="5"
+                  max="<%= productMaxPrice.price %>"
+                  step="0.01"
+                  title="<%= priceFilter.to %>"
                 />
                 <div class="filter__price-minmax d-flex justify-content-between">
                   <span class="content-font filter__price-min">Từ: $0</span>
-                  <span class="content-font filter__price-max">Đến: $200</span>
+                  <span class="content-font filter__price-value"
+                    >Tới: $<%= priceFilter.to %></span
+                  >
+                  <span class="content-font filter__price-max"
+                    >Tối đa: $<%= productMaxPrice.price %></span
+                  >
                 </div>
                 <hr />
               </div>
@@ -261,6 +267,7 @@
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/customInputRange.js"></script>
     <script src="/client/scripts/product/showProductFilter.js"></script>
+    <script src="/client/scripts/product/filterByPrice.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
