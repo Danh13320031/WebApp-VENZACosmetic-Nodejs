@@ -70,7 +70,7 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="price"
-                    ><span class="text-danger"><b>*</b></span> Giá cả ($)</label
+                    ><span class="text-danger"><b>*</b></span> Giá ($)</label
                   >
                   <input
                     type="number"
@@ -132,9 +132,9 @@
                 </div>
               </div>
 
-              <div class="col-4">
+              <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="warranty">Thời gian bảo hành</label>
+                  <label for="warranty">Bảo hành</label>
                   <input
                     type="text"
                     name="warranty"
@@ -145,9 +145,9 @@
                 </div>
               </div>
 
-              <div class="col-4">
+              <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="brand">Thương hiệu sản phẩm</label>
+                  <label for="brand">Thương hiệu</label>
                   <input
                     type="text"
                     name="brand"
@@ -158,10 +158,10 @@
                 </div>
               </div>
 
-              <div class="col-4">
+              <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="rating"
-                    >Đánh giá chất lượng (Số <i class="bi bi-star-fill text-warning"></i>)</label
+                    >Đánh giá (Số <i class="bi bi-star-fill text-warning"></i>)</label
                   >
                   <input
                     type="number"
@@ -173,6 +173,23 @@
                     placeholder="Ví dụ: 5, 4, 3, 2, 1"
                     class="form-control"
                     id="rating"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="shipping_fee"> Phí vận chuyển ($)</label>
+                  <input
+                    type="number"
+                    value="0"
+                    min="0"
+                    step="0.01"
+                    name="shipping_fee"
+                    placeholder="Ví dụ: 45.34, 5.5, 70.56,..."
+                    required
+                    class="form-control"
+                    id="shipping"
                   />
                 </div>
               </div>

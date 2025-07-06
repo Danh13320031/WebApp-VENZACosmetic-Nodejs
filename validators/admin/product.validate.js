@@ -19,6 +19,12 @@ const createProductValidate = (req, res, next) => {
     res.redirect('back');
   }
 
+  // Check shipping fee
+  if (!req.body.shipping_fee) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng phí vận chuyển');
+    res.redirect('back');
+  }
+
   // Check status
   if (!req.body.status) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
