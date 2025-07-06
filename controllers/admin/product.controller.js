@@ -106,6 +106,7 @@ const createProductPost = async (req, res) => {
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
+    if (req.body.shipping_fee) req.body.shipping_fee = Number.parseFloat(req.body.shipping_fee);
     else req.body.position = countRecord + 1;
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
 
@@ -161,6 +162,7 @@ const updateProductPatch = async (req, res) => {
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
+    if (req.body.shipping_fee) req.body.shipping_fee = Number.parseFloat(req.body.shipping_fee);
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
 
     await productModel.findByIdAndUpdate(id, {
