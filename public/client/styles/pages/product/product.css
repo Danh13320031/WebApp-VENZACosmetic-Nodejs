@@ -44,7 +44,8 @@
   cursor: pointer;
   transition: 0.4s ease-out;
 }
-.product__filter .product__filter-sale label.active {
+.product__filter .product__filter-sale label.active,
+.product__filter .product__filter-freeship label.active {
   color: var(--primary-color);
 }
 .product__filter .product__filter-sale label:hover,

@@ -111,14 +111,19 @@
               </div>
 
               <div class="product__filter-freeship mb-4">
-                <h4 class="title-font filter__freeship-title">Freeship</h4>
-                <label for="freeship" class="content-font">Miễn phí vận chuyển</label>
-                <input type="checkbox" class="filter__freeship-input ms-2" id="freeship" />
+                <h4 class="title-font filter__freeship-title">Vận chuyển</h4>
+                <label
+                  for="freeship"
+                  class="content-font <% if(filterByFreeShipStatus === true) { %>active<% } %>"
+                  >Miễn phí vận chuyển</label
+                >
+                <input type="checkbox" <% if(filterByFreeShipStatus === true) { %> checked <% } %>
+                class="filter__freeship-input ms-2" id="freeship" />
                 <hr />
               </div>
 
               <div class="product__filter-sale mb-4">
-                <h4 class="title-font filter__sale-title">Sale</h4>
+                <h4 class="title-font filter__sale-title">Giảm giá</h4>
                 <label
                   for="sale"
                   class="content-font <% if(filterBySaleStatus === true) { %>active<% } %>"
@@ -272,6 +277,7 @@
     <script src="/client/scripts/product/showProductFilter.js"></script>
     <script src="/client/scripts/product/filterByPrice.js"></script>
     <script src="/client/scripts/product/filterBySale.js"></script>
+    <script src="/client/scripts/product/filterByShippingFee.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
