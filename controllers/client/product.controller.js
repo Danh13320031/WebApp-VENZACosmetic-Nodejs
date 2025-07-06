@@ -1,6 +1,7 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
+import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
 import getSubCategoryHelper from '../../helpers/getSubCategory.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
@@ -26,6 +27,10 @@ const product = async (req, res) => {
   const objectFilterSale = filterBySaleHelper(req.query);
   if (objectFilterSale.flag) find.discount = { $gt: 0 };
 
+  // Filter by product shipping fee
+  const objectFilterByShippingFee = filterByShippingFeeHelper(req.query);
+  if (objectFilterByShippingFee.flag) find.shipping_fee = 0;
+
   const productList = await productModel.find(find).sort({ createdAt: 'desc' });
 
   res.render('./client/pages/product/product.view.ejs', {
@@ -36,6 +41,7 @@ const product = async (req, res) => {
     priceFilter: objectFilterByPrice,
     productMaxPrice: productMaxPrice,
     filterBySaleStatus: objectFilterSale.flag,
+    filterByFreeShipStatus: objectFilterByShippingFee.flag,
   });
 };
 
