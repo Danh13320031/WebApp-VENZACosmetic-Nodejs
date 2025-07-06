@@ -39,6 +39,18 @@
   .filter__category-link {
   color: var(--light-gray-color);
 }
+.product__filter .product__filter-sale label,
+.product__filter .product__filter-freeship label {
+  cursor: pointer;
+  transition: 0.4s ease-out;
+}
+.product__filter .product__filter-sale label.active {
+  color: var(--primary-color);
+}
+.product__filter .product__filter-sale label:hover,
+.product__filter .product__filter-freeship label:hover {
+  color: var(--primary-color);
+}
 .product__filter .product__filter-delete .product__filter-close {
   padding: var(--padding-button2);
   background: rgba(255, 255, 255, 0);

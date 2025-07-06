@@ -1,5 +1,6 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
+import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
 import getSubCategoryHelper from '../../helpers/getSubCategory.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
@@ -21,6 +22,10 @@ const product = async (req, res) => {
   if (!objectFilterByPrice.from && objectFilterByPrice.to)
     find.price = { $gte: objectFilterByPrice.from, $lte: objectFilterByPrice.to };
 
+  // Filter by sale product
+  const objectFilterSale = filterBySaleHelper(req.query);
+  if (objectFilterSale.flag) find.discount = { $gt: 0 };
+
   const productList = await productModel.find(find).sort({ createdAt: 'desc' });
 
   res.render('./client/pages/product/product.view.ejs', {
@@ -30,6 +35,7 @@ const product = async (req, res) => {
     keyword: objSearch.keyword,
     priceFilter: objectFilterByPrice,
     productMaxPrice: productMaxPrice,
+    filterBySaleStatus: objectFilterSale.flag,
   });
 };
 

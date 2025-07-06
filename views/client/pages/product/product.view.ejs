@@ -102,9 +102,7 @@
                 />
                 <div class="filter__price-minmax d-flex justify-content-between">
                   <span class="content-font filter__price-min">Từ: $0</span>
-                  <span class="content-font filter__price-value"
-                    >Tới: $<%= priceFilter.to %></span
-                  >
+                  <span class="content-font filter__price-value">Tới: $<%= priceFilter.to %></span>
                   <span class="content-font filter__price-max"
                     >Tối đa: $<%= productMaxPrice.price %></span
                   >
@@ -121,8 +119,13 @@
 
               <div class="product__filter-sale mb-4">
                 <h4 class="title-font filter__sale-title">Sale</h4>
-                <label for="sale" class="content-font">Đang giảm giá</label>
-                <input type="checkbox" class="filter__sale-input ms-2" id="sale" />
+                <label
+                  for="sale"
+                  class="content-font <% if(filterBySaleStatus === true) { %>active<% } %>"
+                  >Đang giảm giá</label
+                >
+                <input type="checkbox" <% if(filterBySaleStatus === true) { %> checked <% } %>
+                class="filter__sale-input ms-2" id="sale" />
                 <hr />
               </div>
             </div>
@@ -268,6 +271,7 @@
     <script src="/client/scripts/customInputRange.js"></script>
     <script src="/client/scripts/product/showProductFilter.js"></script>
     <script src="/client/scripts/product/filterByPrice.js"></script>
+    <script src="/client/scripts/product/filterBySale.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
