@@ -133,6 +133,18 @@
                 class="filter__sale-input ms-2" id="sale" />
                 <hr />
               </div>
+
+              <div class="product__filter-featured mb-4">
+                <h4 class="title-font filter__sale-title">Nổi bật</h4>
+                <label
+                  for="featured"
+                  class="content-font <% if(filterByFeaturedStatus === true) { %>active<% } %>"
+                  >Đang nổi bật</label
+                >
+                <input type="checkbox" <% if(filterByFeaturedStatus === true) { %> checked <% } %>
+                class="filter__featured-input ms-2" id="featured" />
+                <hr />
+              </div>
             </div>
           </div>
           <!-- End filter -->
@@ -165,6 +177,10 @@
                 </li>
                 <li class="filter__remove-item p-2" price>
                   <span class="content-font filter__remove-title">Đang giảm giá</span>
+                  <i class="bi bi-x-lg"></i>
+                </li>
+                <li class="filter__remove-item p-2" price>
+                  <span class="content-font filter__remove-title">Đang nổi bật</span>
                   <i class="bi bi-x-lg"></i>
                 </li>
               </ul>
@@ -278,6 +294,7 @@
     <script src="/client/scripts/product/filterByPrice.js"></script>
     <script src="/client/scripts/product/filterBySale.js"></script>
     <script src="/client/scripts/product/filterByShippingFee.js"></script>
+    <script src="/client/scripts/product/filterByFeaturedProduct.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
