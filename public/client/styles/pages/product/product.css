@@ -14,8 +14,12 @@
 .product__filter .product__filter-category .filter__category-list .filter__category-item {
   padding: 5px 10px;
   background: var(--light-gray-color);
+  color: var(--dark-gray-color);
   border-radius: 5px;
   transition: 0.4s ease-out;
+}
+.product__filter .product__filter-category .filter__category-list .filter__category-item.active {
+  background: var(--dark-gray-color);
 }
 .product__filter
   .product__filter-category
@@ -26,18 +30,21 @@
   display: block;
   color: var(--dark-gray-color);
   text-decoration: none;
+  text-align: left;
+  background: none;
   font-size: var(--content-font-size);
+  border: none;
   transition: 0.4s ease-out;
-}
-.product__filter .product__filter-category .filter__category-list .filter__category-item:hover {
-  background: var(--dark-gray-color);
 }
 .product__filter
   .product__filter-category
   .filter__category-list
-  .filter__category-item:hover
+  .filter__category-item.active
   .filter__category-link {
   color: var(--light-gray-color);
+}
+.product__filter .product__filter-category .filter__category-list .filter__category-item:hover {
+  background: var(--dark-gray-color);
 }
 .product__filter .product__filter-sale label,
 .product__filter .product__filter-freeship label,
