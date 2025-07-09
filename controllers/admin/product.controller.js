@@ -105,10 +105,10 @@ const createProductPost = async (req, res) => {
     if (req.body.discount) req.body.discount = Number.parseFloat(req.body.discount);
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
-    if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     if (req.body.shipping_fee) req.body.shipping_fee = Number.parseFloat(req.body.shipping_fee);
-    else req.body.position = countRecord + 1;
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
+    if (req.body.position) req.body.position = Number.parseInt(req.body.position);
+    else req.body.position = countRecord + 1;
 
     req.body.createdBy = {
       account_id: res.locals.account._id,

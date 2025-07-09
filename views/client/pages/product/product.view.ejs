@@ -57,32 +57,36 @@
 
               <div class="product__filter-category mb-4">
                 <h4 class="title-font filter__category-title">Danh mục</h4>
-                <ul class="filter__category-list">
-                  <li class="filter__category-item">
-                    <a href="/products/categories/nailcare" class="filter__category-link"
-                      >Nailcare</a
-                    >
+                <ul class="filter__category-list nav nav-pills nav-fill">
+                  <li
+                    class="filter__category-item <%if (filterByCategoryActive === 'nailcare') { %>active<% } %>"
+                  >
+                    <button category="nailcare" class="filter__category-link">Nailcare</button>
                   </li>
-                  <li class="filter__category-item">
-                    <a href="/products/categories/haircare" class="filter__category-link"
-                      >Haircare</a
-                    >
+                  <li
+                    class="filter__category-item <% if (filterByCategoryActive === 'haircare') { %>active<% } %>"
+                  >
+                    <button category="haircare" class="filter__category-link">Haircare</button>
                   </li>
-                  <li class="filter__category-item">
-                    <a href="/products/categories/skincare" class="filter__category-link"
-                      >Skincare</a
-                    >
+                  <li
+                    class="filter__category-item <% if (filterByCategoryActive === 'skincare') { %>active<% } %>"
+                  >
+                    <button category="skincare" class="filter__category-link">Skincare</button>
                   </li>
-                  <li class="filter__category-item">
-                    <a href="/products/categories/bodycare" class="filter__category-link"
-                      >Bodycare</a
-                    >
+                  <li
+                    class="filter__category-item <% if (filterByCategoryActive === 'bodycare') { %>active<% } %>"
+                  >
+                    <button category="bodycare" class="filter__category-link">Bodycare</button>
                   </li>
-                  <li class="filter__category-item">
-                    <a href="/products/categories/makeup" class="filter__category-link">Makeup</a>
+                  <li
+                    class="filter__category-item <% if (filterByCategoryActive === 'makeup') { %>active<% } %>"
+                  >
+                    <button category="makeup" class="filter__category-link">Makeup</button>
                   </li>
-                  <li class="filter__category-item">
-                    <a href="/products/categories/perfume" class="filter__category-link">Perfume</a>
+                  <li
+                    class="filter__category-item <% if (filterByCategoryActive === 'perfume') { %>active<% } %>"
+                  >
+                    <button category="perfume" class="filter__category-link">Perfume</button>
                   </li>
                 </ul>
                 <hr />
@@ -295,6 +299,7 @@
     <script src="/client/scripts/product/filterBySale.js"></script>
     <script src="/client/scripts/product/filterByShippingFee.js"></script>
     <script src="/client/scripts/product/filterByFeaturedProduct.js"></script>
+    <script src="/client/scripts/product/filterByCategory.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->

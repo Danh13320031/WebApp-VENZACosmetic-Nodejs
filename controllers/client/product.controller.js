@@ -1,9 +1,9 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
 import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
 import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
-import getSubCategoryHelper from '../../helpers/getSubCategory.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
@@ -15,7 +15,7 @@ const product = async (req, res) => {
   const categoryTree = categoryTreeHelper(categoryList);
   const productMaxPrice = await productModel.findOne(find).sort({ price: 'desc' });
 
-  // Search
+  // Filter by search
   const objSearch = searchHelper(req.query);
   if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
 
@@ -28,7 +28,7 @@ const product = async (req, res) => {
   const objectFilterSale = filterBySaleHelper(req.query);
   if (objectFilterSale.flag) find.discount = { $gt: 0 };
 
-  // Filter by product shipping fee
+  // Filter by freeship product
   const objectFilterByShippingFee = filterByShippingFeeHelper(req.query);
   if (objectFilterByShippingFee.flag) find.shipping_fee = 0;
 
@@ -36,7 +36,17 @@ const product = async (req, res) => {
   const objectFilterByFeatured = filterByFeaturedProductHelper(req.query);
   if (objectFilterByFeatured.flag) find.featured = '1';
 
-  const productList = await productModel.find(find).sort({ createdAt: 'desc' });
+  // Filter by category
+  const objectFilterByCategory = await filterByCategoryHelper(req.query);
+  let filterByCategoryActive;
+  if (objectFilterByCategory) {
+    find.category = {
+      $in: [objectFilterByCategory.categoryId, ...objectFilterByCategory.subCategoryIdList],
+    };
+    filterByCategoryActive = objectFilterByCategory.categoryTitle.toLowerCase();
+  }
+
+  const productList = await productModel.find(find).sort({ position: 'desc' });
 
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
@@ -48,42 +58,7 @@ const product = async (req, res) => {
     filterBySaleStatus: objectFilterSale.flag,
     filterByFreeShipStatus: objectFilterByShippingFee.flag,
     filterByFeaturedStatus: objectFilterByFeatured.flag,
-  });
-};
-
-// GET: /products/categories/:categorySlug
-const getProductByCategory = async (req, res) => {
-  const find = { status: 'active', deleted: false };
-  const categorySlug = req.params.categorySlug;
-  const categoryList = await categoryModel.find(find);
-  const categoryTree = categoryTreeHelper(categoryList);
-
-  // Search
-  const objSearch = searchHelper(req.query);
-  if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
-
-  const category = await categoryModel.findOne({
-    slug: categorySlug,
-    status: 'active',
-    deleted: false,
-  });
-
-  const subCategoryList = await getSubCategoryHelper(category._id);
-  const subCategoryIdList = subCategoryList.map((subCategory) => subCategory._id);
-
-  const productCategoryList = await productModel
-    .find({
-      category: { $in: [category._id, ...subCategoryIdList] },
-      status: 'active',
-      deleted: false,
-    })
-    .sort({ position: 'desc' });
-
-  res.render('./client/pages/product/product.view.ejs', {
-    pageTitle: 'Danh sách sản phẩm',
-    categoryTree: categoryTree,
-    productList: productCategoryList,
-    keyword: objSearch.keyword,
+    filterByCategoryActive: filterByCategoryActive,
   });
 };
 
@@ -119,7 +94,6 @@ const getProductDetail = async (req, res) => {
 
 const productController = {
   product,
-  getProductByCategory,
   getProductDetail,
 };
 
