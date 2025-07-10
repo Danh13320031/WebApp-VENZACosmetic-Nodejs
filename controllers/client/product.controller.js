@@ -4,6 +4,7 @@ import filterByFeaturedProductHelper from '../../helpers/client/filterByFeatured
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
 import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
+import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
@@ -46,6 +47,11 @@ const product = async (req, res) => {
     filterByCategoryActive = objectFilterByCategory.categoryTitle.toLowerCase();
   }
 
+  // Remove product filter
+  const removeFilterArr = removeProductFilterHelper(req.query).sort((a, b) =>
+    b.title.localeCompare(a.title, 'vi', { sensitivity: 'base' })
+  );
+
   const productList = await productModel.find(find).sort({ position: 'desc' });
 
   res.render('./client/pages/product/product.view.ejs', {
@@ -59,6 +65,7 @@ const product = async (req, res) => {
     filterByFreeShipStatus: objectFilterByShippingFee.flag,
     filterByFeaturedStatus: objectFilterByFeatured.flag,
     filterByCategoryActive: filterByCategoryActive,
+    removeFilterArr: removeFilterArr,
   });
 };
 
