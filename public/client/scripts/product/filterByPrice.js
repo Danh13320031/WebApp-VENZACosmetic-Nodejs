@@ -9,6 +9,7 @@ if (filterPriceRange) {
     if (fromPrice && toPrice) {
       url.searchParams.set('from', fromPrice);
       url.searchParams.set('to', toPrice);
+
       window.location.href = url.href;
     }
   });
