@@ -76,7 +76,8 @@
 /* End Product Filter */
 
 /* Product Filter Remove */
-.product__filter-remove .product__remove-search .product__search-keyword {
+.product__filter-remove .product__remove-search .product__search-keyword,
+.product__filter-remove .product__remove-page .product__page-current {
   font-weight: 600;
   color: var(--primary-color);
 }
@@ -205,8 +206,14 @@
   margin: 0px 2px;
   color: var(--dark-gray-color);
   border: var(--border-thickness-button) solid var(--light-gray-color);
+  border-radius: 0px !important;
   transition: 0.4s ease;
   cursor: pointer;
+}
+.product__pagination .product__pagination-item.nav-link.active {
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
 }
 .product__pagination .product__pagination-item:hover {
   color: var(--light-gray-color);
