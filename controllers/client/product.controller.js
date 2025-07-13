@@ -2,6 +2,7 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
 import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
+import filterByQuantityHelper from '../../helpers/client/filterByQuantity.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
 import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
@@ -47,12 +48,20 @@ const product = async (req, res) => {
     filterByCategoryActive = objectFilterByCategory.categoryTitle.toLowerCase();
   }
 
+  // Filter by product quantity
+  let productLimit;
+  const objectFilterByQuantity = filterByQuantityHelper(req.query);
+  if (objectFilterByQuantity.quantity) productLimit = objectFilterByQuantity.quantity;
+
   // Remove product filter
   const removeFilterArr = removeProductFilterHelper(req.query).sort((a, b) =>
     b.title.localeCompare(a.title, 'vi', { sensitivity: 'base' })
   );
 
-  const productList = await productModel.find(find).sort({ position: 'desc' });
+  const productList = await productModel
+    .find(find)
+    .sort({ position: 'desc' })
+    .limit(productLimit || 20);
 
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
@@ -66,6 +75,7 @@ const product = async (req, res) => {
     filterByFeaturedStatus: objectFilterByFeatured.flag,
     filterByCategoryActive: filterByCategoryActive,
     removeFilterArr: removeFilterArr,
+    productLimit: productLimit,
   });
 };
 
