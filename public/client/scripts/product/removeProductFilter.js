@@ -39,6 +39,11 @@ if (filterRemoveItemList.length > 0) {
             window.location.href = url.href;
             break;
 
+          case 'quantity':
+            url.searchParams.delete('quantity');
+            window.location.href = url.href;
+            break;
+
           default:
             break;
         }

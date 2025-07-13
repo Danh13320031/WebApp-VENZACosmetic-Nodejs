@@ -30,6 +30,11 @@ const removeProductFilterHelper = (reqQuery) => {
       title: 'Đang nổi bật',
       query: reqQuery.featured,
     },
+    {
+      keyword: 'quantity',
+      title: 'Số lượng',
+      query: reqQuery.quantity,
+    },
   ];
 
   return removeFilterArr;

@@ -157,12 +157,12 @@
             <!-- Filter close -->
             <div class="product__filter-remove mb-1">
               <% if(keyword) { %>
-              <h4 class="title-font product__remove-search mb-3 d-block">
+              <h4 class="title-font product__remove-search mb-1 d-block">
                 Từ khóa đang tìm kiếm:
                 <span class="product__search-keyword"><b><%= keyword %></b></span>
               </h4>
               <% } %>
-              <ul class="filter__remove-list d-flex gap-1 flex-wrap p-0 m-0">
+              <ul class="filter__remove-list d-flex gap-1 flex-wrap p-0 mb-0">
                 <% removeFilterArr.forEach((filterItem) => {%>
                 <li
                   class="filter__remove-item p-2 <% if(!filterItem.query) { %>d-none<% } %>"
@@ -178,15 +178,13 @@
             <!-- End filter close -->
 
             <!-- Product filter mobile -->
-            <div class="product__filter-mobile justify-content-between mb-3">
+            <div class="product__filter-mobile justify-content-between mb-1">
               <div class="content-font product__filter-quantity">
-                <select name="" id="" class="filter__quantity-limit">
-                  <option value="" disabled selected class="filter__quantity-option">
-                    -- Hiển thị --
-                  </option>
-                  <option value="10" class="filter__quantity-option">10</option>
-                  <option value="15" class="filter__quantity-option">15</option>
-                  <option value="20" class="filter__quantity-option">20</option>
+                <select name="quantity" class="filter__quantity-limit">
+                  <option disabled selected class="filter__quantity-option">-- Hiển thị --</option>
+                  <option value="5" <% if(productLimit === 5) { %>selected<% } %> class="filter__quantity-option">5</option>
+                  <option value="8" <% if(productLimit === 8) { %>selected<% } %> class="filter__quantity-option">8</option>
+                  <option value="12" <% if(productLimit === 12) { %>selected<% } %> class="filter__quantity-option">12</option>
                 </select>
               </div>
 
@@ -286,6 +284,7 @@
     <script src="/client/scripts/product/filterByShippingFee.js"></script>
     <script src="/client/scripts/product/filterByFeaturedProduct.js"></script>
     <script src="/client/scripts/product/filterByCategory.js"></script>
+    <script src="/client/scripts/product/filterByProductQuantity.js"></script>
     <script src="/client/scripts/product/removeProductFilter.js"></script>
     <!-- End Scripts File -->
 

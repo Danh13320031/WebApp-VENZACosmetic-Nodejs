@@ -1,13 +1,12 @@
 import bcrypt from 'bcrypt';
 import systemConfig from '../../configs/system.config.js';
+import { saltRoundsConst } from '../../constants/account.constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
-
-const saltRounds = 10;
 
 // GET: /admin/accounts     --Hiển thị danh sách tài khoản
 const account = async (req, res) => {
@@ -73,7 +72,7 @@ const createAccountGet = async (req, res) => {
 // POST: /admin/accounts/create     --Tạo tài khoản mới
 const createAccountPost = async (req, res) => {
   try {
-    const hassPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
     if (req.body.password) req.body.password = hassPassword;
 
     const newAccount = new accountModel(req.body);
@@ -116,7 +115,7 @@ const updateAccountGet = async (req, res) => {
 const updateAccountPatch = async (req, res) => {
   try {
     const id = req.params.id;
-    const hassPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
 
     if (req.body.password) req.body.password = hassPassword;
 
