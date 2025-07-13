@@ -156,13 +156,7 @@
           <div class="col-lg-9 col-md-8 col-12">
             <!-- Filter close -->
             <div class="product__filter-remove mb-1">
-              <% if(keyword) { %>
-              <h4 class="title-font product__remove-search mb-1 d-block">
-                Từ khóa đang tìm kiếm:
-                <span class="product__search-keyword"><b><%= keyword %></b></span>
-              </h4>
-              <% } %>
-              <ul class="filter__remove-list d-flex gap-1 flex-wrap p-0 mb-0">
+              <ul class="filter__remove-list d-flex gap-1 flex-wrap p-0 mb-2">
                 <% removeFilterArr.forEach((filterItem) => {%>
                 <li
                   class="filter__remove-item p-2 <% if(!filterItem.query) { %>d-none<% } %>"
@@ -174,6 +168,20 @@
                 </li>
                 <% }) %>
               </ul>
+              <div class="d-flex justify-content-between flex-wrap">
+                <% if(keyword) { %>
+              <h5 class="title-font product__remove-search d-block">
+                Tìm kiếm:
+                <span class="product__search-keyword"><b><%= keyword %></b></span>
+              </h5>
+              <% } %>
+                <% if (objPagination.currentPage) { %>
+              <h5 class="product__remove-page">
+                Trang:
+                <span class="product__page-current"><b><%= objPagination.currentPage %></b></span>
+              </h5>
+              <%} %>
+              </div>
             </div>
             <!-- End filter close -->
 
@@ -182,7 +190,7 @@
               <div class="content-font product__filter-quantity">
                 <select name="quantity" class="filter__quantity-limit">
                   <option disabled selected class="filter__quantity-option">-- Hiển thị --</option>
-                  <option value="5" <% if(productLimit === 5) { %>selected<% } %> class="filter__quantity-option">5</option>
+                  <option value="4" <% if(productLimit === 4) { %>selected<% } %> class="filter__quantity-option"></option>
                   <option value="8" <% if(productLimit === 8) { %>selected<% } %> class="filter__quantity-option">8</option>
                   <option value="12" <% if(productLimit === 12) { %>selected<% } %> class="filter__quantity-option">12</option>
                 </select>
@@ -252,16 +260,21 @@
               <!-- Product Pagination -->
               <div class="row g-2">
                 <div class="product__pagination mt-5 d-flex justify-content-center">
-                  <ul class="content-font product__pagination-list ps-0 d-flex">
-                    <li class="product__pagination-item page__prev">
-                      <i class="bi bi-arrow-left-short"></i>
+                  <ul class="content-font product__pagination-list nav nav-pills ps-0 d-flex flex-wrap gap-1 justify-content-center">
+                    <li class="product__pagination-item page__first nav-link <% if(objPagination.currentPage <= 1) { %>active<% } %>">
+                      Đầu
                     </li>
-                    <li class="product__pagination-item page__number">1</li>
-                    <li class="product__pagination-item page__number">2</li>
-                    <li class="product__pagination-item page__number">3</li>
-                    <li class="product__pagination-item page__number">4</li>
-                    <li class="product__pagination-item page__next">
+                    <button <% if(objPagination.currentPage <= 1) { %>disabled<% } %> class="product__pagination-item page__prev nav-link">
+                      <i class="bi bi-arrow-left-short"></i>
+                    </button>
+                    <% for(let i = 1; i <= objPagination.pageTotal; i++) { %>
+                      <li class="product__pagination-item page__number nav-link <% if(i === objPagination.currentPage) { %>active<% } %>" page-number="<%= i %>"><%= i %></li>
+                    <% } %>
+                    <button <% if(objPagination.currentPage >= objPagination.pageTotal) { %>disabled<% } %> class="product__pagination-item page__next nav-link">
                       <i class="bi bi-arrow-right-short"></i>
+                    </button>
+                    <li class="product__pagination-item page__last nav-link <% if(objPagination.currentPage >= objPagination.pageTotal) { %>active<% } %>">
+                      Cuối
                     </li>
                   </ul>
                 </div>
@@ -286,6 +299,7 @@
     <script src="/client/scripts/product/filterByCategory.js"></script>
     <script src="/client/scripts/product/filterByProductQuantity.js"></script>
     <script src="/client/scripts/product/removeProductFilter.js"></script>
+    <script src="/client/scripts/product/pagination.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->

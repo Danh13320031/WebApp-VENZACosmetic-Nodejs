@@ -1,3 +1,4 @@
+import { productLimitConst } from '../../constants/product.constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
 import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
@@ -6,6 +7,7 @@ import filterByQuantityHelper from '../../helpers/client/filterByQuantity.helper
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
 import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
@@ -58,10 +60,19 @@ const product = async (req, res) => {
     b.title.localeCompare(a.title, 'vi', { sensitivity: 'base' })
   );
 
+  // Pagination
+  const paginationObj = {
+    limit: productLimit || productLimitConst,
+    currentPage: 1,
+  };
+  const productTotal = await productModel.countDocuments(find);
+  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
   const productList = await productModel
     .find(find)
     .sort({ position: 'desc' })
-    .limit(productLimit || 20);
+    .limit(productLimit || productLimitConst)
+    .skip(objPagination.productSkip);
 
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
@@ -76,6 +87,7 @@ const product = async (req, res) => {
     filterByCategoryActive: filterByCategoryActive,
     removeFilterArr: removeFilterArr,
     productLimit: productLimit,
+    objPagination: objPagination,
   });
 };
 
