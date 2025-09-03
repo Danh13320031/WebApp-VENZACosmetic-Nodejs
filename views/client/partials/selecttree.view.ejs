@@ -1,7 +1,7 @@
 <ul class="navheader-list-dropdown">
   <% categoryListTree.forEach(category => { %>
   <li class="navheader-menu-item">
-    <a href="/products?category=<%= category.slug %>" class="navheader-menu-link nav-link"
+    <a href="/products?category=<%= category.slug %> " class="navheader-menu-link nav-link"
       ><%= category.title %></a
     >
     <% if(category.children && category.children.length > 0) {%> <%-

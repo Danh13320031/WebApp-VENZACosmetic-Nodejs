@@ -37,6 +37,11 @@
 
   --primary-border-color-field: ;
   --primary-outline-color-field: ;
+
+  --success-color: #51a351;
+  --error-color: #bd362f;
+  --warning-color: #ffa600;
+  --info-color: #2f96b4;
 }
 /* End Color Setup */
 
@@ -92,22 +97,12 @@
 /* End Scrollbar Setup */
 
 /* Bootstrap Setup */
-.heading-font {
-  text-align: center;
-  font-size: var(--heading-font-size);
-  font-weight: var(--heading-font-weight);
-  padding: 60px 0px;
-}
-.title-font {
-  font-size: var(--title-font-size);
-  font-weight: var(--title-font-weight);
-}
-.content-font {
-  font-size: var(--content-font-size);
-  font-weight: var(--content-font-weight);
-}
-.icon-font {
-  font-size: var(--icon-font-size);
+input[type='number']:focus,
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus {
+  outline: none;
+  box-shadow: none;
 }
 input[type='range'] {
   appearance: none;
@@ -139,3 +134,72 @@ input[type='checkbox']:checked {
   border: var(--border-thickness-button) solid var(--primary-color);
 }
 /* End Bootstrap Setup */
+
+/* Component Setup */
+.heading-font {
+  text-align: center;
+  font-size: var(--heading-font-size);
+  font-weight: var(--heading-font-weight);
+  padding: 60px 0px;
+}
+.title-font {
+  font-size: var(--title-font-size);
+  font-weight: var(--title-font-weight);
+}
+.content-font {
+  font-size: var(--content-font-size);
+  font-weight: var(--content-font-weight);
+}
+.icon-font {
+  font-size: var(--icon-font-size);
+}
+.button-primary {
+  padding: 8px 15px;
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  text-transform: uppercase;
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  cursor: pointer;
+}
+.button-primary:hover {
+  color: var(--dark-gray-color);
+  background: none;
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  transition: 0.4s ease;
+}
+.button-secondary {
+  padding: 8px 15px;
+  background: var(--primary-bg-color-button);
+  border: var(--border-thickness-button) solid var(--primary-bg-color-button);
+  cursor: pointer;
+  color: var(--light-gray-color);
+  text-transform: uppercase;
+}
+.button-secondary:hover {
+  color: var(--primary-bg-color-button);
+  background: none;
+  border: var(--border-thickness-button) solid var(--primary-bg-color-button);
+  transition: 0.4s ease;
+}
+.button-icon-primary {
+  padding: var(--padding-button2);
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  cursor: pointer;
+}
+.button-icon-secondary {
+  padding: var(--padding-button2);
+  color: var(--dark-gray-color);
+  background: var(--primary-bg-color-button);
+  border: var(--border-thickness-button) solid var(--primary-bg-color-button);
+  cursor: pointer;
+}
+/* .notify-success {
+  padding: 8px 15px;
+  color: white;
+  font-size: var(--content-font-size);
+  font-weight: var(--content-font-weight);
+  background: var(--secondary-color);
+} */
+/* End Component Setup */
