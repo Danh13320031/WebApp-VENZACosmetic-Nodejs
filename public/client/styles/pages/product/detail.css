@@ -8,6 +8,10 @@
 .product__info-rating {
   color: var(--primary-color);
 }
+.product__info-button .product__info-quantity {
+  color: var(--dark-gray-color);
+  border-color: var(--primary-color) !important;
+}
 
 /* Product Card */
 .card__related-slide .button__trans {
