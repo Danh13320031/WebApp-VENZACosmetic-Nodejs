@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const objSchema = {
   accountId: String,
-  products: [{ productId: String, quantity: Number }],
+  products: [{ product_id: String, quantity: Number }],
 };
 
 const cartSchema = new Schema(objSchema, { timestamps: true }, { collection: 'Cart' });

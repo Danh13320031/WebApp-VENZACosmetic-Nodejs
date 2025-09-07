@@ -81,8 +81,10 @@
                   </div>
                   <span class="content-font product__info-stock mb-1"
                     ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn
-                    <span class="content-font info__stock-number fw-bold"><%= product.stock %></span> mặt
-                    hàng</span
+                    <span class="content-font info__stock-number fw-bold"
+                      ><%= product.stock %></span
+                    >
+                    mặt hàng</span
                   >
                   <span class="content-font text-success ms-2">trong kho</span>
                 </div>
@@ -115,48 +117,51 @@
 
                 <hr />
 
-                <div class="product__info-button row mb-4">
-                  <div class="col-md-4 col-6 mb-3">
-                    <label class="product__info-label content-font mb-2 d-block"
-                      ><b>Số lượng</b></label
-                    >
-                    <div class="product__info-box input-group mb-3">
-                      <button
-                        class="product__info-decrease button-icon-secondary"
-                        type="button"
-                        id="button-addon1"
-                        data-mdb-ripple-color="dark"
+                <form action="/cart/add/<%= product.id %>" method="POST" class="product__info-form">
+                  <div class="product__info-button row mb-4">
+                    <div class="col-md-4 col-6 mb-3">
+                      <label class="product__info-label content-font mb-2 d-block"
+                        ><b>Số lượng</b></label
                       >
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <input
-                        type="number"
-                        class="product__info-quantity form-control text-center border border-secondary"
-                        placeholder="Số lượng..."
-                        value="1"
-                        min="1"
-                        step="1"
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                      />
-                      <button
-                        class="product__info-increase button-icon-secondary"
-                        type="button"
-                        id="button-addon2"
-                        data-mdb-ripple-color="dark"
-                      >
-                        <i class="fas fa-plus"></i>
-                      </button>
+                      <div class="product__info-box input-group mb-3">
+                        <button
+                          class="product__info-decrease button-icon-secondary"
+                          type="button"
+                          id="button-addon1"
+                          data-mdb-ripple-color="dark"
+                        >
+                          <i class="fas fa-minus"></i>
+                        </button>
+                        <input
+                          name="quantity"
+                          type="number"
+                          class="product__info-quantity form-control text-center border border-secondary"
+                          placeholder="Số lượng..."
+                          value="1"
+                          min="1"
+                          step="1"
+                          aria-label="Example text with button addon"
+                          aria-describedby="button-addon1"
+                        />
+                        <button
+                          class="product__info-increase button-icon-secondary"
+                          type="button"
+                          id="button-addon2"
+                          data-mdb-ripple-color="dark"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <a href="#" class="button-primary text-decoration-none"> Buy now </a>
-                <a href="#" class="button-secondary text-decoration-none">
-                  <i class="me-1 fa fa-shopping-basket"></i> Add to cart
-                </a>
-                <a href="#" class="button-primary text-decoration-none">
-                  <i class="me-1 fa fa-heart fa-lg"></i> Save
-                </a>
+                  <button href="#" class="button-primary text-decoration-none">Buy now</button>
+                  <button type="submit" class="button-secondary text-decoration-none add-to-cart">
+                    <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                  </button>
+                  <button href="#" class="button-primary text-decoration-none">
+                    <i class="me-1 fa fa-heart fa-lg"></i> Save
+                  </button>
+                </form>
               </div>
             </div>
           </div>
