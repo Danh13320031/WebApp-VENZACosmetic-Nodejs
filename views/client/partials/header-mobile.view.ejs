@@ -15,6 +15,16 @@
         <div class="menu-icon icon-bar">
           <i class="fa-solid fa-bars"></i>
         </div>
+        <a
+          href="/cart"
+          class="menu-icon icon-cart"
+          title="Hiện có <%= miniCart ? miniCart.totalQuantityOrder : 0  %> đơn hàng trong giỏ hàng"
+        >
+          <i class="bi bi-bag-check-fill"></i>
+          <% if(miniCart) { %>
+          <div class="header-others-cart-number"><%= miniCart.totalQuantityProduct %></div>
+          <% } %>
+        </a>
         <div class="menu-icon icon-search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>

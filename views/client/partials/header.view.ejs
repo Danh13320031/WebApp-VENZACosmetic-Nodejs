@@ -44,9 +44,73 @@
 
       <div class="col-lg-4 col-12 header-others">
         <div class="header-others-box mt-2">
-          <a href="/cart" class="header-others-cart">
+          <div class="header-others-cart">
             <i class="bi bi-bag-check-fill"></i>
-          </a>
+            <% if(miniCart) { %>
+            <div class="header-others-cart-number"><%= miniCart.totalQuantityProduct %></div>
+            <% } %>
+            <div class="p-2 d-flex flex-column gap-1 header-others-cart-box">
+              <h4
+                title="Hiện có <%= miniCart ? miniCart.totalQuantityOrder : 0  %> đơn hàng và <%= miniCart ? miniCart.totalQuantityProduct : 0  %> sản phẩm trong giỏ hàng"
+                class="title-font my-2 text-capitalize text-center header-others-cart-title"
+              >
+                Giỏ hàng
+                <i class="bi bi-bag-check-fill"></i>
+                (<%= miniCart ? miniCart.totalQuantityOrder : 0 %>)
+              </h4>
+              <% if(miniCart.productListCart.length <= 0) { %>
+              <div class="my-2 text-center header-others-cart-empty">
+                Ko có đơn hàng nào trong giỏ hàng.
+                <a href="/products">Mua ngay</a>
+              </div>
+              <% } else { %>
+              <ul class="ps-0 overflow-y-scroll d-flex flex-column gap-2 header-others-cart-list">
+                <% miniCart.productListCart.forEach((product) => { %>
+                <li
+                  class="d-flex gap-1 border border-bottom-1 border-top-0 border-end-0 border-start-0 p-1 header-others-cart-item"
+                >
+                  <div class="d-flex align-items-center cart-item-button">
+                    <i class="p-2 bg-light rounded-5 fa-solid fa-xmark"></i>
+                  </div>
+                  <div class="cart-item-img">
+                    <a href="/products/detail/<%= product.slug %>"
+                      ><img src="<%= product.thumbnail %>" alt="" width="60px"
+                    /></a>
+                  </div>
+                  <div class="px-1 w-100 cart-item-info">
+                    <a
+                      href="/products/detail/<%= product.slug %>"
+                      class="content-font fw-bold d-flex justify-content-between text-decoration-none text-dark cart-item-info-title"
+                    >
+                      <%= product.title %>
+                    </a>
+                    <div class="content-font d-flex justify-content-between cart-item-info-price">
+                      <div class="item-info-item-price">
+                        $<%= Number.parseFloat(product.price - (product.price * product.discount /
+                        100)).toFixed(2) %> x <%= product.quantity %>
+                      </div>
+                      <div class="text-danger fw-bold item-info-item-total">
+                        $<%= Number.parseFloat((product.price - (product.price * product.discount /
+                        100)) * product.quantity).toFixed(2) %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %> <% if(miniCart.totalQuantityProduct > 0) { %>
+              <h4 class="title-font my-2 text-capitalize text-center header-others-cart-title">
+                <i class="bi bi-bag-check-fill"></i>
+                Tổng tiền:
+                <span class="fw-bold text-danger header-others-cart-total">
+                  $<%= miniCart.totalPriceOrder %>
+                </span>
+              </h4>
+              <% } %>
+              <a href="/cart" class="button-secondary text-center text-decoration-none header-others-cart-button">Đi Tới Giỏ Hàng</a>
+              <a class="button-primary text-center text-decoration-none header-others-cart-button">Thanh toán</a>
+            </div>
+          </div>
           <div class="header-others-notice">
             <i class="fa-solid fa-bell"></i>
           </div>
