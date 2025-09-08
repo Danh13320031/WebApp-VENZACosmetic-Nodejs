@@ -1,4 +1,42 @@
+import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import cartModel from '../../models/cart.model.js';
+import categoryModel from '../../models/category.model.js';
+import productModel from '../../models/product.model.js';
+
+// [GET]: /cart
+const cart = async (req, res) => {
+  try {
+    const find = { status: 'active', deleted: false };
+    const categoryList = await categoryModel.find(find);
+    const categoryTree = categoryTreeHelper(categoryList);
+    const cartId = req.cookies.cartId;
+    const cart = await cartModel.findById(cartId);
+
+    if (cart.products.length > 0) {
+      for (let i = 0; i < cart.products.length; i++) {
+        const product = await productModel
+          .findById(cart.products[i].product_id)
+          .select('title thumbnail price slug discount');
+        cart.products[i].productInfo = product;
+        cart.products[i].productInfo.newPrice = Number.parseFloat(
+          product.price - (product.price * product.discount) / 100
+        ).toFixed(2);
+      }
+
+      cart.totalPrice = Number.parseFloat(
+        cart.products.reduce((total, product) => total + product.productInfo.newPrice * product.quantity, 0)
+      ).toFixed(2);
+    }
+
+    res.render('./client/pages/cart/cart.view.ejs', {
+      pageTitle: 'Giỏ hàng',
+      categoryTree: categoryTree,
+      cart: cart,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // [POST]: /cart/:productId
 const addProductToCart = async (req, res) => {
@@ -33,6 +71,7 @@ const addProductToCart = async (req, res) => {
 };
 
 const cartController = {
+  cart,
   addProductToCart,
 };
 

@@ -107,8 +107,14 @@
                 </span>
               </h4>
               <% } %>
-              <a href="/cart" class="button-secondary text-center text-decoration-none header-others-cart-button">Đi Tới Giỏ Hàng</a>
-              <a class="button-primary text-center text-decoration-none header-others-cart-button">Thanh toán</a>
+              <a
+                href="/cart"
+                class="button-secondary text-center text-decoration-none header-others-cart-button"
+                >Đi Tới Giỏ Hàng</a
+              >
+              <a class="button-primary text-center text-decoration-none header-others-cart-button"
+                >Thanh toán</a
+              >
             </div>
           </div>
           <div class="header-others-notice">
@@ -185,6 +191,12 @@
               class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
               nav-link" <% } %>>Liên hệ & Giúp đỡ</a
             >
+          </li>
+          <li class="navheader-menu-item">
+            <a href="/cart" <% if(cartActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %>>Giỏ hàng<i class="ms-1 fs-6 bi bi-bag-check-fill"></i
+            ></a>
           </li>
         </ul>
       </div>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- SlickSlide -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
+    aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: 'active' });
+    %> <%-include("../../partials/header-mobile.view.ejs") %>
+
+    <main class="main">
+      <h1 class="heading-font cart__list-heading">Giỏ hàng</h1>
+
+      <section class="pb-5 cart-list">
+        <div class="container">
+          <div class="row g-3">
+            <div class="col-lg-9 col-md-8 col-12">
+              <div class="overflow-x-scroll w-100 cart-table-wrapper">
+                <table class="w-100 table cart-table">
+                  <thead class="cart-head">
+                    <tr class="text-uppercase cart-head-row cart-row row-title">
+                      <th class="cart-head-cell cart-cell cell-title">Stt</th>
+                      <th class="cart-head-cell cart-cell cell-title">Ảnh</th>
+                      <th class="cart-head-cell cart-cell cell-title">Tên</th>
+                      <th class="cart-head-cell cart-cell cell-title">Giá</th>
+                      <th class="cart-head-cell cart-cell cell-title">Số lượng</th>
+                      <th class="cart-head-cell cart-cell cell-title">Thành tiền</th>
+                      <th class="cart-head-cell cart-cell cell-title">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody class="content-font cart-body">
+                    <% if(cart.products.length > 0) { %> <% cart.products.forEach((product, index)=>
+                    { %>
+                    <tr class="cart-body-row cart-row">
+                      <td class="cart-body-cell cart-cell"><%= index + 1 %></td>
+                      <td class="cart-body-cell cart-cell">
+                        <a
+                          href="/products/detail/<%= product.productInfo.slug %>"
+                          class="cart-body-product-link"
+                        >
+                          <img
+                            src="<%= product.productInfo.thumbnail %>"
+                            alt="Ảnh sản phẩm"
+                            width="60px"
+                            class="cart-body-product-thumbnail"
+                          />
+                        </a>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <a
+                          href="/products/detail/<%= product.productInfo.slug %>"
+                          class="text-decoration-none text-dark cart-body-product-link"
+                        >
+                          <%= product.productInfo.title %>
+                        </a>
+                      </td>
+                      <td class="cart-body-cell cart-cell">$<%= product.productInfo.newPrice %></td>
+                      <td class="cart-body-cell cart-cell">
+                        <form action="">
+                          <input
+                            type="number"
+                            class="input-type01 text-center w-100 cart-body-product-quantity"
+                            value="<%= product.quantity %>"
+                          />
+                        </form>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="fw-bold text-warning cart-body-product-total">
+                          $<%= Number.parseFloat(product.productInfo.newPrice *
+                          product.quantity).toFixed(2) %>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <button
+                          class="button-icon-primary cart-body-product-remove"
+                          product-id="<%= product.productInfo._id %>"
+                        >
+                          <i class="bi bi-x-lg"></i>
+                        </button>
+                        <button class="button-icon-primary cart-body-product-like">
+                          <i class="bi bi-heart-fill"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <% }) %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-12">
+              <div class="d-flex flex-column cart-info">
+                <div class="cart-coupon">
+                  <h4 class="fw-bold title-font text-uppercase cart-coupon-heading">Mã gảm giá</h4>
+                  <form action="" class="d-flex flex-column gap-2 cart-coupon-form">
+                    <input
+                      name="coupon"
+                      type="text"
+                      class="input-type01 cart-coupon-input"
+                      placeholder="Nhập mã gảm giá..."
+                    />
+                    <button type="submit" class="button-primary w-100 cart-coupon-btn">
+                      Áp dụng
+                    </button>
+                  </form>
+                  <hr />
+                </div>
+                <div class="cart-total">
+                  <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
+                  <div class="d-flex justify-content-between align-items-center cart-total-price">
+                    <span class="cart-total-price-title">Tổng tiền:</span>
+                    <span class="heading-font fw-bold text-danger py-0 cart-total-price-value"
+                      >$<%= cart.totalPrice %></span
+                    >
+                  </div>
+                  <hr />
+                </div>
+                <div class="cart-payment">
+                  <a
+                    href=""
+                    class="button-secondary w-100 d-block text-center text-decoration-none cart-payment-btn"
+                    >Tiến hành thanh toán</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%-include('../../partials/footer.view.ejs') %>
+
+    <!-- Scripts File -->
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- SlickSlide -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
