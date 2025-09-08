@@ -4,5 +4,6 @@ const cartRoute = express.Router();
 
 cartRoute.get('/', cartController.cart);
 cartRoute.post('/add/:productId', cartController.addProductToCart);
+cartRoute.patch('/delete/:productId', cartController.deleteProductInCart);
 
 export default cartRoute;
