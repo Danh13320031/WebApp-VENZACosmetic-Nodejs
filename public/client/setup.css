@@ -97,10 +97,23 @@
 /* End Scrollbar Setup */
 
 /* Bootstrap Setup */
+.container {
+  max-width: 1200px;
+}
 input[type='number']:focus,
 input[type='text']:focus,
 input[type='email']:focus,
 input[type='password']:focus {
+  outline: none;
+  box-shadow: none;
+}
+input[type='text'].input-type01,
+input[type='email'].input-type01,
+input[type='password'].input-type01,
+input[type='number'].input-type01 {
+  border: var(--border-thickness-field) solid var(--primary-border-color-field);
+  border-radius: none;
+  padding: var(--padding-field);
   outline: none;
   box-shadow: none;
 }
@@ -141,6 +154,7 @@ input[type='checkbox']:checked {
   font-size: var(--heading-font-size);
   font-weight: var(--heading-font-weight);
   padding: 60px 0px;
+  text-transform: capitalize;
 }
 .title-font {
   font-size: var(--title-font-size);
@@ -187,6 +201,12 @@ input[type='checkbox']:checked {
   background: var(--dark-gray-color);
   border: var(--border-thickness-button) solid var(--dark-gray-color);
   cursor: pointer;
+}
+.button-icon-primary:hover {
+  color: var(--dark-gray-color);
+  background: none;
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  transition: 0.4s ease;
 }
 .button-icon-secondary {
   padding: var(--padding-button2);
