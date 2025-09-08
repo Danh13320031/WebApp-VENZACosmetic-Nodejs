@@ -24,7 +24,10 @@ const cart = async (req, res) => {
       }
 
       cart.totalPrice = Number.parseFloat(
-        cart.products.reduce((total, product) => total + product.productInfo.newPrice * product.quantity, 0)
+        cart.products.reduce(
+          (total, product) => total + product.productInfo.newPrice * product.quantity,
+          0
+        )
       ).toFixed(2);
     }
 
@@ -70,9 +73,22 @@ const addProductToCart = async (req, res) => {
   }
 };
 
+const deleteProductInCart = async (req, res) => {
+  const productId = req.params.productId;
+  const cartId = req.cookies.cartId;
+
+  try {
+    await cartModel.findByIdAndUpdate(cartId, { $pull: { products: { product_id: productId } } });
+    res.redirect('back');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const cartController = {
   cart,
   addProductToCart,
+  deleteProductInCart,
 };
 
 export default cartController;
