@@ -67,7 +67,7 @@
               <ul class="ps-0 overflow-y-scroll d-flex flex-column gap-2 header-others-cart-list">
                 <% miniCart.productListCart.forEach((product) => { %>
                 <li
-                  class="d-flex gap-1 border border-bottom-1 border-top-0 border-end-0 border-start-0 p-1 header-others-cart-item"
+                  class="d-flex align-items-center gap-1 border border-bottom-1 border-top-0 border-end-0 border-start-0 p-1 header-others-cart-item"
                 >
                   <div
                     class="d-flex align-items-center cart-item-button cart-product-remove"
@@ -77,7 +77,7 @@
                   </div>
                   <div class="cart-item-img">
                     <a href="/products/detail/<%= product.slug %>"
-                      ><img src="<%= product.thumbnail %>" alt="" width="60px"
+                      ><img src="<%= product.thumbnail %>" alt="" width="80px"
                     /></a>
                   </div>
                   <div class="px-1 w-100 cart-item-info">
@@ -87,15 +87,24 @@
                     >
                       <%= product.title %>
                     </a>
-                    <div class="content-font d-flex justify-content-between cart-item-info-price">
-                      <div class="item-info-item-price">
-                        $<%= Number.parseFloat(product.price - (product.price * product.discount /
-                        100)).toFixed(2) %> x <%= product.quantity %>
+                    <div class="d-flex flex-column gap-1">
+                      <div class="content-font d-flex justify-content-between cart-item-info-price">
+                        <div class="item-info-item-price">
+                          $<%= Number.parseFloat(product.price - (product.price * product.discount /
+                          100)).toFixed(2) %> x <%= product.quantity %>
+                        </div>
+                        <div class="text-danger fw-bold item-info-item-total">
+                          $<%= Number.parseFloat((product.price - (product.price * product.discount
+                          / 100)) * product.quantity).toFixed(2) %>
+                        </div>
                       </div>
-                      <div class="text-danger fw-bold item-info-item-total">
-                        $<%= Number.parseFloat((product.price - (product.price * product.discount /
-                        100)) * product.quantity).toFixed(2) %>
-                      </div>
+                      <input
+                        type="number"
+                        min="0"
+                        class="input-type01 text-center w-100 cart-body-product-quantity"
+                        product-id="<%= product.id %>"
+                        value="<%= product.quantity %>"
+                      />
                     </div>
                   </div>
                 </li>

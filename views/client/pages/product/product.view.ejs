@@ -288,6 +288,20 @@
       </div>
     </main>
 
+    <form
+      action="/cart/delete"
+      method="POST"
+      class="d-none form-delete-product-cart"
+      id="form-delete-product-cart"
+    ></form>
+
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
     <%-include("../../partials/footer.view.ejs") %>
 
     <!-- Scripts File -->
@@ -302,6 +316,8 @@
     <script src="/client/scripts/product/filterByProductQuantity.js"></script>
     <script src="/client/scripts/product/removeProductFilter.js"></script>
     <script src="/client/scripts/product/pagination.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
