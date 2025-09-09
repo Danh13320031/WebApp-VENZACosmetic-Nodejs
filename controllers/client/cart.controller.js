@@ -16,7 +16,7 @@ const cart = async (req, res) => {
       for (let i = 0; i < cart.products.length; i++) {
         const product = await productModel
           .findById(cart.products[i].product_id)
-          .select('title thumbnail price slug discount');
+          .select('title thumbnail price slug discount stock');
         cart.products[i].productInfo = product;
         cart.products[i].productInfo.newPrice = Number.parseFloat(
           product.price - (product.price * product.discount) / 100
@@ -73,6 +73,7 @@ const addProductToCart = async (req, res) => {
   }
 };
 
+// [DELETE]: /cart/delete/:productId
 const deleteProductInCart = async (req, res) => {
   const productId = req.params.productId;
   const cartId = req.cookies.cartId;
@@ -85,10 +86,34 @@ const deleteProductInCart = async (req, res) => {
   }
 };
 
+// [PATCH]: /cart/update/:productId/:quantity
+const changeProductQuantity = async (req, res) => {
+  const productId = req.params.productId;
+  const quantity = req.params.quantity;
+  const cartId = req.cookies.cartId;
+
+  try {
+    await cartModel.updateOne(
+      {
+        _id: cartId,
+        'products.product_id': productId,
+      },
+      {
+        $set: { 'products.$.quantity': quantity },
+      }
+    );
+
+    res.redirect('back');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const cartController = {
   cart,
   addProductToCart,
   deleteProductInCart,
+  changeProductQuantity,
 };
 
 export default cartController;

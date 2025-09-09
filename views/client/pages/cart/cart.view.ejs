@@ -87,14 +87,13 @@
                       </td>
                       <td class="cart-body-cell cart-cell">$<%= product.productInfo.newPrice %></td>
                       <td class="cart-body-cell cart-cell">
-                        <form action="">
-                          <input
-                            type="number"
-                            min="0"
-                            class="input-type01 text-center w-100 cart-body-product-quantity"
-                            value="<%= product.quantity %>"
-                          />
-                        </form>
+                        <input
+                          type="number"
+                          min="0"
+                          class="input-type01 text-center w-100 cart-body-product-quantity"
+                          product-id="<%= product.productInfo._id %>"
+                          value="<%= product.quantity %>"
+                        />
                       </td>
                       <td class="cart-body-cell cart-cell">
                         <div class="fw-bold text-warning cart-body-product-total">
@@ -175,11 +174,19 @@
       id="form-delete-product-cart"
     ></form>
 
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
     <%-include('../../partials/footer.view.ejs') %>
 
     <!-- Scripts File -->
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
