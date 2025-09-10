@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/pages/payment/payment.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <!-- Leaflet Geocoder CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
+    aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: '' }); %>
+    <%-include("../../partials/header-mobile.view.ejs") %>
+
+    <main class="main">
+      <h1 class="heading-font payment-heading">Thanh toán</h1>
+
+      <div class="pb-5 payment-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="w-100 bg-white payment">
+                <div class="row">
+                  <div class="col-lg-5 col-12">
+                    <div class="p-3 bg-dark w-100 h-100 payment-info-user">
+                      <div class="payment-icon">
+                        <i class="heading-font text-white bi bi bi-credit-card-fill"></i>
+                      </div>
+                      <ul class="payment-info-user-list">
+                        <li class="payment-info-user-email">
+                          <h5 class="text-light text-white">
+                            <i class="me-2 bi bi-envelope-fill"></i>Email người dùng
+                          </h5>
+                          <p class="text-light">danh13320031@gmail.com</p>
+                        </li>
+                        <li class="payment-info-user-email">
+                          <h5 class="text-light text-white">
+                            <i class="me-2 bi bi-telephone-fill"></i>Số điện thoại người dùng
+                          </h5>
+                          <p class="text-light">0123456789</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-7 col-12">
+                    <div class="p-3 payment-info-form-box">
+                      <form
+                        action=""
+                        method="POST"
+                        class="d-flex flex-column gap-3 payment-info-form"
+                      >
+                        <div class="payment-info-form-title">
+                          <h4 class="fw-bold title-font text-uppercase payment-info-form-title">
+                            Thông tin thanh toán
+                          </h4>
+                        </div>
+                        <div class="d-flex flex-column payment-info-form-input">
+                          <div class="row row-gap-3">
+                            <div class="col-lg-6 col-12">
+                              <div class="w-100 payment-info-form-fullname form-input-fullname">
+                                <label
+                                  for="fullname"
+                                  class="title-font payment-info-form-label form-label-fullname"
+                                  >Họ và tên người nhận</label
+                                >
+                                <input
+                                  type="text"
+                                  name="fullname"
+                                  id="fullname"
+                                  required
+                                  placeholder="Nhập họ và tên..."
+                                  class="input-type01 w-100 payment-info-form-inp form-inp-fullname"
+                                />
+                                <span
+                                  class="text-danger payment-info-form-error form-error-fullname"
+                                  >Vui lòng nhập địa chi email</span
+                                >
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                              <div class="w-100 payment-info-form-phone form-input-phone">
+                                <label
+                                  for="phone"
+                                  class="title-font payment-info-form-label form-label-phone"
+                                  >Sô điện thoại xác nhận</label
+                                >
+                                <input
+                                  type="text"
+                                  name="phone"
+                                  id="phone"
+                                  required
+                                  placeholder="Nhập số điện thoại..."
+                                  class="input-type01 w-100 payment-info-form-inp form-inp-phone"
+                                />
+                                <span class="text-danger payment-info-form-error form-error-phone"
+                                  >Vui lòng nhập số điện thoại</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column payment-info-form-input form-input-email">
+                          <label
+                            for="email"
+                            class="title-font payment-info-form-label form-label-email"
+                            >Email xác nhận thanh toán</label
+                          >
+                          <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            required
+                            placeholder="Nhập địa chi email..."
+                            class="input-type01 payment-info-form-inp form-inp-email"
+                          />
+                          <span class="text-danger payment-info-form-error form-error-email"
+                            >Vui lòng nhập địa chi email</span
+                          >
+                        </div>
+                        <div
+                          class="d-flex flex-column position-relative payment-info-form-input form-input-address"
+                        >
+                          <label
+                            for="address"
+                            class="title-font payment-info-form-label form-label-address"
+                            >Địa chi nhận hàng</label
+                          >
+                          <input
+                            type="text"
+                            name="address"
+                            id="address"
+                            required
+                            placeholder="Nhập điểm nhận hàng..."
+                            class="input-type01 payment-info-form-inp form-inp-address"
+                          />
+                          <!-- <span class="text-danger payment-info-form-error form-error-address"
+                            >Vui lòng nhập điểm nhận hàng</span
+                          > -->
+                          <div
+                            class="position-absolute w-100 top-100 p-2 shadow bg-white payment-info-form-map form-map-address"
+                            id="map"
+                          >
+                            <ul
+                              class="ps-0 d-flex flex-column justify-content-center w-100 h-100 gap-2 list-group form-map-list"
+                            ></ul>
+                          </div>
+                        </div>
+                        <div class="payment-info-form-input form-input-checkout">
+                          <h4 class="title-font payment-info-form-title">Phương thức thanh toán</h4>
+                          <div class="payment-info-form-radio">
+                            <input
+                              type="radio"
+                              name="payment_method"
+                              id="offline"
+                              value="offline"
+                              class="input-type01 payment-info-form-inp form-inp-checkout"
+                            />
+                            <label
+                              for="offline"
+                              class="content-font payment-info-form-label form-label-checkout"
+                              >Thanh toán khi nhận hàng</label
+                            >
+                          </div>
+                          <div class="payment-info-form-radio">
+                            <input
+                              type="radio"
+                              name="payment_method"
+                              id="online"
+                              value="online"
+                              class="input-type01 payment-info-form-inp form-inp-checkout"
+                            />
+                            <label
+                              for="online"
+                              class="content-font payment-info-form-label form-label-checkout"
+                              >Thanh toán online</label
+                            >
+                          </div>
+                          <span class="text-danger payment-info-form-error form-error-checkout"
+                            >Vui lòng chọn phương thức thanh toán</span
+                          >
+                        </div>
+                        <div class="payment-info-form-input form-input-shipping">
+                          <h4 class="title-font payment-info-form-title">Phương thức vận chuyển</h4>
+                          <div class="payment-info-form-radio">
+                            <input
+                              type="radio"
+                              name="shipping_method"
+                              id="shipping_standard"
+                              value="standard"
+                              class="input-type01 payment-info-form-inp form-inp-shipping"
+                            />
+                            <label
+                              for="shipping_standard"
+                              class="content-font payment-info-form-label form-label-shipping"
+                              >Giao hàng tiêu chuẩn</label
+                            >
+                          </div>
+                          <div class="payment-info-form-radio">
+                            <input
+                              type="radio"
+                              name="shipping_method"
+                              id="shipping_fast"
+                              value="fast"
+                              class="input-type01 payment-info-form-inp form-inp-shipping"
+                            />
+                            <label
+                              for="shipping_fast"
+                              class="content-font payment-info-form-label form-label-shipping"
+                              >Giao hàng nhanh</label
+                            >
+                          </div>
+                          <div class="payment-info-form-radio">
+                            <input
+                              type="radio"
+                              name="shipping_method"
+                              id="shipping_shop"
+                              value="shop"
+                              class="input-type01 payment-info-form-inp form-inp-shipping"
+                            />
+                            <label
+                              for="shipping_shop"
+                              class="content-font payment-info-form-label form-label-shipping"
+                              >Nhận tại cửa hàng</label
+                            >
+                          </div>
+                          <span class="text-danger payment-info-form-error form-error-shipping"
+                            >Vui lòng chọn phương thức vận chuyển</span
+                          >
+                        </div>
+                        <div class="payment-info-form-btn">
+                          <button
+                            type="submit"
+                            class="button-secondary w-100 payment-info-form-btn"
+                          >
+                            Thanh toán
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <form
+      action="/cart/delete"
+      method="POST"
+      class="d-none form-delete-product-cart"
+      id="form-delete-product-cart"
+    ></form>
+
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
+    <%-include('../../partials/footer.view.ejs') %>
+
+    <!-- Scripts File -->
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/payment/submitPaymentForm.js"></script>
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- Leaflet Geocoder JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="/client/scripts/payment/displayMapAddress.js"></script>
+    <script src="/client/scripts/payment/selectItemAddress.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
