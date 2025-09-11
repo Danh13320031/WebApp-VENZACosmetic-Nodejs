@@ -1,0 +1,16 @@
+.payment-wrapper .payment {
+  box-shadow: 0px 0px 18px var(--primary-shadow-color);
+}
+.payment-wrapper .payment .form-map-item {
+  cursor: pointer;
+}
+.payment-wrapper .payment .form-map-address {
+  display: none;
+}
+.payment-wrapper .payment .form-map-address.show {
+  display: block;
+}
+.payment-wrapper .payment .form-map-item:hover {
+  background-color: var(--light-gray-color);
+  color: var(--white-color);
+}

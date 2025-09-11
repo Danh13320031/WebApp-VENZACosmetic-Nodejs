@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- SlickSlide -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <main class="main">
+      <div
+        class="w-100 vh-100 p-4 d-flex justify-content-center align-items-center payment-success"
+      >
+        <div class="p-5 bg-white d-flex flex-column gap-3 shadow payment-success-content">
+          <div class="d-flex justify-content-center payment-success-logo">
+            <a href="http://127.0.0.1:5000/" class="payment-success-logo-link">
+              <img src="/client/images/Benefit_Cosmetics_logo.png" alt="logo" width="130px" />
+            </a>
+          </div>
+          <h2
+            class="title-font text-center m-0 text-uppercase fw-bold d-flex align-items-center justify-content-center gap-2 payment-success-title"
+            style="color: var(--success-color)"
+          >
+            <i
+              class="fs-4 bi bi-check-circle payment-success-icon"
+              style="color: var(--success-color)"
+            ></i>
+            <%= pageTitle %>
+          </h2>
+          <h5
+            class="text-center m-0 text-capitalize payment-success-order"
+            style="color: var(--primary-color)"
+          >
+            Mã đơn hàng: <%= orderId %>
+          </h5>
+          <div class="d-flex flex-column gap-0 payment-success-description-box">
+            <p class="text-center m-0 payment-success-description-item">
+              Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi
+            </p>
+            <p class="text-center m-0 payment-success-description-item">
+              Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất
+            </p>
+            <p class="text-center m-0 payment-success-description-item">
+              Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi
+            </p>
+          </div>
+          <div class="d-flex justify-content-center payment-success-btn">
+            <a
+              href="http://127.0.0.1:5000/products"
+              class="button-secondary text-decoration-none payment-success-btn-link"
+              >Tiếp tục mua hàng
+            </a>
+            <a
+              href="http://127.0.0.1:5000/"
+              class="button-primary text-decoration-none payment-success-btn-link"
+              >Đi tới trang chủ<i class="ms-2 bi bi-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts File -->
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- SlickSlide -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
