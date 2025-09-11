@@ -5,5 +5,6 @@ const paymentRoute = express.Router();
 paymentRoute.get('/', paymentController.payment);
 paymentRoute.post('/payment-create-offline', paymentController.paymentCreateOffline);
 paymentRoute.get('/payment-success/:orderId', paymentController.paymentSuccess);
+paymentRoute.get('/payment-fail', paymentController.paymentFail);
 
 export default paymentRoute;
