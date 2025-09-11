@@ -1,8 +1,10 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import categoryModel from '../../models/category.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
+import ejs from 'ejs';
 
 const payment = async (req, res) => {
   const find = { status: 'active', deleted: false };
@@ -68,15 +70,32 @@ const paymentCreateOffline = async (req, res) => {
 
   if (order) {
     await cartModel.updateOne({ _id: cartId }, { products: [] });
-    res.send('Thanh toán thanh cong');
+
+    const html = await ejs.renderFile('./views/client/pages/payment/payment-success.view.ejs', {
+      pageTitle: 'Thanh toán thành công',
+      orderId: order._id,
+    });
+
+    await sendMailHelper(order.userInfo.email, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
+    res.redirect('/payment/payment-success/' + order._id);
   } else {
-    res.send('Thanh toán that bai');
+    res.redirect('/payment/payment-fail');
   }
+};
+
+const paymentSuccess = async (req, res) => {
+  const orderId = req.params.orderId;
+
+  res.render('./client/pages/payment/payment-success.view.ejs', {
+    pageTitle: 'Thanh toán thành công',
+    orderId: orderId,
+  });
 };
 
 const paymentController = {
   payment,
   paymentCreateOffline,
+  paymentSuccess,
 };
 
 export default paymentController;
