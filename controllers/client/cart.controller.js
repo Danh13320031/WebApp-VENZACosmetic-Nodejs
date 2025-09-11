@@ -92,6 +92,13 @@ const changeProductQuantity = async (req, res) => {
   const quantity = req.params.quantity;
   const cartId = req.cookies.cartId;
 
+  const product = await productModel.findById(productId).select('stock');
+
+  if (quantity > product.stock) {
+    res.redirect('back');
+    return;
+  }
+
   try {
     await cartModel.updateOne(
       {
