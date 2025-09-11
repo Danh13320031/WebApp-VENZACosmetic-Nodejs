@@ -94,6 +94,11 @@ const createOfflinePayment = async (req, res) => {
 const notifySuccessPayment = async (req, res) => {
   const orderId = req.params.orderId;
 
+  if (!orderId) {
+    res.redirect('/payment/payment-fail');
+    return;
+  }
+
   res.render('./client/pages/payment/payment-success.view.ejs', {
     pageTitle: 'Thanh toán thành công',
     orderId: orderId,
