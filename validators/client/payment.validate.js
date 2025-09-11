@@ -14,6 +14,16 @@ const createOfflinePaymentValidate = (req, res, next) => {
     return;
   }
 
+  if (!req.body.payment_method) {
+    res.redirect('back');
+    return;
+  }
+
+  if (!req.body.shipping_method) {
+    res.redirect('back');
+    return;
+  }
+
   next();
 };
 
