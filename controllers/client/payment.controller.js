@@ -1,10 +1,10 @@
+import ejs from 'ejs';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import categoryModel from '../../models/category.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
-import ejs from 'ejs';
 
 // [GET]: /payment
 const payment = async (req, res) => {
@@ -19,10 +19,9 @@ const payment = async (req, res) => {
 };
 
 // [POST]: /payment/payment-create-offline
-const paymentCreateOffline = async (req, res) => {
+const createOfflinePayment = async (req, res) => {
   const body = req.body;
   const cartId = req.cookies.cartId;
-
   const userInfo = {
     fullname: body.name,
     email: body.email,
@@ -33,11 +32,11 @@ const paymentCreateOffline = async (req, res) => {
   const shipping = {
     method: body.shipping_method,
   };
-
   const cart = await cartModel.findById(cartId);
 
   let products = [];
   let total = 0;
+
   if (cart.products.length > 0) {
     for (let i = 0; i < cart.products.length; i++) {
       const productInfo = {
@@ -48,7 +47,7 @@ const paymentCreateOffline = async (req, res) => {
       };
       const product = await productModel
         .findById(cart.products[i].product_id)
-        .select('title thumbnail price discount');
+        .select('title thumbnail price discount stock');
 
       productInfo.price = product.price;
       productInfo.discount = product.discount;
@@ -58,6 +57,11 @@ const paymentCreateOffline = async (req, res) => {
     }
   }
 
+  if (products.length === 0 || !cartId) {
+    res.redirect('/payment/payment-fail');
+    return;
+  }
+
   const orderBody = {
     cart_id: cartId,
     userInfo: userInfo,
@@ -65,6 +69,7 @@ const paymentCreateOffline = async (req, res) => {
     products: products,
     shipping: shipping,
   };
+
   orderBody.total = Number.parseFloat(total).toFixed(2);
 
   const order = new orderModel(orderBody);
@@ -86,7 +91,7 @@ const paymentCreateOffline = async (req, res) => {
 };
 
 // [GET]: /payment/payment-success/:orderId
-const paymentSuccess = async (req, res) => {
+const notifySuccessPayment = async (req, res) => {
   const orderId = req.params.orderId;
 
   res.render('./client/pages/payment/payment-success.view.ejs', {
@@ -96,7 +101,7 @@ const paymentSuccess = async (req, res) => {
 };
 
 // [GET]: /payment/payment-fail
-const paymentFail = async (req, res) => {
+const notifyFailPayment = async (req, res) => {
   res.render('./client/pages/payment/payment-fail.view.ejs', {
     pageTitle: 'Thanh toán thất bại',
   });
@@ -104,9 +109,9 @@ const paymentFail = async (req, res) => {
 
 const paymentController = {
   payment,
-  paymentCreateOffline,
-  paymentSuccess,
-  paymentFail,
+  createOfflinePayment,
+  notifySuccessPayment,
+  notifyFailPayment,
 };
 
 export default paymentController;
