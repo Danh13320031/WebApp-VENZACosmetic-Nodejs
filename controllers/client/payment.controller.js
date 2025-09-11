@@ -6,6 +6,7 @@ import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
 import ejs from 'ejs';
 
+// [GET]: /payment
 const payment = async (req, res) => {
   const find = { status: 'active', deleted: false };
   const categoryList = await categoryModel.find(find);
@@ -17,6 +18,7 @@ const payment = async (req, res) => {
   });
 };
 
+// [POST]: /payment/payment-create-offline
 const paymentCreateOffline = async (req, res) => {
   const body = req.body;
   const cartId = req.cookies.cartId;
@@ -83,6 +85,7 @@ const paymentCreateOffline = async (req, res) => {
   }
 };
 
+// [GET]: /payment/payment-success/:orderId
 const paymentSuccess = async (req, res) => {
   const orderId = req.params.orderId;
 
@@ -92,10 +95,18 @@ const paymentSuccess = async (req, res) => {
   });
 };
 
+// [GET]: /payment/payment-fail
+const paymentFail = async (req, res) => {
+  res.render('./client/pages/payment/payment-fail.view.ejs', {
+    pageTitle: 'Thanh toán thất bại',
+  });
+};
+
 const paymentController = {
   payment,
   paymentCreateOffline,
   paymentSuccess,
+  paymentFail,
 };
 
 export default paymentController;
