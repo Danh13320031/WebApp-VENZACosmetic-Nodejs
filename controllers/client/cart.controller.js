@@ -11,16 +11,24 @@ const cart = async (req, res) => {
     const categoryTree = categoryTreeHelper(categoryList);
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findById(cartId);
+    let productIdCartList = [];
+    let productBrandCartList = [];
 
     if (cart.products.length > 0) {
       for (let i = 0; i < cart.products.length; i++) {
         const product = await productModel
           .findById(cart.products[i].product_id)
-          .select('title thumbnail price slug discount stock');
+          .select('title thumbnail price slug discount stock brand');
         cart.products[i].productInfo = product;
         cart.products[i].productInfo.newPrice = Number.parseFloat(
           product.price - (product.price * product.discount) / 100
         ).toFixed(2);
+
+        const idProduct = product._id;
+        if (!productIdCartList.includes(idProduct)) productIdCartList.push(idProduct);
+
+        const brand = product.brand;
+        if (!productBrandCartList.includes(brand)) productBrandCartList.push(brand);
       }
 
       cart.totalPrice = Number.parseFloat(
@@ -31,10 +39,24 @@ const cart = async (req, res) => {
       ).toFixed(2);
     }
 
+    console.log(productBrandCartList);
+
+    const relatedProductList = await productModel
+      .find({
+        $and: [
+          find,
+          { _id: { $nin: productIdCartList } },
+          { brand: { $in: productBrandCartList } },
+        ],
+      })
+      .sort({ createdAt: 'desc' })
+      .limit(6);
+
     res.render('./client/pages/cart/cart.view.ejs', {
       pageTitle: 'Giỏ hàng',
       categoryTree: categoryTree,
       cart: cart,
+      relatedProductList: relatedProductList,
     });
   } catch (error) {
     console.log(error);
@@ -99,14 +121,14 @@ const changeProductQuantity = async (req, res) => {
   const quantity = req.params.quantity;
   const cartId = req.cookies.cartId;
 
-  const product = await productModel.findById(productId).select('stock');
-
-  if (quantity > product.stock) {
-    res.redirect('back');
-    return;
-  }
-
   try {
+    const product = await productModel.findById(productId).select('stock');
+
+    if (quantity > product.stock) {
+      res.redirect('back');
+      return;
+    }
+
     await cartModel.updateOne(
       {
         _id: cartId,
