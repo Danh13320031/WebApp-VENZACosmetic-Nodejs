@@ -53,9 +53,16 @@ const addProductToCart = async (req, res) => {
       quantity,
     };
 
+    const product = await productModel.findById(productId);
+
     for (let i = 0; i < cart.products.length; i++) {
       if (cart.products[i].product_id === productId) {
-        const newQuantity = (cart.products[i].quantity += quantity);
+        let newQuantity = (cart.products[i].quantity += quantity);
+
+        if (newQuantity > product.stock) {
+          res.redirect('back');
+          return;
+        }
 
         await cartModel.findByIdAndUpdate(cartId, {
           $set: { [`products.${i}.quantity`]: newQuantity },
