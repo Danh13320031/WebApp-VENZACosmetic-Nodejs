@@ -79,6 +79,13 @@
                       <%= product.rating %>
                     </span>
                   </div>
+                  <% if(product.stock <= 0) { %>
+                  <span
+                    class="content-font product__info-stock mb-1"
+                    style="color: var(--error-color)"
+                    ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Đã hết hàng</span
+                  >
+                  <% } else { %>
                   <span class="content-font product__info-stock mb-1"
                     ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn
                     <span class="content-font info__stock-number fw-bold"
@@ -87,6 +94,7 @@
                     mặt hàng</span
                   >
                   <span class="content-font text-success ms-2">trong kho</span>
+                  <% } %>
                 </div>
 
                 <div class="mb-3">
@@ -154,10 +162,12 @@
                       </div>
                     </div>
                   </div>
+                  <% if (product.stock > 0) { %>
                   <button href="#" class="button-primary text-decoration-none">Buy now</button>
                   <button type="submit" class="button-secondary text-decoration-none add-to-cart">
                     <i class="me-1 fa fa-shopping-basket"></i> Add to cart
                   </button>
+                  <% } %>
                   <button href="#" class="button-primary text-decoration-none">
                     <i class="me-1 fa fa-heart fa-lg"></i> Save
                   </button>

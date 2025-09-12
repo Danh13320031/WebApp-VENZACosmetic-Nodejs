@@ -78,6 +78,13 @@ const createOfflinePayment = async (req, res) => {
   if (order) {
     await cartModel.updateOne({ _id: cartId }, { products: [] });
 
+    products.forEach(async (product) => {
+      await productModel.updateOne(
+        { _id: product.product_id },
+        { $inc: { stock: -product.quantity } }
+      );
+    });
+
     const html = await ejs.renderFile('./views/client/pages/payment/payment-success.view.ejs', {
       pageTitle: 'Thanh toán thành công',
       orderId: order._id,

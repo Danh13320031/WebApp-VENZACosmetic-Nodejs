@@ -36,8 +36,8 @@
   </head>
   <body>
     <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive:
-    "active", aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: '' }); %>
-    <%-include("../../partials/header-mobile.view.ejs") %>
+    "active", aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: ''
+    }); %> <%-include("../../partials/header-mobile.view.ejs") %>
 
     <main class="main">
       <!-- Banner Header -->
@@ -214,7 +214,8 @@
                       <i class="bi bi-star-fill"></i>
                       <% } %>
                     </div>
-                    <form action="/cart/add/<%= product.id %>" method="POST">
+                    <form <% if(product.stock>
+                      0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
                       <button type="submit" class="border-0 bg-transparent">
                         <i title="add to cart" class="bi bi-bag-check-fill"></i>
                       </button>
@@ -294,7 +295,8 @@
                       <i class="bi bi-star-fill"></i>
                       <% } %>
                     </div>
-                    <form action="/cart/add/<%= product.id %>" method="POST">
+                    <form <% if(product.stock>
+                      0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
                       <button type="submit" class="border-0 bg-transparent">
                         <i title="add to cart" class="bi bi-bag-check-fill"></i>
                       </button>
