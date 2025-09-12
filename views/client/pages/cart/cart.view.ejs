@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/pages/cart/cart.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
 
@@ -40,9 +41,9 @@
     %> <%-include("../../partials/header-mobile.view.ejs") %>
 
     <main class="main">
-      <h1 class="heading-font cart__list-heading">Giỏ hàng</h1>
+      <h3 class="heading-font cart__list-heading">Giỏ hàng</h3>
 
-      <section class="pb-5 cart-list">
+      <section class="cart-list">
         <div class="container">
           <div class="row g-3">
             <div class="col-lg-9 col-md-8 col-12">
@@ -126,16 +127,17 @@
                 </table>
               </div>
             </div>
+
             <div class="col-lg-3 col-md-4 col-12">
               <div class="d-flex flex-column cart-info">
                 <div class="cart-coupon">
-                  <h4 class="fw-bold title-font text-uppercase cart-coupon-heading">Mã gảm giá</h4>
+                  <h4 class="fw-bold title-font text-uppercase cart-coupon-heading">Mã giảm giá</h4>
                   <form action="" class="d-flex flex-column gap-2 cart-coupon-form">
                     <input
                       name="coupon"
                       type="text"
                       class="input-type01 cart-coupon-input"
-                      placeholder="Nhập mã gảm giá..."
+                      placeholder="Nhập mã giảm giá..."
                     />
                     <button type="submit" class="button-primary w-100 cart-coupon-btn">
                       Áp dụng
@@ -143,10 +145,21 @@
                   </form>
                   <hr />
                 </div>
+
+                <div class="cart-coupon">
+                  <h4 class="fw-bold title-font text-uppercase cart-total-heading">
+                    Phí vận chuyển
+                  </h4>
+                  <div class="d-flex justify-content-between align-items-center cart-total-price">
+                    <span class="cart-total-price-title">Cộng thêm: <b>+5$</b></span>
+                  </div>
+                  <hr />
+                </div>
+
                 <div class="cart-total">
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
                   <div class="d-flex justify-content-between align-items-center cart-total-price">
-                    <span class="cart-total-price-title">Tổng tiền:</span>
+                    <span class="cart-total-price-title">Tổng chi phí:</span>
                     <span class="heading-font fw-bold text-danger py-0 cart-total-price-value"
                       >$<%= cart.totalPrice %></span
                     >
@@ -165,6 +178,69 @@
           </div>
         </div>
       </section>
+
+      <% if(cart.products.length > 0) { %>
+      <section class="pb-5 related-products">
+        <h3 class="heading-font text-center related-products__title">Sản phẩm liên quan</h3>
+
+        <div class="container">
+          <div class="row justify-content-center g-2">
+            <% if(relatedProductList.length === 0) { %><span class="content-font text-center"
+              >(Không tìm thấy sản phẩm phù hợp)</span
+            ><% } %> <% relatedProductList.forEach(product => { %>
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="card__bg" title="<%= product.title %>">
+                <div class="card__image">
+                  <img
+                    src="<%= product.thumbnail %>"
+                    alt="product"
+                    width="100%"
+                    class="card__thumbnail"
+                  />
+                  <div class="card__link">
+                    <a
+                      href="/products/detail/<%= product.slug %>"
+                      class="content-font card__link-detail"
+                      >Xem chi tiết</a
+                    >
+                  </div>
+                </div>
+                <div class="content-font card__title mt-1">
+                  <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %> <%
+                  } else { %> <%= product.title %> <% } %>
+                </div>
+                <div class="card__box d-flex justify-content-between align-items-center">
+                  <h5 class="title-font card__price">
+                    $<%= Number.parseFloat(product.price - (product.price / 100 *
+                    product.discount)).toFixed(2) %>
+                  </h5>
+                  <div class="card__favorite">
+                    <i class="bi bi-suit-heart-fill"></i>
+                  </div>
+                </div>
+                <div class="content-font text-danger text-decoration-line-through">
+                  Giá gốc: $<%= product.price %>
+                </div>
+                <div class="card__rating d-flex justify-content-between align-items-center">
+                  <div class="card__star">
+                    <% for(let i = 1; i <= product.rating; i++) { %>
+                    <i class="bi bi-star-fill"></i>
+                    <% } %>
+                  </div>
+                  <form <% if(product.stock>
+                    0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
+                    <button type="submit" class="border-0 bg-transparent">
+                      <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </section>
+      <% } %>
     </main>
 
     <form
