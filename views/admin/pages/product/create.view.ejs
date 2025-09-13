@@ -62,15 +62,22 @@
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description">Mô tả</label>
+                  <label for="description">Mô tả ngắn</label>
                   <textarea name="description" class="form-control" id="description"></textarea>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="detail">Mô tả chi tiết</label>
+                  <textarea name="detail" class="form-control" id="detail"></textarea>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="price"
-                    ><span class="text-danger"><b>*</b></span> Giá ($)</label
+                    ><span class="text-danger"><b>*</b></span> Giá (đ)</label
                   >
                   <input
                     type="number"
@@ -179,7 +186,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="shipping_fee"> Phí vận chuyển ($)</label>
+                  <label for="shipping_fee"> Phí vận chuyển (đ)</label>
                   <input
                     type="number"
                     value="0"
@@ -279,6 +286,12 @@
     <!-- Script Library & Framwork -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.tiny.cloud/1/j8bmm28z8l7u8m5at9v64rveeytj143ibxpezl0aks1g6uzx/tinymce/8/tinymce.min.js"
+      referrerpolicy="origin"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/admin/scripts/tinymce.js"></script>
     <script src="../../reload/reload.js"></script>
   </body>
 </html>

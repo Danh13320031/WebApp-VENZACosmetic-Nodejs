@@ -91,13 +91,17 @@
                     <h2>
                       <b class="text-danger"
                         ><i
-                          ><%= Number.parseFloat(product.price - (product.price / 100 *
-                          product.discount)).toFixed(2) %>$</i
+                          ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(Number.parseFloat(product.price - (product.price / 100 *
+                          product.discount))) %></i
                         ></b
                       >
                       | Giá gốc:
                     </h2>
-                    <h2 class="ms-2 text-decoration-line-through"><%= product.price %>$</h2>
+                    <h2 class="ms-2 text-decoration-line-through">
+                      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(product.price) %>
+                    </h2>
                     <h5 class="ms-3 text-secondary">/ per box</h5>
                     <% } %>
                   </div>

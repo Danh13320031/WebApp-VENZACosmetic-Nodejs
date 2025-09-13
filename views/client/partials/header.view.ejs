@@ -90,12 +90,14 @@
                     <div class="d-flex flex-column gap-1">
                       <div class="content-font d-flex justify-content-between cart-item-info-price">
                         <div class="item-info-item-price">
-                          $<%= Number.parseFloat(product.price - (product.price * product.discount /
-                          100)).toFixed(2) %> x <%= product.quantity %>
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(Number.parseFloat(product.price - (product.price *
+                          product.discount / 100))) %> x <%= product.quantity %>
                         </div>
                         <div class="text-danger fw-bold item-info-item-total">
-                          $<%= Number.parseFloat((product.price - (product.price * product.discount
-                          / 100)) * product.quantity).toFixed(2) %>
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(Number.parseFloat((product.price - (product.price *
+                          product.discount / 100)) * product.quantity)) %>
                         </div>
                       </div>
                       <input
@@ -115,7 +117,8 @@
                 <i class="bi bi-bag-check-fill"></i>
                 Tổng tiền:
                 <span class="fw-bold text-danger header-others-cart-total">
-                  $<%= miniCart.totalPriceOrder %>
+                  <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                  }).format(miniCart.totalPriceOrder) %>
                 </span>
               </h4>
               <% } %>
