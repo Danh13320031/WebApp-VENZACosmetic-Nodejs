@@ -93,32 +93,41 @@ const product = async (req, res) => {
 
 // GET: /products/detail/:productSlug
 const getProductDetail = async (req, res) => {
-  const productSlug = req.params.productSlug;
-  const find = { status: 'active', deleted: false };
-  const categoryList = await categoryModel.find(find);
-  const categoryTree = categoryTreeHelper(categoryList);
+  try {
+    const productSlug = req.params.productSlug;
+    const find = { status: 'active', deleted: false };
+    const categoryList = await categoryModel.find(find);
+    const categoryTree = categoryTreeHelper(categoryList);
 
-  const product = await productModel
-    .findOne({
-      ...find,
-      slug: productSlug,
-      status: 'active',
-      deleted: false,
-    })
-    .populate('category');
+    const product = await productModel
+      .findOne({
+        ...find,
+        slug: productSlug,
+        status: 'active',
+        deleted: false,
+      })
+      .populate('category');
 
-  const category = await categoryModel
-    .findOne({
-      _id: product.category,
-    })
-    .select('title parent_id');
+    const category = await categoryModel
+      .findOne({
+        _id: product.category,
+      })
+      .select('title parent_id');
 
-  res.render('./client/pages/product/detail.view.ejs', {
-    pageTitle: product.title,
-    categoryTree: categoryTree,
-    product: product,
-    category: category,
-  });
+    const relatedProductList = await productModel.find({
+      $and: [find, { brand: product.brand }, { _id: { $ne: product._id } }],
+    });
+
+    res.render('./client/pages/product/detail.view.ejs', {
+      pageTitle: product.title,
+      categoryTree: categoryTree,
+      product: product,
+      category: category,
+      relatedProductList: relatedProductList,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const productController = {

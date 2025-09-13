@@ -24,8 +24,6 @@ const cart = async (req, res) => {
           product.price - (product.price * product.discount) / 100
         );
 
-        // .toFixed(2)
-
         const idProduct = product._id;
         if (!productIdCartList.includes(idProduct)) productIdCartList.push(idProduct);
 
@@ -33,17 +31,14 @@ const cart = async (req, res) => {
         if (!productBrandCartList.includes(brand)) productBrandCartList.push(brand);
       }
 
-      cart.totalPrice = Number.parseFloat(
-        cart.products.reduce(
-          (total, product) => total + product.productInfo.newPrice * product.quantity,
-          0
-        )
-      );
-
-      // .toFixed(2)
+      cart.totalPrice =
+        Number.parseFloat(
+          cart.products.reduce(
+            (total, product) => total + product.productInfo.newPrice * product.quantity,
+            0
+          )
+        ) || 0;
     }
-
-    console.log(productBrandCartList);
 
     const relatedProductList = await productModel
       .find({
