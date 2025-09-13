@@ -86,7 +86,10 @@
                           <%= product.productInfo.title %>
                         </a>
                       </td>
-                      <td class="cart-body-cell cart-cell">$<%= product.productInfo.newPrice %></td>
+                      <td class="cart-body-cell cart-cell">
+                        <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                        }).format(product.productInfo.newPrice) %>
+                      </td>
                       <td class="cart-body-cell cart-cell">
                         <input
                           type="number"
@@ -98,8 +101,9 @@
                       </td>
                       <td class="cart-body-cell cart-cell">
                         <div class="fw-bold text-warning cart-body-product-total">
-                          $<%= Number.parseFloat(product.productInfo.newPrice *
-                          product.quantity).toFixed(2) %>
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(Number.parseFloat(product.productInfo.newPrice *
+                          product.quantity)) %>
                         </div>
                       </td>
                       <td class="cart-body-cell cart-cell">
@@ -151,7 +155,13 @@
                     Phí vận chuyển
                   </h4>
                   <div class="d-flex justify-content-between align-items-center cart-total-price">
-                    <span class="cart-total-price-title">Cộng thêm: <b>+5$</b></span>
+                    <span class="cart-total-price-title"
+                      >Cộng thêm:
+                      <b
+                        >+<%=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                        }).format(12000) %></b
+                      ></span
+                    >
                   </div>
                   <hr />
                 </div>
@@ -161,7 +171,8 @@
                   <div class="d-flex justify-content-between align-items-center cart-total-price">
                     <span class="cart-total-price-title">Tổng chi phí:</span>
                     <span class="heading-font fw-bold text-danger py-0 cart-total-price-value"
-                      >$<%= cart.totalPrice %></span
+                      ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(cart.totalPrice) %></span
                     >
                   </div>
                   <hr />
@@ -211,15 +222,17 @@
                 </div>
                 <div class="card__box d-flex justify-content-between align-items-center">
                   <h5 class="title-font card__price">
-                    $<%= Number.parseFloat(product.price - (product.price / 100 *
-                    product.discount)).toFixed(2) %>
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(Number.parseFloat(product.price - (product.price / 100 *
+                    product.discount))) %>
                   </h5>
                   <div class="card__favorite">
                     <i class="bi bi-suit-heart-fill"></i>
                   </div>
                 </div>
                 <div class="content-font text-danger text-decoration-line-through">
-                  Giá gốc: $<%= product.price %>
+                  Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                  }).format(product.price) %>
                 </div>
                 <div class="card__rating d-flex justify-content-between align-items-center">
                   <div class="card__star">

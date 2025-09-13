@@ -22,7 +22,9 @@ const cart = async (req, res) => {
         cart.products[i].productInfo = product;
         cart.products[i].productInfo.newPrice = Number.parseFloat(
           product.price - (product.price * product.discount) / 100
-        ).toFixed(2);
+        );
+
+        // .toFixed(2)
 
         const idProduct = product._id;
         if (!productIdCartList.includes(idProduct)) productIdCartList.push(idProduct);
@@ -36,7 +38,9 @@ const cart = async (req, res) => {
           (total, product) => total + product.productInfo.newPrice * product.quantity,
           0
         )
-      ).toFixed(2);
+      );
+
+      // .toFixed(2)
     }
 
     console.log(productBrandCartList);

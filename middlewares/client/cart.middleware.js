@@ -27,7 +27,9 @@ const cartStorage = async (req, res, next) => {
         totalPriceCart +=
           (product.price - (product.price * product.discount) / 100) * product.quantity;
       }
-      const newTotalPriceCart = Number.parseFloat(totalPriceCart).toFixed(2);
+      const newTotalPriceCart = Number.parseFloat(totalPriceCart);
+
+      // .toFixed(2)
 
       cart.totalQuantityProduct = totalQuantityProduct;
       cart.totalQuantityOrder = totalQuantityOrder;

@@ -198,15 +198,17 @@
                   </div>
                   <div class="card__box d-flex justify-content-between align-items-center">
                     <h5 class="title-font card__price">
-                      $<%= Number.parseFloat(product.price - (product.price / 100 *
-                      product.discount)).toFixed(2) %>
+                      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(Number.parseFloat(product.price - (product.price / 100 *
+                      product.discount))) %>
                     </h5>
                     <div class="card__favorite">
                       <i class="bi bi-suit-heart-fill"></i>
                     </div>
                   </div>
                   <div class="content-font text-danger text-decoration-line-through">
-                    Giá gốc: $<%= product.price %>
+                    Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(product.price) %>
                   </div>
                   <div class="card__rating d-flex justify-content-between align-items-center">
                     <div class="card__star">
@@ -279,15 +281,17 @@
                   </div>
                   <div class="card__box d-flex justify-content-between align-items-center">
                     <h5 class="title-font card__price">
-                      $<%= Number.parseFloat(product.price - (product.price / 100 *
-                      product.discount)).toFixed(2) %>
+                      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(Number.parseFloat(product.price - (product.price / 100 *
+                      product.discount)))%>
                     </h5>
                     <div class="card__favorite">
                       <i class="bi bi-suit-heart-fill"></i>
                     </div>
                   </div>
                   <div class="content-font text-danger text-decoration-line-through">
-                    Giá gốc: $<%= product.price %>
+                    Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(product.price) %>
                   </div>
                   <div class="card__rating d-flex justify-content-between align-items-center">
                     <div class="card__star">

@@ -33,6 +33,12 @@
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
     <!-- End Styles Library & Framework Link -->
+
+    <style>
+      .text-to-html img {
+        max-width: 100% !important;
+      }
+    </style>
   </head>
   <body>
     <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: '',
@@ -99,11 +105,13 @@
 
                 <div class="mb-3">
                   <span class="title-font product__info-discount h5"
-                    >$<%= Number.parseFloat(product.price - (product.price / 100 *
-                    product.discount)).toFixed(2) %></span
+                    ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(Number.parseFloat(product.price - (product.price / 100 *
+                    product.discount))) %></span
                   >
                   <span class="product__info-price content-font text-decoration-line-through"
-                    >$<%= product.price %></span
+                    ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(product.price) %></span
                   >
                 </div>
 
@@ -178,6 +186,16 @@
         </div>
       </section>
       <!-- End product detail -->
+
+      <section class="py-5 product-format_detail">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="product-format_detail-content text-to-html"><%= product.detail %></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <form
@@ -217,6 +235,9 @@
       src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
     <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/he/he.js"></script>
+    <script src="/client/scripts/changeTextToHtml.js"></script>
 
     <!-- <script src="./scripts/googlemap.js"></script> -->
     <!-- End Scripts Library & Framework Link -->

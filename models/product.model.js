@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const objSchema = {
   title: { type: String, require: true },
   description: { type: String, require: true },
+  detail: { type: String, require: true },
   price: { type: Number, require: true, default: 0 },
   rating: { type: Number, default: 0 },
   discount: { type: Number, default: 0 },

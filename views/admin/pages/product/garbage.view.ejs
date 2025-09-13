@@ -92,11 +92,13 @@
                         <td>
                           <b class="text-danger"
                             ><i
-                              ><%= Number.parseFloat(item.price - (item.price / 100 *
-                              item.discount)).toFixed(2) %>$</i
+                              ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND' }).format(Number.parseFloat(item.price - (item.price / 100 *
+                              item.discount))) %></i
                             ></b
                           >
-                          | Giá gốc: <%= item.price %>$
+                          | Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
+                          currency: 'VND' }).format(item.price) %>
                         </td>
                         <td>
                           <p><%= item.accountFullNameDelete%></p>
