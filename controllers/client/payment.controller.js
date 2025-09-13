@@ -72,8 +72,6 @@ const createOfflinePayment = async (req, res) => {
 
   orderBody.total = Number.parseFloat(total);
 
-  // .toFixed(2)
-
   const order = new orderModel(orderBody);
   await order.save();
 

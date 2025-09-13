@@ -170,10 +170,11 @@
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
                   <div class="d-flex justify-content-between align-items-center cart-total-price">
                     <span class="cart-total-price-title">Tổng chi phí:</span>
-                    <span class="heading-font fw-bold text-danger py-0 cart-total-price-value"
-                      ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                      }).format(cart.totalPrice) %></span
-                    >
+                    <span class="heading-font fw-bold text-danger py-0 cart-total-price-value">
+                      <% if (cart.totalPrice || cart.totalPrice === 0) { %> <%= new
+                      Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(cart.totalPrice) %> <% } %>
+                    </span>
                   </div>
                   <hr />
                 </div>
