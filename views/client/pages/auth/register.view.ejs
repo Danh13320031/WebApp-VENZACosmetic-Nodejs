@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- End Styles Library & Framework Link -->
+
+    <style>
+      .register-box {
+        width: 1000px;
+        max-width: 100%;
+      }
+      /* .register-box .register-password {
+        position: relative;
+      }
+      .register-box .register-password .register-show-password {
+        position: absolute;
+        top: 65.5%;
+        right: 3px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+      .register-box .register-password .register-show-password:hover {
+        all: unset;
+      } */
+    </style>
+  </head>
+  <body>
+    <main class="main">
+      <div class="w-100 py-5 px-4 d-flex justify-content-center align-items-center register">
+        <div class="bg-white d-flex flex-column gap-3 shadow register-box" style="max-width: 100%">
+          <div class="row g-0">
+            <div class="d-none d-md-block col-lg-6 col-md-6 col-12">
+              <div class="d-flex justify-content-center h-100 register-image-box">
+                <img
+                  src="https://nld.mediacdn.vn/2018/12/24/photo-1-15456475555721329514890.jpg"
+                  alt="logo"
+                  width="100%"
+                  style="background-size: cover"
+                  class="register-logo"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 p-4">
+              <div
+                class="d-block d-md-flex justify-content-between align-items-end mb-4 register-logo"
+              >
+                <div class="d-flex mb-md-0 mb-3 justify-content-center">
+                  <a href="/" class="tex-center register-logo-link">
+                    <img
+                      src="/client/images/Benefit_Cosmetics_logo.png"
+                      alt="logo"
+                      width="130px"
+                      style="background-size: cover"
+                    />
+                  </a>
+                </div>
+
+                <h1
+                  class="heading-font fw-bold text-uppercase p-0 register-title"
+                  style="color: var(--primary-color)"
+                >
+                  <%= pageTitle %>
+                </h1>
+              </div>
+
+              <form action="" method="POST" class="d-flex flex-column gap-2 register-form">
+                <div class="d-flex flex-column gap-0 register-input-box">
+                  <label for="fullname" class="content-font fw-bold">Họ và tên</label>
+                  <input
+                    type="text"
+                    name="fullname"
+                    id="fullname"
+                    placeholder="Nhập họ và tên..."
+                    class="input-type01"
+                  />
+                  <span
+                    class="register-input-error"
+                    style="color: var(--error-color); font-size: var(--error-font-size)"
+                  ></span>
+                </div>
+
+                <div class="d-flex flex-column gap-0 register-input-box">
+                  <label for="email" class="content-font fw-bold">Địa chỉ email</label>
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Nhập địa chỉ email..."
+                    class="input-type01"
+                  />
+                  <span
+                    class="register-input-error"
+                    style="color: var(--error-color); font-size: var(--error-font-size)"
+                  ></span>
+                </div>
+
+                <div class="d-flex flex-column gap-0 register-input-box register-password">
+                  <label for="password" class="content-font fw-bold">Mật khẩu</label>
+                  <div class="d-flex w-100">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Nhập mật khẩu..."
+                      class="input-type01 w-100"
+                    />
+                    <button type="button" class="button-icon-primary register-show-password">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                  <span
+                    class="register-input-error"
+                    style="color: var(--error-color); font-size: var(--error-font-size)"
+                  ></span>
+                </div>
+
+                <div class="d-flex flex-column gap-0 register-input-box register-password">
+                  <label for="confirmPassword" class="content-font fw-bold"
+                    >Xác nhận mật khẩu</label
+                  >
+                  <div class="d-flex w-100">
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      placeholder="Xác nhận mật khẩu..."
+                      class="input-type01 w-100"
+                    />
+                    <button type="button" class="button-icon-primary register-show-password">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                  <span
+                    class="register-input-error"
+                    style="color: var(--error-color); font-size: var(--error-font-size)"
+                  ></span>
+                </div>
+
+                <div class="d-flex flex-column gap-0 register-input-box">
+                  <label for="phone" class="content-font fw-bold">Số điện thoại</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    placeholder="Nhập số điện thoại..."
+                    class="input-type01"
+                  />
+                  <span
+                    class="register-input-error"
+                    style="color: var(--error-color); font-size: var(--error-font-size)"
+                  ></span>
+                </div>
+
+                <div class="d-flex flex-column gap-1 register-link-box">
+                  <div class="d-flex gap-1 justify-content-between register-link">
+                    <a href="/login" class="content-font">Đăng nhập</a>
+                    <a href="/forgot-password" class="content-font"> Quên mật khâu </a>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-column gap-1 mt-4 register-button-box">
+                  <button type="submit" class="button-secondary register-btn">Đăng ký</button>
+                </div>
+
+                <div class="mt-4 register-social-box">
+                  <div class="d-flex justify-content-center gap-2 register-social">
+                    <button type="button" class="button-primary register-social-btn">
+                      <i class="bi bi-facebook"></i>
+                    </button>
+                    <button type="button" class="button-primary register-social-btn">
+                      <i class="bi bi-google"></i>
+                    </button>
+                    <button type="button" class="button-primary register-social-btn">
+                      <i class="bi bi-apple"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts File -->
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- End Scripts Library & Framework Link -->
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>
