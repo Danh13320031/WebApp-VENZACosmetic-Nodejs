@@ -51,7 +51,6 @@ if (paymentForm) {
     return '';
   }
 
-  // Xử lý validate khi blur hoặc input
   ['fullname', 'phone', 'email', 'address'].forEach((field) => {
     const el = paymentForm.querySelector(`#${field}`);
     el.addEventListener('input', () => {
@@ -65,11 +64,10 @@ if (paymentForm) {
 
         if (error) showError(el, error);
         else clearError(el);
-      }, 500);
+      }, 200);
     });
   });
 
-  // Validate khi submit
   paymentForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -102,7 +100,6 @@ if (paymentForm) {
       document.querySelector('.form-error-shipping').textContent = '';
     }
 
-    // Nếu không có lỗi -> submit
     if (!fullnameErr && !phoneErr && !emailErr && !addressErr && !paymentErr && !shippingErr) {
       const paymentMethod = paymentForm.querySelector('input[name="payment_method"]:checked').value;
 

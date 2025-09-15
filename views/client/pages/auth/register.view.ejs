@@ -22,31 +22,14 @@
     <!-- BoxIcon -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <!-- End Styles Library & Framework Link -->
-
-    <style>
-      .register-box {
-        width: 1000px;
-        max-width: 100%;
-      }
-      /* .register-box .register-password {
-        position: relative;
-      }
-      .register-box .register-password .register-show-password {
-        position: absolute;
-        top: 65.5%;
-        right: 3px;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
-      .register-box .register-password .register-show-password:hover {
-        all: unset;
-      } */
-    </style>
   </head>
   <body>
     <main class="main">
       <div class="w-100 py-5 px-4 d-flex justify-content-center align-items-center register">
-        <div class="bg-white d-flex flex-column gap-3 shadow register-box" style="max-width: 100%">
+        <div
+          class="bg-white d-flex flex-column gap-3 shadow register-box"
+          style="max-width: 100%; width: 1000px"
+        >
           <div class="row g-0">
             <div class="d-none d-md-block col-lg-6 col-md-6 col-12">
               <div class="d-flex justify-content-center h-100 register-image-box">
@@ -82,7 +65,12 @@
                 </h1>
               </div>
 
-              <form action="" method="POST" class="d-flex flex-column gap-2 register-form">
+              <form
+                action="/register-create"
+                method="POST"
+                class="d-flex flex-column gap-2 register-form"
+                id="register-form"
+              >
                 <div class="d-flex flex-column gap-0 register-input-box">
                   <label for="fullname" class="content-font fw-bold">Họ và tên</label>
                   <input
@@ -93,7 +81,7 @@
                     class="input-type01"
                   />
                   <span
-                    class="register-input-error"
+                    class="register-input-error error-fullname"
                     style="color: var(--error-color); font-size: var(--error-font-size)"
                   ></span>
                 </div>
@@ -108,7 +96,7 @@
                     class="input-type01"
                   />
                   <span
-                    class="register-input-error"
+                    class="register-input-error error-email"
                     style="color: var(--error-color); font-size: var(--error-font-size)"
                   ></span>
                 </div>
@@ -124,11 +112,11 @@
                       class="input-type01 w-100"
                     />
                     <button type="button" class="button-icon-primary register-show-password">
-                      <i class="bi bi-eye"></i>
+                      <i class="bi bi-eye-slash"></i>
                     </button>
                   </div>
                   <span
-                    class="register-input-error"
+                    class="register-input-error error-password"
                     style="color: var(--error-color); font-size: var(--error-font-size)"
                   ></span>
                 </div>
@@ -146,11 +134,11 @@
                       class="input-type01 w-100"
                     />
                     <button type="button" class="button-icon-primary register-show-password">
-                      <i class="bi bi-eye"></i>
+                      <i class="bi bi-eye-slash"></i>
                     </button>
                   </div>
                   <span
-                    class="register-input-error"
+                    class="register-input-error error-confirm-password"
                     style="color: var(--error-color); font-size: var(--error-font-size)"
                   ></span>
                 </div>
@@ -165,7 +153,7 @@
                     class="input-type01"
                   />
                   <span
-                    class="register-input-error"
+                    class="register-input-error error-phone"
                     style="color: var(--error-color); font-size: var(--error-font-size)"
                   ></span>
                 </div>
@@ -178,7 +166,13 @@
                 </div>
 
                 <div class="d-flex flex-column gap-1 mt-4 register-button-box">
-                  <button type="submit" class="button-secondary register-btn">Đăng ký</button>
+                  <button
+                    type="submit"
+                    class="button-secondary register-btn"
+                    id="register-btn-submit"
+                  >
+                    Đăng ký
+                  </button>
                 </div>
 
                 <div class="mt-4 register-social-box">
@@ -202,6 +196,8 @@
     </main>
 
     <!-- Scripts File -->
+    <script src="/client/scripts/auth/showHidePassword.js"></script>
+    <script src="/client/scripts/auth/submitRegister.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->
