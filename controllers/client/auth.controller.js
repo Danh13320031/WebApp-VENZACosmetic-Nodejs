@@ -109,6 +109,17 @@ const loginPost = async (req, res) => {
   res.redirect('/');
 };
 
+// [GET]: /logout
+const logout = async (req, res) => {
+  try {
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    res.redirect('/login');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const authController = {
   registerGet,
   registerPost,
@@ -116,6 +127,7 @@ const authController = {
   regiterVerifyPatch,
   loginGet,
   loginPost,
+  logout,
 };
 
 export default authController;
