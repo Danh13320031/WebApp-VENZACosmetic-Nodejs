@@ -74,11 +74,20 @@ const regiterVerifyPatch = async (req, res) => {
   }
 };
 
+const loginGet = async (req, res) => {
+  try {
+    res.render('./client/pages/auth/login.view.ejs', { pageTitle: 'Đăng nhập' });
+  } catch (err) {
+    console.log('Not found: ', err);
+  }
+};
+
 const authController = {
   registerGet,
   registerPost,
   registerVerifyGet,
   regiterVerifyPatch,
+  loginGet,
 };
 
 export default authController;
