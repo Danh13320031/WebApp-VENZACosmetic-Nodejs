@@ -1,3 +1,4 @@
+import bcript from 'bcrypt';
 import userModel from '../../models/user.model.js';
 
 const registerPostValidate = async (req, res, next) => {
@@ -65,8 +66,48 @@ const registerPostValidate = async (req, res, next) => {
   }
 };
 
+const loginPostValidate = async (req, res, next) => {
+  try {
+    const user = await userModel.findOne({ email: req.body.email });
+
+    // Check email
+    if (!req.body.email) {
+      res.redirect('back');
+      return;
+    }
+
+    // Check password
+    if (!req.body.password) {
+      res.redirect('back');
+      return;
+    }
+
+    if (!user) {
+      res.redirect('back');
+      return;
+    } else {
+      const checkPassword = await bcript.compare(req.body.password, user.password);
+
+      if (!checkPassword) {
+        res.redirect('back');
+        return;
+      }
+
+      if (!user.isVerified) {
+        res.redirect('/register');
+        return;
+      }
+    }
+
+    next();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const authValidate = {
   registerPostValidate,
+  loginPostValidate,
 };
 
 export default authValidate;

@@ -47,7 +47,7 @@ const registerPost = async (req, res) => {
 const registerVerifyGet = async (req, res) => {
   try {
     const email = req.params.email;
-    const duration = req.params.duration.replace('m', '');
+    const duration = req.params.duration;
 
     res.render('./client/pages/auth/register-verify.view.ejs', {
       pageTitle: 'Kích hoạt tài khoản',
@@ -74,6 +74,7 @@ const regiterVerifyPatch = async (req, res) => {
   }
 };
 
+// [GET]: /login
 const loginGet = async (req, res) => {
   try {
     res.render('./client/pages/auth/login.view.ejs', { pageTitle: 'Đăng nhập' });
@@ -82,12 +83,21 @@ const loginGet = async (req, res) => {
   }
 };
 
+// [POST]: /login-create
+const loginPost = async (req, res) => {
+  const body = req.body;
+  console.log(body);
+
+  res.send('OK');
+};
+
 const authController = {
   registerGet,
   registerPost,
   registerVerifyGet,
   regiterVerifyPatch,
   loginGet,
+  loginPost,
 };
 
 export default authController;
