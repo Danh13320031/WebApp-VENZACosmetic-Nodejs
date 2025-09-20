@@ -1,22 +1,26 @@
-const registerShowPassword = document.querySelectorAll('.register-show-password');
+const authShowPassword = document.querySelectorAll('.auth-show-password');
 
-if (registerShowPassword) {
-  registerShowPassword.forEach((item) => {
+if (authShowPassword) {
+  authShowPassword.forEach((item) => {
     item.addEventListener('click', () => {
       const inputPassword = document.getElementById('password');
       const inputConfirmPassword = document.getElementById('confirmPassword');
-      const buttonShowPassword = document.querySelectorAll('.register-show-password i');
+      const buttonShowPassword = document.querySelectorAll('.auth-show-password i');
 
       buttonShowPassword.forEach((icon) => {
         icon.classList.toggle('bi-eye');
       });
 
-      if (inputPassword.type === 'password' && inputConfirmPassword.type === 'password') {
-        inputPassword.type = 'text';
-        inputConfirmPassword.type = 'text';
-      } else {
-        inputPassword.type = 'password';
-        inputConfirmPassword.type = 'password';
+      if (inputPassword) {
+        inputPassword.type = 'password'
+          ? (inputPassword.type = 'text')
+          : (inputPassword.type = 'password');
+      }
+
+      if (inputConfirmPassword) {
+        inputConfirmPassword.type = 'password'
+          ? (inputConfirmPassword.type = 'text')
+          : (inputConfirmPassword.type = 'password');
       }
     });
   });
