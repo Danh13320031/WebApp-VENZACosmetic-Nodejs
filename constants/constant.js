@@ -1,0 +1,1 @@
+export const verifyTokenExpiresIn = '5m';

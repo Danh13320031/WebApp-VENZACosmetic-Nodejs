@@ -5,5 +5,7 @@ const authRoute = express.Router();
 
 authRoute.get('/register', authController.registerGet);
 authRoute.post('/register-create', authValidate.registerPostValidate, authController.registerPost);
+authRoute.get('/register-verify/:email/:duration', authController.registerVerifyGet);
+authRoute.get('/register-change-isverified/:verifyToken', authController.regiterVerifyPatch);
 
 export default authRoute;

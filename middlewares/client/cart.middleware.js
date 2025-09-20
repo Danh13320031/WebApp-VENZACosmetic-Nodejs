@@ -29,8 +29,6 @@ const cartStorage = async (req, res, next) => {
       }
       const newTotalPriceCart = Number.parseFloat(totalPriceCart);
 
-      // .toFixed(2)
-
       cart.totalQuantityProduct = totalQuantityProduct;
       cart.totalQuantityOrder = totalQuantityOrder;
       cart.productListCart = productListCart;
