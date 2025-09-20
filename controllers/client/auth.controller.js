@@ -2,7 +2,11 @@ import bcrypt from 'bcrypt';
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import { saltRoundsConst } from '../../constants/account.constant.js';
-import { verifyTokenExpiresIn } from '../../constants/constant.js';
+import {
+  accessTokenExpiresIn,
+  refreshTokenExpiresIn,
+  verifyTokenExpiresIn,
+} from '../../constants/constant.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import userModel from '../../models/user.model.js';
 
@@ -44,6 +48,7 @@ const registerPost = async (req, res) => {
   }
 };
 
+// [GET]: /register-verify/:email/:duration
 const registerVerifyGet = async (req, res) => {
   try {
     const email = req.params.email;
@@ -59,6 +64,7 @@ const registerVerifyGet = async (req, res) => {
   }
 };
 
+// [GET]: /register-change-isverified/:verifyToken
 const regiterVerifyPatch = async (req, res) => {
   try {
     const token = req.params.verifyToken;
@@ -85,10 +91,22 @@ const loginGet = async (req, res) => {
 
 // [POST]: /login-create
 const loginPost = async (req, res) => {
-  const body = req.body;
-  console.log(body);
+  const find = { email: req.body.email, deleted: false, status: 'active' };
+  const user = await userModel.findOne(find);
 
-  res.send('OK');
+  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
+    expiresIn: accessTokenExpiresIn,
+  });
+  const refreshToken = jwt.sign({ id: user._id }, process.env.jWT_REFRESH_TOKEN_SECRET, {
+    expiresIn: refreshTokenExpiresIn,
+  });
+
+  res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: accessTokenExpiresIn });
+  res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: refreshTokenExpiresIn });
+
+  user.refreshToken = refreshToken;
+  await user.save();
+  res.redirect('/');
 };
 
 const authController = {
