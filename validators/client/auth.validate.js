@@ -3,15 +3,21 @@ import userModel from '../../models/user.model.js';
 const registerPostValidate = async (req, res, next) => {
   try {
     // Check email
-    const userExisted = await userModel.findOne({ email: req.body.email });
+    const userExisted = await userModel.findOne({
+      $or: [{ email: req.body.email }, { phone: req.body.phone }],
+    });
     const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
     if (!req.body.email) {
       res.redirect('back');
       return;
     }
     if (userExisted) {
-      res.redirect('back');
-      return;
+      if (userExisted.isVerified) {
+        res.redirect('back');
+        return;
+      }
+      await userModel.findByIdAndDelete(userExisted._id);
     }
     if (!regexEmail.test(req.body.email)) {
       res.redirect('back');
@@ -22,6 +28,7 @@ const registerPostValidate = async (req, res, next) => {
     const regexPassword = new RegExp(
       /(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/
     );
+
     if (!req.body.password) {
       res.redirect('back');
       return;
@@ -43,6 +50,7 @@ const registerPostValidate = async (req, res, next) => {
 
     // Check phone
     const regexPhone = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+
     if (!req.body.phone) {
       res.redirect('back');
       return;

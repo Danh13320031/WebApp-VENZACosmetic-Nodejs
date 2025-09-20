@@ -1,3 +1,11 @@
+import bcrypt from 'bcrypt';
+import 'dotenv/config';
+import jwt from 'jsonwebtoken';
+import { saltRoundsConst } from '../../constants/account.constant.js';
+import { verifyTokenExpiresIn } from '../../constants/constant.js';
+import sendMailHelper from '../../helpers/sendMail.helper.js';
+import userModel from '../../models/user.model.js';
+
 // [GET]: /register
 const registerGet = async (req, res) => {
   try {
@@ -11,17 +19,66 @@ const registerGet = async (req, res) => {
 const registerPost = async (req, res) => {
   try {
     const body = req.body;
-    console.log(body);
+    const hashPassword = await bcrypt.hash(body.password, saltRoundsConst);
+    body.password = hashPassword;
 
-    res.redirect('/login');
+    const user = new userModel(body);
+    await user.save();
+
+    const verifyToken = jwt.sign({ id: user._id }, process.env.JWT_VERIFY_TOKEN_SECRET, {
+      expiresIn: verifyTokenExpiresIn,
+    });
+    const link = `http://${process.env.HOSTNAME}:${process.env.PORT}/register-change-isverified/${verifyToken}`;
+
+    await sendMailHelper(
+      process.env.GOOGLE_USER_EMAIL,
+      'VENZA - KÍCH HOẠT TÀI KHOẢN',
+      `<h1>Kích hoạt tài khoản</h1><a href="${link}">Click vào đây</a>`
+    );
+
+    res.redirect(
+      `http://${process.env.HOSTNAME}:${process.env.PORT}/register-verify/${user.email}/${verifyTokenExpiresIn}`
+    );
   } catch (error) {
     console.log(error);
+  }
+};
+
+const registerVerifyGet = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const duration = req.params.duration.replace('m', '');
+
+    res.render('./client/pages/auth/register-verify.view.ejs', {
+      pageTitle: 'Kích hoạt tài khoản',
+      email: email,
+      duration: duration,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const regiterVerifyPatch = async (req, res) => {
+  try {
+    const token = req.params.verifyToken;
+    const decode = jwt.verify(token, process.env.JWT_VERIFY_TOKEN_SECRET);
+    const user = await userModel.findById(decode.id);
+
+    await userModel.findByIdAndUpdate(user._id, { isVerified: true });
+    res.send('OK');
+  } catch (error) {
+    console.log(error);
+    res.redirect('/register');
+    return;
   }
 };
 
 const authController = {
   registerGet,
   registerPost,
+  registerVerifyGet,
+  regiterVerifyPatch,
 };
 
 export default authController;
