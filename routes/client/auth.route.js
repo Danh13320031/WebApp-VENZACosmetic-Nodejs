@@ -8,5 +8,6 @@ authRoute.post('/register-create', authValidate.registerPostValidate, authContro
 authRoute.get('/register-verify/:email/:duration', authController.registerVerifyGet);
 authRoute.get('/register-change-isverified/:verifyToken', authController.regiterVerifyPatch);
 authRoute.get('/login', authController.loginGet);
+authRoute.post('/login-create', authValidate.loginPostValidate, authController.loginPost);
 
 export default authRoute;

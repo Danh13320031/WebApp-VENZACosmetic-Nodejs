@@ -1,1 +1,1 @@
-export const verifyTokenExpiresIn = '5m';
+export const verifyTokenExpiresIn = 5 * 60 * 1000;
