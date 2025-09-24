@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  account_id: { type: String },
+  user_id: { type: String },
   products: [{ product_id: String, quantity: Number }],
 };
 

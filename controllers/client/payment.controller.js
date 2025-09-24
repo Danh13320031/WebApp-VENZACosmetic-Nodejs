@@ -22,8 +22,10 @@ const payment = async (req, res) => {
 const createOfflinePayment = async (req, res) => {
   const body = req.body;
   const cartId = req.cookies.cartId;
+  const user = res.locals.user;
+  const userId = user ? user._id : null;
   const userInfo = {
-    fullname: body.name,
+    fullname: body.fullname,
     email: body.email,
     phone: body.phone,
     address: body.address,
@@ -63,6 +65,7 @@ const createOfflinePayment = async (req, res) => {
   }
 
   const orderBody = {
+    user_id: userId,
     cart_id: cartId,
     userInfo: userInfo,
     paymentMethod: paymentMethod,
@@ -90,7 +93,8 @@ const createOfflinePayment = async (req, res) => {
       orderId: order._id,
     });
 
-    await sendMailHelper(order.userInfo.email, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
+    // order.userInfo.email
+    await sendMailHelper('danh13320031@gmail.com', `VENZA - THANH TOÁN THÀNH CÔNG`, html);
     res.redirect('/payment/payment-success/' + order._id);
   } else {
     res.redirect('/payment/payment-fail');

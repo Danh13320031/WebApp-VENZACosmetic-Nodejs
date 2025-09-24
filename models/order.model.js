@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  // user_id: { type: String, require: true },
+  user_id: { type: String, require: true },
   cart_id: { type: String, require: true },
   status: { type: String, require: true, default: 'pending' },
   discount: { type: Number, require: true, default: 0 },
@@ -23,14 +23,12 @@ const objSchema = {
       quantity: { type: Number, require: true },
     },
   ],
-  coupon: [
-    {
-      coupon_id: { type: String },
-      code: { type: String },
-      discount: { type: Number, default: 0 },
-      expiredAt: { type: Date },
-    },
-  ],
+  coupon: {
+    coupon_id: { type: String },
+    code: { type: String },
+    discount: { type: Number, default: 0 },
+    expiredAt: { type: Date },
+  },
   shipping: {
     shipping_id: { type: String, require: true, default: '' },
     method: { type: String, default: 'standard' },

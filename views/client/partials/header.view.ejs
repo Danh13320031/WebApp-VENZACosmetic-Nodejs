@@ -139,8 +139,18 @@
           </div>
           <div class="header-others-auth">
             <div class="auth-avatar">
-              <i class="bi bi-person-circle"></i>
+              <% if(user) { %>
+              <img
+                src="<%= user.avatar %>"
+                alt="avatar"
+                width="100%"
+                class="rounded-5 p-1 auth-avatar-img"
+              />
+              <% } else { %>
+              <i class="fa-solid fa-user"></i>
+              <% } %>
               <ul class="auth-list">
+                <% if(!user) {%>
                 <li class="auth-item">
                   <a href="/login" class="auth-link"
                     ><i class="fa-solid fa-right-to-bracket"></i>Đăng nhập</a
@@ -151,19 +161,17 @@
                     ><i class="fa-solid fa-right-to-bracket"></i>Đăng ký</a
                   >
                 </li>
+                <% } %> <% if(user) { %>
                 <li class="auth-item">
                   <a href="/logout" class="auth-link"
                     ><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a
                   >
                 </li>
-                <li class="auth-item">
-                  <a href="<%= prefixAdmin %>/dashboard" class="auth-link"
-                    ><i class="fa-solid fa-right-from-bracket"></i>Quản trị</a
-                  >
-                </li>
+                <% } %> <% if(user) { %>
                 <li class="auth-item">
                   <a href="/setting" class="auth-link"><i class="fa-solid fa-gear"></i>Cài đặt</a>
                 </li>
+                <% } %>
               </ul>
             </div>
           </div>

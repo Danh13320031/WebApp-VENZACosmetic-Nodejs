@@ -12,15 +12,15 @@ if (authShowPassword) {
       });
 
       if (inputPassword) {
-        inputPassword.type = 'password'
-          ? (inputPassword.type = 'text')
-          : (inputPassword.type = 'password');
+        inputPassword.type === 'password'
+          ? inputPassword.setAttribute('type', 'text')
+          : inputPassword.setAttribute('type', 'password');
       }
 
       if (inputConfirmPassword) {
-        inputConfirmPassword.type = 'password'
-          ? (inputConfirmPassword.type = 'text')
-          : (inputConfirmPassword.type = 'password');
+        inputConfirmPassword.type === 'password'
+          ? inputConfirmPassword.setAttribute('type', 'text')
+          : inputConfirmPassword.setAttribute('type', 'password');
       }
     });
   });
