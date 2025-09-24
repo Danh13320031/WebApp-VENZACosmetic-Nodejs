@@ -4,27 +4,31 @@ import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
 
 const requireAuth = async (req, res, next) => {
-  const token = req.cookies.token;
+  try {
+    const token = req.cookies.token;
 
-  if (!token) {
-    alertMessageHelper(req, 'alertFailure', 'Không tồn tại token');
-    res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
-    return;
+    if (!token) {
+      alertMessageHelper(req, 'alertFailure', 'Không tồn tại token');
+      res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
+      return;
+    }
+
+    const account = await accountModel.findOne({ token });
+    if (!account) {
+      alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
+      res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
+      return;
+    }
+
+    const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
+
+    res.locals.account = account;
+    res.locals.roleAuth = roleAuth;
+
+    next();
+  } catch (error) {
+    console.log(error);
   }
-
-  const account = await accountModel.findOne({ token });
-  if (!account) {
-    alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
-    res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
-    return;
-  }
-
-  const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
-
-  res.locals.account = account;
-  res.locals.roleAuth = roleAuth;
-
-  next();
 };
 
 const authMiddleware = {

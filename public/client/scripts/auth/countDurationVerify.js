@@ -2,11 +2,11 @@ const registerVerifyDuration = document.querySelector('.register-verify-duration
 
 if (registerVerifyDuration) {
   const duration = registerVerifyDuration.textContent;
-  let totalSeconds = Number.parseInt(duration) * 60;
+  let totalSeconds = Number.parseInt(duration) * 1000 * 60;
 
-  const updateTimeDisplay = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
+  const updateTimeDisplay = (miliseconds) => {
+    const m = Math.floor(miliseconds / 1000 / 60);
+    const s = miliseconds % 60;
     registerVerifyDuration.textContent = `${m}:${s.toString().padStart(2, '0')}`;
   };
 

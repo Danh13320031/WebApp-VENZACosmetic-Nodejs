@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import methodOverride from 'method-override';
+import moment from 'moment';
 import path from 'path';
 import reload from 'reload';
 import { fileURLToPath } from 'url';
@@ -12,7 +13,6 @@ import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
-import moment from 'moment';
 
 const app = express();
 
@@ -40,9 +40,7 @@ routerAdmin(app);
 reload(app)
   .then(() => {
     app.listen(process.env.PORT, process.env.HOSTNAME, () => {
-      console.log(
-        `Start Server: http://${process.env.HOSTNAME}:${process.env.PORT}/admin/auth/login`
-      );
+      console.log(`Start Server: http://${process.env.HOSTNAME}:${process.env.PORT}/`);
     });
   })
   .catch((error) => {

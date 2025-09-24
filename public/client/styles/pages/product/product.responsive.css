@@ -5,7 +5,7 @@
     position: fixed;
     top: 0;
     left: -100%;
-    z-index: 999;
+    z-index: 1000;
     transform: translateX(-100%);
     transition: 0.4s ease-out;
   }
@@ -15,7 +15,7 @@
     position: fixed;
     top: 0;
     left: 0%;
-    z-index: 999;
+    z-index: 1000;
     transform: translateX(0%);
     transition: 0.4s ease-out;
   }
@@ -34,7 +34,7 @@
     position: fixed;
     top: 0;
     left: -100%;
-    z-index: 999;
+    z-index: 1000;
     transform: translateX(-100%);
     transition: 0.4s ease-out;
   }
@@ -45,7 +45,7 @@
     position: fixed;
     top: 0;
     left: 0%;
-    z-index: 999;
+    z-index: 1000;
     transform: translateX(0%);
     transition: 0.4s ease-out;
   }

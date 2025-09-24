@@ -9,6 +9,7 @@ import {
 } from '../../constants/constant.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import userModel from '../../models/user.model.js';
+import cartModel from '../../models/cart.model.js';
 
 // [GET]: /register
 const registerGet = async (req, res) => {
@@ -72,7 +73,7 @@ const regiterVerifyPatch = async (req, res) => {
     const user = await userModel.findById(decode.id);
 
     await userModel.findByIdAndUpdate(user._id, { isVerified: true });
-    res.send('OK');
+    res.redirect('/login');
   } catch (error) {
     console.log(error);
     res.redirect('/register');
@@ -91,27 +92,44 @@ const loginGet = async (req, res) => {
 
 // [POST]: /login-create
 const loginPost = async (req, res) => {
-  const find = { email: req.body.email, deleted: false, status: 'active' };
-  const user = await userModel.findOne(find);
+  try {
+    const find = { email: req.body.email, deleted: false, status: 'active' };
+    const user = await userModel.findOne(find);
+    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
 
-  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
-    expiresIn: accessTokenExpiresIn,
-  });
-  const refreshToken = jwt.sign({ id: user._id }, process.env.jWT_REFRESH_TOKEN_SECRET, {
-    expiresIn: refreshTokenExpiresIn,
-  });
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
+      expiresIn: accessTokenExpiresIn,
+    });
+    const refreshToken = jwt.sign({ id: user._id }, process.env.jWT_REFRESH_TOKEN_SECRET, {
+      expiresIn: refreshTokenExpiresIn,
+    });
 
-  res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: accessTokenExpiresIn });
-  res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: refreshTokenExpiresIn });
+    res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: accessTokenExpiresIn });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: refreshTokenExpiresIn });
 
-  user.refreshToken = refreshToken;
-  await user.save();
-  res.redirect('/');
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    if (cartId) {
+      await cartModel.findByIdAndUpdate(cartId, { user_id: user._id });
+    }
+
+    res.redirect('/');
+    return;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // [GET]: /logout
 const logout = async (req, res) => {
   try {
+    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
+
+    if (cartId) {
+      await cartModel.findByIdAndUpdate(cartId, { user_id: null });
+    }
+
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
     res.redirect('/login');
