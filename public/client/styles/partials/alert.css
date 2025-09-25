@@ -1,0 +1,15 @@
+.alert-message {
+  position: fixed;
+  top: 15px;
+  right: -430px;
+  z-index: 1000;
+  max-width: 100%;
+  width: 400px;
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.52, -0.5, 0.44, 1.41);
+}
+
+.alert-message.display {
+  transform: translateX(-445px);
+  transition: transform 0.3s cubic-bezier(0.52, -0.5, 0.44, 1.41);
+}

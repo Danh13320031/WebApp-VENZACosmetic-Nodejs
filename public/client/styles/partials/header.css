@@ -311,7 +311,7 @@
   position: sticky;
   top: 0px;
   left: 0px;
-  z-index: 1000;
+  z-index: 999;
   width: 100%;
   display: none;
   padding: 10px 0px;
