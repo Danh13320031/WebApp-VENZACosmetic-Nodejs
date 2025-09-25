@@ -1,3 +1,4 @@
+import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import cartModel from '../../models/cart.model.js';
 import categoryModel from '../../models/category.model.js';
@@ -76,11 +77,18 @@ const addProductToCart = async (req, res) => {
 
     const product = await productModel.findById(productId);
 
+    if (product.stock <= 0) {
+      alertMessageHelper(req, 'alertFailure', 'Đã hết hàng trong kho');
+      res.redirect('back');
+      return;
+    }
+
     for (let i = 0; i < cart.products.length; i++) {
       if (cart.products[i].product_id === productId) {
         let newQuantity = (cart.products[i].quantity += quantity);
 
         if (newQuantity > product.stock) {
+          alertMessageHelper(req, 'alertFailure', 'Vượt quá số lượng trong kho');
           res.redirect('back');
           return;
         }
@@ -89,15 +97,18 @@ const addProductToCart = async (req, res) => {
           $set: { [`products.${i}.quantity`]: newQuantity },
         });
 
+        alertMessageHelper(req, 'alertSuccess', 'Thêm vào giỏ hàng thành công');
         res.redirect('back');
         return;
       }
     }
 
     await cartModel.findByIdAndUpdate(cartId, { $push: { products: objectOrder } });
+    alertMessageHelper(req, 'alertSuccess', 'Thêm vào giỏ hàng thành công');
     res.redirect('back');
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Thêm vào giỏ hàng thất bại');
   }
 };
 
@@ -108,9 +119,11 @@ const deleteProductInCart = async (req, res) => {
 
   try {
     await cartModel.findByIdAndUpdate(cartId, { $pull: { products: { product_id: productId } } });
+    alertMessageHelper(req, 'alertSuccess', 'Đã xóa sản phẩm khỏi giỏ hàng');
     res.redirect('back');
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
   }
 };
 
@@ -124,6 +137,7 @@ const changeProductQuantity = async (req, res) => {
     const product = await productModel.findById(productId).select('stock');
 
     if (quantity > product.stock) {
+      alertMessageHelper(req, 'alertFailure', 'Vượt quá số lượng trong kho');
       res.redirect('back');
       return;
     }
@@ -138,9 +152,11 @@ const changeProductQuantity = async (req, res) => {
       }
     );
 
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật giỏ hàng thành công');
     res.redirect('back');
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật giỏ hàng thất bại');
   }
 };
 

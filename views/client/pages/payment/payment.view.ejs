@@ -8,6 +8,7 @@
 
     <!-- Styles File -->
     <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/alert.css" />
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
@@ -37,6 +38,7 @@
     <!-- End Styles Library & Framework Link -->
   </head>
   <body>
+    <%-include('../../partials/alert-message.view.ejs') %>
     <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
     aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: '' }); %>
     <%-include("../../partials/header-mobile.view.ejs") %>
@@ -302,6 +304,7 @@
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
 
     <!-- Scripts File -->
+    <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>

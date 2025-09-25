@@ -7,9 +7,10 @@ import {
   refreshTokenExpiresIn,
   verifyTokenExpiresIn,
 } from '../../constants/constant.js';
+import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
-import userModel from '../../models/user.model.js';
 import cartModel from '../../models/cart.model.js';
+import userModel from '../../models/user.model.js';
 
 // [GET]: /register
 const registerGet = async (req, res) => {
@@ -73,9 +74,12 @@ const regiterVerifyPatch = async (req, res) => {
     const user = await userModel.findById(decode.id);
 
     await userModel.findByIdAndUpdate(user._id, { isVerified: true });
+
+    alertMessageHelper(req, 'alertSuccess', 'Kích hoạt tài khoản thành công');
     res.redirect('/login');
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Kích hoạt tài khoản thất bại');
     res.redirect('/register');
     return;
   }
@@ -114,10 +118,12 @@ const loginPost = async (req, res) => {
       await cartModel.findByIdAndUpdate(cartId, { user_id: user._id });
     }
 
+    alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
     res.redirect('/');
     return;
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
   }
 };
 
@@ -132,6 +138,8 @@ const logout = async (req, res) => {
 
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
+
+    alertMessageHelper(req, 'alertSuccess', 'Đăng xuất thành công');
     res.redirect('/login');
   } catch (error) {
     console.log(error);
