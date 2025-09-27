@@ -6,11 +6,14 @@ import {
   accessTokenExpiresIn,
   refreshTokenExpiresIn,
   verifyTokenExpiresIn,
+  otpExpiresIn,
 } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import userModel from '../../models/user.model.js';
+import generateOtpHelper from '../../helpers/generateOtp.helper.js';
+import otpModel from '../../models/otp.model.js';
 
 // [GET]: /register
 const registerGet = async (req, res) => {
@@ -43,7 +46,7 @@ const registerPost = async (req, res) => {
     );
 
     res.redirect(
-      `http://${process.env.HOSTNAME}:${process.env.PORT}/register-verify/${user.email}/${verifyTokenExpiresIn}`
+      `http://${process.env.HOSTNAME}:${process.env.PORT}/register-verify/?duration=${verifyTokenExpiresIn}`
     );
   } catch (error) {
     console.log(error);
@@ -53,12 +56,10 @@ const registerPost = async (req, res) => {
 // [GET]: /register-verify/:email/:duration
 const registerVerifyGet = async (req, res) => {
   try {
-    const email = req.params.email;
-    const duration = req.params.duration;
+    const duration = req.query.duration;
 
     res.render('./client/pages/auth/register-verify.view.ejs', {
       pageTitle: 'Kích hoạt tài khoản',
-      email: email,
       duration: duration,
     });
   } catch (error) {
@@ -146,6 +147,116 @@ const logout = async (req, res) => {
   }
 };
 
+// [GET]: /forgot-password
+const forgotPasswordGet = async (req, res) => {
+  try {
+    res.render('./client/pages/auth/forgot-password.view.ejs', { pageTitle: 'Quên mật khẩu' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [POST]: /forgot-password-create
+const forgotPasswordPost = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const find = { email: email, deleted: false, status: 'active', isVerified: true };
+    const user = await userModel.findOne(find);
+    const otp = await otpModel.findOne({ email: email });
+
+    if (otp) {
+      await otpModel.findByIdAndDelete(otp._id);
+    }
+
+    const otpRandom = generateOtpHelper(5);
+    const otpObj = {
+      email: user.email,
+      otp: otpRandom,
+      expiredAt: Date.now() + otpExpiresIn,
+    };
+
+    const newOtp = new otpModel(otpObj);
+    await newOtp.save();
+
+    sendMailHelper(
+      'danh13320031@gmail.com',
+      'VENZA - LẤY LẠI MẬT KHẨU',
+      `<span>Mã xác nhận của bạn là: <h1>${otpRandom}</h1></span>`
+    );
+
+    alertMessageHelper(req, 'alertSuccess', 'Kiểm tra email để nhận OTP');
+    res.redirect(`/forgot-password-otp?email=${email}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [GET]: /forgot-password-otp
+const enterOTP = async (req, res) => {
+  try {
+    const email = req.query.email;
+
+    res.render('./client/pages/auth/forgot-password-otp.view.ejs', {
+      pageTitle: 'Xác thực OTP',
+      email: email,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [POST]: /forgot-password-check-otp
+const checkOtp = async (req, res) => {
+  const email = req.query.email;
+  const otp1 = req.body.otp1;
+  const otp2 = req.body.otp2;
+  const otp3 = req.body.otp3;
+  const otp4 = req.body.otp4;
+  const otp5 = req.body.otp5;
+  const otpString = `${otp1}${otp2}${otp3}${otp4}${otp5}`;
+  const otp = await otpModel.findOne({ email: email });
+
+  if (otp.otp === otpString) {
+    await otpModel.findByIdAndDelete(otp._id);
+
+    const user = await userModel.findOne({ email: email });
+    res.cookie('refreshToken', user.refreshToken, {
+      httpOnly: true,
+      maxAge: refreshTokenExpiresIn,
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Xác thức OTP thành công');
+    res.redirect(`/forgot-password-reset`);
+  }
+};
+
+// [GET]: /forgot-password-reset
+const resetPasswordGet = async (req, res) => {
+  try {
+    res.render('./client/pages/auth/forgot-password-reset.view.ejs', {
+      pageTitle: 'Đổi mật khẩu',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [POST]: /forgot-password-reset-create
+const resetPasswordPost = async (req, res) => {
+  try {
+    const refeshToken = req.cookies.refreshToken;
+    const password = req.body.password;
+    const hashPassword = await bcrypt.hash(password, saltRoundsConst);
+
+    await userModel.findOneAndUpdate({ refreshToken: refeshToken }, { password: hashPassword });
+
+    alertMessageHelper(req, 'alertSuccess', 'Đổi mật khẩu thành công');
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const authController = {
   registerGet,
   registerPost,
@@ -154,6 +265,12 @@ const authController = {
   loginGet,
   loginPost,
   logout,
+  forgotPasswordGet,
+  forgotPasswordPost,
+  enterOTP,
+  checkOtp,
+  resetPasswordGet,
+  resetPasswordPost,
 };
 
 export default authController;
