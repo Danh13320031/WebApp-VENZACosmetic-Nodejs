@@ -9,7 +9,11 @@ const sendMailHelper = async (to, subject, html) => {
     html: html,
   };
 
-  await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 };
 
 export default sendMailHelper;

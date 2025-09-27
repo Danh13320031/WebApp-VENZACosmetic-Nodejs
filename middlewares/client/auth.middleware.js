@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import { accessTokenExpiresIn } from '../../constants/constant.js';
+import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import userModel from '../../models/user.model.js';
 
 const checkToken = async (req, res, next) => {
@@ -37,7 +38,7 @@ const checkToken = async (req, res, next) => {
         if (!user) {
           res.clearCookie('refreshToken');
           res.clearCookie('accessToken');
-          
+
           next();
           return;
         }
@@ -70,9 +71,29 @@ const checkToken = async (req, res, next) => {
 };
 
 const requireLogin = (req, res, next) => {
-  if (!res.locals.user) {
+  const user = res.locals.user;
+
+  if (!user) {
     res.redirect('/login');
   } else {
+    if (user.status === 'inactive') {
+      alertMessageHelper(req, 'alertFailure', 'Tài khoản đã bị khoá');
+      res.redirect('/login');
+      return;
+    }
+
+    if (user.deleted === true) {
+      alertMessageHelper(req, 'alertFailure', 'Tài khoản đã bị xóa');
+      res.redirect('/login');
+      return;
+    }
+
+    if (!user.isVerified) {
+      alertMessageHelper(req, 'alertFailure', 'Tài khoản chưa được kích hoạt');
+      res.redirect('/login');
+      return;
+    }
+
     next();
   }
 };
@@ -81,4 +102,5 @@ const authMiddleware = {
   checkToken,
   requireLogin,
 };
+
 export default authMiddleware;
