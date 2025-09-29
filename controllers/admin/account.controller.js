@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import systemConfig from '../../configs/system.config.js';
-import { saltRoundsConst } from '../../constants/account.constant.js';
+import { saltRoundsConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';

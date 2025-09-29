@@ -1,27 +1,32 @@
-import { maxAgeCartStorage } from '../../constants/cart.constant.js';
+import { maxAgeCartStorage } from '../../constants/constant.js';
 import cartModel from '../../models/cart.model.js';
 import productModel from '../../models/product.model.js';
 
 const cartStorage = async (req, res, next) => {
-  if (req.originalUrl === '/favicon.ico') return next(); // bỏ qua favicon
-
   try {
-    let cart;
+    let cart = null;
     const user = res.locals.user;
     const userId = user ? user._id : null;
 
-    if (!req.cookies.cartId) {
-      cart = new cartModel({ user_id: userId });
-      await cart.save();
-      res.cookie('cartId', cart._id, { expires: new Date(Date.now() + maxAgeCartStorage) });
+    if (userId) {
+      cart = await cartModel.findOne({ user_id: userId });
+      
+      if (!cart) {
+        cart = new cartModel({ user_id: userId, products: [] });
+        await cart.save();
+      }
+
+      res.cookie('cartId', cart._id, { httpOnly: true, maxAge: maxAgeCartStorage });
     } else {
       const cartId = req.cookies.cartId;
-      cart = await cartModel.findById(cartId);
 
+      if (cartId) {
+        cart = await cartModel.findById(cartId);
+      }
       if (!cart) {
-        cart = new cartModel({ user_id: userId });
+        cart = new cartModel({ products: [] });
         await cart.save();
-        res.cookie('cartId', cart._id, { expires: new Date(Date.now() + maxAgeCartStorage) });
+        res.cookie('cartId', cart._id, { httpOnly: true, maxAge: maxAgeCartStorage });
       }
     }
 
@@ -37,25 +42,24 @@ const cartStorage = async (req, res, next) => {
     for (let i = 0; i < cart.products.length; i++) {
       const product = await productModel.findById(cart.products[i].product_id);
       if (product) {
-        productListCart.push(product);
-        product.quantity = cart.products[i].quantity;
+        const productData = product.toObject();
+        productData.quantity = cart.products[i].quantity;
+        productListCart.push(productData);
         totalPriceCart +=
-          (product.price - (product.price * product.discount) / 100) * product.quantity;
+          (product.price - (product.price * product.discount) / 100) * cart.products[i].quantity;
       }
     }
 
-    const newTotalPriceCart = Number.parseFloat(totalPriceCart);
-
-    cart.totalQuantityProduct = totalQuantityProduct ? totalQuantityProduct : 0;
-    cart.totalQuantityOrder = totalQuantityOrder ? totalQuantityOrder : 0;
-    cart.productListCart = productListCart ? productListCart : [];
-    cart.totalPriceOrder = newTotalPriceCart ? newTotalPriceCart : 0;
+    cart.totalQuantityProduct = totalQuantityProduct;
+    cart.totalQuantityOrder = totalQuantityOrder;
+    cart.productListCart = productListCart;
+    cart.totalPriceOrder = Number.parseFloat(totalPriceCart);
 
     res.locals.miniCart = cart;
     next();
-    return;
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
 
