@@ -1,4 +1,4 @@
-import { productLimitConst } from '../../constants/product.constant.js';
+import { productLimitConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
 import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';

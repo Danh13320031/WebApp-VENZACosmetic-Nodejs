@@ -1,4 +1,5 @@
 import ejs from 'ejs';
+import { emailConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
@@ -94,7 +95,7 @@ const createOfflinePayment = async (req, res) => {
     });
 
     // order.userInfo.email
-    await sendMailHelper('danh13320031@gmail.com', `VENZA - THANH TOÁN THÀNH CÔNG`, html);
+    await sendMailHelper(emailConst, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
     res.redirect('/payment/payment-success/' + order._id);
   } else {
     res.redirect('/payment/payment-fail');

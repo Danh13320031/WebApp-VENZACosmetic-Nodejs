@@ -1,19 +1,21 @@
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
-import { saltRoundsConst } from '../../constants/account.constant.js';
 import {
   accessTokenExpiresIn,
-  refreshTokenExpiresIn,
-  verifyTokenExpiresIn,
+  emailConst,
+  maxAgeCartStorage,
   otpExpiresIn,
+  refreshTokenExpiresIn,
+  saltRoundsConst,
+  verifyTokenExpiresIn,
 } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import generateOtpHelper from '../../helpers/generateOtp.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
-import userModel from '../../models/user.model.js';
-import generateOtpHelper from '../../helpers/generateOtp.helper.js';
 import otpModel from '../../models/otp.model.js';
+import userModel from '../../models/user.model.js';
 
 // [GET]: /register
 const registerGet = async (req, res) => {
@@ -40,7 +42,7 @@ const registerPost = async (req, res) => {
     const link = `http://${process.env.HOSTNAME}:${process.env.PORT}/register-change-isverified/${verifyToken}`;
 
     await sendMailHelper(
-      process.env.GOOGLE_USER_EMAIL,
+      emailConst,
       'VENZA - KÍCH HOẠT TÀI KHOẢN',
       `<h1>Kích hoạt tài khoản</h1><a href="${link}">Click vào đây</a>`
     );
@@ -100,7 +102,6 @@ const loginPost = async (req, res) => {
   try {
     const find = { email: req.body.email, deleted: false, status: 'active' };
     const user = await userModel.findOne(find);
-    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
 
     const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
       expiresIn: accessTokenExpiresIn,
@@ -115,10 +116,42 @@ const loginPost = async (req, res) => {
     user.refreshToken = refreshToken;
     await user.save();
 
+    // Xử lý cart
+    const cartId = req.cookies.cartId || null;
+    let userCart = await cartModel.findOne({ user_id: user._id });
+    let guestCart = null;
+
     if (cartId) {
-      await cartModel.findByIdAndUpdate(cartId, { user_id: user._id });
+      guestCart = await cartModel.findById(cartId);
     }
 
+    if (guestCart && !guestCart.user_id) {
+      if (!userCart) {
+        guestCart.user_id = user._id;
+        await guestCart.save();
+        userCart = guestCart;
+      } else {
+        guestCart.products.forEach((gp) => {
+          const existing = userCart.products.find((up) => up.product_id === gp.product_id);
+
+          if (existing) {
+            existing.quantity += gp.quantity;
+          } else {
+            userCart.products.push(gp);
+          }
+        });
+
+        await userCart.save();
+        await guestCart.deleteOne();
+      }
+    }
+
+    if (!userCart) {
+      userCart = new cartModel({ user_id: user._id, products: [] });
+      await userCart.save();
+    }
+
+    res.cookie('cartId', userCart._id, { httpOnly: true, maxAge: maxAgeCartStorage });
     alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
     res.redirect('/');
     return;
@@ -131,17 +164,19 @@ const loginPost = async (req, res) => {
 // [GET]: /logout
 const logout = async (req, res) => {
   try {
-    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
-
-    if (cartId) {
-      await cartModel.findByIdAndUpdate(cartId, { user_id: null });
-    }
-
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
+    res.clearCookie('cartId');
+
+    const guestCart = new cartModel({ user_id: null, products: [] });
+    await guestCart.save();
+    res.cookie('cartId', guestCart._id, {
+      httpOnly: true,
+      maxAge: maxAgeCartStorage,
+    });
 
     alertMessageHelper(req, 'alertSuccess', 'Đăng xuất thành công');
-    res.redirect('/login');
+    res.redirect('/');
   } catch (error) {
     console.log(error);
   }
@@ -179,7 +214,7 @@ const forgotPasswordPost = async (req, res) => {
     await newOtp.save();
 
     sendMailHelper(
-      'danh13320031@gmail.com',
+      emailConst,
       'VENZA - LẤY LẠI MẬT KHẨU',
       `<span>Mã xác nhận của bạn là: <h1>${otpRandom}</h1></span>`
     );

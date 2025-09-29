@@ -1,4 +1,4 @@
-import { productLimitConst } from "../../constants/product.constant.js";
+import { productLimitConst } from '../../constants/constant.js';
 
 const filterByQuantityHelper = (reqQuery) => {
   const objectFilterByQuantity = {

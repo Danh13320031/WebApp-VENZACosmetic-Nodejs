@@ -1,3 +1,4 @@
+import { maxAgeCartStorage } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import cartModel from '../../models/cart.model.js';
@@ -68,12 +69,25 @@ const addProductToCart = async (req, res) => {
   try {
     const productId = req.params.productId;
     const quantity = req.body.quantity ? Number.parseInt(req.body.quantity) : 1;
-    const cartId = req.cookies.cartId;
-    const cart = await cartModel.findById(cartId);
-    const objectOrder = {
-      product_id: productId,
-      quantity,
-    };
+    let cartId = req.cookies.cartId;
+    let cart = null;
+    const objectOrder = { product_id: productId, quantity };
+
+    if (cartId) {
+      cart = await cartModel.findById(cartId);
+    }
+
+    if (!cart) {
+      cart = new cartModel({ products: [] });
+      await cart.save();
+
+      res.cookie('cartId', cart._id, {
+        httpOnly: true,
+        maxAge: maxAgeCartStorage,
+      });
+
+      cartId = cart._id;
+    }
 
     const product = await productModel.findById(productId);
 
