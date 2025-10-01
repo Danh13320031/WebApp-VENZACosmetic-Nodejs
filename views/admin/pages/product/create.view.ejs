@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('product-add')) {%>
-        <h1 class="mb-4"><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/products/create"
           method="POST"
@@ -38,16 +40,16 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="title"
-                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
-                  >
+                  <label for="title" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Tiêu đề
+                  </label>
                   <input type="text" name="title" required class="form-control" id="title" />
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="category"
+                  <label for="category" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Danh mục</label
                   >
                   <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
@@ -62,21 +64,23 @@
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description">Mô tả ngắn</label>
+                  <label for="description" class="fw-bold">Mô tả ngắn</label>
                   <textarea name="description" class="form-control" id="description"></textarea>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="detail">Mô tả chi tiết</label>
+                  <label for="detail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Mô tả chi tiết</label
+                  >
                   <textarea name="detail" class="form-control" id="detail"></textarea>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="price"
+                  <label for="price" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Giá (đ)</label
                   >
                   <input
@@ -95,7 +99,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="discount">Giảm giá (%)</label>
+                  <label for="discount" class="fw-bold">Giảm giá (%)</label>
                   <input
                     type="number"
                     value="0"
@@ -112,7 +116,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="stock">Số lượng</label>
+                  <label for="stock" class="fw-bold">Số lượng</label>
                   <input
                     type="number"
                     value="0"
@@ -127,7 +131,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="position">Vị trí</label>
+                  <label for="position" class="fw-bold">Vị trí</label>
                   <input
                     type="number"
                     name="position"
@@ -141,7 +145,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="warranty">Bảo hành</label>
+                  <label for="warranty" class="fw-bold">Bảo hành</label>
                   <input
                     type="text"
                     name="warranty"
@@ -154,7 +158,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="brand">Thương hiệu</label>
+                  <label for="brand" class="fw-bold">Thương hiệu</label>
                   <input
                     type="text"
                     name="brand"
@@ -167,7 +171,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="rating"
+                  <label for="rating" class="fw-bold"
                     >Đánh giá (Số <i class="bi bi-star-fill text-warning"></i>)</label
                   >
                   <input
@@ -186,7 +190,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="shipping_fee"> Phí vận chuyển (đ)</label>
+                  <label for="shipping_fee" class="fw-bold"> Phí vận chuyển (đ)</label>
                   <input
                     type="number"
                     value="0"
@@ -207,7 +211,9 @@
                     <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
                     <img src="" alt="Hiển thị hình ảnh sản phẩm" class="image-upload" />
                   </div>
-                  <label for="thumbnail">Ảnh (.png / .jpg)</label>
+                  <label for="thumbnail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Ảnh (.png / .jpg)</label
+                  >
                   <input
                     type="file"
                     name="thumbnail"
@@ -222,7 +228,7 @@
 
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block"
+                  <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span> Trạng thái</label
                   >
                   <input
@@ -247,7 +253,7 @@
 
               <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block"
+                  <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span> Nổi bật</label
                   >
                   <input
@@ -280,6 +286,8 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 

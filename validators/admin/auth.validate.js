@@ -1,6 +1,7 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import accountModel from '../../models/account.model.js';
 
-const loginPostValidate = (req, res, next) => {
+const loginPostValidate = async (req, res, next) => {
   // Check email
   if (!req.body.email) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập email');

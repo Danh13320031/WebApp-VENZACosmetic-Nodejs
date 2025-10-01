@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -26,7 +28,7 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %>
-        <h1><%= pageTitle %></h1>
+        <h1 class="heading-font py-0 text-start"><%= pageTitle %></h1>
 
         <form
           action="<%= prefixAdmin %>/profile/update?_method=PATCH"
@@ -150,8 +152,10 @@
     </div>
 
     <!-- Script File -->
-    <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

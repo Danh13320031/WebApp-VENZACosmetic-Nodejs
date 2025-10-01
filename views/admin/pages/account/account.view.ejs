@@ -16,12 +16,13 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
-
     <div class="body">
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
@@ -29,7 +30,7 @@
         if(roleAuth.permission.includes("account-view")) { %>
         <div class="row">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <h1><%= pageTitle %></h1>
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -38,36 +39,34 @@
         </div>
 
         <div class="card mb-3">
-          <div class="card-header">Bộ lọc</div>
+          <div class="title-font card-header">Bộ lọc</div>
           <div class="card-body">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-4 col-12">
                   <%-include("../../partials/statusFilter.view.ejs") %>
                 </div>
-                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12"></div>
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="card mb-3">
-          <div class="card-header">
+          <div class="title-font card-header">
             Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-8">
+              <div class="row gap-lg-0 gap-2 justify-content-between">
+                <div class="col-lg-5 col-12">
                   <%-include("../../partials/changeMulti.view.ejs", {url: 'accounts', type:
                   'account'}) %>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-12">
                   <% if(roleAuth.permission.includes("account-add")) { %>
                   <a
                     href="<%= prefixAdmin %>/accounts/create"
-                    class="btn btn-primary float-end mb-2"
+                    class="btn btn-primary w-100 float-end mb-2"
                     ><i class="bi bi-plus-lg me-1"></i>Thêm mới tài khoản</a
                   >
                   <% } %>
@@ -82,13 +81,9 @@
                   <div class="text-center text-white bg-danger p-2">
                     Không tìm thấy tài khoản nào
                   </div>
-                  <% } %> <% if (roleList.length === 0) {%>
-                  <div class="text-center text-white bg-danger p-2">
-                    Cần có nhóm quyền mới vào đc trang này
-                  </div>
-                  <% } else {%>
+                  <% } %>
                   <table class="table table-hover table-sm">
-                    <thead>
+                    <thead class="content-font">
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         <input type="checkbox" name="checkall" class="me-5" />STT
                       </th>
@@ -113,7 +108,7 @@
                       <% } %>
                     </thead>
 
-                    <tbody>
+                    <tbody class="content-font">
                       <% accountList.forEach((account, index) => { %>
                       <tr title="<%= account.title %>">
                         <td>
@@ -136,24 +131,26 @@
                         <td><%= account.roleId %></td>
                         <% if(roleAuth.permission.includes("account-change-status")) { %>
                         <td>
-                          <% if(account.status === 'active') {%>
+                          <% if(account.status === 'active') { %>
                           <a
                             href="javascript:;"
                             data-id="<%= account._id %>"
                             data-status="active"
                             change-status
-                            class="badge text-bg-success"
-                            >Hoạt động</a
-                          >
-                          <% } else {%>
+                            class="badge"
+                            style="background: var(--success-color-admin)"
+                            >Hoạt động
+                          </a>
+                          <% } else { %>
                           <a
                             href="javascript:;"
                             data-id="<%= account._id %>"
                             data-status="inactive"
                             change-status
-                            class="badge text-bg-warning"
-                            >Ngừng hoạt động</a
-                          >
+                            class="badge"
+                            style="background: var(--warning-color-admin)"
+                            >Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <% } %>
@@ -179,7 +176,6 @@
                       <% }); %>
                     </tbody>
                   </table>
-                  <% } %>
                 </div>
               </div>
             </div>
@@ -193,8 +189,8 @@
             </div>
             <div class="col-lg-3 col-md-3 col-12">
               <a href="<%= prefixAdmin %>/accounts/garbage" class="btn btn-primary float-end"
-                ><i class="bi bi-trash me-2"></i>Thùng rác</a
-              >
+                ><i class="bi bi-trash me-2"></i>Thùng rác
+              </a>
             </div>
           </div>
         </div>
@@ -212,6 +208,9 @@
     <form action="<%= prefixAdmin %>/accounts" method="POST" class="d-none" form-delete></form>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>

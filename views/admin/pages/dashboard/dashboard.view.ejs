@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -26,12 +28,12 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %>
-        <h1><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <div class="row mb-3">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <div class="card-title">Thông tin tài khoản</div>
+                <div class="title-font card-title">Thông tin tài khoản</div>
               </div>
               <div class="card-body"></div>
             </div>
@@ -109,6 +111,8 @@
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

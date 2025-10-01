@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -28,7 +30,7 @@
         <%-include("../../partials/alertMessage.view.ejs") %>
         <div class="row">
           <div class="col-12">
-            <h1><%= pageTitle %></h1>
+            <h1 class="heading-font py-0 text-start"><%= pageTitle %></h1>
           </div>
 
           <% if(account.avatar) { %>
@@ -74,6 +76,8 @@
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

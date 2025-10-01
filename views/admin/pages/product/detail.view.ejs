@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -30,7 +32,7 @@
         <section class="detail">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-4 detail-img">
+              <div class="col-lg-4 col-12 detail-img">
                 <div class="border p-2 detail-box">
                   <% if(product.thumbnail && product.title) {%>
                   <a href="#" class="img-link"
@@ -38,7 +40,7 @@
                       src="<%= product.thumbnail %>"
                       alt="<%= product.title %>"
                       width="100%"
-                      class="img-img"
+                      class="w-100 aspect-ratio img-img"
                   /></a>
                   <% } %>
                 </div>
@@ -56,7 +58,7 @@
                 </div>
               </div>
 
-              <div class="col-8 detail-info">
+              <div class="col-lg-8 col-12 detail-info">
                 <h2 class="detail-title"><% if(product.title) {%><%= product.title %><% } %></h2>
 
                 <div class="d-flex detail-box">
@@ -70,7 +72,6 @@
                       </span>
                       <% } %>
                     </div>
-                    <span><%= product.rating %> stars</span>
                     <% } else {%>
                     <span>Không có đánh giá</span>
                     <% } %>
@@ -80,8 +81,9 @@
 
                   <div class="detail-stock">
                     <i class="bi bi-basket me-2 stock-icon"></i>
-                    <% if(product.stock) {%><span class=""><%= product.stock %> orders</span><% } %>
-                    <span class="text-success ms-2">In stock</span>
+                    <% if(product.stock) {%><span class=""><%= product.stock %> mặt hàng</span><% }
+                    %>
+                    <span class="text-success ms-2">trong kho</span>
                   </div>
                 </div>
 
@@ -102,15 +104,14 @@
                       <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                       }).format(product.price) %>
                     </h2>
-                    <h5 class="ms-3 text-secondary">/ per box</h5>
                     <% } %>
                   </div>
-                  Discount percentage: <b class="ms-2"><%= product.discount %>%</b>
+                  Giảm giá: <b class="ms-2"><%= product.discount %>%</b>
                 </div>
 
                 <% if(roleAuth.permission.includes('product-change-status')) { %>
                 <div class="detail-status">
-                  Status: <% if(product.status === 'active') {%>
+                  Trạng thái: <% if(product.status === 'active') {%>
                   <a
                     href="javascript:;"
                     data-id="<%= product._id %>"
@@ -155,14 +156,16 @@
                 <div class="detail-other">
                   <ul class="list-unstyled other-list">
                     <% if(product.brand) {%>
-                    <li class="other-item"><b class="me-5">- Brand: </b> <%= product.brand %></li>
+                    <li class="other-item">
+                      <b class="me-5">- Thương hiệu: </b> <%= product.brand %>
+                    </li>
                     <% } %> <% if(category) {%>
                     <li class="other-item mt-2">
-                      <b class="me-4">- Category: </b> <%= category.title %>
+                      <b class="me-4">- Danh mục: </b> <%= category.title %>
                     </li>
                     <% } %> <% if(product.warranty) {%>
                     <li class="other-item mt-2">
-                      <b class="me-4">- Warranty: </b> <%= product.warranty %>
+                      <b class="me-4">- Bảo hành: </b> <%= product.warranty %>
                     </li>
                     <% } %>
                   </ul>
@@ -183,6 +186,8 @@
     ></form>
 
     <!-- Script File -->
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>

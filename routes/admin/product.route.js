@@ -25,7 +25,7 @@ productRoute.patch(
   '/update/:id',
   upload.single('thumbnail'),
   productMiddleware.uploadCloud,
-  productValidate.createProductValidate,
+  productValidate.updateProductValidate,
   productController.updateProductPatch
 );
 productRoute.patch('/change-status/:status/:id', productController.changeStatusProduct);

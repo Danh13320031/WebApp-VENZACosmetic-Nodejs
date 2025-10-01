@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -28,7 +30,7 @@
         <%-include("../../partials/alertMessage.view.ejs") %>
         <div class="row">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <h1><%= pageTitle %></h1>
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -38,7 +40,7 @@
         <div class="card mb-3">
           <div class="card-header">
             <div class="row">
-              <div class="col-6">Danh sách</div>
+              <div class="title-font col-6">Danh sách</div>
               <div class="col-6">
                 <button type="submit" class="btn btn-outline-primary float-end" id="button-submit">
                   <i class="bi bi-pencil-square me-1"></i>Cập nhật
@@ -54,7 +56,7 @@
             <% } %>
             <div data-role="<%= roleListJon %>"></div>
             <table class="table table-hover table-sm" id="table-permission">
-              <thead>
+              <thead class="content-font">
                 <th class="bg-primary-subtle text-primary text-decoration-underline">
                   Các tính năng
                 </th>
@@ -64,7 +66,7 @@
                 </th>
                 <% }) %>
               </thead>
-              <tbody>
+              <tbody class="content-font">
                 <tr data-name="id" class="d-none">
                   <td class="bg-body-secondary"><b>ID nhóm quyền</b></td>
                   <% roleList.forEach(role => { %>
@@ -350,6 +352,9 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/permission/update.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>

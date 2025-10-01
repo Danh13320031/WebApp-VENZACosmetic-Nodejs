@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('product-update')) { %>
-        <h1 class="mb-4"><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/products/update/<%= product._id %>?_method=PATCH"
           method="POST"
@@ -38,7 +40,9 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="title">Tiêu đề</label>
+                  <label for="title" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
+                  >
                   <input
                     type="text"
                     value="<%= product.title %>"
@@ -52,7 +56,9 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="category">Danh mục</label>
+                  <label for="category" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Danh mục</label
+                  >
                   <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
                   <select name="category" id="category" class="form-control">
                     <option disabled>-- Chọn danh mục --</option>
@@ -65,7 +71,7 @@
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description">Mô tả ngắn</label>
+                  <label for="description" class="fw-bold">Mô tả ngắn</label>
                   <textarea name="description" class="form-control" id="description">
 <%= product.description %></textarea
                   >
@@ -74,7 +80,9 @@
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="detail">Mô tả chi tiết</label>
+                  <label for="detail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Mô tả chi tiết</label
+                  >
                   <textarea name="detail" class="form-control" id="detail">
 <%= product.detail %></textarea
                   >
@@ -83,7 +91,9 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="price">Giá (đ)</label>
+                  <label for="price" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Giá (đ)</label
+                  >
                   <input
                     type="number"
                     value="<%= product.price %>"
@@ -100,7 +110,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="discount">Giảm giá (%)</label>
+                  <label for="discount" class="fw-bold">Giảm giá (%)</label>
                   <input
                     type="number"
                     value="<%= product.discount %>"
@@ -117,7 +127,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="stock">Số lượng</label>
+                  <label for="stock" class="fw-bold">Số lượng</label>
                   <input
                     type="number"
                     value="<%= product.stock %>"
@@ -132,7 +142,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="position">Vị trí</label>
+                  <label for="position" class="fw-bold">Vị trí</label>
                   <input
                     type="number"
                     value="<%= product.position %>"
@@ -147,7 +157,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="warranty">Bảo hành</label>
+                  <label for="warranty" class="fw-bold">Bảo hành</label>
                   <input
                     type="text"
                     value="<%= product.warranty %>"
@@ -161,7 +171,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="brand">Thương hiệu</label>
+                  <label for="brand" class="fw-bold">Thương hiệu</label>
                   <input
                     type="text"
                     value="<%= product.brand %>"
@@ -175,7 +185,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="rating">
+                  <label for="rating" class="fw-bold">
                     Đánh giá <% for(let i = 1; i <= product.rating; i++) {%>
                     <i class="bi bi-star-fill text-warning"></i>
                     <% } %>
@@ -196,7 +206,7 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="shipping_fee">Phí vận chuyển (đ)</label>
+                  <label for="shipping_fee" class="fw-bold">Phí vận chuyển (đ)</label>
                   <input
                     type="number"
                     value="<%= product.shipping_fee %>"
@@ -221,7 +231,9 @@
                       class="image-upload"
                     />
                   </div>
-                  <label for="thumbnail">Ảnh (.png / .jpg)</label>
+                  <label for="thumbnail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Ảnh (.png / .jpg)</label
+                  >
                   <input
                     type="file"
                     name="thumbnail"
@@ -234,7 +246,9 @@
 
               <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block">Trạng thái</label>
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
+                  >
                   <input type="radio" name="status" value="active" <% if(product.status ===
                   'active') {%> checked <% } %> class="form-check-input bg-success"
                   id="status-active" />
@@ -249,7 +263,7 @@
 
               <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block"
+                  <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span> Nổi bật</label
                   >
                   <input type="radio" name="featured" value="1" class="form-check-input bg-success"
@@ -271,6 +285,8 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 

@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -29,24 +31,20 @@
         if(roleAuth.permission.includes('role-view')) { %>
         <div class="row">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <h1><%= pageTitle %></h1>
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
             <%#-include("../../partials/search.view.ejs") %>
           </div>
         </div>
         <div class="card mb-3">
-          <div class="card-header">Danh sách</div>
+          <div class="title-font card-header">Danh sách</div>
           <div class="card-body">
-            <div class="container-fluid">
+            <div class="container-fluid mb-2">
               <div class="row">
-                <div class="col-4">
+                <div class="col-lg-5 col-12">
                   <%-include("../../partials/changeMulti.view.ejs", {url: 'roles', type: 'role'}) %>
                 </div>
-                <div class="col-4"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
               </div>
             </div>
 
@@ -59,14 +57,14 @@
                   </div>
                   <% } %>
                   <table class="table table-hover table-sm">
-                    <thead>
+                    <thead class="content-font">
                       <th><input type="checkbox" name="checkall" class="me-5" />STT</th>
                       <th>Tiêu đề</th>
                       <th>Mô tả ngắn</th>
                       <th>Hành động</th>
                     </thead>
 
-                    <tbody>
+                    <tbody class="content-font">
                       <% roleList.forEach((role, index) => { %>
                       <tr>
                         <td>
@@ -127,6 +125,9 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/deleteGarbage.js"></script>
     <script src="/admin/scripts/restoreGarbage.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>

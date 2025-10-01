@@ -1,11 +1,10 @@
 <form
   action="<%= prefixAdmin %>/<%= url %>/change-multi?_method=PATCH"
   method="POST"
-  class="mb-3"
   form-change-multi
 >
-  <div class="d-flex align-items-start">
-    <div class="form-group me-1">
+  <div class="d-flex align-items-start w-100">
+    <div class="form-group me-1 flex-fill">
       <select name="type" class="form-control">
         <option disabled selected>-- Danh mục lựa chọn --</option>
           <% if(roleAuth.permission.includes(`${type}-change-status`)) {%>
