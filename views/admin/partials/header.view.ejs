@@ -1,47 +1,65 @@
-<header class="header">
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <div class="col-6">
-        <div class="inner-logo">
-          <a href="/admin/dashboard"><i class="fa-solid fa-user-tie me-2"></i>ADMIN</a>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="inner-auth d-flex justify-content-end">
-          <div class="account-button-info ms-2 mt-1">
-            <div class="account-avatar">
-              <img src=<%= account.avatar %> alt="avatar" width="100%" />
-            </div>
-            <ul class="account-info-list card">
-              <li class="account-info-item">
-                <div class="account-info-name"><b><%= account.fullName %></b></div>
-                <div class="account-info-name"><%= account.email %></div>
-              </li>
-              <li class="account-info-item">
-                <hr />
-              </li>
-              <li class="account-info-item">
-                <a
-                  href="<%= prefixAdmin %>/profile"
-                  class="account-info-link btn btn-primary w-100"
-                  >Thông tin tài khoản</a
-                >
-              </li>
-              <li class="account-info-item">
-                <hr />
-              </li>
-              <li class="account-info-item">
-                <a
-                  href="<%= prefixAdmin %>/auth/logout"
-                  class="account-info-link btn btn-primary w-100"
-                  >Đăng xuất</a
-                >
-              </li>
-            </ul>
+<header
+  class="sb-topnav navbar navbar-expand navbar-dark shadow header"
+  id="header"
+  style="
+    background: var(--secondary-color-admin);
+    border-bottom: 1px solid var(--light-gray-color-admin);
+  "
+>
+  <!-- Navbar Brand-->
+  <a class="title-font navbar-brand ps-3 header-title" href="<%= prefixAdmin %>/dashboard"
+    >VENZA - ADMIN</a
+  >
+  <!-- Sidebar Toggle-->
+  <button
+    class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 header-toggle"
+    id="sidebarToggle"
+    href="#!"
+  >
+    <i class="text-white d-block d-lg-none fas fa-bars header-menu"></i>
+  </button>
+  <!-- Navbar Search-->
+  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+  <!-- Navbar-->
+  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 d-md-inline-block header-user-list">
+    <li class="nav-item dropdown header-user-item">
+      <a
+        class="nav-link dropdown-toggle header-user-link"
+        id="navbarDropdown"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        ><img
+          class="rounded-circle img-avatar header-user-avatar"
+          src="<%= account.avatar %>"
+          alt="avatar"
+          width="40px"
+          height="40px"
+      /></a>
+      <ul
+        class="dropdown-menu dropdown-menu-end header-user-dropdown"
+        aria-labelledby="navbarDropdown"
+      >
+        <li>
+          <div class="dropdown-item header-dropdown-link">
+            Chào mừng <b><%= account.fullName %></b>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </li>
+        <li>
+          <a
+            class="btn btn-primary dropdown-item text-white header-dropdown-link"
+            href="<%= prefixAdmin %>/profile"
+            >Thông tin cá nhân</a
+          >
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a class="dropdown-item header-dropdown-link" href="<%= prefixAdmin %>/auth/logout"
+            >Đăng xuất <i class="ms-1 fas fa-sign-out-alt"></i
+          ></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </header>

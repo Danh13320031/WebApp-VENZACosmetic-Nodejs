@@ -15,8 +15,16 @@ const updateProfileValidate = async (req, res, next) => {
   }
 
   // Check email
+  const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
   if (!req.body.email) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ email');
+    res.redirect('back');
+    return;
+  }
+
+  if (!regexEmail.test(req.body.email)) {
+    alertMessageHelper(req, 'alertFailure', 'Email không hợp lệ');
     res.redirect('back');
     return;
   }

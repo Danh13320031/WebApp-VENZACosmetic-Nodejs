@@ -1,63 +1,202 @@
-<nav class="nav nav-pills nav-fill sider">
-  <div class="inner-menu w-100">
-    <ul>
-      <li>
-        <a href="<%= prefixAdmin %>/dashboard" class="nav-link"
-          ><i class="bi bi-house-fill"></i>Tổng quan</a
+<div id="sidebar-layout" class="shadow">
+  <div id="sidebar-nav-overlay"></div>
+  <div id="sidebar-nav-box" style="background: var(--secondary-color-admin)">
+    <nav
+      class="sb-sidenav accordion sb-sidenav-dark h-100 d-flex flex-column justify-content-between sidebar-nav-accordion"
+      id="sidebar-nav-accordion"
+    >
+      <div class="sb-sidenav-menu sidebar-nav-menu">
+        <div class="nav d-flex flex-column p-1 gap-1 sidebar-nav-list">
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="1"
+            href="<%= prefixAdmin %>/dashboard"
+          >
+            <div class="sb-nav-link-icon"><i class="bi bi-house-fill"></i></div>
+            Tổng quan
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="2"
+            href="<%= prefixAdmin %>/products"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-list-ul"></i></div>
+            Sản phẩm
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="3"
+            href="<%= prefixAdmin %>/categories"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-bars-staggered"></i></div>
+            Danh mục
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="4"
+            href="<%= prefixAdmin %>/orders"
+          >
+            <div class="sb-nav-link-icon"><i class="bi bi-bag-check-fill"></i></div>
+            Đơn hàng
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="5"
+            href="<%= prefixAdmin %>/accounts"
+          >
+            <div class="sb-nav-link-icon"><i class="bi bi-person-circle"></i></div>
+            Quản trị viên
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="6"
+            href="<%= prefixAdmin %>/roles"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+            Nhóm quyền
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
+            sidebar-number="7"
+            href="<%= prefixAdmin %>/permissions"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
+            Phân quyền
+          </a>
+          <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="8"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseLayouts"
+            aria-expanded="false"
+            aria-controls="collapseLayouts"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>
+            Cài đặt
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div
+            class="collapse"
+            id="collapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="text-white d-flex gap-2 nav-link" href="layout-static.html"
+                >Cài đặt chung</a
+              >
+              <a class="text-white d-flex gap-2 nav-link" href="layout-sidenav-light.html"
+                >Cài đặt người dùng</a
+              >
+            </nav>
+          </div>
+          <!-- <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsePages"
+            aria-expanded="false"
+            aria-controls="collapsePages"
+          >
+            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+            Pages
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div
+            class="collapse"
+            id="collapsePages"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav
+              class="sb-sidenav-menu-nested nav accordion d-flex flex-column"
+              id="sidenavAccordionPages"
+            >
+              <a
+                class="text-white d-flex gap-2 nav-link collapsed"
+                href="#"
+                data-bs-toggle="collapse"
+                data-bs-target="#pagesCollapseAuth"
+                aria-expanded="false"
+                aria-controls="pagesCollapseAuth"
+              >
+                Authentication
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div
+                class="collapse"
+                id="pagesCollapseAuth"
+                aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordionPages"
+              >
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="login.html">Login</a>
+                  <a class="nav-link" href="register.html">Register</a>
+                  <a class="nav-link" href="password.html">Forgot Password</a>
+                </nav>
+              </div>
+              <a
+                class="text-white d-flex gap-2 nav-link collapsed"
+                href="#"
+                data-bs-toggle="collapse"
+                data-bs-target="#pagesCollapseError"
+                aria-expanded="false"
+                aria-controls="pagesCollapseError"
+              >
+                Error
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div
+                class="collapse"
+                id="pagesCollapseError"
+                aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordionPages"
+              >
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="401.html">401 Page</a>
+                  <a class="nav-link" href="404.html">404 Page</a>
+                  <a class="nav-link" href="500.html">500 Page</a>
+                </nav>
+              </div>
+            </nav>
+          </div>
+          <a class="text-white d-flex gap-2 nav-link sidebar-nav-link" href="charts.html">
+            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+            Charts
+          </a>
+          <a class="text-white d-flex gap-2 nav-link sidebar-nav-link" href="tables.html">
+            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+            Tables
+          </a> -->
+        </div>
+      </div>
+      <div class="sb-sidenav-footer p-3 mb-5 d-flex flex-column gap-2 sidebar-nav-footer">
+        <a href="/" class="btn btn-light w-100 text-decoration-none text-primary" type="button"
+          >Đi tới trang chủ</a
         >
-      </li>
-      <% if(roleAuth.permission.includes('product-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/products" class="nav-link"
-          ><i class="fa-solid fa-list-ul"></i>Sản phẩm</a
-        >
-      </li>
-      <% } %>
-
-      <!----------------------------------------------------------------------------------->
-      <% if(roleAuth.permission.includes('category-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/categories" class="nav-link"
-          ><i class="fa-solid fa-bars-staggered"></i>Danh mục</a
-        >
-      </li>
-      <% } %>
-
-      <!----------------------------------------------------------------------------------->
-      <% if(roleAuth.permission.includes('order-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/orders" class="nav-link"
-          ><i class="bi bi-bag-check-fill"></i>Đơn hàng</a
-        >
-      </li>
-      <% } %>
-
-      <!----------------------------------------------------------------------------------->
-      <% if(roleAuth.permission.includes('account-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/accounts" class="nav-link"
-          ><i class="bi bi-person-circle"></i>Tài khoản</a
-        >
-      </li>
-      <% } %>
-
-      <!----------------------------------------------------------------------------------->
-      <% if(roleAuth.permission.includes('role-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/roles" class="nav-link"
-          ><i class="fa-solid fa-users"></i>Nhóm quyền</a
-        >
-      </li>
-      <% } %>
-
-      <!----------------------------------------------------------------------------------->
-      <% if(roleAuth.permission.includes('permission-view')) {%>
-      <li>
-        <a href="<%= prefixAdmin %>/permissions" class="nav-link"
-          ><i class="fa-solid fa-users-gear"></i>Phân quyền</a
-        >
-      </li>
-      <% } %>
-    </ul>
+        <ul class="d-flex justify-content-start mb-3 ps-0 btn-group sidebar-nav-contact">
+          <li class="btn btn-light">
+            <div class="before"></div>
+            <a href="tel:0913929312" class="text-decoration-none text-primary"
+              ><i class="fa-solid fa-phone"></i
+            ></a>
+          </li>
+          <li class="btn btn-light">
+            <a href="mailto:danh13320031@gmail.com" class="text-decoration-none text-primary"
+              ><i class="fa-solid fa-envelope"></i
+            ></a>
+          </li>
+          <li class="btn btn-light">
+            <a
+              href="https://www.facebook.com/danh.bui.10420321"
+              target="_blank"
+              class="text-decoration-none text-primary"
+              ><i class="fa-solid fa-message"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
-</nav>
+</div>

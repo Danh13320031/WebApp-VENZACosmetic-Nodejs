@@ -1,0 +1,47 @@
+.page-link:focus {
+  box-shadow: unset;
+}
+.alert {
+  position: fixed;
+  left: calc(50% - 170px);
+  top: calc(0% - 70px);
+  z-index: 1050;
+  width: 340px;
+  animation: alert-transition 2s cubic-bezier(0.41, -0.93, 0.59, 1.95) 0.8s;
+}
+.alert .icon-delete {
+  padding: 0px 5px;
+  display: block;
+  cursor: pointer;
+  border-radius: 15px;
+}
+.alert .icon-delete:hover {
+  background: rgba(255, 255, 255, 0.644);
+  transition: 0.2s ease-out;
+}
+@keyframes alert-transition {
+  0% {
+    top: calc(0% - 70px);
+    opacity: 0;
+  }
+  10% {
+    top: calc(0% + 10px);
+    opacity: 1;
+  }
+  50% {
+    top: calc(0% + 10px);
+    opacity: 1;
+  }
+  75% {
+    top: calc(0% + 10px);
+    opacity: 1;
+  }
+  90% {
+    top: calc(0% + 10px);
+    opacity: 1;
+  }
+  100% {
+    top: calc(0% - 70px);
+    opacity: 0;
+  }
+}

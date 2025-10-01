@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('category-update')) { %>
-        <h1><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/categories/update/<%= category._id %>?_method=PATCH"
           method="POST"
@@ -38,7 +40,9 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="title">Tiêu đề danh mục</label>
+                  <label for="title" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
+                  >
                   <input
                     type="text"
                     value="<%= category.title %>"
@@ -51,7 +55,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="parent_id">Danh mục cha</label>
+                  <label for="parent_id" class="fw-bold">Danh mục cha</label>
                   <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
                   <select name="parent_id" id="parent_id" class="form-control">
                     <option disabled>-- Chọn danh mục cha --</option>
@@ -63,7 +67,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description">Mô tả danh mục</label>
+                  <label for="description" class="fw-bold">Mô tả</label>
                   <textarea name="description" id="description" rows="5" class="form-control">
 <%= category.description %></textarea
                   >
@@ -71,7 +75,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="position">Vị trí</label>
+                  <label for="position" class="fw-bold">Vị trí</label>
                   <input
                     type="number"
                     value="<%= category.position %>"
@@ -93,7 +97,7 @@
                       class="image-upload"
                     />
                   </div>
-                  <label for="thumbnail">Ảnh (.png / .jpg)</label>
+                  <label for="thumbnail" class="fw-bold">Ảnh (.png / .jpg)</label>
                   <input
                     type="file"
                     name="thumbnail"
@@ -106,7 +110,9 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block">Trạng thái</label>
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
+                  >
                   <input type="radio" name="status" value="active" <% if(category.status ===
                   'active') {%>checked<% } %> class="form-check-input bg-success" id="status-active"
                   />
@@ -128,6 +134,9 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>

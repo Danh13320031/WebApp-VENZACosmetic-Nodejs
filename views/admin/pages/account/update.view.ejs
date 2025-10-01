@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %>
         <% if(roleAuth.permission.includes("account-update")) { %>
-          <h1><%= pageTitle %></h1>
+          <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/accounts/update/<%= account._id %>?_method=PATCH"
           method="POST"
@@ -38,8 +40,8 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="fullName"
-                    ><span class="text-danger"><b>*</b></span> Họ & Tên</label
+                  <label for="fullName" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span class="fw-bold"> Họ & Tên</label
                   >
                   <input
                     type="text"
@@ -53,7 +55,7 @@
               </div>
               <div class="col-6 mb-4">
                 <div class="form-group">
-                  <label for="email"
+                  <label for="email" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Địa chỉ email</label
                   >
                   <input
@@ -68,7 +70,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="password"
+                  <label for="password" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Mật khẩu</label
                   >
                   <input
@@ -92,7 +94,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="phone"
+                  <label for="phone" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Số điện thoại</label
                   >
                   <input
@@ -107,7 +109,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="avatar">Ảnh đại diện</label>
+                  <label for="avatar" class="fw-bold">Ảnh đại diện</label>
                   <input
                     type="file"
                     name="avatar"
@@ -120,7 +122,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="birthDay"
+                  <label for="birthDay" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Ngày sinh</label
                   >
                   <input
@@ -134,7 +136,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="roleId"
+                  <label for="roleId" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Phân quyền</label
                   >
                   <select name="roleId" id="roleId" class="form-control">
@@ -147,7 +149,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="status"
+                  <label for="status" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Trạng thái</label
                   >
                   <select name="status" id="status" class="form-control">
@@ -168,6 +170,9 @@
     </div>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>

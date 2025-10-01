@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('role-update')) { %>
-        <h1><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/roles/update/<%= role._id %>?_method=PATCH"
           method="POST"
@@ -36,7 +38,9 @@
           <div class="row">
             <div class="col-12">
               <div class="form-group mb-4">
-                <label for="title">Tên quyền</label>
+                <label for="title" class="fw-bold"
+                  ><span class="text-danger"><b>*</b></span> Tên quyền</label
+                >
                 <input
                   type="text"
                   name="title"
@@ -50,7 +54,9 @@
 
             <div class="col-12">
               <div class="form-group mb-4">
-                <label for="description">Mô tả quyền</label>
+                <label for="description" class="fw-bold"
+                  ><span class="text-danger"><b>*</b></span> Mô tả quyền</label
+                >
                 <textarea name="description" id="description" rows="5" class="form-control">
 <%= role.description %></textarea
                 >
@@ -68,6 +74,8 @@
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

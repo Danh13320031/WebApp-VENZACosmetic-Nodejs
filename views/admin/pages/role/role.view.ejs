@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -29,7 +31,7 @@
         if(roleAuth.permission.includes('role-view')) {%>
         <div class="row">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <h1><%= pageTitle %></h1>
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -37,18 +39,19 @@
           </div>
         </div>
         <div class="card mb-3">
-          <div class="card-header">Danh sách</div>
+          <div class="title-font card-header">Danh sách</div>
           <div class="card-body">
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-4">
+              <div class="row gap-lg-0 gap-2 justify-content-between">
+                <div class="col-lg-5 col-12">
                   <%-include("../../partials/changeMulti.view.ejs", {url: 'roles', type: 'role'}) %>
                 </div>
-                <div class="col-4"></div>
-                <div class="col-2"></div>
-                <div class="col-2">
+                <div class="col-lg-4 col-12">
                   <% if(roleAuth.permission.includes('role-add')) { %>
-                  <a href="<%= prefixAdmin %>/roles/create" class="btn btn-primary float-end">
+                  <a
+                    href="<%= prefixAdmin %>/roles/create"
+                    class="btn btn-primary w-100 float-end mb-2"
+                  >
                     <i class="bi bi-plus-lg me-1"></i>Thêm mới quyền
                   </a>
                   <% } %>
@@ -65,7 +68,7 @@
                   </div>
                   <% } %>
                   <table class="table table-hover table-sm">
-                    <thead>
+                    <thead class="content-font">
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         <input type="checkbox" name="checkall" class="me-5" />STT
                       </th>
@@ -80,7 +83,7 @@
                       </th>
                     </thead>
 
-                    <tbody>
+                    <tbody class="content-font">
                       <% roleList.forEach((role, index) => { %>
                       <tr>
                         <td>
@@ -141,6 +144,9 @@
     <form action="<%= prefixAdmin %>/roles" method="POST" class="d-none" form-delete></form>
 
     <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>

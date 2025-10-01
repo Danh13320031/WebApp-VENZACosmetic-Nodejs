@@ -16,8 +16,10 @@
     />
 
     <!-- Style File -->
-    <link rel="stylesheet" href="/setup.css" />
-    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,7 +29,7 @@
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('category-add')) { %>
-        <h1><%= pageTitle %></h1>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
           action="<%= prefixAdmin %>/categories/create"
           method="POST"
@@ -38,15 +40,15 @@
             <div class="row">
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="title"
-                    ><span class="text-danger"><b>*</b></span> Tiêu đề danh mục</label
+                  <label for="title" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
                   >
                   <input type="text" name="title" id="title" required class="form-control" />
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="parent_id"
+                  <label for="parent_id" class="fw-bold"
                     ><span class="text-danger"></span> Danh mục cha</label
                   >
                   <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
@@ -60,7 +62,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description">Mô tả danh mục</label>
+                  <label for="description" class="fw-bold">Mô tả</label>
                   <textarea
                     name="description"
                     id="description"
@@ -71,7 +73,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="position">Vị trí</label>
+                  <label for="position" class="fw-bold">Vị trí</label>
                   <input
                     type="number"
                     name="position"
@@ -88,7 +90,7 @@
                     <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
                     <img src="" alt="Hiển thị hình ảnh sản phẩm" class="image-upload" />
                   </div>
-                  <label for="thumbnail">Ảnh (.png / .jpg)</label>
+                  <label for="thumbnail" class="fw-bold">Ảnh (.png / .jpg)</label>
                   <input
                     type="file"
                     name="thumbnail"
@@ -102,7 +104,7 @@
               </div>
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="" class="d-block"
+                  <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span> Trạng thái</label
                   >
                   <input
@@ -135,8 +137,10 @@
     </div>
 
     <!-- Script File -->
-    <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/previewImage.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

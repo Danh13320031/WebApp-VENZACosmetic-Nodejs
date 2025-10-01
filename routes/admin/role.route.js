@@ -8,7 +8,7 @@ roleRoute.get('/', roleController.role);
 roleRoute.get('/create', roleController.createRoleGet);
 roleRoute.post('/create', roleValidate.createRoleValidate, roleController.createRolePost);
 roleRoute.get('/update/:id', roleController.updateRoleGet);
-roleRoute.patch('/update/:id', roleValidate.createRoleValidate, roleController.updateRolePatch);
+roleRoute.patch('/update/:id', roleValidate.updateRoleValidate, roleController.updateRolePatch);
 roleRoute.patch('/change-multi', roleController.changeMultiRole);
 roleRoute.patch('/delete/:id', roleController.deleteRole);
 roleRoute.get('/garbage', roleController.garbageRole);

@@ -15,8 +15,16 @@ const createAccountValidate = async (req, res, next) => {
   }
 
   // Check email
+  const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+
   if (!req.body.email) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ email');
+    res.redirect('back');
+    return;
+  }
+
+  if (!regexEmail.test(req.body.email)) {
+    alertMessageHelper(req, 'alertFailure', 'Email không hợp lệ');
     res.redirect('back');
     return;
   }
@@ -29,8 +37,16 @@ const createAccountValidate = async (req, res, next) => {
   }
 
   // Check phone
+  const regexPhone = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+
   if (!req.body.phone) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số điện thoại');
+    res.redirect('back');
+    return;
+  }
+
+  if (!regexPhone.test(req.body.phone)) {
+    alertMessageHelper(req, 'alertFailure', 'Số điện thoại không hợp lệ');
     res.redirect('back');
     return;
   }
