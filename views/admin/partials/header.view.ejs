@@ -8,7 +8,7 @@
 >
   <!-- Navbar Brand-->
   <a class="title-font navbar-brand ps-3 header-title" href="<%= prefixAdmin %>/dashboard"
-    >VENZA - ADMIN</a
+    ><%= generalWebsite ? generalWebsite.name : '' %> - ADMIN</a
   >
   <!-- Sidebar Toggle-->
   <button
@@ -43,7 +43,7 @@
       >
         <li>
           <div class="dropdown-item header-dropdown-link">
-            Chào mừng <b><%= account.fullName %></b>
+            Xin chào <b><%= account.fullName %></b> 😍
           </div>
         </li>
         <li>

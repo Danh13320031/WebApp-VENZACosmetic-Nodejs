@@ -2,6 +2,7 @@ import systemConfig from '../../configs/system.config.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
+import settingGeneralModel from '../../models/setting-general.model.js';
 
 const requireAuth = async (req, res, next) => {
   try {
@@ -13,7 +14,9 @@ const requireAuth = async (req, res, next) => {
       return;
     }
 
+    // Xử lý tài khoản
     const account = await accountModel.findOne({ token });
+
     if (!account) {
       alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
       res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
@@ -21,9 +24,14 @@ const requireAuth = async (req, res, next) => {
     }
 
     const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
-
     res.locals.account = account;
     res.locals.roleAuth = roleAuth;
+
+    // Xử lý setting website
+    const generalWebsite = await settingGeneralModel.findOne({});
+    generalWebsite
+      ? (res.locals.generalWebsite = generalWebsite)
+      : (res.locals.generalWebsite = null);
 
     next();
   } catch (error) {

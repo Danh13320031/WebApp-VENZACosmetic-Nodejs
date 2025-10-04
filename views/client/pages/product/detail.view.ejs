@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= pageTitle %></title>
-    <link rel="icon" type="image/x-icon" href="/client/images/VENZA_LOGO_FAVICON.png" />
+    <%-include('../../partials/seo-meta.view.ejs', { pageTitle: pageTitle}) %>
 
     <!-- Styles File -->
     <link rel="stylesheet" href="/client/setup.css" />
@@ -195,7 +192,9 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <div class="product-format_detail-content text-to-html"><%= product.detail %></div>
+              <div class="product-format-detail-content text-to-html tinymce">
+                <%= product.detail %>
+              </div>
             </div>
           </div>
         </div>

@@ -152,6 +152,35 @@ input[type='radio']:checked {
 }
 /* End Bootstrap Setup */
 
+/* TinyMCE setup */
+@media screen and (max-width: 992px) {
+  .tinymce.product-format-detail-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    text-align: justify;
+  }
+  .tinymce.product-format-detail-content table colgroup {
+    width: 100% !important;
+    display: block !important;
+  }
+  .tinymce.product-format-detail-content table tr {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+  }
+  .tinymce.product-format-detail-content table tr td {
+    width: 100% !important;
+    display: block !important;
+  }
+  .tinymce.product-format-detail-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+    width: 100% !important;
+  }
+}
+
 /* Component Setup */
 .heading-font {
   text-align: center;

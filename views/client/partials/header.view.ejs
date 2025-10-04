@@ -4,9 +4,13 @@
     <div class="row">
       <div class="col-12">
         <div class="top-header-box">
-          <span class="top-header-email">Email: danh13320031@gmail.com</span>
+          <span class="top-header-email"
+            >Email: <%= generalWebsite ? generalWebsite.email : '' %></span
+          >
           <span class="top-header-webcome">Chào mừng bạn đến với shop mỹ phẩm của chúng tôi!</span>
-          <span class="top-header-phone">Phone: 0839 537 617</span>
+          <span class="top-header-phone"
+            >Phone: <%= generalWebsite ? generalWebsite.phone : '' %></span
+          >
         </div>
       </div>
     </div>
@@ -20,7 +24,11 @@
     <div class="row">
       <div class="col-lg-2 col-12 header-logo mt-2">
         <a href="/" class="header-logo-link"
-          ><img src="/client/images/logo.png" alt="logo" width="115px" class="pb-2 pt-1 mt-1 header-logo-img"
+          ><img
+            src="/client/images/logo.png"
+            alt="logo"
+            width="115px"
+            class="pb-2 pt-1 mt-1 header-logo-img"
         /></a>
       </div>
 

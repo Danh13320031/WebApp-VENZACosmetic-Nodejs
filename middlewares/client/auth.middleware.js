@@ -2,6 +2,7 @@ import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import { accessTokenExpiresIn } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import settingGeneralModel from '../../models/setting-general.model.js';
 import userModel from '../../models/user.model.js';
 
 const checkToken = async (req, res, next) => {
@@ -10,6 +11,14 @@ const checkToken = async (req, res, next) => {
   res.locals.user = null;
 
   try {
+    const generalWebsite = await settingGeneralModel.findOne({});
+
+    if (generalWebsite) {
+      res.locals.generalWebsite = generalWebsite;
+    } else {
+      res.locals.generalWebsite = null;
+    }
+
     if (!accessToken && !refreshToken) {
       next();
       return;
@@ -54,8 +63,10 @@ const checkToken = async (req, res, next) => {
         return;
       } catch (error) {
         console.log(error);
+
         res.clearCookie('refreshToken');
         res.clearCookie('accessToken');
+
         next();
         return;
       }

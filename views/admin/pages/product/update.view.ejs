@@ -224,12 +224,16 @@
               <div class="col-12">
                 <div class="form-group mb-4">
                   <div class="image-box">
-                    <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
-                    <img
-                      src="<%= product.thumbnail %>"
-                      alt="Hiển thị hình ảnh sản phẩm"
-                      class="image-upload"
-                    />
+                    <div class="mb-4 d-flex jutify-content-end w-100 image-delete-box">
+                      <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
+                    </div>
+                    <div class="d-flex justify-content-center image-upload-box">
+                      <img
+                        src="<%= product.thumbnail %>"
+                        alt="Hiển thị hình ảnh sản phẩm"
+                        class="image-upload"
+                      />
+                    </div>
                   </div>
                   <label for="thumbnail" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Ảnh (.png / .jpg)</label

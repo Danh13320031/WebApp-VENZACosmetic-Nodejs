@@ -118,10 +118,12 @@ const createProductPost = async (req, res) => {
     await newProduct.save();
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/products`);
+    return;
   } catch (err) {
     console.log('Create product fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -145,6 +147,7 @@ const updateProductGet = async (req, res) => {
   } catch (err) {
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
     res.redirect(`${systemConfig.prefixAdmin}/products`);
+    return;
   }
 };
 
