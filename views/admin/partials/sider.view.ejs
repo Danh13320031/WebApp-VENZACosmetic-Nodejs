@@ -82,12 +82,26 @@
             aria-labelledby="headingOne"
             data-bs-parent="#sidenavAccordion"
           >
-            <nav class="sb-sidenav-menu-nested nav">
-              <a class="text-white d-flex gap-2 nav-link" href="layout-static.html"
-                >Cài đặt chung</a
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/settings/general"
+                ><i class="bi bi-caret-right-fill me-1"></i>Cài đặt chung</a
               >
-              <a class="text-white d-flex gap-2 nav-link" href="layout-sidenav-light.html"
-                >Cài đặt người dùng</a
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/settings/admin"
+                ><i class="bi bi-caret-right-fill me-1"></i>Cài đặt quản trị</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/settings/client"
+                ><i class="bi bi-caret-right-fill me-1"></i>Cài đặt người dùng</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/settings/advanced"
+                ><i class="bi bi-caret-right-fill me-1"></i>Cài đặt nâng cao</a
               >
             </nav>
           </div>
@@ -173,23 +187,27 @@
       </div>
       <div class="sb-sidenav-footer p-3 mb-5 d-flex flex-column gap-2 sidebar-nav-footer">
         <a href="/" class="btn btn-light w-100 text-decoration-none text-primary" type="button"
-          >Đi tới trang chủ</a
-        >
+          >Đi tới trang chủ <i class="ms-1 fa-solid fa-arrow-right"></i
+        ></a>
         <ul class="d-flex justify-content-start mb-3 ps-0 btn-group sidebar-nav-contact">
           <li class="btn btn-light">
             <div class="before"></div>
-            <a href="tel:0913929312" class="text-decoration-none text-primary"
+            <a
+              href="tel:<%= generalWebsite ? generalWebsite.phone : '#' %>"
+              class="text-decoration-none text-primary"
               ><i class="fa-solid fa-phone"></i
             ></a>
           </li>
           <li class="btn btn-light">
-            <a href="mailto:danh13320031@gmail.com" class="text-decoration-none text-primary"
+            <a
+              href="mailto:<%= generalWebsite ? generalWebsite.email : '#' %>"
+              class="text-decoration-none text-primary"
               ><i class="fa-solid fa-envelope"></i
             ></a>
           </li>
           <li class="btn btn-light">
             <a
-              href="https://www.facebook.com/danh.bui.10420321"
+              href="<%= generalWebsite ? generalWebsite.facebook : '#' %>"
               target="_blank"
               class="text-decoration-none text-primary"
               ><i class="fa-solid fa-message"></i

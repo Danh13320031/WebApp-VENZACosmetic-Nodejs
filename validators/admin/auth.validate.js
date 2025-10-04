@@ -1,5 +1,4 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
-import accountModel from '../../models/account.model.js';
 
 const loginPostValidate = async (req, res, next) => {
   // Check email

@@ -1,0 +1,15 @@
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 225px;
+  z-index: 1000;
+  width: calc(100% - 225px);
+  max-width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  #footer {
+    left: 0;
+    width: 100%;
+  }
+}

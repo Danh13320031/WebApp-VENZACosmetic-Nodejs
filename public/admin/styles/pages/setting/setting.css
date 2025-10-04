@@ -1,0 +1,45 @@
+.address-list,
+.keyword-list {
+  height: max-content;
+  min-height: 45px;
+}
+.address-list .address-item {
+  position: relative;
+}
+.address-list .address-item .address-title {
+  position: absolute;
+  width: max-content;
+  left: 0;
+  bottom: 100%;
+  transform: translateY(0%);
+  transition: 0.4s ease-out;
+  border: 1px solid var(--secondary-color-admin);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+.address-list .address-item:hover .address-title {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-20%);
+}
+.address-list .address-item .address-title::after {
+  content: '';
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 100%;
+  left: 10%;
+  background: white;
+  transform: rotate(45deg) translateY(-60%);
+  border-bottom: 1px solid var(--secondary-color-admin);
+  border-right: 1px solid var(--secondary-color-admin);
+}
+
+@media screen and (max-width: 1280px) {
+  .address-list .address-item .address-title {
+    width: 100%;
+  }
+}

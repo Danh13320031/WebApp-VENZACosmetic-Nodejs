@@ -1,0 +1,50 @@
+<footer class="bg-white py-3 shadow footer" id="footer">
+  <div class="container-fluid">
+    <div class="footer-box d-md-flex justify-content-between d-block">
+      <div class="footer-copyright">
+        <span
+          class="content-font text-primary d-md-block d-flex justify-content-center footer-copyright-name"
+          >© Bản quyền bởi
+          <b class="fw-bold"><%= generalWebsite ? generalWebsite.copyright : '' %></b></span
+        >
+      </div>
+      <div class="d-md-flex gap-2 d-block footer-email">
+        <span
+          class="content-font text-primary d-md-block d-flex justify-content-center footer-email-name"
+          >Email: <b class="fw-bold"><%= generalWebsite ? generalWebsite.email : '' %></b></span
+        >
+        <div class="d-md-block d-flex justify-content-center footer-social">
+          <ul class="d-flex gap-2 ps-0 mb-0 footer-social-list">
+            <li class="footer-social-item">
+              <a
+                href="<%= generalWebsite ? generalWebsite.facebook : '#' %>"
+                target="_blank"
+                class="text-primary footer-social-link"
+              >
+                <i class="bi bi-facebook"></i>
+              </a>
+            </li>
+            <li class="footer-social-item">
+              <a
+                href="<%= generalWebsite ? generalWebsite.instagram : '#' %>"
+                target="_blank"
+                class="text-primary footer-social-link"
+              >
+                <i class="bi bi-instagram"></i>
+              </a>
+            </li>
+            <li class="footer-social-item">
+              <a
+                href="<%= generalWebsite ? generalWebsite.pinterest : '#' %>"
+                target="_blank"
+                class="text-primary footer-social-link"
+              >
+                <i class="bi bi-pinterest"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

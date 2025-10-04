@@ -30,22 +30,34 @@
           <h4 class="title-font footer__partner-title">Đối tác hợp tác</h4>
           <ul class="footer__partner-list d-flex align-items-center gap-3 ps-0">
             <li class="footer__partner-item">
-              <a href="https://www.tiktok.com/vi-VN/" class="icon-font footer__partner-link"
+              <a
+                href="<%= generalWebsite ? generalWebsite.tiktok : '#' %>"
+                target="_blank"
+                class="icon-font footer__partner-link"
                 ><i class="bi bi-tiktok"></i
               ></a>
             </li>
             <li class="footer__partner-item">
-              <a href="https://www.youtube.com/" class="icon-font footer__partner-link"
+              <a
+                href="<%= generalWebsite ? generalWebsite.youtube : '#' %>"
+                target="_blank"
+                class="icon-font footer__partner-link"
                 ><i class="bi bi-youtube"></i
               ></a>
             </li>
             <li class="footer__partner-item">
-              <a href="https://www.instagram.com/" class="icon-font footer__partner-link"
+              <a
+                href="<%= generalWebsite ? generalWebsite.instagram : '#' %>"
+                target="_blank"
+                class="icon-font footer__partner-link"
                 ><i class="bi bi-instagram"></i
               ></a>
             </li>
             <li class="footer__partner-item">
-              <a href="https://www.pinterest.com/" class="icon-font footer__partner-link"
+              <a
+                href="<%= generalWebsite ? generalWebsite.pinterest : '#' %>"
+                target="_blank"
+                class="icon-font footer__partner-link"
                 ><i class="bi bi-pinterest"></i
               ></a>
             </li>
@@ -57,11 +69,7 @@
       <!-- Description & Verified -->
       <div class="col-lg-4 col-md-6 col-12">
         <p class="content-font footer__description text-justify">
-          Benefit là website bán mỹ phẩm trực tuyến chuyên cung cấp các sản phẩm chăm sóc da, trang
-          điểm và làm đẹp chính hãng từ các thương hiệu uy tín trong và ngoài nước. Với giao diện
-          hiện đại, dễ sử dụng và đội ngũ tư vấn nhiệt tình, Benefit mang đến cho khách hàng trải
-          nghiệm mua sắm tiện lợi, an toàn cùng những xu hướng làm đẹp mới nhất. Chúng tôi cam kết
-          chất lượng – chính hãng – tận tâm trong từng đơn hàng.
+          <%= generalWebsite ? generalWebsite.shortIntro : '' %>
         </p>
         <img
           src="/client/images/verified.png"
@@ -76,26 +84,11 @@
       <div class="col-lg-3 col-md-6 col-12">
         <div class="footer__location">
           <h4 class="title-font footer__location-title">Địa chỉ các cơ sở</h4>
-          <h5 class="content-font footer__location-address">
-            <i class="icon-font bi bi-geo-alt-fill me-2"></i><b>Cơ sở tại Hà Nội</b>
-          </h5>
           <ul class="content-font footer__location-list ps-0">
-            <li class="footer__location-item">
-              - 967 Phố Thân Anh Đàn, Phường An Lữ, Huyện Lĩnh Đường, Hà Nội
-            </li>
-            <li class="footer__location-item">
-              - 06 Phố Lương, Phường Điền, Huyện Thập Thục Ân, Hà Nội
-            </li>
-          </ul>
-          <h5 class="content-font footer__location-address">
-            <i class="icon-font bi bi-geo-alt-fill me-2"></i><b>Cơ sở tại Hồ Chí Minh</b>
-          </h5>
-          <ul class="content-font footer__location-list ps-0">
-            <li class="footer__location-item">- 366 Phố Ty, Ấp Cự Thảo, Quận Tuệ, Hồ Chí Minh</li>
-            <li class="footer__location-item">
-              - 07 Phố Tống Hoán Anh, Phường Cẩn Tăng, Huyện 0, Hồ Chí Minh
-            </li>
-            <li class="footer__location-item">- 4945 Phố Ngân, Xã Phan, Huyện Ma, Hồ Chí Minh</li>
+            <% if(generalWebsite) { %> <% if (generalWebsite.address.length > 0) { %> <%
+            generalWebsite.address.forEach((item) => { %>
+            <li class="footer__location-item">- <%= item %></li>
+            <% }) %> <% } %> <% } %>
           </ul>
         </div>
       </div>
@@ -129,7 +122,9 @@
         <hr />
         <div class="footer__bottom d-flex justify-content-between align-items-center row-gap-3">
           <div class="copyright">
-            <span class="content-font copyright__name">© Developed by Bùi Pháp Danh</span>
+            <span class="content-font copyright__name"
+              >© Bản quyền bởi <%= generalWebsite ? generalWebsite.copyright : '' %></span
+            >
           </div>
           <div class="footer__payment">
             <h4 class="title-font footer__payment-title">Phương thức thanh toán</h4>

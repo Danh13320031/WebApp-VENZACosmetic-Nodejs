@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
     <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -137,22 +138,24 @@
           </div>
         </div>
         <% } %>
-
-        <form
-          action="<%= prefixAdmin %>/categories"
-          method="POST"
-          class="d-none"
-          form-restore-product
-        ></form>
-
-        <form
-          action="<%= prefixAdmin %>/categories"
-          method="POST"
-          class="d-none"
-          form-delete-product
-        ></form>
       </div>
     </div>
+
+    <%-include("../../partials/footer.view.ejs") %>
+
+    <form
+      action="<%= prefixAdmin %>/categories"
+      method="POST"
+      class="d-none"
+      form-restore-product
+    ></form>
+
+    <form
+      action="<%= prefixAdmin %>/categories"
+      method="POST"
+      class="d-none"
+      form-delete-product
+    ></form>
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
