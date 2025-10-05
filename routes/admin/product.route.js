@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import cloudinaryPackageConfig from '../../configs/cloudinaryPackage.config.js';
 import productController from '../../controllers/admin/product.controller.js';
-import productMiddleware from '../../middlewares/admin/product.middleware.js';
+import uploadMiddleware from '../../middlewares/upload.middleware.js';
 import productValidate from '../../validators/admin/product.validate.js';
 
 const upload = multer();
@@ -16,7 +16,7 @@ productRoute.get('/create', productController.createProductGet);
 productRoute.post(
   '/create',
   upload.single('thumbnail'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   productValidate.createProductValidate,
   productController.createProductPost
 );
@@ -24,7 +24,7 @@ productRoute.get('/update/:id', productController.updateProductGet);
 productRoute.patch(
   '/update/:id',
   upload.single('thumbnail'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   productValidate.updateProductValidate,
   productController.updateProductPatch
 );

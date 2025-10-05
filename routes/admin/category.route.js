@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import cloudinaryPackageConfig from '../../configs/cloudinaryPackage.config.js';
 import categoryController from '../../controllers/admin/category.controller.js';
-import productMiddleware from '../../middlewares/admin/product.middleware.js';
+import uploadMiddleware from '../../middlewares/upload.middleware.js';
 import categoryValidate from '../../validators/admin/category.validate.js';
 
 const categoryRoute = express.Router();
@@ -17,7 +17,7 @@ categoryRoute.get('/create', categoryController.createCategoryGet);
 categoryRoute.post(
   '/create',
   upload.single('thumbnail'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   categoryValidate.createCategoryValidate,
   categoryController.createCategoryPost
 );
@@ -27,7 +27,7 @@ categoryRoute.get('/update/:id', categoryController.updateCategoryGet);
 categoryRoute.patch(
   '/update/:id',
   upload.single('thumbnail'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   categoryValidate.updateCategoryValidate,
   categoryController.updateCategoryPatch
 );

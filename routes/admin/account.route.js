@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import cloudinaryPackageConfig from '../../configs/cloudinaryPackage.config.js';
 import accountController from '../../controllers/admin/account.controller.js';
-import productMiddleware from '../../middlewares/admin/product.middleware.js';
+import uploadMiddleware from '../../middlewares/upload.middleware.js';
 import accountValidate from '../../validators/admin/account.validate.js';
 
 const accountRoute = express.Router();
@@ -17,7 +17,7 @@ accountRoute.get('/create', accountController.createAccountGet);
 accountRoute.post(
   '/create',
   upload.single('avatar'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   accountValidate.createAccountValidate,
   accountController.createAccountPost
 );
@@ -27,7 +27,7 @@ accountRoute.get('/update/:id', accountController.updateAccountGet);
 accountRoute.patch(
   '/update/:id',
   upload.single('avatar'),
-  productMiddleware.uploadCloud,
+  uploadMiddleware.uploadCloud,
   accountValidate.updateAccountValidate,
   accountController.updateAccountPatch
 );

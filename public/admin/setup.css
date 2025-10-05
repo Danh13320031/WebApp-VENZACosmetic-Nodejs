@@ -40,20 +40,8 @@
   --dark-gray-color-admin: rgb(49, 49, 49);
   --light-gray-color-admin: rgb(240, 240, 240);
 
-  --primary-color-hover-admin: ;
-  --secondary-color-hover-admin: ;
-
   --primary-overlay-color-admin: rgba(0, 0, 0, 0.619);
   --secondary-overlay-color-admin: ;
-
-  --primary-shadow-color-admin: rgba(0, 0, 0, 0.049);
-  --secondary-shadow-color-admin: rgb(245, 182, 7, 0.31);
-
-  --primary-bg-color-button-admin: rgb(245, 182, 7);
-  --primary-border-color-button-admin: rgb(245, 182, 7);
-
-  --primary-border-color-field-admin: ;
-  --primary-outline-color-field-admin: ;
 
   --success-color-admin: #51a351;
   --error-color-admin: #d43027;
@@ -295,5 +283,5 @@
 }
 
 textarea {
-  min-height: 150px !important;
+  min-height: px !important;
 }

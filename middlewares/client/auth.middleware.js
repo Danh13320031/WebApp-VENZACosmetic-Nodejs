@@ -11,14 +11,6 @@ const checkToken = async (req, res, next) => {
   res.locals.user = null;
 
   try {
-    const generalWebsite = await settingGeneralModel.findOne({});
-
-    if (generalWebsite) {
-      res.locals.generalWebsite = generalWebsite;
-    } else {
-      res.locals.generalWebsite = null;
-    }
-
     if (!accessToken && !refreshToken) {
       next();
       return;
