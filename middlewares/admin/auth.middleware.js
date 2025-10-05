@@ -26,12 +26,7 @@ const requireAuth = async (req, res, next) => {
     const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
     res.locals.account = account;
     res.locals.roleAuth = roleAuth;
-
-    // Xử lý setting website
-    const generalWebsite = await settingGeneralModel.findOne({});
-    generalWebsite
-      ? (res.locals.generalWebsite = generalWebsite)
-      : (res.locals.generalWebsite = null);
+    
 
     next();
   } catch (error) {

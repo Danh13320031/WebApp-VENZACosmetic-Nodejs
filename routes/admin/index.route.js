@@ -1,5 +1,6 @@
 import systemConfig from '../../configs/system.config.js';
 import authMiddleware from '../../middlewares/admin/auth.middleware.js';
+import settingMiddleware from '../../middlewares/setting.middleware.js';
 import accountRoute from './account.route.js';
 import authRoute from './auth.route.js';
 import categoryRoute from './category.route.js';
@@ -12,6 +13,9 @@ import roleRoute from './role.route.js';
 import settingRoute from './setting.route.js';
 
 const routerAdmin = (app) => {
+  app.use(settingMiddleware.settingGeneral);
+  app.use(settingMiddleware.settingAdmin);
+
   app.use(`${systemConfig.prefixAdmin}/dashboard`, authMiddleware.requireAuth, dashboardRoute);
   app.use(`${systemConfig.prefixAdmin}/products`, authMiddleware.requireAuth, productRoute);
   app.use(`${systemConfig.prefixAdmin}/categories`, authMiddleware.requireAuth, categoryRoute);

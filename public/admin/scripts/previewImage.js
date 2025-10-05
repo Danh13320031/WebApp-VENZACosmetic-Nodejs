@@ -6,7 +6,12 @@ if (imgInputList.length > 0) {
     const imgUpload = document.querySelector(
       classUpload ? `.image-upload.${classUpload}` : '.image-upload'
     );
-    imgUpload.src = URL.createObjectURL(file);
+    if (file) {
+      imgUpload.src = URL.createObjectURL(file);
+    } else {
+      const inputHidden = document.querySelector(`.input-hidden.${classUpload}`);
+      imgUpload.src = inputHidden.value;
+    }
   }
 
   imgInputList.forEach((input) => {
@@ -34,8 +39,10 @@ if (imgDeleteList.length > 0) {
     const imgUpload = document.querySelector(
       classDelete ? `.image-upload.${classDelete}` : '.image-upload'
     );
+    const inputHidden = document.querySelector(`.input-hidden.${classDelete}`);
 
     imgInput.value = '';
+    inputHidden ? (inputHidden.value = '') : '';
     imgUpload.src = '';
   }
 

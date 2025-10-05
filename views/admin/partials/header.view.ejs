@@ -7,9 +7,18 @@
   "
 >
   <!-- Navbar Brand-->
-  <a class="title-font navbar-brand ps-3 header-title" href="<%= prefixAdmin %>/dashboard"
-    ><%= generalWebsite ? generalWebsite.name : '' %> - ADMIN</a
+  <a
+    class="title-font navbar-brand ps-3 d-flex align-items-center header-title"
+    href="<%= prefixAdmin %>/dashboard"
   >
+    <img
+      src="<%= adminWebsite ? adminWebsite.logo : '' %>"
+      alt="admin-logo"
+      width="100px"
+      class="me-2 header-logo"
+    />
+    <div class="d-none d-lg-block header-logo-text">WEB ADMIN</div>
+  </a>
   <!-- Sidebar Toggle-->
   <button
     class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 header-toggle"

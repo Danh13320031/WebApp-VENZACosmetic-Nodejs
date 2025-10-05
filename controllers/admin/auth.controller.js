@@ -7,7 +7,10 @@ import accountModel from '../../models/account.model.js';
 const loginGet = async (req, res) => {
   try {
     if (req.cookies.token) res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
-    else res.render('./admin/pages/auth/login.view.ejs', { pageTitle: 'Đăng nhập' });
+    else
+      res.render('./admin/pages/auth/login.view.ejs', {
+        pageTitle: 'Đăng nhập',
+      });
   } catch (err) {
     console.log('Not found: ', err);
   }
