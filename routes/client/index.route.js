@@ -9,6 +9,7 @@ import productRoute from './product.route.js';
 
 const routerClient = (app) => {
   app.use(settingMiddleware.settingGeneral);
+  app.use(settingMiddleware.settingClient);
   app.use(authMiddleware.checkToken);
   app.use(cartMiddleware.cartStorage);
 

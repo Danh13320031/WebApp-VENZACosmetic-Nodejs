@@ -29,5 +29,13 @@ settingRoute.patch(
   settingValidate.settingAdminValidate,
   settingController.settingAdminPatch
 );
+settingRoute.get('/client', settingController.settingClientGet);
+settingRoute.patch(
+  '/client',
+  upload.fields(uploadFields),
+  uploadMiddleware.uploadCloud,
+  settingValidate.settingClientValidate,
+  settingController.settingClientPatch
+);
 
 export default settingRoute;

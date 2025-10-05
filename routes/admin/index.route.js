@@ -15,6 +15,7 @@ import settingRoute from './setting.route.js';
 const routerAdmin = (app) => {
   app.use(settingMiddleware.settingGeneral);
   app.use(settingMiddleware.settingAdmin);
+  app.use(settingMiddleware.settingClient);
 
   app.use(`${systemConfig.prefixAdmin}/dashboard`, authMiddleware.requireAuth, dashboardRoute);
   app.use(`${systemConfig.prefixAdmin}/products`, authMiddleware.requireAuth, productRoute);

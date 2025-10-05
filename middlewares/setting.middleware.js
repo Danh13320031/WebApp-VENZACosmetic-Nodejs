@@ -1,4 +1,5 @@
 import adminModel from '../models/admin.model.js';
+import clientModel from '../models/client.model.js';
 import settingGeneralModel from '../models/setting-general.model.js';
 
 const settingGeneral = async (req, res, next) => {
@@ -17,9 +18,17 @@ const settingAdmin = async (req, res, next) => {
   next();
 };
 
+const settingClient = async (req, res, next) => {
+  const clientWebsite = await clientModel.findOne({});
+  clientWebsite ? (res.locals.clientWebsite = clientWebsite) : (res.locals.clientWebsite = null);
+
+  next();
+};
+
 const settingMiddleware = {
   settingGeneral,
   settingAdmin,
+  settingClient,
 };
 
 export default settingMiddleware;

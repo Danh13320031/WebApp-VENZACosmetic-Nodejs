@@ -93,9 +93,28 @@ const settingAdminValidate = async (req, res, next) => {
   next();
 };
 
+const settingClientValidate = async (req, res, next) => {
+  // Check logo
+  if (!req.body.logo || req.body.logo.length === 0) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn logo');
+    res.redirect('back');
+    return;
+  }
+
+  // Check favicon
+  if (!req.body.favicon || req.body.favicon.length === 0) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn favicon');
+    res.redirect('back');
+    return;
+  }
+
+  next();
+};
+
 const settingValidate = {
   settingGeneralValidate,
   settingAdminValidate,
+  settingClientValidate,
 };
 
 export default settingValidate;
