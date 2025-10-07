@@ -1,5 +1,6 @@
 import { productLimitConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
 import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
@@ -17,6 +18,7 @@ const product = async (req, res) => {
   const find = { status: 'active', deleted: false };
   const categoryList = await categoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
+  const pageUrl = createPageUrlHelper(req);
   const productMaxPrice = await productModel.findOne(find).sort({ price: 'desc' });
 
   // Filter by search
@@ -77,6 +79,7 @@ const product = async (req, res) => {
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
     categoryTree: categoryTree,
+    pageUrl: pageUrl,
     productList: productList,
     keyword: objSearch.keyword,
     priceFilter: objectFilterByPrice,

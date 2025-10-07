@@ -1,4 +1,5 @@
 import bcript from 'bcrypt';
+import { emailRegex, otpRegex, passwordRegex, phoneRegex } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import otpModel from '../../models/otp.model.js';
 import userModel from '../../models/user.model.js';
@@ -9,7 +10,7 @@ const registerPostValidate = async (req, res, next) => {
     const userExisted = await userModel.findOne({
       $or: [{ email: req.body.email }, { phone: req.body.phone }],
     });
-    const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+    const regexEmail = new RegExp(emailRegex);
 
     if (!req.body.email) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chi email');
@@ -31,9 +32,7 @@ const registerPostValidate = async (req, res, next) => {
     }
 
     // Check password
-    const regexPassword = new RegExp(
-      /(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/
-    );
+    const regexPassword = new RegExp(passwordRegex);
 
     if (!req.body.password) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mật khẩu');
@@ -59,7 +58,7 @@ const registerPostValidate = async (req, res, next) => {
     }
 
     // Check phone
-    const regexPhone = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+    const regexPhone = new RegExp(phoneRegex);
 
     if (!req.body.phone) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số điện thoại');
@@ -79,21 +78,35 @@ const registerPostValidate = async (req, res, next) => {
 
 const loginPostValidate = async (req, res, next) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
-
     // Check email
+    const regexEmail = new RegExp(emailRegex);
+
     if (!req.body.email) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ email');
       res.redirect('back');
       return;
     }
+    if (!regexEmail.test(req.body.email)) {
+      alertMessageHelper(req, 'alertFailure', 'Email không hợp lệ');
+      res.redirect('back');
+      return;
+    }
 
     // Check password
+    const regexPassword = new RegExp(passwordRegex);
+
     if (!req.body.password) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mật khẩu');
       res.redirect('back');
       return;
     }
+    if (!regexPassword.test(req.body.password)) {
+      alertMessageHelper(req, 'alertFailure', 'Mật khẩu không hợp lệ');
+      res.redirect('back');
+      return;
+    }
+
+    const user = await userModel.findOne({ email: req.body.email });
 
     if (!user) {
       alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
@@ -135,13 +148,21 @@ const loginPostValidate = async (req, res, next) => {
 
 const forgotPasswordPostValidate = async (req, res, next) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    // Check email
+    const regexEmail = new RegExp(emailRegex);
 
     if (!req.body.email) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ email');
       res.redirect('back');
       return;
     }
+    if (!regexEmail.test(req.body.email)) {
+      alertMessageHelper(req, 'alertFailure', 'Email không hợp lệ');
+      res.redirect('back');
+      return;
+    }
+
+    const user = await userModel.findOne({ email: req.body.email });
 
     if (!user) {
       alertMessageHelper(req, 'alertFailure', 'Email chưa được đăng ký');
@@ -181,7 +202,7 @@ const checkOtpValidate = async (req, res, next) => {
       return;
     }
 
-    const otpRegex = new RegExp(/^[0-9]{5}$/);
+    const regexOtp = new RegExp(otpRegex);
 
     if (!req.body.otp1 || !req.body.otp2 || !req.body.otp3 || !req.body.otp4 || !req.body.otp5) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập OTP');
@@ -191,7 +212,7 @@ const checkOtpValidate = async (req, res, next) => {
 
     const otpString = req.body.otp1 + req.body.otp2 + req.body.otp3 + req.body.otp4 + req.body.otp5;
 
-    if (!otpRegex.test(otpString)) {
+    if (!regexOtp.test(otpString)) {
       alertMessageHelper(req, 'alertFailure', 'OTP không hợp lệ');
       res.redirect('back');
       return;
@@ -225,24 +246,33 @@ const checkOtpValidate = async (req, res, next) => {
 
 const resetPasswordPostValidate = async (req, res, next) => {
   try {
+    // Check token
     if (!req.cookies.refreshToken) {
       alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
       res.redirect('back');
       return;
     }
 
+    // Check password
+    const regexPassword = new RegExp(passwordRegex);
+
     if (!req.body.password) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mật khẩu');
       res.redirect('back');
       return;
     }
+    if (!regexPassword.test(req.body.password)) {
+      alertMessageHelper(req, 'alertFailure', 'Mật khẩu không hợp lệ');
+      res.redirect('back');
+      return;
+    }
 
+    // Check confirm password
     if (!req.body.confirmPassword) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng xác nhận mật khẩu');
       res.redirect('back');
       return;
     }
-
     if (req.body.password !== req.body.confirmPassword) {
       alertMessageHelper(req, 'alertFailure', 'Mật khẩu xác nhận không khớp');
       res.redirect('back');

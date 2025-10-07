@@ -32,29 +32,29 @@
             <h1 class="heading-font py-0 text-start"><%= pageTitle %></h1>
           </div>
 
-          <% if(account.avatar) { %>
+          <% if(accountLogin.avatar) { %>
           <div class="account-show-avatar w-25 p-2">
-            <img src="<%= account.avatar %>" alt="Avatar" class="avatar" width="100%" />
+            <img src="<%= accountLogin.avatar %>" alt="Avatar" class="avatar" width="100%" />
           </div>
-          <% } %> <% if(account.fullName) { %>
+          <% } %> <% if(accountLogin.fullName) { %>
           <div class="account-show-fullName mt-1 mb-1">
-            <h3>Họ & Tên: <b><%= account.fullName %></b></h3>
+            <h3>Họ & Tên: <b><%= accountLogin.fullName %></b></h3>
           </div>
-          <% } %> <% if(account.email) { %>
+          <% } %> <% if(accountLogin.email) { %>
           <div class="account-show-email mt-1 mb-1">
-            <span>Địa chỉ email: <b><%= account.email %></b></span>
+            <span>Địa chỉ email: <b><%= accountLogin.email %></b></span>
           </div>
-          <% } %> <% if(account.phone) { %>
+          <% } %> <% if(accountLogin.phone) { %>
           <div class="account-show-phone mt-1 mb-1">
-            <span>Số điện thoại: <b><%= account.phone %></b></span>
+            <span>Số điện thoại: <b><%= accountLogin.phone %></b></span>
           </div>
-          <% } %> <% if(account.roleId) { %>
+          <% } %> <% if(accountLogin.roleId) { %>
           <div class="account-show-role mt-1 mb-1">
             <span>Phân quyền: <b><%= roleAuth.title %></b></span>
           </div>
-          <% } %> <% if(account.status === "active") { %>
+          <% } %> <% if(accountLogin.status === "active") { %>
           <a class="account-show-status text-success mt-1 mb-1"> Trạng thái: <b>Hoạt động</b> </a>
-          <% } %> <% if(account.status !== "active") { %>
+          <% } %> <% if(accountLogin.status !== "active") { %>
           <a class="account-show-status text-warning mt-1 mb-1">
             Trạng thái: <b>Dừng hoạt động</b>
           </a>
@@ -63,7 +63,7 @@
           <div class="col-12 mt-1 mb-1">
             <a
               href="<%= prefixAdmin %>/profile/update"
-              data-id="<%= account._id %>"
+              data-id="<%= accountLogin._id %>"
               class="btn btn-primary btn-sm btn-update"
             >
               <i class="bi bi-pencil-square me-1"></i>Chỉnh sửa thông tin

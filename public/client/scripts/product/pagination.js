@@ -1,8 +1,8 @@
-const pageNumberList = document.querySelectorAll('.product__pagination-item.page__number');
-const pagePrev = document.querySelector('.product__pagination-item.page__prev');
-const pageNext = document.querySelector('.product__pagination-item.page__next');
-const pageFirst = document.querySelector('.product__pagination-item.page__first');
-const pageLast = document.querySelector('.product__pagination-item.page__last');
+const pageNumberList = document.querySelectorAll('.product-pagination-item.page-number');
+const pagePrev = document.querySelector('.product-pagination-item.page-prev');
+const pageNext = document.querySelector('.product-pagination-item.page-next');
+const pageFirst = document.querySelector('.product-pagination-item.page-first');
+const pageLast = document.querySelector('.product-pagination-item.page-last');
 
 if (pageNumberList.length > 0) {
   pageNumberList.forEach((page) => {

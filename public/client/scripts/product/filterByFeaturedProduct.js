@@ -1,4 +1,4 @@
-const filterFeaturedInput = document.querySelector('.filter__featured-input');
+const filterFeaturedInput = document.querySelector('.filter-featured-input');
 
 if (filterFeaturedInput) {
   filterFeaturedInput.addEventListener('change', () => {

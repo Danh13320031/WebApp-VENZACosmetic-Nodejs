@@ -1,4 +1,4 @@
-const filterQuantityLimit = document.querySelector('.filter__quantity-limit');
+const filterQuantityLimit = document.querySelector('.filter-quantity-limit');
 
 if (filterQuantityLimit) {
   filterQuantityLimit.addEventListener('change', (e) => {

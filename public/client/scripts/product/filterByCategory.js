@@ -1,4 +1,4 @@
-const filterCategoryLink = document.querySelectorAll('.filter__category-link');
+const filterCategoryLink = document.querySelectorAll('.filter-category-link');
 
 if (filterCategoryLink.length > 0) {
   filterCategoryLink.forEach((categoryItem) => {

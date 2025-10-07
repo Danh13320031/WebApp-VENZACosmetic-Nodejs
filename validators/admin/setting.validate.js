@@ -1,3 +1,4 @@
+import { emailRegex, phoneRegex } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
 const settingGeneralValidate = async (req, res, next) => {
@@ -9,7 +10,7 @@ const settingGeneralValidate = async (req, res, next) => {
   }
 
   // Check email
-  const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+  const regexEmail = new RegExp(emailRegex);
 
   if (!req.body.email) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập email');
@@ -23,7 +24,7 @@ const settingGeneralValidate = async (req, res, next) => {
   }
 
   // Check phone
-  const regexPhone = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+  const regexPhone = new RegExp(phoneRegex);
 
   if (!req.body.phone) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số điện thoại');

@@ -1,4 +1,4 @@
-const filterFreeShipInput = document.querySelector('.filter__freeship-input');
+const filterFreeShipInput = document.querySelector('.filter-freeship-input');
 
 if (filterFreeShipInput) {
   filterFreeShipInput.addEventListener('change', () => {

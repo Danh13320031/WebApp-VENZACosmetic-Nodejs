@@ -13,31 +13,24 @@
 
 /* Color Setup */
 :root {
-  --primary-color: rgb(245, 182, 7);
-  --light-primary-color: rgb(255, 252, 245);
-  --dark-primary-color: rgb(208, 159, 24);
+  --primary-color: #f5b607;
+  --light-primary-color: #fffcf5;
+  --dark-primary-color: #d09f18;
 
   --secondary-color: ;
   --light-secondary-color: ;
   --dark-secondary-color: ;
 
-  --dark-gray-color: rgb(49, 49, 49);
-  --light-gray-color: rgb(240, 240, 240);
+  --dark-gray-color: #313131;
+  --light-gray-color: #f0f0f0;
 
   --primary-color-hover: ;
   --secondary-color-hover: ;
 
-  --primary-overlay-color: rgba(0, 0, 0, 0.619);
-  --secondary-overlay-color: ;
-
-  --primary-shadow-color: rgba(0, 0, 0, 0.049);
-  --secondary-shadow-color: rgb(245, 182, 7, 0.31);
+  --primary-overlay-color: #0000009e;
 
   --primary-bg-color-button: rgb(245, 182, 7);
   --primary-border-color-button: rgb(245, 182, 7);
-
-  --primary-border-color-field: ;
-  --primary-outline-color-field: ;
 
   --success-color: #51a351;
   --error-color: #d43027;
@@ -85,16 +78,12 @@
 /* Scrollbar Setup */
 ::-webkit-scrollbar {
   width: 10px;
-  background: rgb(225, 225, 225);
+  background-color: white;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+  background-color: var(--primary-color);
   border-radius: 10px;
   cursor: pointer;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(244, 192, 50);
-  transition: 0.4s ease;
 }
 /* End Scrollbar Setup */
 
@@ -113,7 +102,7 @@ input[type='text'].input-type01,
 input[type='email'].input-type01,
 input[type='password'].input-type01,
 input[type='number'].input-type01 {
-  border: var(--border-thickness-field) solid var(--primary-border-color-field);
+  border: var(--border-thickness-field) solid var(--dark-gray-color);
   border-radius: none;
   padding: var(--padding-field);
   outline: none;

@@ -1,4 +1,4 @@
-const filterSaleInput = document.querySelector('.filter__sale-input');
+const filterSaleInput = document.querySelector('.filter-sale-input');
 
 if (filterSaleInput) {
   filterSaleInput.addEventListener('change', () => {
