@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
@@ -41,62 +42,62 @@
     <%-include("../../partials/header-mobile.view.ejs") %>
 
     <main class="main">
-      <h1 class="heading-font product__list-heading">Danh Sách Sản Phẩm</h1>
+      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl }) %>
 
       <div class="container">
         <div class="row">
           <!-- Filter -->
           <div class="col-lg-3 col-md-4 col-12">
-            <div class="product__filter p-3">
-              <div class="product__filter-delete mb-4 justify-content-between align-items-center">
+            <div class="product-filter p-3">
+              <div class="product-filter-delete mb-4 justify-content-between align-items-center">
                 <span>Bộ Lọc Sản Phẩm</span>
-                <button class="content-font product__filter-close">
+                <button class="content-font product-filter-close">
                   <i class="bi bi-x-lg"></i>
                 </button>
               </div>
 
-              <div class="product__filter-category mb-4">
-                <h4 class="title-font filter__category-title">Danh mục</h4>
-                <ul class="filter__category-list nav nav-pills nav-fill">
+              <div class="product-filter-category mb-4">
+                <h4 class="title-font filter-category-title">Danh mục</h4>
+                <ul class="filter-category-list nav nav-pills nav-fill">
                   <li
-                    class="filter__category-item <%if (filterByCategoryActive === 'nailcare') { %>active<% } %>"
+                    class="filter-category-item <%if (filterByCategoryActive === 'nailcare') { %>active<% } %>"
                   >
-                    <button category="nailcare" class="filter__category-link">Nailcare</button>
+                    <button category="nailcare" class="filter-category-link">Nailcare</button>
                   </li>
                   <li
-                    class="filter__category-item <% if (filterByCategoryActive === 'haircare') { %>active<% } %>"
+                    class="filter-category-item <% if (filterByCategoryActive === 'haircare') { %>active<% } %>"
                   >
-                    <button category="haircare" class="filter__category-link">Haircare</button>
+                    <button category="haircare" class="filter-category-link">Haircare</button>
                   </li>
                   <li
-                    class="filter__category-item <% if (filterByCategoryActive === 'skincare') { %>active<% } %>"
+                    class="filter-category-item <% if (filterByCategoryActive === 'skincare') { %>active<% } %>"
                   >
-                    <button category="skincare" class="filter__category-link">Skincare</button>
+                    <button category="skincare" class="filter-category-link">Skincare</button>
                   </li>
                   <li
-                    class="filter__category-item <% if (filterByCategoryActive === 'bodycare') { %>active<% } %>"
+                    class="filter-category-item <% if (filterByCategoryActive === 'bodycare') { %>active<% } %>"
                   >
-                    <button category="bodycare" class="filter__category-link">Bodycare</button>
+                    <button category="bodycare" class="filter-category-link">Bodycare</button>
                   </li>
                   <li
-                    class="filter__category-item <% if (filterByCategoryActive === 'makeup') { %>active<% } %>"
+                    class="filter-category-item <% if (filterByCategoryActive === 'makeup') { %>active<% } %>"
                   >
-                    <button category="makeup" class="filter__category-link">Makeup</button>
+                    <button category="makeup" class="filter-category-link">Makeup</button>
                   </li>
                   <li
-                    class="filter__category-item <% if (filterByCategoryActive === 'perfume') { %>active<% } %>"
+                    class="filter-category-item <% if (filterByCategoryActive === 'perfume') { %>active<% } %>"
                   >
-                    <button category="perfume" class="filter__category-link">Perfume</button>
+                    <button category="perfume" class="filter-category-link">Perfume</button>
                   </li>
                 </ul>
                 <hr />
               </div>
 
-              <div class="product__filter-price mb-4">
-                <h4 class="title-font filter__price-title">Mức giá</h4>
+              <div class="product-filter-price mb-4">
+                <h4 class="title-font filter-price-title">Mức giá</h4>
                 <input
                   type="range"
-                  class="filter__price-range w-100"
+                  class="filter-price-range w-100"
                   id="price"
                   value="<%= priceFilter.to %>"
                   min="0"
@@ -104,12 +105,12 @@
                   step="500"
                   title="<%= priceFilter.to %>"
                 />
-                <div class="filter__price-minmax d-flex justify-content-between">
-                  <span class="content-font filter__price-min">Từ: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                <div class="filter-price-minmax d-flex justify-content-between">
+                  <span class="content-font filter-price-min">Từ: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(0)%></span>
-                  <span class="content-font filter__price-value">Tới: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                  <span class="content-font filter-price-value">Tới: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(priceFilter.to) %></span>
-                  <span class="content-font filter__price-max"
+                  <span class="content-font filter-price-max"
                     >Tối đa: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(productMaxPrice.price) %></span
                   >
@@ -117,39 +118,39 @@
                 <hr />
               </div>
 
-              <div class="product__filter-freeship mb-4">
-                <h4 class="title-font filter__freeship-title">Vận chuyển</h4>
+              <div class="product-filter-freeship mb-4">
+                <h4 class="title-font filter-freeship-title">Vận chuyển</h4>
                 <label
                   for="freeship"
                   class="content-font <% if(filterByFreeShipStatus === true) { %>active<% } %>"
                   >Miễn phí vận chuyển</label
                 >
                 <input type="checkbox" <% if(filterByFreeShipStatus === true) { %> checked <% } %>
-                class="filter__freeship-input ms-2" id="freeship" />
+                class="filter-freeship-input ms-2" id="freeship" />
                 <hr />
               </div>
 
-              <div class="product__filter-sale mb-4">
-                <h4 class="title-font filter__sale-title">Giảm giá</h4>
+              <div class="product-filter-sale mb-4">
+                <h4 class="title-font filter-sale-title">Giảm giá</h4>
                 <label
                   for="sale"
                   class="content-font <% if(filterBySaleStatus === true) { %>active<% } %>"
                   >Đang giảm giá</label
                 >
                 <input type="checkbox" <% if(filterBySaleStatus === true) { %> checked <% } %>
-                class="filter__sale-input ms-2" id="sale" />
+                class="filter-sale-input ms-2" id="sale" />
                 <hr />
               </div>
 
-              <div class="product__filter-featured mb-4">
-                <h4 class="title-font filter__sale-title">Nổi bật</h4>
+              <div class="product-filter-featured mb-4">
+                <h4 class="title-font filter-sale-title">Nổi bật</h4>
                 <label
                   for="featured"
                   class="content-font <% if(filterByFeaturedStatus === true) { %>active<% } %>"
                   >Đang nổi bật</label
                 >
                 <input type="checkbox" <% if(filterByFeaturedStatus === true) { %> checked <% } %>
-                class="filter__featured-input ms-2" id="featured" />
+                class="filter-featured-input ms-2" id="featured" />
                 <hr />
               </div>
             </div>
@@ -158,30 +159,30 @@
 
           <div class="col-lg-9 col-md-8 col-12">
             <!-- Filter close -->
-            <div class="product__filter-remove mb-1">
-              <ul class="filter__remove-list d-flex gap-1 flex-wrap p-0 mb-2">
+            <div class="product-filter-remove mb-1">
+              <ul class="filter-remove-list d-flex gap-1 flex-wrap p-0 mb-2">
                 <% removeFilterArr.forEach((filterItem) => {%>
                 <li
-                  class="filter__remove-item p-2 <% if(!filterItem.query) { %>d-none<% } %>"
+                  class="filter-remove-item p-2 <% if(!filterItem.query) { %>d-none<% } %>"
                   title="<%= filterItem.title %>"
                   keyword="<%= filterItem.keyword %>"
                 >
-                  <span class="content-font filter__remove-title"><%= filterItem.title %></span>
+                  <span class="content-font filter-remove-title"><%= filterItem.title %></span>
                   <i class="bi bi-x-lg"></i>
                 </li>
                 <% }) %>
               </ul>
               <div class="d-flex justify-content-between flex-wrap">
                 <% if(keyword) { %>
-              <h5 class="title-font product__remove-search d-block">
+              <h5 class="title-font product-remove-search d-block">
                 Tìm kiếm:
-                <span class="product__search-keyword"><b><%= keyword %></b></span>
+                <span class="product-search-keyword"><b><%= keyword %></b></span>
               </h5>
               <% } %>
                 <% if (objPagination.currentPage) { %>
-              <h5 class="product__remove-page">
+              <h5 class="product-remove-page">
                 Trang:
-                <span class="product__page-current"><b><%= objPagination.currentPage %></b></span>
+                <span class="product-page-current"><b><%= objPagination.currentPage %></b></span>
               </h5>
               <%} %>
               </div>
@@ -189,23 +190,23 @@
             <!-- End filter close -->
 
             <!-- Product filter mobile -->
-            <div class="product__filter-mobile justify-content-between mb-1">
-              <div class="content-font product__filter-quantity">
-                <select name="quantity" class="filter__quantity-limit">
-                  <option disabled selected class="filter__quantity-option">-- Hiển thị --</option>
-                  <option value="4" <% if(productLimit === 4) { %>selected<% } %> class="filter__quantity-option">4</option>
-                  <option value="8" <% if(productLimit === 8) { %>selected<% } %> class="filter__quantity-option">8</option>
-                  <option value="12" <% if(productLimit === 12) { %>selected<% } %> class="filter__quantity-option">12</option>
+            <div class="product-filter-mobile justify-content-between mb-1">
+              <div class="content-font product-filter-quantity">
+                <select name="quantity" class="filter-quantity-limit">
+                  <option disabled selected class="filter-quantity-option">-- Hiển thị --</option>
+                  <option value="4" <% if(productLimit === 4) { %>selected<% } %> class="filter-quantity-option">4</option>
+                  <option value="8" <% if(productLimit === 8) { %>selected<% } %> class="filter-quantity-option">8</option>
+                  <option value="12" <% if(productLimit === 12) { %>selected<% } %> class="filter-quantity-option">12</option>
                 </select>
               </div>
 
-              <div class="content-font product__filter-button">
-                <button class="filter__button-show">Bộ lọc<i class="bi bi-filter ms-2"></i></button>
+              <div class="content-font product-filter-button">
+                <button class="filter-button-show">Bộ lọc<i class="bi bi-filter ms-2"></i></button>
               </div>
             </div>
             <!-- End product filter mobile -->
 
-            <div class="product__list">
+            <div class="product-list">
               <!-- Product list -->
               <div class="row g-2">
                 <% if(productList.length === 0) { %><span class="content-font text-center"
@@ -213,33 +214,33 @@
                 ><% } %> <% productList.forEach(product => { %>
                 <!-- Card -->
                 <div class="col-lg-3 col-md-4 col-6">
-                  <div class="card__bg" title="<%= product.title %>">
-                    <div class="card__image">
+                  <div class="card-bg" title="<%= product.title %>">
+                    <div class="card-image">
                       <img
                         src="<%= product.thumbnail %>"
                         alt="product"
                         width="100%"
-                        class="card__thumbnail"
+                        class="card-thumbnail"
                       />
-                      <div class="card__link">
+                      <div class="card-link">
                         <a
                           href="/products/detail/<%= product.slug %>"
-                          class="content-font card__link-detail"
+                          class="content-font card-link-detail"
                           >Xem chi tiết</a
                         >
                       </div>
                     </div>
-                    <div class="content-font card__title mt-1">
+                    <div class="content-font card-title mt-1">
                       <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...'
                       %> <% } else { %> <%= product.title %><% } %>
                     </div>
-                    <div class="card__box d-flex justify-content-between align-items-center">
-                      <h5 class="title-font card__price">
+                    <div class="card-box d-flex justify-content-between align-items-center">
+                      <h5 class="title-font card-price">
                         <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(Number.parseFloat(product.price - (product.price / 100 *
                         product.discount)))%>
                       </h5>
-                      <div class="card__favorite">
+                      <div class="card-favorite">
                         <i class="bi bi-suit-heart-fill"></i>
                       </div>
                     </div>
@@ -247,8 +248,8 @@
                       Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(product.price) %>
                     </div>
-                    <div class="card__rating d-flex justify-content-between align-items-center">
-                      <div class="card__star">
+                    <div class="card-rating d-flex justify-content-between align-items-center">
+                      <div class="card-star">
                         <% for(let i = 1; i <= product.rating; i++) { %>
                         <i class="bi bi-star-fill"></i>
                         <% } %>
@@ -266,21 +267,21 @@
 
               <!-- Product Pagination -->
               <div class="row g-2">
-                <div class="product__pagination mt-5 d-flex justify-content-center">
-                  <ul class="content-font product__pagination-list nav nav-pills ps-0 d-flex flex-wrap gap-1 justify-content-center">
-                    <li class="product__pagination-item page__first nav-link <% if(objPagination.currentPage <= 1) { %>active<% } %>">
+                <div class="product-pagination mt-5 d-flex justify-content-center">
+                  <ul class="content-font product-pagination-list nav nav-pills ps-0 d-flex flex-wrap gap-1 justify-content-center">
+                    <li class="product-pagination-item page-first nav-link <% if(objPagination.currentPage <= 1) { %>active<% } %>">
                       Đầu
                     </li>
-                    <button <% if(objPagination.currentPage <= 1) { %>disabled<% } %> class="product__pagination-item page__prev nav-link">
+                    <button <% if(objPagination.currentPage <= 1) { %>disabled<% } %> class="product-pagination-item page-prev nav-link">
                       <i class="bi bi-arrow-left-short"></i>
                     </button>
                     <% for(let i = 1; i <= objPagination.pageTotal; i++) { %>
-                      <li class="product__pagination-item page__number nav-link <% if(i === objPagination.currentPage) { %>active<% } %>" page-number="<%= i %>"><%= i %></li>
+                      <li class="product-pagination-item page-number nav-link <% if(i === objPagination.currentPage) { %>active<% } %>" page-number="<%= i %>"><%= i %></li>
                     <% } %>
-                    <button <% if(objPagination.currentPage >= objPagination.pageTotal) { %>disabled<% } %> class="product__pagination-item page__next nav-link">
+                    <button <% if(objPagination.currentPage >= objPagination.pageTotal) { %>disabled<% } %> class="product-pagination-item page-next nav-link">
                       <i class="bi bi-arrow-right-short"></i>
                     </button>
-                    <li class="product__pagination-item page__last nav-link <% if(objPagination.currentPage >= objPagination.pageTotal) { %>active<% } %>">
+                    <li class="product-pagination-item page-last nav-link <% if(objPagination.currentPage >= objPagination.pageTotal) { %>active<% } %>">
                       Cuối
                     </li>
                   </ul>
@@ -292,6 +293,8 @@
         </div>
       </div>
     </main>
+
+    <%-include("../../partials/footer.view.ejs") %>
 
     <form
       action="/cart/delete"
@@ -307,8 +310,6 @@
       id="form-change-quantity-cart"
     ></form>
 
-    <%-include("../../partials/footer.view.ejs") %>
-
     <!-- Scripts File -->
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
@@ -322,6 +323,7 @@
     <script src="/client/scripts/product/filterByProductQuantity.js"></script>
     <script src="/client/scripts/product/removeProductFilter.js"></script>
     <script src="/client/scripts/product/pagination.js"></script>
+    <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <!-- End Scripts File -->

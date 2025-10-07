@@ -1,4 +1,4 @@
-const filterPriceRange = document.querySelector('.filter__price-range');
+const filterPriceRange = document.querySelector('.filter-price-range');
 
 if (filterPriceRange) {
   filterPriceRange.addEventListener('change', () => {

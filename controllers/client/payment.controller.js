@@ -1,6 +1,7 @@
 import ejs from 'ejs';
 import { emailConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import categoryModel from '../../models/category.model.js';
@@ -12,9 +13,11 @@ const payment = async (req, res) => {
   const find = { status: 'active', deleted: false };
   const categoryList = await categoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
+  const pageUrl = createPageUrlHelper(req);
 
   res.render('./client/pages/payment/payment.view.ejs', {
     pageTitle: 'Thanh toán',
+    pageUrl: pageUrl,
     categoryTree: categoryTree,
   });
 };

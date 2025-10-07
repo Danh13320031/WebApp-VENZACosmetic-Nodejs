@@ -1,11 +1,11 @@
-const buttonIncrease = document.querySelector('.product__info-increase');
-const buttonDecrease = document.querySelector('.product__info-decrease');
+const buttonIncrease = document.querySelector('.product-info-increase');
+const buttonDecrease = document.querySelector('.product-info-decrease');
 
 if (buttonIncrease && buttonDecrease) {
-  const quantityInput = document.querySelector('.product__info-quantity');
+  const quantityInput = document.querySelector('.product-info-quantity');
 
   addOneProduct = () => {
-    const prroductStockNumber = document.querySelector('.info__stock-number').textContent;
+    const prroductStockNumber = document.querySelector('.info-stock-number').textContent;
 
     if (Number.parseInt(quantityInput.value) >= Number.parseInt(prroductStockNumber)) {
       alert(`Chỉ có ${prroductStockNumber} sản phẩm trong kho`);

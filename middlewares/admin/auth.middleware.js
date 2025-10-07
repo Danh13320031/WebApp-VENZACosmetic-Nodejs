@@ -14,19 +14,19 @@ const requireAuth = async (req, res, next) => {
       return;
     }
 
-    // Xử lý tài khoản
-    const account = await accountModel.findOne({ token });
+    const accountLogin = await accountModel.findOne({ token });
 
-    if (!account) {
+    if (!accountLogin) {
       alertMessageHelper(req, 'alertFailure', 'Token không hợp lệ');
       res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
       return;
     }
 
-    const roleAuth = await roleModel.findOne({ _id: account.roleId }).select('title permission');
-    res.locals.account = account;
+    const roleAuth = await roleModel
+      .findOne({ _id: accountLogin.roleId })
+      .select('title permission');
+    res.locals.accountLogin = accountLogin;
     res.locals.roleAuth = roleAuth;
-    
 
     next();
   } catch (error) {

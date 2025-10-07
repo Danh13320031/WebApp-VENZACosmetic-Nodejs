@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
     <link rel="stylesheet" href="/client/styles/pages/payment/payment.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
@@ -41,7 +42,7 @@
     <%-include("../../partials/header-mobile.view.ejs") %>
 
     <main class="main">
-      <h1 class="heading-font payment-heading">Thanh toán</h1>
+      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl }) %>
 
       <div class="pb-5 payment-wrapper">
         <div class="container">
@@ -281,6 +282,8 @@
       </div>
     </main>
 
+    <%-include('../../partials/footer.view.ejs') %>
+
     <form
       action="/cart/delete"
       method="POST"
@@ -295,14 +298,13 @@
       id="form-change-quantity-cart"
     ></form>
 
-    <%-include('../../partials/footer.view.ejs') %>
-
     <!-- Validator -->
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
 
     <!-- Scripts File -->
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/payment/submitPaymentForm.js"></script>

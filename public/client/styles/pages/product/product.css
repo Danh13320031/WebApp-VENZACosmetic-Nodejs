@@ -1,31 +1,31 @@
 /* Product Filter */
-.product__filter {
+.product-filter {
   background: #f7f7f7;
 }
-.product__filter .product__filter-delete {
+.product-filter .product-filter-delete {
   display: none;
 }
-.product__filter .product__filter-category .filter__category-list {
+.product-filter .product-filter-category .filter-category-list {
   padding-left: 0;
   display: flex;
   flex-direction: column;
   row-gap: 4px;
 }
-.product__filter .product__filter-category .filter__category-list .filter__category-item {
+.product-filter .product-filter-category .filter-category-list .filter-category-item {
   padding: 5px 10px;
   background: var(--light-gray-color);
   color: var(--dark-gray-color);
   border-radius: 5px;
   transition: 0.4s ease-out;
 }
-.product__filter .product__filter-category .filter__category-list .filter__category-item.active {
+.product-filter .product-filter-category .filter-category-list .filter-category-item.active {
   background: var(--dark-gray-color);
 }
-.product__filter
-  .product__filter-category
-  .filter__category-list
-  .filter__category-item
-  .filter__category-link {
+.product-filter
+  .product-filter-category
+  .filter-category-list
+  .filter-category-item
+  .filter-category-link {
   width: 100%;
   display: block;
   color: var(--dark-gray-color);
@@ -36,63 +36,63 @@
   border: none;
   transition: 0.4s ease-out;
 }
-.product__filter
-  .product__filter-category
-  .filter__category-list
-  .filter__category-item.active
-  .filter__category-link {
+.product-filter
+  .product-filter-category
+  .filter-category-list
+  .filter-category-item.active
+  .filter-category-link {
   color: var(--light-gray-color);
 }
-.product__filter .product__filter-category .filter__category-list .filter__category-item:hover {
+.product-filter .product-filter-category .filter-category-list .filter-category-item:hover {
   background: var(--dark-gray-color);
 }
-.product__filter .product__filter-sale label,
-.product__filter .product__filter-freeship label,
-.product__filter .product__filter-featured label {
+.product-filter .product-filter-sale label,
+.product-filter .product-filter-freeship label,
+.product-filter .product-filter-featured label {
   color: var(--dark-gray-color);
   cursor: pointer;
   transition: 0.4s ease-out;
 }
-.product__filter .product__filter-sale label.active,
-.product__filter .product__filter-freeship label.active,
-.product__filter .product__filter-featured label.active {
+.product-filter .product-filter-sale label.active,
+.product-filter .product-filter-freeship label.active,
+.product-filter .product-filter-featured label.active {
   color: var(--primary-color);
 }
-.product__filter .product__filter-sale label:hover,
-.product__filter .product__filter-freeship label:hover,
-.product__filter .product__filter-featured label:hover {
+.product-filter .product-filter-sale label:hover,
+.product-filter .product-filter-freeship label:hover,
+.product-filter .product-filter-featured label:hover {
   color: var(--primary-color);
 }
-.product__filter .product__filter-delete .product__filter-close {
+.product-filter .product-filter-delete .product-filter-close {
   padding: var(--padding-button2);
   background: rgba(255, 255, 255, 0);
   border: var(--border-thickness-button) solid var(--dark-gray-color);
   transition: 0.4s ease;
 }
-.product__filter .product__filter-delete .product__filter-close:hover {
+.product-filter .product-filter-delete .product-filter-close:hover {
   color: var(--light-gray-color);
   background: var(--dark-gray-color);
 }
 /* End Product Filter */
 
 /* Product Filter Remove */
-.product__filter-remove .product__remove-search .product__search-keyword,
-.product__filter-remove .product__remove-page .product__page-current {
+.product-filter-remove .product-remove-search .product-search-keyword,
+.product-filter-remove .product-remove-page .product-page-current {
   font-weight: 600;
   color: var(--primary-color);
 }
-.product__filter-remove .filter__remove-list .filter__remove-item {
+.product-filter-remove .filter-remove-list .filter-remove-item {
   background: var(--light-gray-color);
   cursor: pointer;
   transition: 0.4s ease;
 }
-.product__filter-remove .filter__remove-list .filter__remove-item:hover {
+.product-filter-remove .filter-remove-list .filter-remove-item:hover {
   background: var(--primary-color);
 }
 /* End Product Filter Remove */
 
 /* Product Card */
-.card__bg {
+.card-bg {
   width: 100%;
   /* height: 100% !important; */
   padding: 10px;
@@ -104,23 +104,23 @@
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
-.card__bg:hover {
+.card-bg:hover {
   background: var(--light-primary-color);
   transform: translateY(-5px);
   transition: 0.2s ease-in-out;
 }
-.card__bg .card__image {
+.card-bg .card-image {
   width: 100%;
   aspect-ratio: 3/3;
   position: relative;
   overflow: hidden;
 }
-.card__bg .card__image .card__thumbnail {
+.card-bg .card-image .card-thumbnail {
   object-fit: cover;
   position: absolute;
   z-index: 499;
 }
-.card__bg .card__image .card__link {
+.card-bg .card-image .card-link {
   width: 100%;
   height: 100%;
   background: #0000009e;
@@ -133,49 +133,49 @@
   transform: translateY(-101%);
   transition: 0.3s ease-out;
 }
-.card__bg:hover .card__image .card__link {
+.card-bg:hover .card-image .card-link {
   transform: translateY(0%);
 }
-.card__bg .card__image .card__link .card__link-detail {
+.card-bg .card-image .card-link .card-link-detail {
   display: block;
   text-decoration: none;
   color: var(--primary-color);
   padding: var(--padding-button);
   border: var(--border-thickness-button) solid var(--primary-color);
 }
-.card__bg .card__image .card__link .card__link-detail:hover {
+.card-bg .card-image .card-link .card-link-detail:hover {
   text-decoration: underline;
 }
-.card__bg .card__box {
+.card-bg .card-box {
   margin: 3px 0px;
   border-bottom: 1px solid var(--light-gray-color);
   border-radius: 0.5px;
 }
-.card__bg:hover .card__box {
+.card-bg:hover .card-box {
   border-bottom: 1px solid var(--dark-gray-color);
   transition: 0.4s ease-out;
 }
-.card__bg .card__box .card__price {
+.card-bg .card-box .card-price {
   color: var(--primary-color);
 }
-.card__bg .card__box i {
+.card-bg .card-box i {
   padding: 6.5px 8px 5.5px 8px;
   background: none;
   color: var(--dark-gray-color);
   font-size: var(--icon-font-size);
 }
-.card__bg .card__rating .card__star i {
+.card-bg .card-rating .card-star i {
   font-size: var(--icon-font-size2);
   color: var(--dark-gray-color);
 }
-.card__bg .card__rating i.bi-bag-check-fill {
+.card-bg .card-rating i.bi-bag-check-fill {
   font-size: var(--icon-font-size);
   padding: 4px 8px;
   color: var(--dark-gray-color);
   background: none;
   border: 1px solid var(--dark-gray-color);
 }
-.card__bg .card__rating i.bi-bag-check-fill:hover {
+.card-bg .card-rating i.bi-bag-check-fill:hover {
   color: var(--light-gray-color);
   background: var(--dark-gray-color);
   transition: 0.4s ease-out;
@@ -183,16 +183,16 @@
 /* End Product Card */
 
 /* Product Filter Mobile */
-.product__filter-mobile {
+.product-filter-mobile {
   display: none;
 }
-.product__filter-mobile .product__filter-quantity .filter__quantity-limit {
+.product-filter-mobile .product-filter-quantity .filter-quantity-limit {
   padding: var(--padding-button);
   color: var(--dark-gray-color);
   border: 1px solid var(--light-gray-color);
   outline: none;
 }
-.product__filter-mobile .product__filter-button .filter__button-show {
+.product-filter-mobile .product-filter-button .filter-button-show {
   padding: var(--padding-button);
   background: white;
   color: var(--dark-gray-color);
@@ -201,7 +201,7 @@
 /* End Product Filter Mobile */
 
 /* Pagination */
-.product__pagination .product__pagination-item {
+.product-pagination .product-pagination-item {
   padding: 5px 12px;
   margin: 0px 2px;
   color: var(--dark-gray-color);
@@ -210,12 +210,12 @@
   transition: 0.4s ease;
   cursor: pointer;
 }
-.product__pagination .product__pagination-item.nav-link.active {
+.product-pagination .product-pagination-item.nav-link.active {
   color: var(--light-gray-color);
   background: var(--dark-gray-color);
   border: var(--border-thickness-button) solid var(--dark-gray-color);
 }
-.product__pagination .product__pagination-item:hover {
+.product-pagination .product-pagination-item:hover {
   color: var(--light-gray-color);
   background: var(--dark-gray-color);
   border: var(--border-thickness-button) solid var(--dark-gray-color);

@@ -21,7 +21,7 @@ const updateProfileGet = async (req, res) => {
 // PATCH: /admin/profile/update?_method=PATCH     --Cập nhật thông tin tài khoản
 const updateProfilePatch = async (req, res) => {
   try {
-    const id = res.locals.account._id;
+    const id = res.locals.accountLogin._id;
     const hassPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     if (req.body.password) req.body.password = hassPassword;

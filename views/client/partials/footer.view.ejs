@@ -4,60 +4,60 @@
     <div class="row gy-4">
       <!-- About -->
       <div class="col-lg-2 col-md-6 col-12">
-        <div class="footer__about">
-          <div class="footer__about-logo mb-4">
+        <div class="footer-about">
+          <div class="footer-about-logo mb-4">
             <a href="/"
               ><img src="/client/images/logo.png" alt="Logo" width="100%" class="p-3 bg-white"
             /></a>
           </div>
-          <h4 class="title-font footer__about-title">Giới thiệu</h4>
-          <ul class="footer__about-list ps-0">
-            <li class="footer__about-item">
-              <a href="/about" class="content-font footer__about-link">Về chúng tôi</a>
+          <h4 class="title-font footer-about-title">Giới thiệu</h4>
+          <ul class="footer-about-list ps-0">
+            <li class="footer-about-item">
+              <a href="/about" class="content-font footer-about-link">Về chúng tôi</a>
             </li>
-            <li class="footer__about-item">
-              <a href="/about" class="content-font footer__about-link">Câu chuyện thương hiệu</a>
+            <li class="footer-about-item">
+              <a href="/about" class="content-font footer-about-link">Câu chuyện thương hiệu</a>
             </li>
-            <li class="footer__about-item">
-              <a href="/about" class="content-font footer__about-link">Dịch vụ</a>
+            <li class="footer-about-item">
+              <a href="/about" class="content-font footer-about-link">Dịch vụ</a>
             </li>
-            <li class="footer__about-item">
-              <a href="/about" class="content-font footer__about-link">Liên hệ & Giúp đỡ</a>
+            <li class="footer-about-item">
+              <a href="/about" class="content-font footer-about-link">Liên hệ & Giúp đỡ</a>
             </li>
           </ul>
         </div>
-        <div class="footer__partner">
-          <h4 class="title-font footer__partner-title">Đối tác hợp tác</h4>
-          <ul class="footer__partner-list d-flex align-items-center gap-3 ps-0">
-            <li class="footer__partner-item">
+        <div class="footer-partner">
+          <h4 class="title-font footer-partner-title">Đối tác hợp tác</h4>
+          <ul class="footer-partner-list d-flex align-items-center gap-3 ps-0">
+            <li class="footer-partner-item">
               <a
                 href="<%= generalWebsite ? generalWebsite.tiktok : '#' %>"
                 target="_blank"
-                class="icon-font footer__partner-link"
+                class="icon-font footer-partner-link"
                 ><i class="bi bi-tiktok"></i
               ></a>
             </li>
-            <li class="footer__partner-item">
+            <li class="footer-partner-item">
               <a
                 href="<%= generalWebsite ? generalWebsite.youtube : '#' %>"
                 target="_blank"
-                class="icon-font footer__partner-link"
+                class="icon-font footer-partner-link"
                 ><i class="bi bi-youtube"></i
               ></a>
             </li>
-            <li class="footer__partner-item">
+            <li class="footer-partner-item">
               <a
                 href="<%= generalWebsite ? generalWebsite.instagram : '#' %>"
                 target="_blank"
-                class="icon-font footer__partner-link"
+                class="icon-font footer-partner-link"
                 ><i class="bi bi-instagram"></i
               ></a>
             </li>
-            <li class="footer__partner-item">
+            <li class="footer-partner-item">
               <a
                 href="<%= generalWebsite ? generalWebsite.pinterest : '#' %>"
                 target="_blank"
-                class="icon-font footer__partner-link"
+                class="icon-font footer-partner-link"
                 ><i class="bi bi-pinterest"></i
               ></a>
             </li>
@@ -68,13 +68,13 @@
 
       <!-- Description & Verified -->
       <div class="col-lg-4 col-md-6 col-12">
-        <p class="content-font footer__description text-justify">
+        <p class="content-font footer-description text-justify">
           <%= generalWebsite ? generalWebsite.shortIntro : '' %>
         </p>
         <img
           src="/client/images/verified.png"
           alt="verified logo"
-          class="footer__verified mt-2"
+          class="footer-verified mt-2"
           width="50%"
         />
       </div>
@@ -82,12 +82,12 @@
 
       <!-- Location -->
       <div class="col-lg-3 col-md-6 col-12">
-        <div class="footer__location">
-          <h4 class="title-font footer__location-title">Địa chỉ các cơ sở</h4>
-          <ul class="content-font footer__location-list ps-0">
+        <div class="footer-location">
+          <h4 class="title-font footer-location-title">Địa chỉ các cơ sở</h4>
+          <ul class="content-font footer-location-list ps-0">
             <% if(generalWebsite) { %> <% if (generalWebsite.address.length > 0) { %> <%
             generalWebsite.address.forEach((item) => { %>
-            <li class="footer__location-item">- <%= item %></li>
+            <li class="footer-location-item">- <%= item %></li>
             <% }) %> <% } %> <% } %>
           </ul>
         </div>
@@ -96,20 +96,20 @@
 
       <!-- Policy -->
       <div class="col-lg-3 col-md-6 col-12">
-        <div class="footer__policy">
-          <h4 class="title-font footer__policy-title">Chính sách & Điều khoản</h4>
-          <ul class="footer__policy-list ps-0">
-            <li class="footer__policy-item">
-              <a href="/about" class="content-font footer__policy-link">Chính sách bảo mật</a>
+        <div class="footer-policy">
+          <h4 class="title-font footer-policy-title">Chính sách & Điều khoản</h4>
+          <ul class="footer-policy-list ps-0">
+            <li class="footer-policy-item">
+              <a href="/about" class="content-font footer-policy-link">Chính sách bảo mật</a>
             </li>
-            <li class="footer__policy-item">
-              <a href="/about" class="content-font footer__policy-link">Chính sách đổi trả</a>
+            <li class="footer-policy-item">
+              <a href="/about" class="content-font footer-policy-link">Chính sách đổi trả</a>
             </li>
-            <li class="footer__policy-item">
-              <a href="/about" class="content-font footer__policy-link">Chính sách vận chuyển</a>
+            <li class="footer-policy-item">
+              <a href="/about" class="content-font footer-policy-link">Chính sách vận chuyển</a>
             </li>
-            <li class="footer__policy-item">
-              <a href="/about" class="content-font footer__policy-link">Điều khoản sử dụng</a>
+            <li class="footer-policy-item">
+              <a href="/about" class="content-font footer-policy-link">Điều khoản sử dụng</a>
             </li>
           </ul>
         </div>
@@ -120,32 +120,32 @@
     <div class="row">
       <div class="col-12">
         <hr />
-        <div class="footer__bottom d-flex justify-content-between align-items-center row-gap-3">
+        <div class="footer-bottom d-flex justify-content-between align-items-center row-gap-3">
           <div class="copyright">
-            <span class="content-font copyright__name"
+            <span class="content-font copyright-name"
               >© Bản quyền bởi <%= generalWebsite ? generalWebsite.copyright : '' %></span
             >
           </div>
-          <div class="footer__payment">
-            <h4 class="title-font footer__payment-title">Phương thức thanh toán</h4>
-            <ul class="payment__method-list d-flex gap-2 ps-0">
-              <li class="payment__method-item">
-                <div class="payment__method-box">
+          <div class="footer-payment">
+            <h4 class="title-font footer-payment-title">Phương thức thanh toán</h4>
+            <ul class="payment-method-list d-flex gap-2 ps-0">
+              <li class="payment-method-item">
+                <div class="payment-method-box">
                   <img src="/client/images/payment/VISA-payment.png" alt="VISA" />
                 </div>
               </li>
-              <li class="payment__method-item">
-                <div class="payment__method-box">
+              <li class="payment-method-item">
+                <div class="payment-method-box">
                   <img src="/client/images/payment/VNPAY-payment.png" alt="VNPAY" />
                 </div>
               </li>
-              <li class="payment__method-item">
-                <div class="payment__method-box">
+              <li class="payment-method-item">
+                <div class="payment-method-box">
                   <img src="/client/images/payment/ZALO-payment.jpg" alt="ZALO" />
                 </div>
               </li>
-              <li class="payment__method-item">
-                <div class="payment__method-box">
+              <li class="payment-method-item">
+                <div class="payment-method-box">
                   <img src="/client/images/payment/MOMO-payment.jpg" alt="MOMO" />
                 </div>
               </li>

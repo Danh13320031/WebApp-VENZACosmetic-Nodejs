@@ -1,6 +1,7 @@
 import { maxAgeCartStorage } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import cartModel from '../../models/cart.model.js';
 import categoryModel from '../../models/category.model.js';
 import productModel from '../../models/product.model.js';
@@ -11,6 +12,7 @@ const cart = async (req, res) => {
     const find = { status: 'active', deleted: false };
     const categoryList = await categoryModel.find(find);
     const categoryTree = categoryTreeHelper(categoryList);
+    const pageUrl = createPageUrlHelper(req);
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findById(cartId);
     let productIdCartList = [];
@@ -56,6 +58,7 @@ const cart = async (req, res) => {
     res.render('./client/pages/cart/cart.view.ejs', {
       pageTitle: 'Giỏ hàng',
       categoryTree: categoryTree,
+      pageUrl: pageUrl,
       cart: cart,
       relatedProductList: relatedProductList,
     });

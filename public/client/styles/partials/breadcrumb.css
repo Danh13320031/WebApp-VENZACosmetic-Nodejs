@@ -1,0 +1,15 @@
+.banner-page {
+  margin-bottom: 80px;
+}
+.banner-page .banner-page-overlay {
+  padding: 100px 0px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.banner-page .banner-page-overlay .banner-page-link {
+  text-decoration: none;
+  color: var(--light-gray-color);
+}
+.banner-page .banner-page-overlay .banner-page-link:hover {
+  text-decoration: underline !important;
+  color: var(--primary-color) !important;
+}

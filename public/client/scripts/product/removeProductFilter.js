@@ -1,4 +1,4 @@
-const filterRemoveItemList = document.querySelectorAll('.filter__remove-item');
+const filterRemoveItemList = document.querySelectorAll('.filter-remove-item');
 
 if (filterRemoveItemList.length > 0) {
   filterRemoveItemList.forEach((removeItem) => {

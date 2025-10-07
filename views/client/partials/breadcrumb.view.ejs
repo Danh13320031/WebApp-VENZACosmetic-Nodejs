@@ -1,0 +1,21 @@
+<div class="mt-md-5 mt-0 d-block w-100 banner-page">
+  <div
+    class="banner-page-box"
+    style="background-image: url('/client/images/breadcrumb.jpg'); background-repeat: no-repeat"
+  >
+    <div
+      class="w-100 h-100 d-flex flex-column justify-content-center align-items-center banner-page-overlay"
+    >
+      <h1 class="text-light heading-font p-0 mb-0 banner-page-title"><%= pageTitle %></h1>
+      <div class="d-flex gap-1 banner-page-url">
+        <a class="content-font banner-page-link" href="<%= pageUrl.homePage %>">Trang chủ</a>
+        <span class="text-light">/</span>
+        <a
+          class="content-font banner-page-link"
+          href="<%= pageUrl.homePage + pageUrl.currentPage %>"
+          ><%= pageTitle %></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
