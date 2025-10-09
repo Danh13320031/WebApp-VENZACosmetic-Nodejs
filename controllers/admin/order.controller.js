@@ -74,6 +74,28 @@ const order = async (req, res) => {
   });
 };
 
+// PATCH: /admin/orders/change-status/:status/:id?_method=PATCH
+const changeStatusOrder = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id || !status) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    await orderModel.findByIdAndUpdate(id, { status: status });
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thông');
+  } catch (err) {
+    console.log('Update order fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/orders/change-multi?_method=PATCH
 const changeMultiOrder = async (req, res) => {
   try {
@@ -208,6 +230,7 @@ const changeMultiOrder = async (req, res) => {
 
 const orderController = {
   order,
+  changeStatusOrder,
   changeMultiOrder,
 };
 
