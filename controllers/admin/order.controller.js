@@ -1,3 +1,4 @@
+import priceFilterHelper from '../../helpers/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
@@ -30,6 +31,12 @@ const order = async (req, res) => {
   const sort = sortHelper(req.query);
   const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
 
+  // Price Filter
+    const valueRange = priceFilterHelper(req.query);
+    if (req.query.min && req.query.max) {
+      find.$and = [{ total: { $gt: valueRange.min } }, { total: { $lt: valueRange.max } }];
+    }
+
   const orderList = await orderModel.find(find).sort(sort);
 
   if (orderList.length > 0) {
@@ -47,6 +54,7 @@ const order = async (req, res) => {
     keyword: objSearch.keyword,
     activeStatus,
     sortValue,
+    valueRange,
   });
 };
 
