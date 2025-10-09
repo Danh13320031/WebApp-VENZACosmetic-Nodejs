@@ -6,5 +6,6 @@ const orderRoute = express.Router();
 orderRoute.get('/', orderController.order);
 orderRoute.patch('/change-status/:status/:id', orderController.changeStatusOrder);
 orderRoute.patch('/change-multi', orderController.changeMultiOrder);
+orderRoute.patch('/delete/:id', orderController.deleteOrder);
 
 export default orderRoute;

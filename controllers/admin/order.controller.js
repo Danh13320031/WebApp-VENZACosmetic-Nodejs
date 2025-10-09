@@ -228,10 +228,30 @@ const changeMultiOrder = async (req, res) => {
   }
 };
 
+// PATCH: /admin/orders/delete/:id?_method=PATCH
+const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await orderModel.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedAt: new Date(),
+    });
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+  } catch (err) {
+    console.log('Delete category fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const orderController = {
   order,
   changeStatusOrder,
   changeMultiOrder,
+  deleteOrder,
 };
 
 export default orderController;
