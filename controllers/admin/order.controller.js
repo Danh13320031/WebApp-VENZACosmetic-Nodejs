@@ -7,6 +7,11 @@ import userModel from '../../models/user.model.js';
 // GET: /admin/accounts
 const order = async (req, res) => {
   const find = { deleted: false };
+
+  // Search
+  const objSearch = searchHelper(req.query);
+  if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
+
   const orderList = await orderModel.find(find).sort({ createdAt: 'desc' });
 
   if (orderList.length > 0) {
@@ -21,6 +26,7 @@ const order = async (req, res) => {
   res.render('./admin/pages/order/order.view.ejs', {
     pageTitle: 'Danh sách đơn hàng',
     orderList: orderList,
+    keyword: objSearch.keyword,
   });
 };
 
