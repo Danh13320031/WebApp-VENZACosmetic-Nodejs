@@ -262,6 +262,7 @@
     <%-include("../../partials/footer.view.ejs") %>
 
     <form action="<%= prefixAdmin %>/orders/change-status" method="POST" class="d-none" form-change-status-select></form>
+    <form action="<%= prefixAdmin %>/orders" method="POST" class="d-none" form-delete></form>
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
@@ -272,6 +273,7 @@
     <script src="/admin/scripts/product/priceFilter.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
+    <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/order/changeStatusSelect.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
