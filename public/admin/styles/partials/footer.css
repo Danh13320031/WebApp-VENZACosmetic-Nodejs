@@ -1,9 +1,9 @@
 #footer {
   position: fixed;
   bottom: 0;
-  left: 225px;
+  left: 250px;
   z-index: 1000;
-  width: calc(100% - 225px);
+  width: calc(100% - 250px);
   max-width: 100%;
 }
 

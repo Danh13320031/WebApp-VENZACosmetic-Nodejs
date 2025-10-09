@@ -81,6 +81,7 @@ const product = async (req, res) => {
       keyword: objSearch.keyword,
       objPagination,
       sortValue,
+      statusList,
     });
   } catch (err) {
     console.log('productList error: ', err);
@@ -349,6 +350,7 @@ const garbageProduct = async (req, res) => {
   res.render('./admin/pages/product/garbage.view.ejs', {
     pageTitle: 'Thùng rác sản phẩm',
     productList,
+    statusList: [],
   });
 };
 

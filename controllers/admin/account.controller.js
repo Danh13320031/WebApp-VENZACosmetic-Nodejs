@@ -59,6 +59,7 @@ const account = async (req, res) => {
     activeStatus,
     keyword: objSearch.keyword,
     objPagination,
+    statusList,
   });
 };
 
@@ -277,6 +278,7 @@ const garbageAccount = async (req, res) => {
     res.render('./admin/pages/account/garbage.view.ejs', {
       pageTitle: 'Thùng rác tài khoản',
       accountList,
+      statusList: [],
     });
   } catch (err) {
     console.log(`Display account garbage fail: `, err);
