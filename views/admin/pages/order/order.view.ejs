@@ -58,14 +58,13 @@
         </div>
 
         <div class="card mb-3">
-          <div class="title-font card-header">Danh sách (trang hiện tại: )</div>
+          <div class="title-font card-header">Danh sách (trang hiện tại: <%= objPagination.currentPage %>)</div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
-                <!-- <div class="col-lg-4 col-12"> -->
-                  <%#-include("../../partials/changeMulti.view.ejs", {url: 'products', type:
-                  'product'}) %>
-                <!-- </div> -->
+                <div class="col-lg-4 col-12">
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, type: 'order', url: 'orders' }) %>
+                </div>
                 <div class="col-lg-4 col-12">
                   <%-include("../../partials/sort.view.ejs", { 
                     sortOption: ['createdAt-desc', 'createdAt-asc', 'position-asc', 'position-desc', 'total-asc', 'total-desc', 'orderCode-asc', 'orderCode-desc'] 
@@ -119,7 +118,12 @@
                       index) => { %>
                       <tr>
                         <td>
-                          <input type="checkbox" name="checkall" class="me-5" /><%= index + 1 %>
+                          <input
+                            type="checkbox"
+                            name="checkid"
+                            value="<%= order._id %>"
+                            class="me-5"
+                          /><%= index + 1 %>
                         </td>
                         <td class="fw-bold"><%= order.orderCode %></td>
                         <td>
@@ -142,8 +146,10 @@
                         <td>
                           <div class="d-flex align-items-center gap-2">
                             <select
-                              name=""
-                              id=""
+                              name="status"
+                              id="status"
+                              data-id="<%= order._id %>"
+                              change-status-select
                               class="badge p-2 form-control"
                               <% if (order.status === 'pending') { %>
                                 style="color: var(--warning-color-admin); border-color: var(--warning-color-admin)"
@@ -238,12 +244,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%#-include("../../partials/pagination.view.ejs") %>
+              <%-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
-              <a href="<%= prefixAdmin %>/orders/garbage" class="btn btn-primary w-100 float-end"
-                ><i class="bi bi-trash me-2"></i>Thùng rác</a
-              >
+              <a href="<%= prefixAdmin %>/orders/garbage" class="btn btn-primary w-100 float-end">
+                <i class="bi bi-trash me-2"></i>
+                Thùng rác
+              </a>
             </div>
           </div>
         </div>
@@ -254,6 +261,8 @@
 
     <%-include("../../partials/footer.view.ejs") %>
 
+    <form action="<%= prefixAdmin %>/orders/change-status" method="POST" class="d-none" form-change-status-select></form>
+
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/sidebarToggle.js"></script>
@@ -261,8 +270,9 @@
     <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/sort.js"></script>
     <script src="/admin/scripts/product/priceFilter.js"></script>
+    <script src="/admin/scripts/changeMulti.js"></script>
+    <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
-    <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

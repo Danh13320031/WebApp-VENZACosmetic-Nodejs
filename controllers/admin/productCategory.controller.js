@@ -6,7 +6,7 @@ import searchHelper from '../../helpers/search.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 
-// GET: /admin/categories
+// GET: /admin/product-categories
 const productCategory = async (req, res) => {
   const find = {
     deleted: false,
@@ -47,13 +47,14 @@ const productCategory = async (req, res) => {
       activeStatus,
       keyword: objSearch.keyword,
       objPagination,
+      statusList,
     });
   } catch (err) {
     console.log('categoryList error: ', err);
   }
 };
 
-// GET: /admin/categories/create
+// GET: /admin/product-categories/create
 const createProductCategoryGet = async (req, res) => {
   const find = {
     deleted: false,
@@ -68,7 +69,7 @@ const createProductCategoryGet = async (req, res) => {
   });
 };
 
-// POST: /admin/categories/create
+// POST: /admin/product-categories/create
 const createProductCategoryPost = async (req, res) => {
   try {
     const countRecord = await productCategoryModel.countDocuments();
@@ -87,7 +88,7 @@ const createProductCategoryPost = async (req, res) => {
   }
 };
 
-// GET: /admin/categories/update/:id
+// GET: /admin/product-categories/update/:id
 const updateProductCategoryGet = async (req, res) => {
   const id = req.params.id;
 
@@ -116,7 +117,7 @@ const updateProductCategoryGet = async (req, res) => {
   }
 };
 
-// PATCH: /admin/categories/update/:id?_method=PATCH
+// PATCH: /admin/product-categories/update/:id?_method=PATCH
 const updateProductCategoryPatch = async (req, res) => {
   try {
     const id = req.params.id;
@@ -133,7 +134,7 @@ const updateProductCategoryPatch = async (req, res) => {
   }
 };
 
-// PATCH: /admin/categories/change-status/:status/:id?_method=PATCH
+// PATCH: /admin/product-categories/change-status/:status/:id?_method=PATCH
 const changeStatusProductCategory = async (req, res) => {
   try {
     const { id, status } = req.params;
@@ -150,7 +151,7 @@ const changeStatusProductCategory = async (req, res) => {
   }
 };
 
-// PATCH: /admin/categories/change-multi?_method=PATCH
+// PATCH: /admin/product-categories/change-multi?_method=PATCH
 const changeMultiProductCategory = async (req, res) => {
   try {
     if (req.body.type && req.body.ids) {
@@ -238,7 +239,7 @@ const changeMultiProductCategory = async (req, res) => {
   }
 };
 
-// PATCH: /admin/categories/delete/:id?_method=PATCH
+// PATCH: /admin/product-categories/delete/:id?_method=PATCH
 const deleteProductCategory = async (req, res) => {
   const { id } = req.params;
 
@@ -256,7 +257,7 @@ const deleteProductCategory = async (req, res) => {
   }
 };
 
-// GET: /admin/categories/garbage
+// GET: /admin/product-categories/garbage
 const garbageProductCategory = async (req, res) => {
   const find = {
     deleted: true,
@@ -269,10 +270,11 @@ const garbageProductCategory = async (req, res) => {
   res.render('./admin/pages/category/garbage.view.ejs', {
     pageTitle: 'Thùng rác danh mục',
     categoryList,
+    statusList: [],
   });
 };
 
-// PATCH: /admin/categories/restore-garbage/:id?_method=PATCH
+// PATCH: /admin/product-categories/restore-garbage/:id?_method=PATCH
 const restoreGarbageProductCategory = async (req, res) => {
   const { id } = req.params;
 
@@ -287,7 +289,7 @@ const restoreGarbageProductCategory = async (req, res) => {
   }
 };
 
-// DELETE: /admin/categories/delete-garbage/:id?_method=DELETE
+// DELETE: /admin/product-categories/delete-garbage/:id?_method=DELETE
 const deleteGarbageProductCategory = async (req, res) => {
   const { id } = req.params;
 

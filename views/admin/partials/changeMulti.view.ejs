@@ -7,28 +7,24 @@
     <div class="form-group me-1 flex-fill">
       <select name="type" class="form-control">
         <option disabled selected>-- Danh mục lựa chọn --</option>
-          <% if(roleAuth.permission.includes(`${type}-change-status`)) {%>
-            <option <% if(url === 'roles') {%>
-              disabled class=""<% } %> value="active" class="text-success">🟢 Hoạt động
-            </option>
-            <option <% if(url === 'roles') {%>
-              disabled class=""<% } %> value="inactive" class="text-warning">🟡 Ngừng hoạt động
-            </option>
-          <% } %>
+        <% if(roleAuth.permission.includes(`${type}-change-status`)) {%> <% if (statusList &&
+        statusList.length > 0) { %> <% statusList.forEach((item) => { %>
+        <option class="" value="<%= item.status %>" class="text-success"><%= item.name %></option>
+        <% }) %> <% } %> <% } %>
 
         <!---------------------------------------------------------------------------------->
         <% if(roleAuth.permission.includes(`${type}-sort-delete`)) {%>
-          <option value="soft-delete" class="text-danger">🗑 Xóa mềm tất cả</option>
+        <option value="soft-delete" class="text-danger">Xóa mềm tất cả</option>
         <% } %>
 
         <!---------------------------------------------------------------------------------->
         <% if(roleAuth.permission.includes(`${type}-restore`)) {%>
-          <option value="restore" class="text-primary">🔄 Khôi phục tất cả</option>
+        <option value="restore" class="text-primary">Khôi phục tất cả</option>
         <% } %>
 
         <!---------------------------------------------------------------------------------->
         <% if(roleAuth.permission.includes(`${type}-hard-delete`)) {%>
-          <option value="hard-delete" class="text-danger">🗑 Xóa vĩnh viễn tất cả</option>
+        <option value="hard-delete" class="text-danger">Xóa vĩnh viễn tất cả</option>
         <% } %>
       </select>
     </div>

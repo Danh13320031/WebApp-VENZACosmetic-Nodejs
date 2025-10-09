@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -30,7 +30,7 @@
         if(roleAuth.permission.includes('category-update')) { %>
         <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
-          action="<%= prefixAdmin %>/categories/update/<%= category._id %>?_method=PATCH"
+          action="<%= prefixAdmin %>/product-categories/update/<%= category._id %>?_method=PATCH"
           method="POST"
           enctype="multipart/form-data"
           id="form-handle"

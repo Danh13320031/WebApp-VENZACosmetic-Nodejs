@@ -15,7 +15,7 @@
             <div class="sb-nav-link-icon"><i class="bi bi-house-fill"></i></div>
             Tổng quan
           </a>
-          <a
+          <!-- <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
             sidebar-number="2"
             href="<%= prefixAdmin %>/products"
@@ -30,10 +30,74 @@
           >
             <div class="sb-nav-link-icon"><i class="fa-solid fa-bars-staggered"></i></div>
             Danh mục
+          </a> -->
+          <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="2"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#productColapseLayouts"
+            aria-expanded="false"
+            aria-controls="productColapseLayouts"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-list-ul"></i></div>
+            Sản phẩm
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
           </a>
+          <div
+            class="collapse"
+            id="productColapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/products"
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách sản phẩm</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/product-categories"
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh mục sản phẩm</a
+              >
+            </nav>
+          </div>
+          <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="2"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#postColapseLayouts"
+            aria-expanded="false"
+            aria-controls="postColapseLayouts"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-bars-staggered"></i></div>
+            Bài viết
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div
+            class="collapse"
+            id="postColapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/posts"
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách bài viết</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/post-categories"
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh mục bài viết</a
+              >
+            </nav>
+          </div>
           <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
-            sidebar-number="4"
+            sidebar-number="3"
             href="<%= prefixAdmin %>/orders"
           >
             <div class="sb-nav-link-icon"><i class="bi bi-bag-check-fill"></i></div>
@@ -49,7 +113,7 @@
           </a> -->
           <a
             class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
-            sidebar-number="5"
+            sidebar-number="4"
             href="#"
             data-bs-toggle="collapse"
             data-bs-target="#accountColapseLayouts"
@@ -70,12 +134,12 @@
               <a
                 class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
                 href="<%= prefixAdmin %>/accounts"
-                ><i class="bi bi-caret-right-fill me-1"></i>Quản trị viên</a
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách quản trị viên</a
               >
               <a
                 class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
                 href="<%= prefixAdmin %>/users"
-                ><i class="bi bi-caret-right-fill me-1"></i>Người dùng</a
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách người dùng</a
               >
             </nav>
           </div>
@@ -102,7 +166,7 @@
               <a
                 class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
                 href="<%= prefixAdmin %>/roles"
-                ><i class="bi bi-caret-right-fill me-1"></i>Nhóm quyền</a
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách nhóm quyền</a
               >
               <a
                 class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
@@ -129,7 +193,7 @@
           </a> -->
           <a
             class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
-            sidebar-number="8"
+            sidebar-number="6"
             href="#"
             data-bs-toggle="collapse"
             data-bs-target="#settingCollapseLayouts"

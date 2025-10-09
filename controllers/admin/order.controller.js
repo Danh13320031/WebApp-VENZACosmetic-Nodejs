@@ -1,3 +1,5 @@
+import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
 import priceFilterHelper from '../../helpers/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
@@ -32,12 +34,24 @@ const order = async (req, res) => {
   const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
 
   // Price Filter
-    const valueRange = priceFilterHelper(req.query);
-    if (req.query.min && req.query.max) {
-      find.$and = [{ total: { $gt: valueRange.min } }, { total: { $lt: valueRange.max } }];
-    }
+  const valueRange = priceFilterHelper(req.query);
+  if (req.query.min && req.query.max) {
+    find.$and = [{ total: { $gt: valueRange.min } }, { total: { $lt: valueRange.max } }];
+  }
 
-  const orderList = await orderModel.find(find).sort(sort);
+  // Pagination
+  const paginationObj = {
+    limit: 8,
+    currentPage: 1,
+  };
+  const productTotal = await orderModel.countDocuments(find);
+  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+  const orderList = await orderModel
+    .find(find)
+    .sort(sort)
+    .limit(objPagination.limit)
+    .skip(objPagination.productSkip);
 
   if (orderList.length > 0) {
     for (let i = 0; i < orderList.length; i++) {
@@ -55,11 +69,146 @@ const order = async (req, res) => {
     activeStatus,
     sortValue,
     valueRange,
+    objPagination,
+    statusList,
   });
+};
+
+// PATCH: /admin/orders/change-multi?_method=PATCH
+const changeMultiOrder = async (req, res) => {
+  try {
+    if (req.body.type && req.body.ids) {
+      const { type, ids } = req.body;
+      const idsArr = ids.split(', ');
+
+      switch (type) {
+        case 'pending': {
+          try {
+            await orderModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'pending' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'confirmed': {
+          try {
+            await orderModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { status: 'confirmed' } }
+            );
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'shipping': {
+          try {
+            await orderModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'shipping' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'delivered': {
+          try {
+            await orderModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { status: 'delivered' } }
+            );
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'paid': {
+          try {
+            await orderModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'paid' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'cancelled': {
+          try {
+            await orderModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { status: 'cancelled' } }
+            );
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'soft-delete': {
+          try {
+            await orderModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { deleted: true, deletedAt: new Date() } }
+            );
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'restore': {
+          try {
+            await orderModel.updateMany({ _id: { $in: idsArr } }, { $set: { deleted: false } });
+            alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'hard-delete': {
+          try {
+            await orderModel.deleteMany({ _id: { $in: idsArr } });
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        default:
+          break;
+      }
+    } else {
+      res.redirect('back');
+    }
+  } catch (err) {
+    console.log('Change multi status fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+    res.redirect('back');
+  }
 };
 
 const orderController = {
   order,
+  changeMultiOrder,
 };
 
 export default orderController;

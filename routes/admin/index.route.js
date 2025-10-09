@@ -20,7 +20,7 @@ const routerAdmin = (app) => {
   app.use(`${systemConfig.prefixAdmin}/dashboard`, authMiddleware.requireAuth, dashboardRoute);
   app.use(`${systemConfig.prefixAdmin}/products`, authMiddleware.requireAuth, productRoute);
   app.use(
-    `${systemConfig.prefixAdmin}/categories`,
+    `${systemConfig.prefixAdmin}/product-categories`,
     authMiddleware.requireAuth,
     productCategoryRoute
   );

@@ -59,8 +59,8 @@
             <div class="container-fluid">
               <div class="row gap-lg-0 gap-2 justify-content-between">
                 <div class="col-lg-5 col-12">
-                  <%-include("../../partials/changeMulti.view.ejs", {url: 'accounts', type:
-                  'account'}) %>
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  'accounts', type: 'account' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
                   <% if(roleAuth.permission.includes("account-add")) { %>

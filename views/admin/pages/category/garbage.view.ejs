@@ -35,8 +35,8 @@
             <div class="container-fluid mb-2">
               <div class="row">
                 <div class="col-lg-5 col-12">
-                  <%-include("../../partials/changeMulti.view.ejs", {url: 'categories', type:
-                  'category'}) %>
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  'product-categories', type: 'category' }) %>
                 </div>
               </div>
             </div>
@@ -142,14 +142,14 @@
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
-      action="<%= prefixAdmin %>/categories"
+      action="<%= prefixAdmin %>/product-categories"
       method="POST"
       class="d-none"
       form-restore-product
     ></form>
 
     <form
-      action="<%= prefixAdmin %>/categories"
+      action="<%= prefixAdmin %>/product-categories"
       method="POST"
       class="d-none"
       form-delete-product
