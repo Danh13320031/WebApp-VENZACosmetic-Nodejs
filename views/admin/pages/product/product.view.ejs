@@ -25,9 +25,11 @@
 
     <div class="body">
       <%-include("../../partials/sider.view.ejs") %>
+
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('product-view')) {%>
+        if(roleAuth.permission.includes('product-view')) { %>
+
         <div class="row gap-md-0 gap-2 justify-content-between">
           <div class="col-lg-8 col-md-4 col-12">
             <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
@@ -259,8 +261,9 @@
             </div>
           </div>
         </div>
+
+        <% } %>
       </div>
-      <% } %>
     </div>
 
     <%-include("../../partials/footer.view.ejs") %>

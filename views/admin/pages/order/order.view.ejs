@@ -25,7 +25,10 @@
 
     <div class="body">
       <%-include("../../partials/sider.view.ejs") %>
+
       <div class="main">
+        <%-include("../../partials/alertMessage.view.ejs") %>
+
         <% if(roleAuth.permission.includes("order-view")) { %>
 
         <div class="row gap-md-0 gap-2 justify-content-between">
@@ -54,16 +57,22 @@
           </div>
         </div>
 
-        <%#= objPagination.currentPage %>
         <div class="card mb-3">
           <div class="title-font card-header">Danh sách (trang hiện tại: )</div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
+                <!-- <div class="col-lg-4 col-12"> -->
+                  <%#-include("../../partials/changeMulti.view.ejs", {url: 'products', type:
+                  'product'}) %>
+                <!-- </div> -->
                 <div class="col-lg-4 col-12">
                   <%-include("../../partials/sort.view.ejs", { 
                     sortOption: ['createdAt-desc', 'createdAt-asc', 'position-asc', 'position-desc', 'total-asc', 'total-desc', 'orderCode-asc', 'orderCode-desc'] 
                   }) %>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                  <%-include("../../partials/priceFilter.view.ejs") %>
                 </div>
               </div>
             </div>
@@ -114,8 +123,8 @@
                         </td>
                         <td class="fw-bold"><%= order.orderCode %></td>
                         <td>
-                          <div><i class="fa-solid fa-user me-1"></i><%= order.userOrderName %></div>
-                          <div><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderEmail %></div>
+                          <div class="text-wrap"><i class="fa-solid fa-user me-1"></i><%= order.userOrderName %></div>
+                          <div class="text-wrap"><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderEmail %></div>
                         </td>
                         <td>
                           <div><i class="fa-solid fa-user me-1"></i><%= order.userInfo.fullname %></div>
@@ -128,7 +137,7 @@
                         <% if (order.paymentMethod === 'online') { %>
                         <td>Thanh toán online</td>
                         <% } else { %>
-                        <td><span class="badge bg-warning">Thanh toán khi nhan hang</span></td>
+                        <td><span class="badge bg-warning text-wrap">Thanh toán khi nhận hàng</span></td>
                         <% } %>
                         <td>
                           <div class="d-flex align-items-center gap-2">
@@ -214,8 +223,7 @@
                           <a
                             href="<%= prefixAdmin %>/orders/<%= order._id %>"
                             class="btn btn-outline-black text-black border-black btn-sm"
-                            >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i
-                          ></a>
+                            >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i></a>
                         </td>
                       </tr>
                       <% }) %> <% } %>
@@ -252,7 +260,9 @@
     <script src="/admin/scripts/statusFilter.js"></script>
     <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/sort.js"></script>
+    <script src="/admin/scripts/product/priceFilter.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->
