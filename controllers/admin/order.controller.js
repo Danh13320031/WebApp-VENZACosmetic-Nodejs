@@ -12,6 +12,20 @@ const order = async (req, res) => {
   const objSearch = searchHelper(req.query);
   if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
 
+  // Status Filter
+  const statusList = [
+    { name: 'Tất cả', class: '', status: '' },
+    { name: 'Chờ xác nhận', class: '', status: 'pending' },
+    { name: 'Đã xác nhận', class: '', status: 'confirmed' },
+    { name: 'Đang giao', class: '', status: 'shipping' },
+    { name: 'Đã giao', class: '', status: 'delivered' },
+    { name: 'Đã thanh toán', class: '', status: 'paid' },
+    { name: 'Đã hủy', class: '', status: 'cancelled' },
+  ];
+
+  const activeStatus = statusFilterHelper(req.query, statusList);
+  if (req.query.status) find.status = req.query.status;
+
   const orderList = await orderModel.find(find).sort({ createdAt: 'desc' });
 
   if (orderList.length > 0) {
@@ -27,6 +41,7 @@ const order = async (req, res) => {
     pageTitle: 'Danh sách đơn hàng',
     orderList: orderList,
     keyword: objSearch.keyword,
+    activeStatus,
   });
 };
 
