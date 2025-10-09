@@ -3,14 +3,14 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import cartModel from '../../models/cart.model.js';
-import categoryModel from '../../models/category.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
 
 // [GET]: /cart
 const cart = async (req, res) => {
   try {
     const find = { status: 'active', deleted: false };
-    const categoryList = await categoryModel.find(find);
+    const categoryList = await productCategoryModel.find(find);
     const categoryTree = categoryTreeHelper(categoryList);
     const pageUrl = createPageUrlHelper(req);
     const cartId = req.cookies.cartId;

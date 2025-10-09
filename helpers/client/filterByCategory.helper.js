@@ -1,4 +1,4 @@
-import categoryModel from '../../models/category.model.js';
+import categoryModel from '../../models/productCategory.model.js';
 import getSubCategoryHelper from '../getSubCategory.helper.js';
 
 const filterByCategoryHelper = async (reqQuery) => {

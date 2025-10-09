@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -29,12 +29,12 @@
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('role-view')) {%>
         <div class="row">
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+          <div class="col-lg-8 col-md-4 col-12">
             <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <%#-include("../../partials/search.view.ejs") %>
+
+          <div class="col-lg-4 col-md-6 col-12">
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên quyền..."}) %>
           </div>
         </div>
         <div class="card mb-3">
@@ -149,6 +149,7 @@
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
+    <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>

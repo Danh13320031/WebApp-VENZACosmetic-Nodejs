@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%-include('../../partials/seo-meta.view.ejs', { pageTitle: pageTitle}) %>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
 
     <!-- Styles File -->
     <link rel="stylesheet" href="/client/setup.css" />
@@ -33,10 +33,10 @@
     <!-- End Styles Library & Framework Link -->
   </head>
   <body>
-    <%-include('../../partials/alert-message.view.ejs') %>
+    <%-include('../../partials/alertMessage.view.ejs') %>
     <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive:
     "active", aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: ''
-    }); %> <%-include("../../partials/header-mobile.view.ejs") %>
+    }); %> <%-include("../../partials/headerMobile.view.ejs") %>
 
     <main class="main">
       <!-- Banner Header -->

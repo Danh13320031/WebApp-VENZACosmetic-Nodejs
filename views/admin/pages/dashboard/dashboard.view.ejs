@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
     <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/pages/dashboard/dashboard.css" />
     <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
   </head>
   <body>
@@ -34,7 +35,91 @@
               <div class="card-header">
                 <div class="title-font card-title">Thông tin tài khoản</div>
               </div>
-              <div class="card-body"></div>
+              <div class="card-body">
+                <div
+                  class="d-block d-md-flex justify-content-between flex-wrap gap-2 dashboard-account"
+                >
+                  <div class="d-md-flex d-block align-items-start gap-2 dashboard-account-box">
+                    <div class="dashboard-account-image">
+                      <img
+                        src="<%= accountLogin.avatar %>"
+                        alt=""
+                        class="rounded-2 dashboard-account-avatar"
+                      />
+                    </div>
+                    <div class="w-100 mt-2 mt-md-0 dashboard-account-info">
+                      <ul class="ps-0 mb-0 d-flex flex-column gap-1 dashboard-account-list">
+                        <li class="d-flex align-items-center gap-1 dashboard-account-item">
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Họ và tên: </b>
+                          </span>
+                          <h5 class="mb-0 text-primary text-wrap dashboard-account-value">
+                            <%= accountLogin.fullName %>
+                          </h5>
+                        </li>
+                        <li class="dashboard-account-item">
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Địa chỉ email: </b><%= accountLogin.email %>
+                          </span>
+                        </li>
+                        <li class="dashboard-account-item">
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Số điện thoại: </b><%= accountLogin.phone %>
+                          </span>
+                        </li>
+                        <li class="dashboard-account-item">
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Phân quyền: </b>
+                          </span>
+                          <span
+                            class="badge badge-primary dashboard-account-value"
+                            style="background: var(--info-color-admin)"
+                          >
+                            <%= roleAuth.title %>
+                          </span>
+                        </li>
+                        <li class="dashboard-account-item">
+                          <% if (accountLogin.status === 'active') { %>
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Trạng thái: </b>
+                          </span>
+                          <span
+                            class="badge badge-primary dashboard-account-value"
+                            style="background: var(--success-color-admin)"
+                          >
+                            Hoạt động
+                          </span>
+                          <% } else { %>
+                          <span class="fs-6 text-wrap dashboard-account-value">
+                            <b>Trạng thái: </b>
+                          </span>
+                          <span
+                            class="badge badge-primary dashboard-account-value"
+                            style="background: var(--warning-color-admin)"
+                          >
+                            Ngừng hoạt động
+                          </span>
+                          <% } %>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    class="d-block mt-2 mt-md-0 d-md-flex justify-content-end align-items-end gap-2 dashboard-account-button"
+                  >
+                    <a
+                      href="<%= prefixAdmin %>/profile/update"
+                      class="btn btn-primary dashboard-account-button-update"
+                      ><i class="me-1 bi bi-pencil-square"></i>Chỉnh sửa</a
+                    >
+                    <a
+                      href="<%= prefixAdmin %>/auth/logout"
+                      class="btn btn-outline-primary dashboard-account-button-update"
+                      >Đăng xuất <i class="ms-1 bi bi-box-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

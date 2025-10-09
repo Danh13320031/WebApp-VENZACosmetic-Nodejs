@@ -1,11 +1,11 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
-import adminModel from '../../models/admin.model.js';
-import clientModel from '../../models/client.model.js';
-import settingGeneralModel from '../../models/setting-general.model.js';
+import adminSettingModel from '../../models/adminSetting.model.js';
+import clientModel from '../../models/clientSetting.model.js';
+import generalSettingModel from '../../models/generalSetting.model.js';
 
 // [GET]: /settings/general
 const settingGeneralGet = async (req, res) => {
-  res.render('./admin/pages/setting/setting-general.view.ejs', {
+  res.render('./admin/pages/setting/settingGeneral.view.ejs', {
     pageTitle: 'Cài đặt chung',
   });
 };
@@ -14,7 +14,7 @@ const settingGeneralGet = async (req, res) => {
 const settingGeneralPatch = async (req, res) => {
   try {
     const bodySetting = req.body;
-    const generalWebsite = await settingGeneralModel.findOne({});
+    const generalWebsite = await generalSettingModel.findOne({});
 
     if (typeof bodySetting.seoMetaKeyword != 'string') {
       bodySetting.seoMetaKeyword = bodySetting.seoMetaKeyword.join(',');
@@ -23,10 +23,10 @@ const settingGeneralPatch = async (req, res) => {
     }
 
     if (generalWebsite === null) {
-      const newGeneralWebsite = new settingGeneralModel(bodySetting);
+      const newGeneralWebsite = new generalSettingModel(bodySetting);
       await newGeneralWebsite.save();
     } else {
-      await settingGeneralModel.findByIdAndUpdate(generalWebsite._id, bodySetting);
+      await generalSettingModel.findByIdAndUpdate(generalWebsite._id, bodySetting);
     }
 
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
@@ -38,7 +38,7 @@ const settingGeneralPatch = async (req, res) => {
 
 // [GET]: /admin/settings/admin
 const settingAdminGet = async (req, res) => {
-  res.render('./admin/pages/setting/setting-admin.view.ejs', {
+  res.render('./admin/pages/setting/settingAdmin.view.ejs', {
     pageTitle: 'Cài đặt trang quản trị',
   });
 };
@@ -56,13 +56,13 @@ const settingAdminPatch = async (req, res) => {
       ? (bodySetting.favicon = bodySetting.favicon[0])
       : (bodySetting.favicon = bodySetting.favicon);
 
-    const adminWebsite = await adminModel.findOne({});
+    const adminWebsite = await adminSettingModel.findOne({});
 
     if (adminWebsite === null) {
-      const newAdminWebsite = new adminModel(bodySetting);
+      const newAdminWebsite = new adminSettingModel(bodySetting);
       await newAdminWebsite.save();
     } else {
-      await adminModel.findByIdAndUpdate(adminWebsite._id, bodySetting);
+      await adminSettingModel.findByIdAndUpdate(adminWebsite._id, bodySetting);
     }
 
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
@@ -74,7 +74,7 @@ const settingAdminPatch = async (req, res) => {
 };
 
 const settingClientGet = async (req, res) => {
-  res.render('./admin/pages/setting/setting-client.view.ejs', {
+  res.render('./admin/pages/setting/settingClient.view.ejs', {
     pageTitle: 'Cài đặt trang khách hàng',
   });
 };

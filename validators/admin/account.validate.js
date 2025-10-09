@@ -5,7 +5,6 @@ import { emailRegex, passwordRegex, phoneRegex } from '../../constants/constant.
 const createAccountValidate = async (req, res, next) => {
   const fieldExisted = await accountModel.findOne({
     $or: [{ email: req.body.email }, { phone: req.body.phone }],
-    deleted: false,
   });
 
   // Check fullName
@@ -58,7 +57,7 @@ const createAccountValidate = async (req, res, next) => {
   }
 
   // Check exist email and phone
-  if (fieldExisted !== null) {
+  if (fieldExisted) {
     alertMessageHelper(req, 'alertFailure', 'Email / Phone đã được đăng ký');
     res.redirect('back');
     return;
@@ -83,8 +82,8 @@ const createAccountValidate = async (req, res, next) => {
 
 const updateAccountValidate = async (req, res, next) => {
   const fieldExisted = await accountModel.findOne({
+    _id: { $ne: req.params.id },
     $or: [{ email: req.body.email }, { phone: req.body.phone }],
-    deleted: false,
   });
 
   // Check fullName
@@ -111,12 +110,7 @@ const updateAccountValidate = async (req, res, next) => {
   // Check password
   const regexPassword = new RegExp(passwordRegex);
 
-  if (!req.body.password) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mật khẩu');
-    res.redirect('back');
-    return;
-  }
-  if (!regexPassword.test(req.body.password)) {
+  if (req.body.password && !regexPassword.test(req.body.password)) {
     alertMessageHelper(req, 'alertFailure', 'Mật khẩu không hợp lệ');
     res.redirect('back');
     return;
@@ -137,12 +131,10 @@ const updateAccountValidate = async (req, res, next) => {
   }
 
   // Check exist email and phone
-  if (fieldExisted !== null) {
-    if (fieldExisted.email !== req.body.email || fieldExisted.phone !== req.body.phone) {
-      alertMessageHelper(req, 'alertFailure', 'Email / Phone đã được đăng ký');
-      res.redirect('back');
-      return;
-    }
+  if (fieldExisted) {
+    alertMessageHelper(req, 'alertFailure', 'Email / Phone đã được đăng ký');
+    res.redirect('back');
+    return;
   }
 
   // Check role id

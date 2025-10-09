@@ -77,7 +77,6 @@
                   <input
                     type="password"
                     name="password"
-                    required
                     id="password"
                     class="form-control"
                   />
@@ -139,6 +138,19 @@
                     id="birthDay"
                     class="form-control"
                   />
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="status" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
+                  >
+                  <select name="status" id="status" class="form-control">
+                    <option disabled>-- Lựa chọn trạng thái --</option>
+                    <option value="active" <% if(accountLogin.status === 'active') {%>selected<% } %>>🟢 Hoạt động</option>
+                    <option value="inactive" <% if(accountLogin.status === 'inactive') {%>selected<% } %>>🟡 Ngừng hoạt động</option>
+                  </select>
                 </div>
               </div>
               

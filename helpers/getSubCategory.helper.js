@@ -1,4 +1,4 @@
-import categoryModel from '../models/category.model.js';
+import categoryModel from '../models/productCategory.model.js';
 
 const getSubCategory = async (parentId) => {
   const subList = await categoryModel.find({

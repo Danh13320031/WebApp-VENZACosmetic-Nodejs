@@ -17,15 +17,15 @@ const objSchema = {
   pinterest: { type: String },
 };
 
-const settingGeneralSchema = new Schema(
+const generalSettingSchema = new Schema(
   objSchema,
   { timestamps: true },
-  { collection: 'SettingGeneral' }
+  { collection: 'GeneralSetting' }
 );
-const settingGeneralModel = mongoose.model(
-  'settingGeneralModel',
-  settingGeneralSchema,
-  'SettingGeneral'
+const generalSettingModel = mongoose.model(
+  'generalSettingModel',
+  generalSettingSchema,
+  'GeneralSetting'
 );
 
-export default settingGeneralModel;
+export default generalSettingModel;

@@ -1,5 +1,6 @@
 import systemConfig from '../../configs/system.config.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
 import roleModel from '../../models/role.model.js';
 
 // GET: /admin/roles     --Tới trang danh sách các quyền
@@ -9,11 +10,16 @@ const role = async (req, res) => {
       deleted: false,
     };
 
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.fullName = objSearch.rexKeywordString;
+
     const roleList = await roleModel.find(find);
 
     res.render('./admin/pages/role/role.view.ejs', {
       pageTitle: 'Nhóm quyền',
       roleList,
+      keyword: objSearch.keyword,
     });
   } catch (err) {
     console.log(`role list fail: `, err);

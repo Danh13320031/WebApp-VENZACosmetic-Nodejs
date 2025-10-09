@@ -1,6 +1,6 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
-const createCategoryValidate = (req, res, next) => {
+const createProductCategoryValidate = (req, res, next) => {
   // Check title
   if (!req.body.title) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập tiêu đề');
@@ -18,7 +18,7 @@ const createCategoryValidate = (req, res, next) => {
   next();
 };
 
-const updateCategoryValidate = (req, res, next) => {
+const updateProductCategoryValidate = (req, res, next) => {
   // Check title
   if (!req.body.title) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập tiêu đề');
@@ -36,9 +36,9 @@ const updateCategoryValidate = (req, res, next) => {
   next();
 };
 
-const categoryValidate = {
-  createCategoryValidate,
-  updateCategoryValidate,
+const productCategoryValidate = {
+  createProductCategoryValidate,
+  updateProductCategoryValidate,
 };
 
-export default categoryValidate;
+export default productCategoryValidate;

@@ -7,7 +7,7 @@ import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
-import categoryModel from '../../models/category.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
 
 // GET: /admin/products
@@ -17,7 +17,13 @@ const product = async (req, res) => {
   };
 
   // Status Filter
-  const activeStatus = statusFilterHelper(req.query);
+  const statusList = [
+    { name: 'Tất cả', class: '', status: '' },
+    { name: 'Hoạt động', class: '', status: 'active' },
+    { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+  ];
+
+  const activeStatus = statusFilterHelper(req.query, statusList);
   if (req.query.status) find.status = req.query.status;
 
   // Price Filter
@@ -87,7 +93,7 @@ const createProductGet = async (req, res) => {
     deleted: false,
   };
 
-  const categoryList = await categoryModel.find(find);
+  const categoryList = await productCategoryModel.find(find);
   const newCategoryList = categoryTreeHelper(categoryList);
 
   res.render('./admin/pages/product/create.view.ejs', {
@@ -111,7 +117,7 @@ const createProductPost = async (req, res) => {
     else req.body.position = countRecord + 1;
 
     req.body.createdBy = {
-      account_id: res.locals.account._id,
+      account_id: res.locals.accountLogin._id,
     };
 
     const newProduct = new productModel(req.body);
@@ -136,7 +142,7 @@ const updateProductGet = async (req, res) => {
       deleted: false,
     };
     const product = await productModel.findOne({ _id: id, deleted: false });
-    const categoryList = await categoryModel.find(find);
+    const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
 
     res.render('./admin/pages/product/update.view.ejs', {
@@ -156,7 +162,7 @@ const updateProductPatch = async (req, res) => {
   try {
     const id = req.params.id;
     const updated = {
-      account_id: res.locals.account._id,
+      account_id: res.locals.accountLogin._id,
       updatedAt: new Date(),
     };
 
@@ -175,9 +181,10 @@ const updateProductPatch = async (req, res) => {
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
   } catch (err) {
-    console.log('Create product fail: ', err);
+    console.log('Update product fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -186,7 +193,7 @@ const changeStatusProduct = async (req, res) => {
   try {
     const { id, status } = req.params;
     const updated = {
-      account_id: res.locals.account._id,
+      account_id: res.locals.accountLogin._id,
       updatedAt: new Date(),
     };
 
@@ -200,6 +207,7 @@ const changeStatusProduct = async (req, res) => {
     console.log('Update product fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -210,7 +218,7 @@ const changeMultiProduct = async (req, res) => {
       const { type, ids } = req.body;
       const idsArr = ids.split(', ');
       const updated = {
-        account_id: res.locals.account._id,
+        account_id: res.locals.accountLogin._id,
         updatedAt: new Date(),
       };
 
@@ -310,7 +318,7 @@ const deleteProduct = async (req, res) => {
   try {
     await productModel.findByIdAndUpdate(id, {
       deleted: true,
-      'deletedBy.account_id': res.locals.account._id,
+      'deletedBy.account_id': res.locals.accountLogin._id,
       'deletedBy.deletedAt': new Date(),
     });
 
@@ -379,7 +387,7 @@ const detailProduct = async (req, res) => {
     deleted: false,
   };
   const product = await productModel.findOne(find);
-  const category = await categoryModel
+  const category = await productCategoryModel
     .findOne({ _id: product.category, deleted: false })
     .select('title');
 

@@ -11,7 +11,7 @@ paymentRoute.post(
   paymentValidate.createOfflinePaymentValidate,
   paymentController.createOfflinePayment
 );
-paymentRoute.get('/payment-success/:orderId', paymentController.notifySuccessPayment);
+paymentRoute.get('/payment-success/:orderCode', paymentController.notifySuccessPayment);
 paymentRoute.get('/payment-fail', paymentController.notifyFailPayment);
 
 export default paymentRoute;
