@@ -2,7 +2,7 @@ import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import { accessTokenExpiresIn } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
-import settingGeneralModel from '../../models/setting-general.model.js';
+import settingGeneralModel from '../../models/generalSetting.model.js';
 import userModel from '../../models/user.model.js';
 
 const checkToken = async (req, res, next) => {

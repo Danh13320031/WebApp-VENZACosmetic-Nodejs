@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -27,7 +27,214 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <% if(roleAuth.permission.includes("order-view")) { %>
-        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
+
+        <div class="row gap-md-0 gap-2 justify-content-between">
+          <div class="col-lg-8 col-md-4 col-12">
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12">
+            
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="title-font card-header">Bộ lọc</div>
+          <div class="card-body">
+            <div class="container-fluid">
+              <div class="row gap-md-0 gap-2">
+                <div class="col-12">
+                  
+                </div>
+                <!-- <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"> -->
+                  <%#-include("../../partials/priceFilter.view.ejs") %>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%#= objPagination.currentPage %>
+        <div class="card mb-3">
+          <div class="title-font card-header">Danh sách (trang hiện tại: )</div>
+          <div class="card-body">
+            <div class="container-fluid p-2 p-md-2">
+              <div class="row gap-md-0 gap-2">
+                <div class="col-lg-4 col-12">
+                  <%#-include("../../partials/changeMulti.view.ejs", {url: 'products', type:
+                  'product'}) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid w-100">
+              <div class="row">
+                <div class="col-12 overflow-x-scroll">
+                  <table class="table table-hover table-sm w-100">
+                    <thead class="content-font">
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        <input type="checkbox" name="checkall" class="me-5" />STT
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Mã đơn hàng
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Người đặt hàng
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Người nhận hàng
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Tổng tiền
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Thanh toán
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Trạng thái
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Ngày đặt
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Hành động
+                      </th>
+                    </thead>
+
+                    <tbody class="content-font">
+                      <% if (orderList && orderList.length > 0) { %> <% orderList.forEach((order,
+                      index) => { %>
+                      <tr>
+                        <td>
+                          <input type="checkbox" name="checkall" class="me-5" /><%= index + 1 %>
+                        </td>
+                        <td class="fw-bold"><%= order.orderCode %></td>
+                        <td>
+                          <div><i class="fa-solid fa-user me-1"></i><%= order.userOrderName %></div>
+                          <div><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderEmail %></div>
+                        </td>
+                        <td>
+                          <div><i class="fa-solid fa-user me-1"></i><%= order.userInfo.fullname %></div>
+                          <div><i class="fa-solid fa-phone me-1"></i><%= order.userInfo.phone %></div>
+                        </td>
+                        <td class="fw-bold text-warning">
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(order.total) %>
+                        </td>
+                        <% if (order.paymentMethod === 'online') { %>
+                        <td>Thanh toán online</td>
+                        <% } else { %>
+                        <td><span class="badge bg-warning">Thanh toán khi nhan hang</span></td>
+                        <% } %>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <select
+                              name=""
+                              id=""
+                              class="badge p-2 form-control"
+                              <% if (order.status === 'pending') { %>
+                                style="color: var(--warning-color-admin); border-color: var(--warning-color-admin)"
+                              <% } else if (order.status === 'confirmed') { %>
+                                style="color: var(--info-color-admin); border-color: var(--info-color-admin)"
+                              <% } else if (order.status === 'shipping') { %>
+                                style="color: var(--primary-color-admin); border-color: var(--primary-color-admin)"
+                              <% } else if (order.status === 'delivered') { %>
+                                style="color: var(--secondary-color-admin); border-color: var(--secondary-color-admin)"
+                              <% } else if (order.status === 'paid') { %>
+                                style="color: var(--success-color-admin); border-color: var(--success-color-admin)"
+                              <% } else if (order.status === 'cancelled') { %>
+                                style="color: var(--error-color-admin); border-color: var(--error-color-admin)"
+                              <% } %>
+                              value="<%= order.status %>"
+                            >
+                              <option
+                                <% if (order.status === 'pending') { %> selected <% } %>
+                                value="pending"
+                                class="text-light"
+                                style="background: var(--warning-color-admin)"
+                              >
+                                Chờ xác nhận
+                              </option>
+                              <option
+                                <% if (order.status === 'confirmed') { %> selected <% } %>
+                                value="confirmed"
+                                class="text-light"
+                                style="background: var(--info-color-admin)"
+                              >
+                                Đã xác nhận
+                              </option>
+                              <option
+                                <% if (order.status === 'shipping') { %> selected <% } %>
+                                value="shipping"
+                                class="text-light"
+                                style="background: var(--primary-color-admin)"
+                              >
+                                Đang giao
+                              </option>
+                              <option
+                                <% if (order.status === 'delivered') { %> selected <% } %>
+                                value="delivered"
+                                class="text-light"
+                                style="background: var(--secondary-color-admin)"
+                              >
+                                Đã giao
+                              </option>
+                              <option
+                                <% if (order.status === 'paid') { %> selected <% } %>
+                                value="paid"
+                                class="text-light"
+                                style="background: var(--success-color-admin)"
+                              >
+                                Đã thanh toán
+                              </option>
+                              <option
+                                <% if (order.status === 'cancelled') { %> selected <% } %>
+                                value="cancelled"
+                                class="text-light"
+                                style="background: var(--error-color-admin)"
+                              >
+                                Đã hủy
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                        <td><%= moment(order.createdAt).format('DD/MM/YYYY - h:mm:ss') %></td>
+                        <td>
+                          <button
+                            class="btn btn-danger btn-sm ml-1 btn-delete"
+                            data-id="<%= order._id %>"
+                          >
+                            <i class="bi bi-trash3 me-1"></i>Xóa
+                          </button>
+                          <a
+                            href="<%= prefixAdmin %>/orders/<%= order._id %>"
+                            class="btn btn-outline-black text-black border-black btn-sm"
+                            >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i
+                          ></a>
+                        </td>
+                      </tr>
+                      <% }) %> <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-9 col-md-9 col-12">
+              <%#-include("../../partials/pagination.view.ejs") %>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12">
+              <a href="<%= prefixAdmin %>/orders/garbage" class="btn btn-primary w-100 float-end"
+                ><i class="bi bi-trash me-2"></i>Thùng rác</a
+              >
+            </div>
+          </div>
+        </div>
+
         <% } %>
       </div>
     </div>

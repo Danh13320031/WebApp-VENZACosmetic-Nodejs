@@ -32,6 +32,7 @@ const loginPost = async (req, res) => {
     }
 
     const passwordCompare = await bcrypt.compare(password, account.password);
+
     if (account.email !== email || passwordCompare === false) {
       alertMessageHelper(req, 'alertFailure', 'Email / Password không chính xác');
       res.redirect('back');

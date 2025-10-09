@@ -1,10 +1,11 @@
+import { emailRegex, passwordRegex, phoneRegex } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import accountModel from '../../models/account.model.js';
 
 const updateProfileValidate = async (req, res, next) => {
   const fieldExisted = await accountModel.findOne({
+    _id: { $ne: res.locals.accountLogin._id },
     $or: [{ email: req.body.email }, { phone: req.body.phone }],
-    deleted: false,
   });
 
   // Check fullName
@@ -15,14 +16,13 @@ const updateProfileValidate = async (req, res, next) => {
   }
 
   // Check email
-  const regexEmail = new RegExp(/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/);
+  const regexEmail = new RegExp(emailRegex);
 
   if (!req.body.email) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ email');
     res.redirect('back');
     return;
   }
-
   if (!regexEmail.test(req.body.email)) {
     alertMessageHelper(req, 'alertFailure', 'Email không hợp lệ');
     res.redirect('back');
@@ -30,21 +30,22 @@ const updateProfileValidate = async (req, res, next) => {
   }
 
   // Check password
-  if (!req.body.password) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mật khẩu');
+  const regexPassword = new RegExp(passwordRegex);
+
+  if (req.body.password && !regexPassword.test(req.body.password)) {
+    alertMessageHelper(req, 'alertFailure', 'Mật khẩu không hợp lệ');
     res.redirect('back');
     return;
   }
 
   // Check phone
-  const regexPhone = new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g);
+  const regexPhone = new RegExp(phoneRegex);
 
   if (!req.body.phone) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số điện thoại');
     res.redirect('back');
     return;
   }
-
   if (!regexPhone.test(req.body.phone)) {
     alertMessageHelper(req, 'alertFailure', 'Số điện thoại không hợp lệ');
     res.redirect('back');
@@ -52,12 +53,10 @@ const updateProfileValidate = async (req, res, next) => {
   }
 
   // Check exist email and phone
-  if (fieldExisted !== null) {
-    if (fieldExisted.email !== req.body.email || fieldExisted.phone !== req.body.phone) {
-      alertMessageHelper(req, 'alertFailure', 'Email / Phone đã được đăng ký');
-      res.redirect('back');
-      return;
-    }
+  if (fieldExisted) {
+    alertMessageHelper(req, 'alertFailure', 'Email / Phone đã được đăng ký');
+    res.redirect('back');
+    return;
   }
 
   // Check birthDay

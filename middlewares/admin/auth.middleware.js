@@ -2,7 +2,6 @@ import systemConfig from '../../configs/system.config.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
-import settingGeneralModel from '../../models/setting-general.model.js';
 
 const requireAuth = async (req, res, next) => {
   try {

@@ -34,7 +34,7 @@
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <%-include("../../partials/search.view.ejs") %>
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên tài khoản..."}) %>
           </div>
         </div>
 
@@ -214,6 +214,7 @@
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
+    <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>

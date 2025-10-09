@@ -4,14 +4,15 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
-import categoryModel from '../../models/category.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
+import generateOrderCodeHelper from '../../helpers/client/generateOrderCode.helper.js';
 
 // [GET]: /payment
 const payment = async (req, res) => {
   const find = { status: 'active', deleted: false };
-  const categoryList = await categoryModel.find(find);
+  const categoryList = await productCategoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
   const pageUrl = createPageUrlHelper(req);
 
@@ -38,6 +39,8 @@ const createOfflinePayment = async (req, res) => {
   const shipping = {
     method: body.shipping_method,
   };
+  const orderCode = await generateOrderCodeHelper();
+  const orderCount = await orderModel.countDocuments();
   const cart = await cartModel.findById(cartId);
 
   let products = [];
@@ -71,6 +74,8 @@ const createOfflinePayment = async (req, res) => {
   const orderBody = {
     user_id: userId,
     cart_id: cartId,
+    orderCode: orderCode,
+    position: orderCount + 1,
     userInfo: userInfo,
     paymentMethod: paymentMethod,
     products: products,
@@ -92,14 +97,15 @@ const createOfflinePayment = async (req, res) => {
       );
     });
 
-    const html = await ejs.renderFile('./views/client/pages/payment/payment-success.view.ejs', {
+    const html = await ejs.renderFile('./views/client/pages/payment/paymentSuccess.view.ejs', {
+      ...res.locals,
       pageTitle: 'Thanh toán thành công',
-      orderId: order._id,
+      orderCode: order.orderCode,
     });
 
     // order.userInfo.email
     await sendMailHelper(emailConst, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
-    res.redirect('/payment/payment-success/' + order._id);
+    res.redirect('/payment/payment-success/' + order.orderCode);
   } else {
     res.redirect('/payment/payment-fail');
   }
@@ -107,22 +113,22 @@ const createOfflinePayment = async (req, res) => {
 
 // [GET]: /payment/payment-success/:orderId
 const notifySuccessPayment = async (req, res) => {
-  const orderId = req.params.orderId;
+  const orderCode = req.params.orderCode;
 
-  if (!orderId) {
+  if (!orderCode) {
     res.redirect('/payment/payment-fail');
     return;
   }
 
-  res.render('./client/pages/payment/payment-success.view.ejs', {
+  res.render('./client/pages/payment/paymentSuccess.view.ejs', {
     pageTitle: 'Thanh toán thành công',
-    orderId: orderId,
+    orderCode: orderCode,
   });
 };
 
 // [GET]: /payment/payment-fail
 const notifyFailPayment = async (req, res) => {
-  res.render('./client/pages/payment/payment-fail.view.ejs', {
+  res.render('./client/pages/payment/paymentFail.view.ejs', {
     pageTitle: 'Thanh toán thất bại',
   });
 };

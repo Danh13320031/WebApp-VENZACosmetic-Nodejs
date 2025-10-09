@@ -60,7 +60,7 @@ const registerVerifyGet = async (req, res) => {
   try {
     const duration = req.query.duration;
 
-    res.render('./client/pages/auth/register-verify.view.ejs', {
+    res.render('./client/pages/auth/registerVerify.view.ejs', {
       pageTitle: 'Kích hoạt tài khoản',
       duration: duration,
     });
@@ -185,7 +185,7 @@ const logout = async (req, res) => {
 // [GET]: /forgot-password
 const forgotPasswordGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/forgot-password.view.ejs', { pageTitle: 'Quên mật khẩu' });
+    res.render('./client/pages/auth/forgotPassword.view.ejs', { pageTitle: 'Quên mật khẩu' });
   } catch (error) {
     console.log(error);
   }
@@ -231,7 +231,7 @@ const enterOTP = async (req, res) => {
   try {
     const email = req.query.email;
 
-    res.render('./client/pages/auth/forgot-password-otp.view.ejs', {
+    res.render('./client/pages/auth/forgotPasswordOtp.view.ejs', {
       pageTitle: 'Xác thực OTP',
       email: email,
     });
@@ -268,7 +268,7 @@ const checkOtp = async (req, res) => {
 // [GET]: /forgot-password-reset
 const resetPasswordGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/forgot-password-reset.view.ejs', {
+    res.render('./client/pages/auth/forgotPasswordReset.view.ejs', {
       pageTitle: 'Đổi mật khẩu',
     });
   } catch (error) {

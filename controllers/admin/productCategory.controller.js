@@ -4,16 +4,22 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
-import categoryModel from '../../models/category.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 
 // GET: /admin/categories
-const category = async (req, res) => {
+const productCategory = async (req, res) => {
   const find = {
     deleted: false,
   };
 
   // Status Filter
-  const activeStatus = statusFilterHelper(req.query);
+  const statusList = [
+    { name: 'Tất cả', class: '', status: '' },
+    { name: 'Hoạt động', class: '', status: 'active' },
+    { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+  ];
+
+  const activeStatus = statusFilterHelper(req.query, statusList);
   if (req.query.status) find.status = req.query.status;
 
   // Search
@@ -25,11 +31,11 @@ const category = async (req, res) => {
     limit: 8,
     currentPage: 1,
   };
-  const productTotal = await categoryModel.countDocuments(find);
+  const productTotal = await productCategoryModel.countDocuments(find);
   const objPagination = paginationHelper(req.query, paginationObj, productTotal);
 
   try {
-    const categoryList = await categoryModel
+    const categoryList = await productCategoryModel
       .find(find)
       .sort({ position: 'desc' })
       .limit(objPagination.limit)
@@ -48,12 +54,12 @@ const category = async (req, res) => {
 };
 
 // GET: /admin/categories/create
-const createCategoryGet = async (req, res) => {
+const createProductCategoryGet = async (req, res) => {
   const find = {
     deleted: false,
   };
 
-  const categoryList = await categoryModel.find(find);
+  const categoryList = await productCategoryModel.find(find);
   const newCategoryList = categoryTreeHelper(categoryList);
 
   res.render('./admin/pages/category/create.view.ejs', {
@@ -63,14 +69,14 @@ const createCategoryGet = async (req, res) => {
 };
 
 // POST: /admin/categories/create
-const createCategoryPost = async (req, res) => {
+const createProductCategoryPost = async (req, res) => {
   try {
-    const countRecord = await categoryModel.countDocuments();
+    const countRecord = await productCategoryModel.countDocuments();
 
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     else req.body.position = countRecord + 1;
 
-    const newCategory = new categoryModel(req.body);
+    const newCategory = new productCategoryModel(req.body);
     await newCategory.save();
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/categories`);
@@ -82,7 +88,7 @@ const createCategoryPost = async (req, res) => {
 };
 
 // GET: /admin/categories/update/:id
-const updateCategoryGet = async (req, res) => {
+const updateProductCategoryGet = async (req, res) => {
   const id = req.params.id;
 
   const find = {
@@ -90,10 +96,10 @@ const updateCategoryGet = async (req, res) => {
   };
 
   try {
-    const categoryList = await categoryModel.find(find);
+    const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
 
-    const category = await categoryModel.findOne({
+    const category = await productCategoryModel.findOne({
       _id: id,
       deleted: false,
     });
@@ -111,13 +117,13 @@ const updateCategoryGet = async (req, res) => {
 };
 
 // PATCH: /admin/categories/update/:id?_method=PATCH
-const updateCategoryPatch = async (req, res) => {
+const updateProductCategoryPatch = async (req, res) => {
   try {
     const id = req.params.id;
 
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
 
-    await categoryModel.findByIdAndUpdate(id, req.body);
+    await productCategoryModel.findByIdAndUpdate(id, req.body);
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
   } catch (err) {
@@ -128,11 +134,11 @@ const updateCategoryPatch = async (req, res) => {
 };
 
 // PATCH: /admin/categories/change-status/:status/:id?_method=PATCH
-const changeStatusCategory = async (req, res) => {
+const changeStatusProductCategory = async (req, res) => {
   try {
     const { id, status } = req.params;
 
-    await categoryModel.findByIdAndUpdate(id, {
+    await productCategoryModel.findByIdAndUpdate(id, {
       status: status,
     });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
@@ -145,7 +151,7 @@ const changeStatusCategory = async (req, res) => {
 };
 
 // PATCH: /admin/categories/change-multi?_method=PATCH
-const changeMultiCategory = async (req, res) => {
+const changeMultiProductCategory = async (req, res) => {
   try {
     if (req.body.type && req.body.ids) {
       const { type, ids } = req.body;
@@ -154,7 +160,7 @@ const changeMultiCategory = async (req, res) => {
       switch (type) {
         case 'active': {
           try {
-            await categoryModel.updateMany(
+            await productCategoryModel.updateMany(
               { _id: { $in: idsArr } },
               { $set: { status: 'active' } }
             );
@@ -168,7 +174,7 @@ const changeMultiCategory = async (req, res) => {
         }
         case 'inactive': {
           try {
-            await categoryModel.updateMany(
+            await productCategoryModel.updateMany(
               { _id: { $in: idsArr } },
               { $set: { status: 'inactive' } }
             );
@@ -182,7 +188,7 @@ const changeMultiCategory = async (req, res) => {
         }
         case 'soft-delete': {
           try {
-            await categoryModel.updateMany(
+            await productCategoryModel.updateMany(
               { _id: { $in: idsArr } },
               { $set: { deleted: true, deletedAt: new Date() } }
             );
@@ -196,7 +202,10 @@ const changeMultiCategory = async (req, res) => {
         }
         case 'restore': {
           try {
-            await categoryModel.updateMany({ _id: { $in: idsArr } }, { $set: { deleted: false } });
+            await productCategoryModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { deleted: false } }
+            );
             alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
           } catch (err) {
             alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
@@ -207,7 +216,7 @@ const changeMultiCategory = async (req, res) => {
         }
         case 'hard-delete': {
           try {
-            await categoryModel.deleteMany({ _id: { $in: idsArr } });
+            await productCategoryModel.deleteMany({ _id: { $in: idsArr } });
             alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
           } catch (err) {
             alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
@@ -230,11 +239,11 @@ const changeMultiCategory = async (req, res) => {
 };
 
 // PATCH: /admin/categories/delete/:id?_method=PATCH
-const deleteCategory = async (req, res) => {
+const deleteProductCategory = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await categoryModel.findByIdAndUpdate(id, {
+    await productCategoryModel.findByIdAndUpdate(id, {
       deleted: true,
       deletedAt: new Date(),
     });
@@ -248,12 +257,12 @@ const deleteCategory = async (req, res) => {
 };
 
 // GET: /admin/categories/garbage
-const garbageCategory = async (req, res) => {
+const garbageProductCategory = async (req, res) => {
   const find = {
     deleted: true,
   };
 
-  const categoryList = await categoryModel.find(find).sort({
+  const categoryList = await productCategoryModel.find(find).sort({
     deletedAt: 'desc',
   });
 
@@ -264,11 +273,11 @@ const garbageCategory = async (req, res) => {
 };
 
 // PATCH: /admin/categories/restore-garbage/:id?_method=PATCH
-const restoreGarbageCategory = async (req, res) => {
+const restoreGarbageProductCategory = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await categoryModel.findByIdAndUpdate(id, {
+    await productCategoryModel.findByIdAndUpdate(id, {
       deleted: false,
     });
     alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
@@ -279,11 +288,11 @@ const restoreGarbageCategory = async (req, res) => {
 };
 
 // DELETE: /admin/categories/delete-garbage/:id?_method=DELETE
-const deleteGarbageCategory = async (req, res) => {
+const deleteGarbageProductCategory = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await categoryModel.findByIdAndDelete(id);
+    await productCategoryModel.findByIdAndDelete(id);
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
   } catch (err) {
     console.log('Delete garbage fail: ', err);
@@ -294,17 +303,17 @@ const deleteGarbageCategory = async (req, res) => {
 };
 
 const categoryController = {
-  category,
-  createCategoryGet,
-  createCategoryPost,
-  updateCategoryGet,
-  updateCategoryPatch,
-  changeStatusCategory,
-  changeMultiCategory,
-  deleteCategory,
-  garbageCategory,
-  restoreGarbageCategory,
-  deleteGarbageCategory,
+  productCategory,
+  createProductCategoryGet,
+  createProductCategoryPost,
+  updateProductCategoryGet,
+  updateProductCategoryPatch,
+  changeStatusProductCategory,
+  changeMultiProductCategory,
+  deleteProductCategory,
+  garbageProductCategory,
+  restoreGarbageProductCategory,
+  deleteGarbageProductCategory,
 };
 
 export default categoryController;

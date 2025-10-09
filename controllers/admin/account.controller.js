@@ -19,7 +19,13 @@ const account = async (req, res) => {
   if (objSearch.rexKeywordString) find.fullName = objSearch.rexKeywordString;
 
   // Status Filter
-  const activeStatus = statusFilterHelper(req.query);
+  const statusList = [
+    { name: 'Tất cả', class: '', status: '' },
+    { name: 'Hoạt động', class: '', status: 'active' },
+    { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+  ];
+
+  const activeStatus = statusFilterHelper(req.query, statusList);
   if (req.query.status) find.status = req.query.status;
 
   // Pagination
@@ -115,9 +121,12 @@ const updateAccountGet = async (req, res) => {
 const updateAccountPatch = async (req, res) => {
   try {
     const id = req.params.id;
-    const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
-
-    if (req.body.password) req.body.password = hassPassword;
+    if (req.body.password && req.body.password !== '') {
+      const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
+      req.body.password = hassPassword;
+    } else {
+      delete req.body.password;
+    }
 
     await accountModel.findByIdAndUpdate(id, req.body);
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');

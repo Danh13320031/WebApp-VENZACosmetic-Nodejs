@@ -39,15 +39,79 @@
             <div class="sb-nav-link-icon"><i class="bi bi-bag-check-fill"></i></div>
             Đơn hàng
           </a>
-          <a
+          <!-- <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
             sidebar-number="5"
             href="<%= prefixAdmin %>/accounts"
           >
             <div class="sb-nav-link-icon"><i class="bi bi-person-circle"></i></div>
             Quản trị viên
-          </a>
+          </a> -->
           <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="5"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#accountColapseLayouts"
+            aria-expanded="false"
+            aria-controls="accountColapseLayouts"
+          >
+            <div class="sb-nav-link-icon"><i class="bi bi-person-circle"></i></div>
+            Tài khoản
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div
+            class="collapse"
+            id="accountColapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/accounts"
+                ><i class="bi bi-caret-right-fill me-1"></i>Quản trị viên</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/users"
+                ><i class="bi bi-caret-right-fill me-1"></i>Người dùng</a
+              >
+            </nav>
+          </div>
+          <a
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="5"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#roleColapseLayouts"
+            aria-expanded="false"
+            aria-controls="roleColapseLayouts"
+          >
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+            Phân quyền
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div
+            class="collapse"
+            id="roleColapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
+          >
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/roles"
+                ><i class="bi bi-caret-right-fill me-1"></i>Nhóm quyền</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/permissions"
+                ><i class="bi bi-caret-right-fill me-1"></i>Phân quyền</a
+              >
+            </nav>
+          </div>
+          <!-- <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
             sidebar-number="6"
             href="<%= prefixAdmin %>/roles"
@@ -62,15 +126,15 @@
           >
             <div class="sb-nav-link-icon"><i class="fa-solid fa-users-gear"></i></div>
             Phân quyền
-          </a>
+          </a> -->
           <a
             class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
             sidebar-number="8"
             href="#"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseLayouts"
+            data-bs-target="#settingCollapseLayouts"
             aria-expanded="false"
-            aria-controls="collapseLayouts"
+            aria-controls="settingCollapseLayouts"
           >
             <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>
             Cài đặt
@@ -78,7 +142,7 @@
           </a>
           <div
             class="collapse"
-            id="collapseLayouts"
+            id="settingCollapseLayouts"
             aria-labelledby="headingOne"
             data-bs-parent="#sidenavAccordion"
           >

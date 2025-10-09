@@ -10,13 +10,13 @@ import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import categoryModel from '../../models/category.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
 
 // GET: /products
 const product = async (req, res) => {
   const find = { status: 'active', deleted: false };
-  const categoryList = await categoryModel.find(find);
+  const categoryList = await productCategoryModel.find(find);
   const categoryTree = categoryTreeHelper(categoryList);
   const pageUrl = createPageUrlHelper(req);
   const productMaxPrice = await productModel.findOne(find).sort({ price: 'desc' });
@@ -99,7 +99,7 @@ const getProductDetail = async (req, res) => {
   try {
     const productSlug = req.params.productSlug;
     const find = { status: 'active', deleted: false };
-    const categoryList = await categoryModel.find(find);
+    const categoryList = await productCategoryModel.find(find);
     const categoryTree = categoryTreeHelper(categoryList);
 
     const product = await productModel
@@ -111,7 +111,7 @@ const getProductDetail = async (req, res) => {
       })
       .populate('category');
 
-    const category = await categoryModel
+    const category = await productCategoryModel
       .findOne({
         _id: product.category,
       })
@@ -121,7 +121,7 @@ const getProductDetail = async (req, res) => {
       $and: [find, { brand: product.brand }, { _id: { $ne: product._id } }],
     });
 
-    res.render('./client/pages/product/detail.view.ejs', {
+    res.render('./client/pages/product/productDetail.view.ejs', {
       pageTitle: product.title,
       categoryTree: categoryTree,
       product: product,

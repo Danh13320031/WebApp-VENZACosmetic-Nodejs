@@ -15,7 +15,15 @@ const objSchema = {
   slug: { type: String, slug: 'title', unique: true },
 };
 
-const categorySchema = new Schema(objSchema, { timestamps: true }, { collection: 'Category' });
-const categoryModel = mongoose.model('categoryModel', categorySchema, 'Category');
+const productCategorySchema = new Schema(
+  objSchema,
+  { timestamps: true },
+  { collection: 'ProductCategory' }
+);
+const productCategoryModel = mongoose.model(
+  'productCategoryModel',
+  productCategorySchema,
+  'ProductCategory'
+);
 
-export default categoryModel;
+export default productCategoryModel;

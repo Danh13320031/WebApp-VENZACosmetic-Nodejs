@@ -1,9 +1,4 @@
-const statusFilterHelper = (reqQuery) => {
-  const activeStatus = [
-    { name: 'Tất cả', class: '', status: '' },
-    { name: 'Hoạt động', class: '', status: 'active' },
-    { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
-  ];
+const statusFilterHelper = (reqQuery, activeStatus) => {
 
   if (reqQuery.status) {
     const idxActiveStatus = activeStatus.findIndex((item) => item.status === reqQuery.status);

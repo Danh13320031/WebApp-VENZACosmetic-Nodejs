@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%-include('../../partials/seo-meta.view.ejs', { pageTitle: pageTitle}) %>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle }) %>
 
     <!-- Styles File -->
     <link rel="stylesheet" href="/client/setup.css" />
@@ -52,7 +52,7 @@
             class="text-center m-0 text-capitalize payment-success-order"
             style="color: var(--primary-color)"
           >
-            Mã đơn hàng: <%= orderId %>
+            Mã đơn hàng: <%= orderCode %>
           </h5>
           <div class="d-flex flex-column gap-0 payment-success-description-box">
             <p class="text-center m-0 payment-success-description-item">

@@ -11,7 +11,6 @@ const upload = multer();
 // Config Cloudinary Package
 cloudinaryPackageConfig();
 
-profileRoute.get('/', profileController.profile);
 profileRoute.get('/update', profileController.updateProfileGet);
 profileRoute.patch(
   '/update',

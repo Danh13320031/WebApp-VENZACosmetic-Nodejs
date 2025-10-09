@@ -1,0 +1,11 @@
+.dashboard-account .dashboard-account-avatar {
+  width: 140px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-account .dashboard-account-avatar {
+    width: 100%;
+  }
+}
