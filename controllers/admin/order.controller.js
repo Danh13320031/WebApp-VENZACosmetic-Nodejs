@@ -26,7 +26,11 @@ const order = async (req, res) => {
   const activeStatus = statusFilterHelper(req.query, statusList);
   if (req.query.status) find.status = req.query.status;
 
-  const orderList = await orderModel.find(find).sort({ createdAt: 'desc' });
+  // Sort
+  const sort = sortHelper(req.query);
+  const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
+  const orderList = await orderModel.find(find).sort(sort);
 
   if (orderList.length > 0) {
     for (let i = 0; i < orderList.length; i++) {
@@ -42,6 +46,7 @@ const order = async (req, res) => {
     orderList: orderList,
     keyword: objSearch.keyword,
     activeStatus,
+    sortValue,
   });
 };
 

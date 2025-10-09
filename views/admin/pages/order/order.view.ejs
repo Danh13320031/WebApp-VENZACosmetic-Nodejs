@@ -61,8 +61,9 @@
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/changeMulti.view.ejs", {url: 'products', type:
-                  'product'}) %>
+                  <%-include("../../partials/sort.view.ejs", { 
+                    sortOption: ['createdAt-desc', 'createdAt-asc', 'position-asc', 'position-desc', 'total-asc', 'total-desc', 'orderCode-asc', 'orderCode-desc'] 
+                  }) %>
                 </div>
               </div>
             </div>
@@ -95,6 +96,9 @@
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Ngày đặt
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Vị trí
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
@@ -199,6 +203,7 @@
                           </div>
                         </td>
                         <td><%= moment(order.createdAt).format('DD/MM/YYYY - h:mm:ss') %></td>
+                        <td><%= order.position %></td>
                         <td>
                           <button
                             class="btn btn-danger btn-sm ml-1 btn-delete"
@@ -246,6 +251,7 @@
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
     <script src="/admin/scripts/search.js"></script>
+    <script src="/admin/scripts/sort.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
