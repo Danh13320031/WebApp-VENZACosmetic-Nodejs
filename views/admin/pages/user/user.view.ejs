@@ -25,6 +25,7 @@
 
     <div class="body">
       <%-include("../../partials/sider.view.ejs") %>
+
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes("account-view")) { %>
@@ -34,7 +35,8 @@
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên tài khoản..."}) %>
+            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tên tài khoản..."})
+            %>
           </div>
         </div>
 
@@ -44,7 +46,7 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-12">
-                  <%-include("../../partials/statusFilter.view.ejs") %>
+                  <%#-include("../../partials/statusFilter.view.ejs") %>
                 </div>
               </div>
             </div>
@@ -53,13 +55,13 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid">
               <div class="row gap-lg-0 gap-2 justify-content-between">
                 <div class="col-lg-5 col-12">
-                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  <%#-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
                   'accounts', type: 'account' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
@@ -78,9 +80,9 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
-                  <% if (accountList.length === 0) {%>
+                  <% if (userList.length === 0) {%>
                   <div class="text-center text-white bg-danger p-2">
-                    Không tìm thấy tài khoản nào
+                    Không tìm thấy người dùng nào
                   </div>
                   <% } %>
                   <table class="table table-hover table-sm">
@@ -95,7 +97,10 @@
                         Họ & Tên
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Vai trò
+                        Email
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Số điện thoại
                       </th>
                       <% if(roleAuth.permission.includes("account-change-status")) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
@@ -110,33 +115,31 @@
                     </thead>
 
                     <tbody class="content-font">
-                      <% if(accountList && accountList.length > 0) { %> <%
-                      accountList.forEach((account, index) => { %>
-                      <tr title="<%= account.title %>">
+                      <% if(userList && userList.length > 0) { %>
+                      <!-- <div></div> -->
+                      <% userList.forEach((user, index) => { %>
+                      <tr title="<%= user.title %>">
                         <td>
                           <input
                             type="checkbox"
                             name="checkid"
-                            value="<%= account._id %>"
+                            value="<%= user._id %>"
                             class="me-5"
                           />
                           <%= index + 1 %>
                         </td>
                         <td>
-                          <img
-                            src="<%= account.avatar %>"
-                            alt="<%= account.fullName %>"
-                            width="100px"
-                          />
+                          <img src="<%= user.avatar %>" alt="<%= user.fullname %>" width="100px" />
                         </td>
-                        <td><%= account.fullName %></td>
-                        <td><%= account.roleId %></td>
+                        <td><%= user.fullname %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.phone %></td>
                         <% if(roleAuth.permission.includes("account-change-status")) { %>
                         <td>
-                          <% if(account.status === 'active') { %>
+                          <% if(user.status === 'active') { %>
                           <a
                             href="javascript:;"
-                            data-id="<%= account._id %>"
+                            data-id="<%= user._id %>"
                             data-status="active"
                             change-status
                             class="badge"
@@ -146,7 +149,7 @@
                           <% } else { %>
                           <a
                             href="javascript:;"
-                            data-id="<%= account._id %>"
+                            data-id="<%= user._id %>"
                             data-status="inactive"
                             change-status
                             class="badge"
@@ -159,8 +162,8 @@
                         <td>
                           <% if(roleAuth.permission.includes("account-update")) { %>
                           <a
-                            href="<%= prefixAdmin %>/accounts/update/<%= account._id %>"
-                            data-id="<%= account._id %>"
+                            href="<%= prefixAdmin %>/users/update/<%= user._id %>"
+                            data-id="<%= user._id %>"
                             class="btn btn-primary btn-sm mb-1 btn-update"
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
@@ -168,14 +171,14 @@
                           <% } %> <% if(roleAuth.permission.includes("account-sort-delete")) { %>
                           <button
                             class="btn btn-danger btn-sm ml-1 mb-1 btn-delete"
-                            data-id="<%= account._id %>"
+                            data-id="<%= user._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
                           <% } %>
                         </td>
                       </tr>
-                      <% }); %> <% } %>
+                      <% }) %> <% } %>
                     </tbody>
                   </table>
                 </div>
@@ -187,10 +190,10 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%-include("../../partials/pagination.view.ejs") %>
+              <%#-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
-              <a href="<%= prefixAdmin %>/accounts/garbage" class="btn btn-primary float-end"
+              <a href="<%= prefixAdmin %>/users/garbage" class="btn btn-primary float-end"
                 ><i class="bi bi-trash me-2"></i>Thùng rác
               </a>
             </div>
@@ -202,14 +205,8 @@
 
     <%-include("../../partials/footer.view.ejs") %>
 
-    <form
-      action="<%= prefixAdmin %>/accounts"
-      method="POST"
-      class="d-none"
-      form-change-status
-    ></form>
-
-    <form action="<%= prefixAdmin %>/accounts" method="POST" class="d-none" form-delete></form>
+    <form action="<%= prefixAdmin %>/users" method="POST" class="d-none" form-change-status></form>
+    <form action="<%= prefixAdmin %>/users" method="POST" class="d-none" form-delete></form>
 
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
