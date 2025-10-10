@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -65,9 +65,9 @@
                     <% if(product.rating) {%>
                     <div id="rating" class="star-rating me-2" role="rating" data-rating="3">
                       <% for(let i = 1; i <= product.rating; i++) {%>
-                      <span class="star" data-value="<%= i %>"
-                        ><i class="bi bi-star-fill text-warning"></i
-                        ><span class="star-notification"></span>
+                      <span class="star" data-value="<%= i %>">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="star-notification"></span>
                       </span>
                       <% } %>
                     </div>
@@ -94,9 +94,9 @@
                         ><i
                           ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                           }).format(Number.parseFloat(product.price - (product.price / 100 *
-                          product.discount))) %></i
-                        ></b
-                      >
+                          product.discount))) %>
+                        </i>
+                      </b>
                       | Giá gốc:
                     </h2>
                     <h2 class="ms-2 text-decoration-line-through">
@@ -117,8 +117,9 @@
                     data-status="active"
                     change-status
                     class="badge text-bg-success"
-                    >Hoạt động</a
-                  >
+                    >
+                    Hoạt động
+                  </a>
                   <% } else {%>
                   <a
                     href="javascript:;"
@@ -126,8 +127,9 @@
                     data-status="inactive"
                     change-status
                     class="badge text-bg-warning"
-                    >Ngừng hoạt động</a
-                  >
+                    >
+                    Ngừng hoạt động
+                  </a>
                   <% } %>
                 </div>
                 <% } %>

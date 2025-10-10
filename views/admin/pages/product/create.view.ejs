@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -49,9 +49,10 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="category" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Danh mục</label
-                  >
-                  <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
+                    ><span class="text-danger"><b>*</b></span>
+                    Danh mục
+                  </label>
+                  <%# <input type="text" name="parent_id" id="parent_id" class="form-control" /> %>
                   <select name="category" id="category" class="form-control">
                     <option disabled selected>-- Chọn danh mục --</option>
                     <% if(categoryList.length > 0) {%>
@@ -71,8 +72,9 @@
               <div class="col-12">
                 <div class="form-group mb-4">
                   <label for="detail" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Mô tả chi tiết</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Mô tả chi tiết
+                  </label>
                   <textarea name="detail" class="form-control" id="detail"></textarea>
                 </div>
               </div>
@@ -80,8 +82,9 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="price" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Giá (đ)</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Giá (đ)
+                  </label>
                   <input
                     type="number"
                     value="0"
@@ -170,9 +173,9 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="rating" class="fw-bold"
-                    >Đánh giá (Số <i class="bi bi-star-fill text-warning"></i>)</label
-                  >
+                  <label for="rating" class="fw-bold">
+                    Đánh giá (Số <i class="bi bi-star-fill text-warning"></i>)
+                  </label>
                   <input
                     type="number"
                     value="0"
@@ -215,8 +218,9 @@
                     </div>
                   </div>
                   <label for="thumbnail" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Ảnh (.png / .jpg)</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Ảnh (.png / .jpg)
+                  </label>
                   <input
                     type="file"
                     name="thumbnail"
@@ -232,8 +236,9 @@
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Trạng thái
+                  </label>
                   <input
                     type="radio"
                     name="status"
@@ -257,8 +262,9 @@
               <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Nổi bật</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Nổi bật
+                  </label>
                   <input
                     type="radio"
                     name="featured"

@@ -104,8 +104,9 @@
                             change-status
                             class="badge"
                             style="background: var(--success-color-admin)"
-                            >Hoạt động</a
                           >
+                            Hoạt động
+                          </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
@@ -114,8 +115,9 @@
                             change-status
                             class="badge"
                             style="background: var(--warning-color-admin)"
-                            >Ngừng hoạt động</a
                           >
+                            Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <td>
@@ -150,14 +152,14 @@
           action="<%= prefixAdmin %>/accounts"
           method="POST"
           class="d-none"
-          form-restore-product
+          form-restore
         ></form>
 
         <form
           action="<%= prefixAdmin %>/accounts"
           method="POST"
           class="d-none"
-          form-delete-product
+          form-delete-hard
         ></form>
       </div>
     </div>

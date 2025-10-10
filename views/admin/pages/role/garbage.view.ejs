@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-    
+
     <!-- Style Library & Framework -->
     <link
       rel="stylesheet"
@@ -85,9 +85,8 @@
                             <i class="bi bi-arrow-clockwise me-1"></i>Khôi phục
                           </button>
                           <% } %>
-
-                          <!------------------------------------------------------------------>
-                          <% if(roleAuth.permission.includes('role-hard-delete')) { %>
+                          <%#------------------------------------------------------------------%> <%
+                          if(roleAuth.permission.includes('role-hard-delete')) { %>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
                             data-id="<%= role._id %>"
@@ -107,18 +106,13 @@
         </div>
         <% } %>
 
-        <form
-          action="<%= prefixAdmin %>/roles"
-          method="POST"
-          class="d-none"
-          form-restore-product
-        ></form>
+        <form action="<%= prefixAdmin %>/roles" method="POST" class="d-none" form-restore></form>
 
         <form
           action="<%= prefixAdmin %>/roles"
           method="POST"
           class="d-none"
-          form-delete-product
+          form-delete-hard
         ></form>
       </div>
     </div>

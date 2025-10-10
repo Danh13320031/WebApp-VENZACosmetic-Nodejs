@@ -147,13 +147,13 @@
                             ><i
                               ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
                               'VND' }).format(Number.parseFloat(item.price - (item.price / 100 *
-                              item.discount))) %></i
-                            >
+                              item.discount))) %>
+                            </i>
                           </b>
                           <span class="text-decoration-line-through"
                             ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                            }).format(item.price) %></span
-                          >
+                            }).format(item.price) %>
+                          </span>
                         </td>
                         <td>
                           <p>
@@ -192,8 +192,9 @@
                             change-status
                             class="badge"
                             style="background: var(--success-color-admin)"
-                            >Hoạt động</a
                           >
+                            Hoạt động
+                          </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
@@ -202,8 +203,9 @@
                             change-status
                             class="badge"
                             style="background: var(--warning-color-admin)"
-                            >Ngừng hoạt động</a
                           >
+                            Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <% } %>
@@ -218,8 +220,7 @@
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
                           <% } %>
-
-                          <!-------------------------------------------------------------------------------->
+                          <%#--------------------------------------------------------------------------------%>
                           <% if(roleAuth.permission.includes('product-sort-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
@@ -228,8 +229,7 @@
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
                           <% } %>
-
-                          <!-------------------------------------------------------------------------------->
+                          <%#--------------------------------------------------------------------------------%>
                           <% if(roleAuth.permission.includes('product-view')) {%>
                           <a
                             href="<%= prefixAdmin %>/products/detail/<%= item._id %>"

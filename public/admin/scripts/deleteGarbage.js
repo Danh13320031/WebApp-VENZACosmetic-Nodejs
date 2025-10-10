@@ -1,5 +1,5 @@
 const deleteButton = document.querySelectorAll('.btn-delete');
-const formDeleteProduct = document.querySelector('form[form-delete-product]');
+const formDeleteProduct = document.querySelector('form[form-delete-hard]');
 
 if (deleteButton.length > 0) {
   deleteButton.forEach((button) => {

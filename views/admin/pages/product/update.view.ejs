@@ -39,8 +39,9 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="title" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Tiêu đề
+                  </label>
                   <input
                     type="text"
                     value="<%= product.title %>"
@@ -55,9 +56,10 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="category" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Danh mục</label
-                  >
-                  <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
+                    ><span class="text-danger"><b>*</b></span>
+                    Danh mục
+                  </label>
+                  <%# <input type="text" name="parent_id" id="parent_id" class="form-control" /> %>
                   <select name="category" id="category" class="form-control">
                     <option disabled>-- Chọn danh mục --</option>
                     <% if(categoryList.length > 0) {%>
@@ -71,27 +73,29 @@
                 <div class="form-group mb-4">
                   <label for="description" class="fw-bold">Mô tả ngắn</label>
                   <textarea name="description" class="form-control" id="description">
-<%= product.description %></textarea
-                  >
+                    <%= product.description %>
+                  </textarea>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-group mb-4">
                   <label for="detail" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Mô tả chi tiết</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Mô tả chi tiết
+                  </label>
                   <textarea name="detail" class="form-control" id="detail">
-<%= product.detail %></textarea
-                  >
+                    <%= product.detail %>
+                  </textarea>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="price" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Giá (đ)</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Giá (đ)
+                  </label>
                   <input
                     type="number"
                     value="<%= product.price %>"
@@ -234,8 +238,9 @@
                     </div>
                   </div>
                   <label for="thumbnail" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Ảnh (.png / .jpg)</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Ảnh (.png / .jpg)
+                  </label>
                   <input
                     type="file"
                     name="thumbnail"
@@ -267,8 +272,9 @@
               <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Nổi bật</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Nổi bật
+                  </label>
                   <input type="radio" name="featured" value="1" class="form-check-input bg-success"
                   id="featured1" <% if(product.featured=== '1') {%> checked <% } %> />
                   <label for="featured1" class="me-4">Có</label>
