@@ -9,6 +9,7 @@ import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import orderModel from '../../models/order.model.js';
 import userModel from '../../models/user.model.js';
+import productModel from '../../models/product.model.js';
 
 // GET: /admin/accounts
 const order = async (req, res) => {
@@ -25,7 +26,6 @@ const order = async (req, res) => {
     { name: 'Đã xác nhận', class: '', status: 'confirmed' },
     { name: 'Đang giao', class: '', status: 'shipping' },
     { name: 'Đã giao', class: '', status: 'delivered' },
-    { name: 'Đã thanh toán', class: '', status: 'paid' },
     { name: 'Đã hủy', class: '', status: 'cancelled' },
   ];
 
@@ -172,17 +172,6 @@ const changeMultiOrder = async (req, res) => {
             break;
           }
         }
-        case 'paid': {
-          try {
-            await orderModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'paid' } });
-            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
-          } catch (err) {
-            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
-          } finally {
-            res.redirect('back');
-            break;
-          }
-        }
         case 'cancelled': {
           try {
             await orderModel.updateMany(
@@ -236,13 +225,31 @@ const changeMultiOrder = async (req, res) => {
         default:
           break;
       }
+
+      const orderList = await orderModel
+        .find({ _id: { $in: idsArr } })
+        .select('userInfo orderCode status');
+
+      if (orderList.length > 0) {
+        for (const order of orderList) {
+          const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
+            orderCode: order.orderCode,
+            status: order.status,
+          });
+
+          await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
+        }
+      }
     } else {
       res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+      return;
     }
   } catch (err) {
     console.log('Change multi status fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -265,6 +272,7 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+// GET: /admin/orders/garbage
 const garbageOrder = async (req, res) => {
   const find = { deleted: true };
 
@@ -286,6 +294,7 @@ const garbageOrder = async (req, res) => {
   });
 };
 
+// PATCH: /admin/orders/restore-garbage/:id?_method=PATCH
 const restoreOrder = async (req, res) => {
   const { id } = req.params;
 
@@ -307,6 +316,7 @@ const restoreOrder = async (req, res) => {
   }
 };
 
+// DELETE: /admin/orders/delete-garbage/:id?_method=DELETE
 const deleteGarbageOrder = async (req, res) => {
   const { id } = req.params;
 
@@ -328,6 +338,75 @@ const deleteGarbageOrder = async (req, res) => {
   }
 };
 
+// GET: /admin/orders/detail/:id
+const detailOrder = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+    return;
+  }
+
+  const order = await orderModel.findById(id);
+
+  if (!order) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+    return;
+  }
+
+  const userOrder = await userModel.findById(order.user_id).select('-password -refreshToken');
+  let productListInOrder = [];
+  let orderTotal = 0;
+
+  for (const productOrder of order.products) {
+    let product = await productModel
+      .findOne({ _id: productOrder.product_id, deleted: false, status: 'active' })
+      .select('title thumbnail');
+
+    product.price = productOrder.price;
+    product.discount = productOrder.discount;
+    product.quantity = productOrder.quantity;
+    product.total =
+      (productOrder.price - (productOrder.price * productOrder.discount) / 100) *
+      productOrder.quantity;
+
+    orderTotal += product.total;
+    productListInOrder.push(product);
+  }
+
+  // Search
+  let keywordStr = '';
+  const objSearch = searchHelper(req.query);
+
+  if (objSearch.rexKeywordString) keywordStr = objSearch.rexKeywordString;
+  productListInOrder = productListInOrder.filter((product) => product.title.match(keywordStr));
+
+  // Pagination
+  const paginationObj = {
+    limit: 5,
+    currentPage: 1,
+  };
+  const productTotal = productListInOrder.length;
+  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+  productListInOrder = productListInOrder.slice(
+    objPagination.productSkip,
+    objPagination.productSkip + objPagination.limit
+  );
+
+  res.render('./admin/pages/order/detail.view.ejs', {
+    pageTitle: `Đơn hàng ${order.orderCode}`,
+    orderDetail: order,
+    userOrder,
+    productListInOrder,
+    orderTotal,
+    keyword: objSearch.keyword,
+    objPagination,
+  });
+};
+
 const orderController = {
   order,
   changeStatusOrder,
@@ -336,6 +415,7 @@ const orderController = {
   garbageOrder,
   restoreOrder,
   deleteGarbageOrder,
+  detailOrder,
 };
 
 export default orderController;

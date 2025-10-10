@@ -10,5 +10,6 @@ orderRoute.patch('/delete/:id', orderController.deleteOrder);
 orderRoute.get('/garbage', orderController.garbageOrder);
 orderRoute.patch('/restore-garbage/:id', orderController.restoreOrder);
 orderRoute.delete('/delete-garbage/:id', orderController.deleteGarbageOrder);
+orderRoute.get('/detail/:id', orderController.detailOrder);
 
 export default orderRoute;
