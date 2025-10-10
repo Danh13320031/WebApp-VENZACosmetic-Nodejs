@@ -1,0 +1,27 @@
+<div class="order-notify-mail">
+  <p>Xin chào,</p>
+
+  <p>Đơn hàng của bạn có mã: <strong><%= orderCode %></strong></p>
+
+  <p>
+    Đơn hàng của bạn: <% if (status === 'pending') { %>
+    <strong>Đang chờ xác nhận</strong>
+    <% } else if (status === 'confirmed') { %>
+    <strong>Đã được xác nhận</strong>
+    <% } else if (status === 'shipping') { %>
+    <strong>Đang vận chuyển</strong>
+    <% } else if (status === 'delivered') { %>
+    <strong>Đã giao hàng thành công</strong>
+    <% } else if (status === 'paid') { %>
+    <strong>Đã thanh toán</strong>
+    <% } else if (status === 'cancelled') { %>
+    <strong>Đã bị hủy</strong>
+    <% } else { %>
+    <strong>Không xác định</strong>
+    <% } %>
+  </p>
+
+  <p>Cảm ơn bạn đã mua hàng tại VENZA Cosmetic!</p>
+
+  <p>Trân trọng,<br />Đội ngũ VENZA Cosmetic</p>
+</div>

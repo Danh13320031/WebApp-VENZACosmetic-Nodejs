@@ -40,17 +40,19 @@
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="title" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span> Tiêu đề</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Tiêu đề
+                  </label>
                   <input type="text" name="title" id="title" required class="form-control" />
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-group mb-4">
                   <label for="parent_id" class="fw-bold"
-                    ><span class="text-danger"></span> Danh mục cha</label
-                  >
-                  <!-- <input type="text" name="parent_id" id="parent_id" class="form-control" /> -->
+                    ><span class="text-danger"></span>
+                    Danh mục cha
+                  </label>
+                  <%# <input type="text" name="parent_id" id="parent_id" class="form-control" /> %>
                   <select name="parent_id" id="parent_id" class="form-control">
                     <option disabled selected>-- Chọn danh mục cha --</option>
                     <% if(categoryList.length > 0) {%>
@@ -108,8 +110,9 @@
               <div class="col-12">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
-                  >
+                    ><span class="text-danger"><b>*</b></span>
+                    Trạng thái
+                  </label>
                   <input
                     type="radio"
                     name="status"

@@ -1,5 +1,5 @@
 const restoreButton = document.querySelectorAll('.btn-restore');
-const formRestoreProduct = document.querySelector('form[form-restore-product]');
+const formRestoreProduct = document.querySelector('form[form-restore]');
 
 if (restoreButton.length > 0) {
   restoreButton.forEach((button) => {

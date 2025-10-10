@@ -136,8 +136,9 @@
                             change-status
                             class="badge"
                             style="background: var(--success-color-admin)"
-                            >Hoạt động</a
                           >
+                            Hoạt động
+                          </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
@@ -146,8 +147,9 @@
                             change-status
                             class="badge"
                             style="background: var(--warning-color-admin)"
-                            >Ngừng hoạt động</a
                           >
+                            Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <% } %>
@@ -163,10 +165,7 @@
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <% } %>
-
-                          <!-------------------------------------------------------------------->
-                          <% if(roleAuth.permission.includes('category-sort-delete')) { %>
+                          <% } %> <% if(roleAuth.permission.includes('category-sort-delete')) { %>
                           <button
                             class="btn btn-danger btn-sm ml-1 mb-1 btn-delete"
                             data-id="<%= item._id %>"

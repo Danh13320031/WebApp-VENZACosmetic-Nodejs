@@ -80,6 +80,7 @@ const regiterVerifyPatch = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Kích hoạt tài khoản thành công');
     res.redirect('/login');
+    return;
   } catch (error) {
     console.log(error);
     alertMessageHelper(req, 'alertFailure', 'Kích hoạt tài khoản thất bại');
@@ -177,8 +178,10 @@ const logout = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Đăng xuất thành công');
     res.redirect('/');
+    return;
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Đăng xuất thất bại');
   }
 };
 
@@ -221,6 +224,7 @@ const forgotPasswordPost = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Kiểm tra email để nhận OTP');
     res.redirect(`/forgot-password-otp?email=${email}`);
+    return;
   } catch (error) {
     console.log(error);
   }
@@ -242,26 +246,32 @@ const enterOTP = async (req, res) => {
 
 // [POST]: /forgot-password-check-otp
 const checkOtp = async (req, res) => {
-  const email = req.query.email;
-  const otp1 = req.body.otp1;
-  const otp2 = req.body.otp2;
-  const otp3 = req.body.otp3;
-  const otp4 = req.body.otp4;
-  const otp5 = req.body.otp5;
-  const otpString = `${otp1}${otp2}${otp3}${otp4}${otp5}`;
-  const otp = await otpModel.findOne({ email: email });
+  try {
+    const email = req.query.email;
+    const otp1 = req.body.otp1;
+    const otp2 = req.body.otp2;
+    const otp3 = req.body.otp3;
+    const otp4 = req.body.otp4;
+    const otp5 = req.body.otp5;
+    const otpString = `${otp1}${otp2}${otp3}${otp4}${otp5}`;
+    const otp = await otpModel.findOne({ email: email });
 
-  if (otp.otp === otpString) {
-    await otpModel.findByIdAndDelete(otp._id);
+    if (otp.otp === otpString) {
+      await otpModel.findByIdAndDelete(otp._id);
 
-    const user = await userModel.findOne({ email: email });
-    res.cookie('refreshToken', user.refreshToken, {
-      httpOnly: true,
-      maxAge: refreshTokenExpiresIn,
-    });
+      const user = await userModel.findOne({ email: email });
+      res.cookie('refreshToken', user.refreshToken, {
+        httpOnly: true,
+        maxAge: refreshTokenExpiresIn,
+      });
 
-    alertMessageHelper(req, 'alertSuccess', 'Xác thức OTP thành công');
-    res.redirect(`/forgot-password-reset`);
+      alertMessageHelper(req, 'alertSuccess', 'Xác thức OTP thành công');
+      res.redirect(`/forgot-password-reset`);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Xác thức OTP thất bại');
   }
 };
 
@@ -287,6 +297,7 @@ const resetPasswordPost = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Đổi mật khẩu thành công');
     res.redirect('/');
+    return;
   } catch (error) {
     console.log(error);
   }

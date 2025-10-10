@@ -95,8 +95,9 @@
                             data-status="active"
                             change-status
                             class="badge text-bg-success"
-                            >Hoạt động</a
                           >
+                            Hoạt động
+                          </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
@@ -104,8 +105,9 @@
                             data-status="inactive"
                             change-status
                             class="badge text-bg-warning"
-                            >Ngừng hoạt động</a
                           >
+                            Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <td><%= item.position %></td>
@@ -145,14 +147,14 @@
       action="<%= prefixAdmin %>/product-categories"
       method="POST"
       class="d-none"
-      form-restore-product
+      form-restore
     ></form>
 
     <form
       action="<%= prefixAdmin %>/product-categories"
       method="POST"
       class="d-none"
-      form-delete-product
+      form-delete-hard
     ></form>
 
     <!-- Script File -->

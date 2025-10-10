@@ -11,19 +11,16 @@
         statusList.length > 0) { %> <% statusList.forEach((item) => { %>
         <option class="" value="<%= item.status %>" class="text-success"><%= item.name %></option>
         <% }) %> <% } %> <% } %>
-
-        <!---------------------------------------------------------------------------------->
-        <% if(roleAuth.permission.includes(`${type}-sort-delete`)) {%>
+        <%#----------------------------------------------------------------------------------%> <%
+        if(roleAuth.permission.includes(`${type}-sort-delete`)) {%>
         <option value="soft-delete" class="text-danger">Xóa mềm tất cả</option>
         <% } %>
-
-        <!---------------------------------------------------------------------------------->
-        <% if(roleAuth.permission.includes(`${type}-restore`)) {%>
+        <%#----------------------------------------------------------------------------------%> <%
+        if(roleAuth.permission.includes(`${type}-restore`)) {%>
         <option value="restore" class="text-primary">Khôi phục tất cả</option>
         <% } %>
-
-        <!---------------------------------------------------------------------------------->
-        <% if(roleAuth.permission.includes(`${type}-hard-delete`)) {%>
+        <%#----------------------------------------------------------------------------------%> <%
+        if(roleAuth.permission.includes(`${type}-hard-delete`)) {%>
         <option value="hard-delete" class="text-danger">Xóa vĩnh viễn tất cả</option>
         <% } %>
       </select>

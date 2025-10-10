@@ -94,9 +94,9 @@
                             ><i
                               ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
                               'VND' }).format(Number.parseFloat(item.price - (item.price / 100 *
-                              item.discount))) %></i
-                            ></b
-                          >
+                              item.discount))) %>
+                            </i>
+                          </b>
                           | Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
                           currency: 'VND' }).format(item.price) %>
                         </td>
@@ -118,8 +118,9 @@
                             data-status="active"
                             change-status
                             class="badge text-bg-success"
-                            >Hoạt động</a
                           >
+                            Hoạt động
+                          </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
@@ -127,8 +128,9 @@
                             data-status="inactive"
                             change-status
                             class="badge text-bg-danger"
-                            >Ngừng hoạt động</a
                           >
+                            Ngừng hoạt động
+                          </a>
                           <% } %>
                         </td>
                         <td>
@@ -163,14 +165,14 @@
           action="<%= prefixAdmin %>/products"
           method="POST"
           class="d-none"
-          form-restore-product
+          form-restore
         ></form>
 
         <form
           action="<%= prefixAdmin %>/products"
           method="POST"
           class="d-none"
-          form-delete-product
+          form-delete-hard
         ></form>
       </div>
     </div>

@@ -1,7 +1,10 @@
+import ejs from 'ejs';
+import { emailConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import priceFilterHelper from '../../helpers/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
+import sendMailHelper from '../../helpers/sendMail.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import orderModel from '../../models/order.model.js';
@@ -85,8 +88,23 @@ const changeStatusOrder = async (req, res) => {
       return;
     }
 
+    const order = await orderModel.findById(id).select('orderCode userInfo');
+
+    if (!order) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
+      orderCode: order.orderCode,
+      status: status,
+    });
+
+    await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
+
     await orderModel.findByIdAndUpdate(id, { status: status });
-    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thông');
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
   } catch (err) {
     console.log('Update order fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
@@ -247,11 +265,77 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const garbageOrder = async (req, res) => {
+  const find = { deleted: true };
+
+  const orderList = await orderModel.find(find).sort({ deletedAt: 'desc' });
+
+  if (orderList.length > 0) {
+    for (let i = 0; i < orderList.length; i++) {
+      const user = await userModel.findById(orderList[i].user_id);
+
+      orderList[i].userOrderName = user.fullname;
+      orderList[i].userOrderEmail = user.email;
+    }
+  }
+
+  res.render('./admin/pages/order/garbage.view.ejs', {
+    pageTitle: 'Thùng rác đơn hàng',
+    orderList,
+    statusList: [],
+  });
+};
+
+const restoreOrder = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    return;
+  }
+
+  try {
+    await orderModel.findByIdAndUpdate(id, { deleted: false });
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+  } catch (err) {
+    console.log('Restore category fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
+const deleteGarbageOrder = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    return;
+  }
+
+  try {
+    await orderModel.findByIdAndDelete(id);
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+  } catch (err) {
+    console.log('Delete category fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const orderController = {
   order,
   changeStatusOrder,
   changeMultiOrder,
   deleteOrder,
+  garbageOrder,
+  restoreOrder,
+  deleteGarbageOrder,
 };
 
 export default orderController;
