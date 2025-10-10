@@ -12,5 +12,6 @@ const userRoute = express.Router();
 cloudinaryPackageConfig();
 
 userRoute.get('/', userController.user);
+userRoute.patch('/change-status/:status/:id', userController.changeStatusUser);
 
 export default userRoute;

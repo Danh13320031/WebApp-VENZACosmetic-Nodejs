@@ -144,6 +144,12 @@ const changeStatusAccount = async (req, res) => {
   try {
     const { id, status } = req.params;
 
+    if (!id || !status) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
     await accountModel.findByIdAndUpdate(id, {
       status: status,
     });
@@ -242,6 +248,12 @@ const changeMultiAccount = async (req, res) => {
 const deleteAccount = async (req, res) => {
   const { id } = req.params;
 
+  if (!id) {
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+
   try {
     await accountModel.findByIdAndUpdate(id, {
       deleted: true,
@@ -291,6 +303,12 @@ const garbageAccount = async (req, res) => {
 const restoreGarbageAccount = async (req, res) => {
   const { id } = req.params;
 
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    return;
+  }
+
   try {
     await accountModel.findByIdAndUpdate(id, {
       deleted: false,
@@ -308,6 +326,12 @@ const restoreGarbageAccount = async (req, res) => {
 // DELETE: /admin/accounts/delete-garbage/:id?method=DELETE     --Xóa cứng tài khoản
 const deleteGarbageAccount = async (req, res) => {
   const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    return;
+  }
 
   try {
     await accountModel.findByIdAndDelete(id);
