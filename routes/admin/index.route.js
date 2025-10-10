@@ -3,14 +3,15 @@ import authMiddleware from '../../middlewares/admin/auth.middleware.js';
 import settingMiddleware from '../../middlewares/setting.middleware.js';
 import accountRoute from './account.route.js';
 import authRoute from './auth.route.js';
-import productCategoryRoute from './productCategory.route.js';
 import dashboardRoute from './dashboard.route.js';
 import orderRoute from './order.route.js';
 import permissionRoute from './permission.route.js';
 import productRoute from './product.route.js';
+import productCategoryRoute from './productCategory.route.js';
 import profileRoute from './profile.route.js';
 import roleRoute from './role.route.js';
 import settingRoute from './setting.route.js';
+import userRoute from './user.route.js';
 
 const routerAdmin = (app) => {
   app.use(settingMiddleware.settingGeneral);
@@ -25,6 +26,7 @@ const routerAdmin = (app) => {
     productCategoryRoute
   );
   app.use(`${systemConfig.prefixAdmin}/accounts`, authMiddleware.requireAuth, accountRoute);
+  app.use(`${systemConfig.prefixAdmin}/users`, authMiddleware.requireAuth, userRoute);
   app.use(`${systemConfig.prefixAdmin}/roles`, authMiddleware.requireAuth, roleRoute);
   app.use(`${systemConfig.prefixAdmin}/permissions`, authMiddleware.requireAuth, permissionRoute);
   app.use(`${systemConfig.prefixAdmin}/auth`, authRoute);
