@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
+
+    <!-- Style Library & Framework -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Style File -->
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/pages/order/order.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
+  </head>
+  <body>
+    <%-include("../../partials/header.view.ejs") %>
+
+    <div class="body">
+      <%-include("../../partials/sider.view.ejs") %>
+
+      <div class="main">
+        <%-include("../../partials/alertMessage.view.ejs") %> <%
+        if(roleAuth.permission.includes("order-view")) { %>
+
+        <div class="row gap-md-0 gap-2 justify-content-between">
+          <div class="col-12">
+            <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header"><h5 class="title-font mb-0">Thông tin người đặt</h5></div>
+          <div class="card-body">
+            <div
+              class="d-block d-md-flex justify-content-between flex-wrap gap-2 order-person-order"
+            >
+              <div class="d-md-flex d-block align-items-start gap-2 order-person-order-box">
+                <div class="order-person-order-image">
+                  <img
+                    src="<%= userOrder.avatar %>"
+                    alt=""
+                    class="rounded-2 order-person-order-avatar"
+                  />
+                </div>
+                <div class="w-100 mt-2 mt-md-0 order-person-order-info">
+                  <ul class="ps-0 mb-0 d-flex flex-column gap-1 order-person-order-list">
+                    <li class="d-flex align-items-center gap-1 order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Họ và tên: </b>
+                      </span>
+                      <h5 class="mb-0 text-primary text-wrap order-person-order-value">
+                        <%= userOrder.fullname %>
+                      </h5>
+                    </li>
+                    <li class="order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Địa chỉ email: </b><%= userOrder.email %>
+                      </span>
+                    </li>
+                    <li class="order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Số điện thoại: </b><%= userOrder.phone %>
+                      </span>
+                    </li>
+                    <li class="order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Địa chỉ: </b><%= userOrder.address ? userOrder.address : 'Chưa cập nhật'
+                        %>
+                      </span>
+                    </li>
+                    <li class="order-person-order-item">
+                      <% if (userOrder.status === 'active') { %>
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Trạng thái: </b>
+                      </span>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--success-color-admin)"
+                      >
+                        Hoạt động
+                      </span>
+                      <% } else { %>
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Trạng thái: </b>
+                      </span>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--warning-color-admin)"
+                      >
+                        Ngừng hoạt động
+                      </span>
+                      <% } %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="d-block mt-2 mt-md-0 d-md-flex justify-content-end align-items-end gap-2 order-person-order-button"
+              >
+                <a
+                  href="<%= prefixAdmin %>/users/update/<%= userOrder._id %>"
+                  class="btn btn-primary order-person-order-button-update"
+                  ><i class="me-1 bi bi-pencil-square"></i>
+                  Chỉnh sửa
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header"><h5 class="title-font mb-0">Thông tin người nhận</h5></div>
+          <div class="card-body">
+            <div
+              class="d-block d-md-flex justify-content-between flex-wrap gap-2 order-person-receiver"
+            >
+              <div class="d-md-flex d-block align-items-start gap-2 order-person-receiver-box">
+                <div class="w-100 mt-2 mt-md-0 order-person-receiver-info">
+                  <ul class="ps-0 mb-0 d-flex flex-column gap-1 order-person-receiver-list">
+                    <li class="d-flex align-items-center gap-1 order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Họ và tên: </b>
+                      </span>
+                      <h5 class="mb-0 text-primary text-wrap order-person-receiver-value">
+                        <%= orderDetail.userInfo.fullname %>
+                      </h5>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Địa chỉ email: </b><%= orderDetail.userInfo.email %>
+                      </span>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Số điện thoại: </b><%= orderDetail.userInfo.phone %>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header"><h5 class="title-font mb-0">Thông tin đơn hàng</h5></div>
+
+          <div class="card-body">
+            <div
+              class="d-block d-md-flex justify-content-between flex-wrap gap-2 order-person-receiver"
+            >
+              <div class="d-md-flex d-block align-items-start gap-2 order-person-receiver-box">
+                <div class="w-100 mt-2 mt-md-0 order-person-receiver-info">
+                  <ul class="ps-0 mb-0 d-flex flex-column gap-1 order-person-receiver-list">
+                    <li class="d-flex align-items-center gap-1 order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Mã đơn hàng: </b>
+                      </span>
+                      <h5 class="mb-0 text-primary text-wrap order-person-receiver-value">
+                        <%= orderDetail.orderCode %>
+                      </h5>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Địa chỉ giao hàng: </b><%= orderDetail.userInfo.address %>
+                      </span>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Được đặt lúc: </b>
+                        <%= moment(orderDetail.createdAt).format('h:mm:ss - DD/MM/YYYY') %>
+                      </span>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <% if (orderDetail.paymentMethod === 'offline') { %>
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Phương thức thanh toán: </b>
+                      </span>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--warning-color-admin)"
+                      >
+                        Thanh toán khi nhận hàng
+                      </span>
+                      <% } else { %>
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Phương thức thanh toán: </b>
+                      </span>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--info-color-admin)"
+                      >
+                        Thanh toán trực tuyến
+                      </span>
+                      <% } %>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Tình trạng thanh toán: </b>Chưa xác định
+                      </span>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Trạng thái đơn hàng: </b>
+                      </span>
+                      <% if (orderDetail.status === 'pending') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--warning-color-admin)"
+                      >
+                        Chưa xác nhận
+                      </span>
+                      <% } else if (orderDetail.status === 'confirmed') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--info-color-admin)"
+                      >
+                        Đã xác nhận
+                      </span>
+                      <% } else if (orderDetail.status === 'shipping') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--primary-color-admin)"
+                      >
+                        Đang giao
+                      </span>
+                      <% } else if (orderDetail.status === 'delivered') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--success-color-admin)"
+                      >
+                        Đã giao
+                      </span>
+                      <% } else if (orderDetail.status === 'cancelled') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--error-color-admin)"
+                      >
+                        Đã hủy
+                      </span>
+                      <% } else { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--dark-gray-color-admin)"
+                      >
+                        Ko xác định
+                      </span>
+                      <% } %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="d-md-flex justify-content-between align-items-center d-block">
+              <h5 class="title-font mb-2 mb-md-0">
+                Thông tin sản phẩm (Trang hiện tại: <%= objPagination.currentPage %>)
+              </h5>
+              <%-include("../../partials/search.view.ejs", { placeholder: 'Nhập tên sản phẩm...' })
+              %>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="container-fluid w-100">
+              <div class="row">
+                <div class="col-12 overflow-x-scroll">
+                  <table class="table table-hover table-sm w-100">
+                    <thead class="content-font">
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">STT</th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Ảnh sản phẩm
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Tiêu đề
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Giá tiền
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Giảm giá
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Số lượng
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Thành tiền
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Hành động
+                      </th>
+                    </thead>
+
+                    <tbody class="content-font">
+                      <% if (productListInOrder && productListInOrder.length > 0) { %> <%
+                      productListInOrder.forEach((product, index) => { %>
+                      <tr>
+                        <td>
+                          <span><%= index + 1 %></span>
+                        </td>
+                        <td>
+                          <img
+                            src="<%= product.thumbnail %>"
+                            alt="<%= product.title %>"
+                            width="100px"
+                          />
+                        </td>
+                        <td><span><%= product.title %></span></td>
+                        <td>
+                          <span class="fw-bold"
+                            ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                            }).format(product.price) %>
+                          </span>
+                        </td>
+                        <td><span><%= product.discount %>%</span></td>
+                        <td><span><%= product.quantity %></span></td>
+                        <td>
+                          <span class="fw-bold" style="color: var(--warning-color-admin)"
+                            ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                            }).format(product.total) %>
+                          </span>
+                        </td>
+                        <td>
+                          <a
+                            href="<%= prefixAdmin %>/products/detail/<%= product._id %>"
+                            class="btn btn-outline-black text-black border-black btn-sm"
+                          >
+                            Chi tiết
+                            <i class="bi bi-arrow-right-short ml-1"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      <% }) %> <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="container-fluid">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-12">
+                  <%-include("../../partials/pagination.view.ejs") %>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="d-md-flex justify-content-end d-block text-center order-total">
+                    <h3 class="title-font mb-0" style="color: var(--error-color-admin)">
+                      Tổng tiền: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                      'VND' }).format(orderDetail.total) %>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% } %>
+      </div>
+    </div>
+
+    <%-include("../../partials/footer.view.ejs") %>
+
+    <form action="<%= prefixAdmin %>/orders" method="POST" class="d-none" form-delete></form>
+
+    <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/statusFilter.js"></script>
+    <script src="/admin/scripts/search.js"></script>
+    <script src="/admin/scripts/sort.js"></script>
+    <script src="/admin/scripts/product/priceFilter.js"></script>
+    <script src="/admin/scripts/changeMulti.js"></script>
+    <script src="/admin/scripts/pagination.js"></script>
+    <script src="/admin/scripts/delete.js"></script>
+    <script src="/admin/scripts/order/changeStatusSelect.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/toggleAccountInfo.js"></script>
+
+    <!-- Script Library & Framwork -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <script src="../../../reload/reload.js"></script>
+  </body>
+</html>

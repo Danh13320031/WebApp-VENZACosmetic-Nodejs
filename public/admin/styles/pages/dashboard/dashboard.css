@@ -2,6 +2,8 @@
   width: 140px;
   aspect-ratio: 1/1;
   object-fit: contain;
+  border: 1px solid var(--secondary-color-admin);
+  padding: 5px;
 }
 
 @media screen and (max-width: 768px) {
