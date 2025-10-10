@@ -13,5 +13,6 @@ cloudinaryPackageConfig();
 
 userRoute.get('/', userController.user);
 userRoute.patch('/change-status/:status/:id', userController.changeStatusUser);
+userRoute.patch('/change-multi', userController.changeMultiUser);
 
 export default userRoute;
