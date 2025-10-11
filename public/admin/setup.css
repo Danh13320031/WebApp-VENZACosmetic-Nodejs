@@ -240,22 +240,16 @@ input:focus-within {
 }
 input[type='checkbox'],
 input[type='radio'] {
-  appearance: none;
   width: 12px;
   height: 12px;
   background: var(--light-gray-color-admin);
-  border: 1px solid;
-  border-color: rgb(211, 211, 211);
-  border-radius: 2px;
+  border: 1px solid rgb(211, 211, 211);
   cursor: pointer;
   position: relative;
 }
-input[type='radio'] {
-  border-radius: 50%;
-  position: unset;
-}
-input[type='radio']:focus {
-  box-shadow: unset;
+input[type='checkbox'] {
+  appearance: none;
+  border-radius: 2px;
 }
 input[type='checkbox']:checked,
 input[type='radio']:checked {
@@ -269,6 +263,14 @@ input[type='checkbox']:checked::after {
   left: 1px;
   color: white;
   font-size: 10px;
+}
+input[type='radio'] {
+  accent-color: var(--secondary-color-admin);
+  border-radius: 50%;
+  position: unset;
+}
+input[type='radio']:focus {
+  box-shadow: unset;
 }
 .heading-font {
   text-align: center;
