@@ -8,7 +8,7 @@ import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
 
-// GET: /admin/accounts     --Hiển thị danh sách tài khoản
+// GET: /admin/accounts     --Hiển thị danh sách quản trị viên
 const account = async (req, res) => {
   const find = {
     deleted: false,
@@ -52,7 +52,7 @@ const account = async (req, res) => {
   }
 
   res.render('./admin/pages/account/account.view.ejs', {
-    pageTitle: 'Danh sách tài khoản',
+    pageTitle: 'Danh sách quản trị viên',
     activeLink: 'active',
     accountList,
     roleList,
@@ -63,7 +63,7 @@ const account = async (req, res) => {
   });
 };
 
-// GET: /admin/accounts/create    --Tới trang tạo tài khoản
+// GET: /admin/accounts/create    --Tới trang tạo quản trị viên
 const createAccountGet = async (req, res) => {
   const find = {
     deleted: false,
@@ -71,12 +71,12 @@ const createAccountGet = async (req, res) => {
   const roleList = await roleModel.find(find).select('_id title');
 
   res.render('./admin/pages/account/create.view.ejs', {
-    pageTitle: 'Thêm mới tài khoản',
+    pageTitle: 'Thêm mới quản trị viên',
     roleList,
   });
 };
 
-// POST: /admin/accounts/create     --Tạo tài khoản mới
+// POST: /admin/accounts/create     --Tạo quản trị viên mới
 const createAccountPost = async (req, res) => {
   try {
     const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
@@ -94,7 +94,7 @@ const createAccountPost = async (req, res) => {
   }
 };
 
-// GET: /admin/accounts/update/:id     --Tới trang cập nhật tài khoản
+// GET: /admin/accounts/update/:id     --Tới trang cập nhật quản trị viên
 const updateAccountGet = async (req, res) => {
   const id = req.params.id;
   const find = {
@@ -107,7 +107,7 @@ const updateAccountGet = async (req, res) => {
     const roleList = await roleModel.find({ deleted: false });
 
     res.render('./admin/pages/account/update.view.ejs', {
-      pageTitle: 'Chỉnh sửa tài khoản',
+      pageTitle: 'Chỉnh sửa quản trị viên',
       account,
       roleList,
     });
@@ -118,7 +118,7 @@ const updateAccountGet = async (req, res) => {
   }
 };
 
-// PATCH: /admin/accounts/update/:id     --Cập nhật tài khoản
+// PATCH: /admin/accounts/update/:id     --Cập nhật quản trị viên
 const updateAccountPatch = async (req, res) => {
   try {
     const id = req.params.id;
@@ -139,7 +139,7 @@ const updateAccountPatch = async (req, res) => {
   }
 };
 
-// PATCH: /admin/accounts/change-status/:status/:id?_method=PATCH     --Đổi trạng thái tài khoản
+// PATCH: /admin/accounts/change-status/:status/:id?_method=PATCH     --Đổi trạng thái quản trị viên
 const changeStatusAccount = async (req, res) => {
   try {
     const { id, status } = req.params;
@@ -244,7 +244,7 @@ const changeMultiAccount = async (req, res) => {
   }
 };
 
-// PATCH: /admin/accounts/delete/:id?_method=PATCH     --Xóa mềm tài khoản
+// PATCH: /admin/accounts/delete/:id?_method=PATCH     --Xóa mềm quản trị viên
 const deleteAccount = async (req, res) => {
   const { id } = req.params;
 
@@ -269,7 +269,7 @@ const deleteAccount = async (req, res) => {
   }
 };
 
-// GET: /admin/accounts/garbage     --Tới thùng rác tài khoản
+// GET: /admin/accounts/garbage     --Tới thùng rác quản trị viên
 const garbageAccount = async (req, res) => {
   const find = {
     deleted: true,
@@ -288,7 +288,7 @@ const garbageAccount = async (req, res) => {
     }
 
     res.render('./admin/pages/account/garbage.view.ejs', {
-      pageTitle: 'Thùng rác tài khoản',
+      pageTitle: 'Thùng rác quản trị viên',
       accountList,
       statusList: [],
     });
@@ -299,7 +299,7 @@ const garbageAccount = async (req, res) => {
   }
 };
 
-// PATCH: /admin/accounts/restore-garbage/:id?_method=PATCH     --Khôi phục tài khoản
+// PATCH: /admin/accounts/restore-garbage/:id?_method=PATCH     --Khôi phục quản trị viên
 const restoreGarbageAccount = async (req, res) => {
   const { id } = req.params;
 
@@ -323,7 +323,7 @@ const restoreGarbageAccount = async (req, res) => {
   }
 };
 
-// DELETE: /admin/accounts/delete-garbage/:id?method=DELETE     --Xóa cứng tài khoản
+// DELETE: /admin/accounts/delete-garbage/:id?method=DELETE     --Xóa cứng quản trị viên
 const deleteGarbageAccount = async (req, res) => {
   const { id } = req.params;
 
