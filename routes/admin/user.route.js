@@ -13,6 +13,7 @@ cloudinaryPackageConfig();
 
 userRoute.get('/', userController.user);
 userRoute.patch('/change-status/:status/:id', userController.changeStatusUser);
+userRoute.patch('/change-verification/:verification/:id', userController.changeVerificationUser);
 userRoute.patch('/change-multi', userController.changeMultiUser);
 userRoute.patch('/delete/:id', userController.deleteUser);
 

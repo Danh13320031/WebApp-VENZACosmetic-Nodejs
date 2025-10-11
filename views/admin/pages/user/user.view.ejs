@@ -108,7 +108,7 @@
                       </th>
                       <% } %> <% if(roleAuth.permission.includes("account-update")) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Xác thực
+                        Xác minh
                       </th>
                       <% } %> <% if(roleAuth.permission.includes("account-update") ||
                       roleAuth.permission.includes("account-sort-delete")) { %>
@@ -168,8 +168,8 @@
                           <a
                             href="javascript:;"
                             data-id="<%= user._id %>"
-                            data-status="active"
-                            change-authentication
+                            data-verification="active"
+                            change-verification
                             class="badge"
                             style="background: var(--info-color-admin)"
                             >Đã kích hoạt
@@ -179,7 +179,7 @@
                             href="javascript:;"
                             data-id="<%= user._id %>"
                             data-status="inactive"
-                            change-authentication
+                            change-verification
                             class="badge"
                             style="background: var(--error-color-admin)"
                             >Chưa kích hoạt
@@ -237,7 +237,7 @@
       action="<%= prefixAdmin %>/users"
       method="POST"
       class="d-none"
-      form-change-authentication
+      form-change-verification
     ></form>
     <form action="<%= prefixAdmin %>/users" method="POST" class="d-none" form-change-status></form>
     <form action="<%= prefixAdmin %>/users" method="POST" class="d-none" form-delete></form>
@@ -250,6 +250,7 @@
     <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
+    <script src="/admin/scripts/changeVerification.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>

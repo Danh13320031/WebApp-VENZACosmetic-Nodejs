@@ -65,8 +65,32 @@ const changeStatusUser = async (req, res) => {
     });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
   } catch (err) {
-    console.log('Update product fail: ', err);
+    console.log('Update user fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
+// PATCH: /admin/users/change-verification/:verification/:id?_method=PATCH     --Đổi trạng thái người dùng
+const changeVerificationUser = async (req, res) => {
+  try {
+    const { id, verification } = req.params;
+
+    if (!id || !verification) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái xác minh thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    await userModel.findByIdAndUpdate(id, {
+      isVerified: verification === 'active' ? true : false,
+    });
+    alertMessageHelper(req, 'alertSuccess', 'Đã cập nhật trạng thái xác minh');
+  } catch (err) {
+    console.log('Update user fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái xác minh thất bại');
   } finally {
     res.redirect('back');
     return;
@@ -144,12 +168,12 @@ const changeMultiUser = async (req, res) => {
       }
     } else {
       res.redirect('back');
-      alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
       return;
     }
   } catch (err) {
     console.log('Change multi status fail: ', err);
-    alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
     res.redirect('back');
     return;
   }
@@ -184,6 +208,7 @@ const deleteUser = async (req, res) => {
 const userController = {
   user,
   changeStatusUser,
+  changeVerificationUser,
   changeMultiUser,
   deleteUser,
 };
