@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import systemConfig from '../../configs/system.config.js';
+import { saltRoundsConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
@@ -49,6 +52,38 @@ const user = async (req, res) => {
   }
 };
 
+// GET: /admin/users/create    --Tới trang tạo người dùng
+const createUserGet = async (req, res) => {
+  res.render('./admin/pages/user/create.view.ejs', {
+    pageTitle: 'Thêm mới người dùng',
+  });
+};
+
+// POST: /admin/users/create     --Tạo người dùng
+const createUserPost = async (req, res) => {
+  try {
+    const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
+
+    if (req.body.password) req.body.password = hassPassword;
+    if (req.body.isVerified)
+      req.body.isVerified === 'active'
+        ? (req.body.isVerified = true)
+        : (req.body.isVerified = false);
+
+    const newUser = new userModel(req.body);
+    await newUser.save();
+
+    alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
+    res.redirect(`${systemConfig.prefixAdmin}/users`);
+    return;
+  } catch (err) {
+    console.log('Create user fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/users/change-status/:status/:id?_method=PATCH     --Đổi trạng thái người dùng
 const changeStatusUser = async (req, res) => {
   try {
@@ -73,7 +108,7 @@ const changeStatusUser = async (req, res) => {
   }
 };
 
-// PATCH: /admin/users/change-verification/:verification/:id?_method=PATCH     --Đổi trạng thái người dùng
+// PATCH: /admin/users/change-verification/:verification/:id?_method=PATCH     --Đổi trạng thái xác minh người dùng
 const changeVerificationUser = async (req, res) => {
   try {
     const { id, verification } = req.params;
@@ -207,6 +242,8 @@ const deleteUser = async (req, res) => {
 
 const userController = {
   user,
+  createUserGet,
+  createUserPost,
   changeStatusUser,
   changeVerificationUser,
   changeMultiUser,
