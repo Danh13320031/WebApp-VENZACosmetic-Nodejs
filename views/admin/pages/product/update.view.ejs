@@ -258,13 +258,11 @@
                     ><span class="text-danger"><b>*</b></span> Trạng thái</label
                   >
                   <input type="radio" name="status" value="active" <% if(product.status ===
-                  'active') {%> checked <% } %> class="form-check-input bg-success"
-                  id="status-active" />
+                  'active') {%> checked <% } %> class="form-check-input" id="status-active" />
                   <label for="status-active" class="me-4">Hoạt động</label>
 
                   <input type="radio" name="status" value="inactive" <% if(product.status ===
-                  'inactive') {%> checked <% } %> class="form-check-input bg-warning"
-                  id="status-inactive" />
+                  'inactive') {%> checked <% } %> class="form-check-input" id="status-inactive" />
                   <label for="status-inactive">Ngừng hoạt động</label>
                 </div>
               </div>
@@ -275,10 +273,10 @@
                     ><span class="text-danger"><b>*</b></span>
                     Nổi bật
                   </label>
-                  <input type="radio" name="featured" value="1" class="form-check-input bg-success"
+                  <input type="radio" name="featured" value="1" class="form-check-input"
                   id="featured1" <% if(product.featured=== '1') {%> checked <% } %> />
                   <label for="featured1" class="me-4">Có</label>
-                  <input type="radio" name="featured" value="0" class="form-check-input bg-warning"
+                  <input type="radio" name="featured" value="0" class="form-check-input"
                   id="featured0" <% if(product.featured === '0') {%> checked <% } %> />
                   <label for="featured0">Ko</label>
                 </div>

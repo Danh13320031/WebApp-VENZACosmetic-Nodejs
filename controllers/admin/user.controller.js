@@ -155,10 +155,37 @@ const changeMultiUser = async (req, res) => {
   }
 };
 
+// PATCH: /admin/users/delete/:id?_method=PATCH     --Xóa mềm người dùng
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+
+  try {
+    await userModel.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedAt: new Date(),
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+  } catch (err) {
+    console.log('Delete category fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const userController = {
   user,
   changeStatusUser,
   changeMultiUser,
+  deleteUser,
 };
 
 export default userController;

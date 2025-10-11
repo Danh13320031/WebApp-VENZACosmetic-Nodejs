@@ -29,18 +29,18 @@
 
 /* Set up color */
 :root {
-  --primary-color-admin: rgb(245, 190, 7);
-  --light-primary-color-admin: rgb(255, 252, 245);
-  --dark-primary-color-admin: rgb(208, 159, 24);
+  --primary-color-admin: #f5be07;
+  --light-primary-color-admin: #fffcf5;
+  --dark-primary-color-admin: #d09f18;
 
   --secondary-color-admin: #2484bb;
   --light-secondary-color-admin: #4ea6d8;
   --dark-secondary-color-admin: ;
 
-  --dark-gray-color-admin: rgb(49, 49, 49);
-  --light-gray-color-admin: rgb(240, 240, 240);
+  --dark-gray-color-admin: #313131;
+  --light-gray-color-admin: #f0f0f0;
 
-  --primary-overlay-color-admin: rgba(0, 0, 0, 0.619);
+  --primary-overlay-color-admin: #0000009e;
   --secondary-overlay-color-admin: ;
 
   --success-color-admin: #51a351;
@@ -235,6 +235,41 @@
 }
 
 /* Setup component */
+input:focus-within {
+  box-shadow: unset;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--light-gray-color-admin);
+  border: 1px solid;
+  border-color: rgb(211, 211, 211);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+input[type='radio'] {
+  border-radius: 50%;
+  position: unset;
+}
+input[type='radio']:focus {
+  box-shadow: unset;
+}
+input[type='checkbox']:checked,
+input[type='radio']:checked {
+  background: var(--light-secondary-color-admin);
+  border: var(--border-thickness-button) solid var(--secondary-color-admin);
+}
+input[type='checkbox']:checked::after {
+  position: absolute;
+  content: '✓';
+  top: -2px;
+  left: 1px;
+  color: white;
+  font-size: 10px;
+}
 .heading-font {
   text-align: center;
   font-size: var(--heading-font-size);
