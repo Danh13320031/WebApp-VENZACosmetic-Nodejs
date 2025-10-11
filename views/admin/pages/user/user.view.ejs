@@ -65,7 +65,7 @@
                   'users', type: 'user' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <% if(roleAuth.permission.includes("account-add")) { %>
+                  <% if(roleAuth.permission.includes("user-add")) { %>
                   <a
                     href="<%= prefixAdmin %>/users/create"
                     class="btn btn-primary w-100 float-end mb-2"
@@ -102,16 +102,16 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Số điện thoại
                       </th>
-                      <% if(roleAuth.permission.includes("account-change-status")) { %>
+                      <% if(roleAuth.permission.includes("user-change-status")) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
-                      <% } %> <% if(roleAuth.permission.includes("account-update")) { %>
+                      <% } %> <% if(roleAuth.permission.includes("user-update")) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Xác minh
                       </th>
-                      <% } %> <% if(roleAuth.permission.includes("account-update") ||
-                      roleAuth.permission.includes("account-sort-delete")) { %>
+                      <% } %> <% if(roleAuth.permission.includes("user-update") ||
+                      roleAuth.permission.includes("user-sort-delete")) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
                       </th>
@@ -138,7 +138,7 @@
                         <td><%= user.fullname %></td>
                         <td><%= user.email %></td>
                         <td><%= user.phone %></td>
-                        <% if(roleAuth.permission.includes("account-change-status")) { %>
+                        <% if(roleAuth.permission.includes("user-change-status")) { %>
                         <td>
                           <% if(user.status === 'active') { %>
                           <a
@@ -162,7 +162,7 @@
                           </a>
                           <% } %>
                         </td>
-                        <% } %> <% if(roleAuth.permission.includes("account-update")) { %>
+                        <% } %> <% if(roleAuth.permission.includes("user-update")) { %>
                         <td>
                           <% if(user.isVerified) { %>
                           <a
@@ -188,7 +188,7 @@
                         </td>
                         <% } %>
                         <td>
-                          <% if(roleAuth.permission.includes("account-update")) { %>
+                          <% if(roleAuth.permission.includes("user-update")) { %>
                           <a
                             href="<%= prefixAdmin %>/users/update/<%= user._id %>"
                             data-id="<%= user._id %>"
@@ -196,7 +196,7 @@
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <% } %> <% if(roleAuth.permission.includes("account-sort-delete")) { %>
+                          <% } %> <% if(roleAuth.permission.includes("user-sort-delete")) { %>
                           <button
                             class="btn btn-danger btn-sm ml-1 mb-1 btn-delete"
                             data-id="<%= user._id %>"

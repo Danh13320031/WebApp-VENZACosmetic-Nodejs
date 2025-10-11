@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const objSchema = {
   fullname: { type: String, required: true },
-  birthDay: { type: Date },
+  birthDay: { type: String },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true, unique: true },
   address: { type: String, default: '' },

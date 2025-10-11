@@ -87,10 +87,12 @@ const createAccountPost = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+    return;
   } catch (err) {
     console.log('Create account fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
     res.redirect('back');
+    return;
   }
 };
 

@@ -4,7 +4,19 @@ import streamifier from 'streamifier';
 // Upload stream 1 file
 const uploadStream = (file) => {
   return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream((error, result) => {
+    const options = {};
+
+    if (file.fieldname === 'avatar') {
+      options.transformation = [
+        {
+          gravity: 'auto',
+          aspect_ratio: '1:1',
+          crop: 'fill',
+        },
+      ];
+    }
+
+    const stream = cloudinary.uploader.upload_stream(options, (error, result) => {
       if (result) {
         resolve(result);
       } else {
