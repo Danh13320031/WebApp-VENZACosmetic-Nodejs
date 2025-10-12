@@ -313,6 +313,7 @@ const garbageAccount = async (req, res) => {
     console.log(`Display account garbage fail: `, err);
     alertMessageHelper(req, 'alertFailure', 'Not Found');
     res.redirect('back');
+    return;
   }
 };
 

@@ -303,6 +303,29 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const garbageUser = async (req, res) => {
+  const find = {
+    deleted: true,
+  };
+
+  try {
+    const userList = await userModel.find(find).sort({
+      deletedAt: 'desc',
+    });
+
+    res.render('./admin/pages/user/garbage.view.ejs', {
+      pageTitle: 'Thùng rác quản trị viên',
+      userList,
+      statusList: [],
+    });
+  } catch (err) {
+    console.log(`Display user garbage fail: `, err);
+    alertMessageHelper(req, 'alertFailure', 'Not Found');
+    res.redirect('back');
+    return;
+  }
+};
+
 const userController = {
   user,
   createUserGet,
@@ -313,6 +336,7 @@ const userController = {
   changeVerificationUser,
   changeMultiUser,
   deleteUser,
+  garbageUser,
 };
 
 export default userController;
