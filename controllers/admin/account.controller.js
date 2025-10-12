@@ -360,6 +360,7 @@ const deleteGarbageAccount = async (req, res) => {
     alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
   } finally {
     res.redirect('back');
+    return;
   }
 };
 
