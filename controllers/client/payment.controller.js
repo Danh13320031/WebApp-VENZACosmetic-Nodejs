@@ -47,10 +47,7 @@ const createOfflinePayment = async (req, res) => {
     note: body.note,
   };
   const payments = {
-    payment_id: '',
     method: body.payment_method,
-    bank: '',
-    status: '',
   };
   const shippings = {
     method: body.shipping_method,
