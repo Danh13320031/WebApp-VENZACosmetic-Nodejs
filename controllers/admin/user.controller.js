@@ -303,6 +303,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// GET: /admin/users/garbage
 const garbageUser = async (req, res) => {
   const find = {
     deleted: true,
@@ -326,6 +327,31 @@ const garbageUser = async (req, res) => {
   }
 };
 
+// PATCH: /admin/users/restore-garbage/:id?_method=PATCH     --Khôi phục quản trị viên
+const restoreGarbageUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    return;
+  }
+
+  try {
+    await userModel.findByIdAndUpdate(id, {
+      deleted: false,
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+  } catch (err) {
+    console.log('Restore user fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const userController = {
   user,
   createUserGet,
@@ -337,6 +363,7 @@ const userController = {
   changeMultiUser,
   deleteUser,
   garbageUser,
+  restoreGarbageUser,
 };
 
 export default userController;

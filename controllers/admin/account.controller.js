@@ -338,6 +338,7 @@ const restoreGarbageAccount = async (req, res) => {
     alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
   } finally {
     res.redirect('back');
+    return;
   }
 };
 
