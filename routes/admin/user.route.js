@@ -34,4 +34,5 @@ userRoute.patch('/change-multi', userController.changeMultiUser);
 userRoute.patch('/delete/:id', userController.deleteUser);
 userRoute.get('/garbage', userController.garbageUser);
 userRoute.patch('/restore-garbage/:id', userController.restoreGarbageUser);
+userRoute.delete('/delete-garbage/:id', userController.deleteGarbageUser);
 export default userRoute;

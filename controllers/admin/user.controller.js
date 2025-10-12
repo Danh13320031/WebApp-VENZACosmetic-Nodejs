@@ -327,7 +327,7 @@ const garbageUser = async (req, res) => {
   }
 };
 
-// PATCH: /admin/users/restore-garbage/:id?_method=PATCH     --Khôi phục quản trị viên
+// PATCH: /admin/users/restore-garbage/:id?_method=PATCH     --Khôi phục người dùng
 const restoreGarbageUser = async (req, res) => {
   const { id } = req.params;
 
@@ -352,6 +352,28 @@ const restoreGarbageUser = async (req, res) => {
   }
 };
 
+// DELETE: /admin/users/delete-garbage/:id?method=DELETE     --Xóa cứng người dùng
+const deleteGarbageUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    return;
+  }
+
+  try {
+    await userModel.findByIdAndDelete(id);
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+  } catch (err) {
+    console.log('Delete user fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const userController = {
   user,
   createUserGet,
@@ -364,6 +386,7 @@ const userController = {
   deleteUser,
   garbageUser,
   restoreGarbageUser,
+  deleteGarbageUser,
 };
 
 export default userController;
