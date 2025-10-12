@@ -1,19 +1,19 @@
 <div class="order-notify-mail">
   <p>Xin chào,</p>
 
-  <p>Đơn hàng của bạn có mã: <strong><%= orderCode %></strong></p>
+  <p>Đơn hàng của bạn có mã: <strong style="color: #f5b607"><%= orderCode %></strong></p>
 
   <p>
-    Đơn hàng của bạn: <% if (status === 'pending') { %>
-    <strong>Đang chờ xác nhận</strong>
+    Trạng thái đơn hàng: <% if (status === 'pending') { %>
+    <strong style="color: #ffa600">Đang chờ xác nhận</strong>
     <% } else if (status === 'confirmed') { %>
-    <strong>Đã được xác nhận</strong>
+    <strong style="color: #2f96b4">Đã được xác nhận</strong>
     <% } else if (status === 'shipping') { %>
-    <strong>Đang vận chuyển</strong>
+    <strong style="color: #f5b607">Đang vận chuyển</strong>
     <% } else if (status === 'delivered') { %>
-    <strong>Đã giao hàng thành công</strong>
+    <strong style="color: #51a351">Đã giao hàng thành công</strong>
     <% } else if (status === 'cancelled') { %>
-    <strong>Đã bị hủy</strong>
+    <strong style="color: #d43027">Đã bị hủy</strong>
     <% } else { %>
     <strong>Không xác định</strong>
     <% } %>
@@ -22,4 +22,8 @@
   <p>Cảm ơn bạn đã mua hàng tại VENZA Cosmetic!</p>
 
   <p>Trân trọng,<br />Đội ngũ VENZA Cosmetic</p>
+
+  <a href="http://127.0.0.1:5000/" class="order-notify-mail-logo">
+    <img src="<%= clientWebsite ? clientWebsite.logo : '' %>" alt="logo" width="130px" />
+  </a>
 </div>

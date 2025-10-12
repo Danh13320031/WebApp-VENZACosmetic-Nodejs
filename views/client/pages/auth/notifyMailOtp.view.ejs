@@ -1,0 +1,17 @@
+<div class="container">
+  <a href="http://127.0.0.1:5000/" class="logo">
+    <img src="<%= clientWebsite ? clientWebsite.logo : '' %>" alt="logo" width="130px" />
+  </a>
+
+  <h2>Xin chào <span style="color: #f5b607"><%= fullname %></span></h2>
+  <p>
+    Chúng tôi nhận được yêu cầu <strong>lấy lại mật khẩu</strong> cho tài khoản VENZA của bạn. Dưới
+    đây là mã xác nhận OTP để đặt lại mật khẩu:
+  </p>
+  <h2 class="otp-box"><%= otp %></h2>
+  <p>
+    Mã OTP này sẽ hết hạn sau <strong>5 phút</strong>. Nếu bạn không yêu cầu đặt lại mật khẩu, vui
+    lòng bỏ qua email này.
+  </p>
+  <div class="footer">© 2025 VENZA. Mọi quyền được bảo lưu.</div>
+</div>

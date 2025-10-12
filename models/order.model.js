@@ -10,10 +10,14 @@ const objSchema = {
   total: { type: Number, require: true, default: 0 },
   shippingFee: { type: Number, require: true, default: 0 },
   payments: {
-    payment_id: { type: String, require: true },
-    method: { type: String, require: true },
-    bank: { type: String, require: true },
-    status: { type: String, require: true, default: '' },
+    method: { type: String, require: true, enum: ['offline', 'online'], default: 'offline' },
+    bank: { type: String, require: true, default: '' },
+    status: {
+      type: String,
+      require: true,
+      enum: ['pending', 'success', 'failed', 'refunded'],
+      default: 'pending',
+    },
   },
   userOrderInfo: {
     user_id: { type: String, require: true },

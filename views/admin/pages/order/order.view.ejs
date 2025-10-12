@@ -82,7 +82,7 @@
                   <table class="table table-hover table-sm w-100">
                     <thead class="content-font">
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        <input type="checkbox" name="checkall" class="me-5" />STT
+                        <input type="checkbox" name="checkall" class="me-5" />
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Mã đơn hàng
@@ -97,10 +97,13 @@
                         Tổng tiền
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Thanh toán
+                        Trạng thái đơn hàng
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Trạng thái
+                        Phương thức thanh toán
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Trạng thái thanh toán
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Ngày đặt
@@ -123,7 +126,7 @@
                             name="checkid"
                             value="<%= order._id %>"
                             class="me-5"
-                          /><%= index + 1 %>
+                          />
                         </td>
                         <td class="fw-bold"><%= order.orderCode %></td>
                         <td>
@@ -138,15 +141,10 @@
                           <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                           }).format(order.total) %>
                         </td>
-                        <% if (order.payments.method === 'online') { %>
-                        <td><span class="badge bg-warning text-wrap">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
-                        <% } else { %>
-                        <td><span class="badge bg-warning text-wrap">Thanh toán khi nhận hàng</span></td>
-                        <% } %>
                         <td>
                           <div class="d-flex align-items-center gap-2">
                             <select
-                              name="status"
+                              name="orderStatus"
                               id="status"
                               data-id="<%= order._id %>"
                               change-status-select
@@ -207,6 +205,67 @@
                             </select>
                           </div>
                         </td>
+                        <% if (order.payments.method === 'online') { %>
+                        <td><span class="badge bg-warning text-wrap">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
+                        <% } else { %>
+                        <td>
+                          <div class="badge bg-warning text-wrap">Thanh toán khi nhận hàng</div>
+                        </td>
+                        <% } %>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <select
+                              name="paymentStatus"
+                              id="status"
+                              data-id="<%= order._id %>"
+                              change-status-select
+                              class="badge p-2 form-control"
+                              <% if (order.payments.status === 'pending') { %>
+                                style="color: var(--secondary-color-admin); border-color: var(--secondary-color-admin)"
+                              <% } else if (order.payments.status === 'success') { %>
+                                style="color: var(--success-color-admin); border-color: var(--success-color-admin)"
+                              <% } else if (order.payments.status === 'failed') { %>
+                                style="color: var(--error-color-admin); border-color: var(--error-color-admin)"
+                              <% } else if (order.payments.status === 'refunded') { %>
+                                style="color: var(--info-color-admin); border-color: var(--info-color-admin)"
+                              <% } %>
+                              value="<%= order.payments.status %>"
+                            >
+                              <option
+                                <% if (order.payments.status === 'pending') { %> selected <% } %>
+                                value="pending"
+                                class="text-light"
+                                style="background: var(--secondary-color-admin)"
+                              >
+                                Chưa thanh toán
+                              </option>
+                              <option
+                                <% if (order.payments.status === 'success') { %> selected <% } %>
+                                value="success"
+                                class="text-light"
+                                style="background: var(--success-color-admin)"
+                              >
+                                Đã thanh toán
+                              </option>
+                              <option
+                                <% if (order.payments.status === 'failed') { %> selected <% } %>
+                                value="failed"
+                                class="text-light"
+                                style="background: var(--error-color-admin)"
+                              >
+                                Thất bại
+                              </option>
+                              <option
+                                <% if (order.payments.status === 'refunded') { %> selected <% } %>
+                                value="refunded"
+                                class="text-light"
+                                style="background: var(--info-color-admin)"
+                              >
+                                Đã hoàn trả
+                              </option>
+                            </select>
+                          </div>
+                        </td>
                         <td><%= moment(order.createdAt).format('DD/MM/YYYY - h:mm:ss') %></td>
                         <td><%= order.position %></td>
                         <td>
@@ -251,7 +310,8 @@
 
     <%-include("../../partials/footer.view.ejs") %>
 
-    <form action="<%= prefixAdmin %>/orders/change-status" method="POST" class="d-none" form-change-status-select></form>
+    <form action="<%= prefixAdmin %>/orders/order-change-status" method="POST" class="d-none" form-order-change-status-select></form>
+    <form action="<%= prefixAdmin %>/orders/payment-change-status" method="POST" class="d-none" form-payment-change-status-select></form>
     <form action="<%= prefixAdmin %>/orders" method="POST" class="d-none" form-delete></form>
 
     <!-- Script File -->

@@ -221,6 +221,44 @@
                       </span>
                     </li>
                     <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-receiver-value">
+                        <b>Tình trạng thanh toán: </b>
+                      </span>
+                      <% if (orderDetail.payments.status === 'pending') { %>
+                      <span
+                        class="badge badge-primary order-person-receiver-value"
+                        style="background: var(--secondary-color-admin)"
+                      >
+                        Chưa thanh toán
+                      </span>
+                      <% } else if (orderDetail.payments.status === 'success') { %>
+                      <span
+                        class="badge badge-primary order-person-receiver-value"
+                        style="background: var(--success-color-admin)"
+                      >
+                        Đã thanh toán
+                      </span>
+                      <% } else if (orderDetail.payments.status === 'failed') { %>
+                      <span
+                        class="badge badge-primary order-person-receiver-value"
+                        style="background: var(--error-color-admin)"
+                      >
+                        Thất bại
+                      </span>
+                      <% } else if (orderDetail.payments.status === 'refunded') { %>
+                      <span
+                        class="badge badge-primary order-person-receiver-value"
+                        style="background: var(--info-color-admin)"
+                      >
+                        Đã hoàn trả
+                      </span>
+                      <% } else { %>
+                      <span class="badge badge-primary order-person-receiver-value">
+                        Chưa xac định
+                      </span>
+                      <% } %>
+                    </li>
+                    <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-order-value">
                         <b>Phương thức thanh toán: </b>
                       </span>
@@ -261,7 +299,7 @@
                       <% } else if (orderDetail.shippings.method === 'shop') { %>
                       <span
                         class="badge badge-primary order-person-order-value"
-                        style="background: var(--success-color-admin)"
+                        style="background: var(--secondary-color-admin)"
                       >
                         Nhận tại cửa hàng
                       </span>
@@ -273,11 +311,6 @@
                         Chưa xác định
                       </span>
                       <% } %>
-                    </li>
-                    <li class="order-person-receiver-item">
-                      <span class="fs-6 text-wrap order-person-receiver-value">
-                        <b>Tình trạng thanh toán: </b>Chưa xác định
-                      </span>
                     </li>
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-order-value">

@@ -68,7 +68,7 @@ const order = async (req, res) => {
   });
 };
 
-// PATCH: /admin/orders/change-status/:status/:id?_method=PATCH
+// PATCH: /admin/orders/order-change-status/:status/:id?_method=PATCH
 const changeStatusOrder = async (req, res) => {
   try {
     const { id, status } = req.params;
@@ -88,6 +88,7 @@ const changeStatusOrder = async (req, res) => {
     }
 
     const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
+      clientWebsite: res.locals.clientWebsite,
       orderCode: order.orderCode,
       status: status,
     });
@@ -95,6 +96,28 @@ const changeStatusOrder = async (req, res) => {
     await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
 
     await orderModel.findByIdAndUpdate(id, { status: status });
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
+  } catch (err) {
+    console.log('Update order fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
+// PATCH: /admin/orders/order-change-payment/:status/:id?_method=PATCH
+const changeStatusPayment = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id || !status) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    await orderModel.findByIdAndUpdate(id, { 'payments.status': status });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
   } catch (err) {
     console.log('Update order fail: ', err);
@@ -224,6 +247,7 @@ const changeMultiOrder = async (req, res) => {
       if (orderList.length > 0) {
         for (const order of orderList) {
           const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
+            clientWebsite: res.locals.clientWebsite,
             orderCode: order.orderCode,
             status: order.status,
           });
@@ -231,15 +255,10 @@ const changeMultiOrder = async (req, res) => {
           await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
         }
       }
-    } else {
-      res.redirect('back');
-      alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
-      return;
     }
   } catch (err) {
     console.log('Change multi status fail: ', err);
     alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
-    res.redirect('back');
     return;
   }
 };
@@ -375,7 +394,7 @@ const detailOrder = async (req, res) => {
 
   // Pagination
   const paginationObj = {
-    limit: 5,
+    limit: 4,
     currentPage: 1,
   };
   const productTotal = productListInOrder.length;
@@ -401,6 +420,7 @@ const detailOrder = async (req, res) => {
 const orderController = {
   order,
   changeStatusOrder,
+  changeStatusPayment,
   changeMultiOrder,
   deleteOrder,
   garbageOrder,

@@ -4,7 +4,8 @@ import orderController from '../../controllers/admin/order.controller.js';
 const orderRoute = express.Router();
 
 orderRoute.get('/', orderController.order);
-orderRoute.patch('/change-status/:status/:id', orderController.changeStatusOrder);
+orderRoute.patch('/order-change-status/:status/:id', orderController.changeStatusOrder);
+orderRoute.patch('/payment-change-status/:status/:id', orderController.changeStatusPayment);
 orderRoute.patch('/change-multi', orderController.changeMultiOrder);
 orderRoute.patch('/delete/:id', orderController.deleteOrder);
 orderRoute.get('/garbage', orderController.garbageOrder);

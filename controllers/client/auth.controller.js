@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
+import ejs from 'ejs';
 import jwt from 'jsonwebtoken';
 import {
   accessTokenExpiresIn,
@@ -41,11 +42,13 @@ const registerPost = async (req, res) => {
     });
     const link = `http://${process.env.HOSTNAME}:${process.env.PORT}/register-change-isverified/${verifyToken}`;
 
-    await sendMailHelper(
-      emailConst,
-      'VENZA - KÍCH HOẠT TÀI KHOẢN',
-      `<h1>Kích hoạt tài khoản</h1><a href="${link}">Click vào đây</a>`
-    );
+    const html = await ejs.renderFile('./views/client/pages/auth/notifyMailActive.view.ejs', {
+      clientWebsite: res.locals.clientWebsite,
+      fullname: user.fullname,
+      link: link,
+    });
+
+    await sendMailHelper(emailConst, 'VENZA - KÍCH HOẠT TÀI KHOẢN', html);
 
     res.redirect(
       `http://${process.env.HOSTNAME}:${process.env.PORT}/register-verify/?duration=${verifyTokenExpiresIn}`
@@ -216,11 +219,13 @@ const forgotPasswordPost = async (req, res) => {
     const newOtp = new otpModel(otpObj);
     await newOtp.save();
 
-    sendMailHelper(
-      emailConst,
-      'VENZA - LẤY LẠI MẬT KHẨU',
-      `<span>Mã xác nhận của bạn là: <h1>${otpRandom}</h1></span>`
-    );
+    const html = await ejs.renderFile('./views/client/pages/auth/notifyMailOtp.view.ejs', {
+      clientWebsite: res.locals.clientWebsite,
+      fullname: user.fullname,
+      otp: otpRandom,
+    });
+
+    await sendMailHelper(emailConst, 'VENZA - LẤY LẠI MẬT KHẨU', html);
 
     alertMessageHelper(req, 'alertSuccess', 'Kiểm tra email để nhận OTP');
     res.redirect(`/forgot-password-otp?email=${email}`);

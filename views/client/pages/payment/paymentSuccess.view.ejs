@@ -35,23 +35,16 @@
         <div class="p-5 bg-white d-flex flex-column gap-3 shadow payment-success-content">
           <div class="d-flex justify-content-center payment-success-logo">
             <a href="http://127.0.0.1:5000/" class="payment-success-logo-link">
-              <img src="/client/images/Benefit_Cosmetics_logo.png" alt="logo" width="130px" />
+              <img src="<%= clientWebsite ? clientWebsite.logo : '' %>" alt="logo" width="130px" />
             </a>
           </div>
           <h2
             class="title-font text-center m-0 text-uppercase fw-bold d-flex align-items-center justify-content-center gap-2 payment-success-title"
-            style="color: var(--success-color)"
+            style="color: #51a351"
           >
-            <i
-              class="fs-4 bi bi-check-circle payment-success-icon"
-              style="color: var(--success-color)"
-            ></i>
             <%= pageTitle %>
           </h2>
-          <h5
-            class="text-center m-0 text-capitalize payment-success-order"
-            style="color: var(--primary-color)"
-          >
+          <h5 class="text-center m-0 text-capitalize payment-success-order" style="color: #f5b607">
             Mã đơn hàng: <%= orderCode %>
           </h5>
           <div class="d-flex flex-column gap-0 payment-success-description-box">
@@ -61,11 +54,8 @@
             <p class="text-center m-0 payment-success-description-item">
               Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất
             </p>
-            <p class="text-center m-0 payment-success-description-item">
-              Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi
-            </p>
           </div>
-          <div class="d-flex justify-content-center payment-success-btn">
+          <div class="d-flex justify-content-center gap-2 payment-success-btn">
             <a
               href="http://127.0.0.1:5000/products"
               class="button-secondary text-decoration-none payment-success-btn-link"
