@@ -84,6 +84,69 @@ const createUserPost = async (req, res) => {
   }
 };
 
+// GET: /admin/users/update/:id     --Tới trang chịnh sửa người dùng
+const updateUserGet = async (req, res) => {
+  const id = req.params.id;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Không tìm thấy người dùng');
+    return;
+  }
+
+  const find = {
+    _id: id,
+    deleted: false,
+  };
+
+  try {
+    const user = await userModel.findOne(find).select('-refreshToken -password');
+
+    res.render('./admin/pages/user/update.view.ejs', {
+      pageTitle: 'Chỉnh sửa người dùng',
+      user,
+    });
+  } catch (err) {
+    console.log('Not found: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Not found');
+    res.redirect('back');
+    return;
+  }
+};
+
+// PATCH: /admin/users/update/:id     --Cập nhật quản trị viên
+const updateUserPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Không tìm thấy người dùng');
+      return;
+    }
+
+    if (req.body.password && req.body.password !== '') {
+      const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
+      req.body.password = hassPassword;
+    } else {
+      delete req.body.password;
+    }
+    if (req.body.isVerified)
+      req.body.isVerified === 'active'
+        ? (req.body.isVerified = true)
+        : (req.body.isVerified = false);
+
+    await userModel.findByIdAndUpdate(id, req.body);
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
+  } catch (err) {
+    console.log('Create user fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/users/change-status/:status/:id?_method=PATCH     --Đổi trạng thái người dùng
 const changeStatusUser = async (req, res) => {
   try {
@@ -244,6 +307,8 @@ const userController = {
   user,
   createUserGet,
   createUserPost,
+  updateUserGet,
+  updateUserPatch,
   changeStatusUser,
   changeVerificationUser,
   changeMultiUser,
