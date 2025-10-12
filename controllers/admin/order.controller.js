@@ -56,15 +56,6 @@ const order = async (req, res) => {
     .limit(objPagination.limit)
     .skip(objPagination.productSkip);
 
-  if (orderList.length > 0) {
-    for (let i = 0; i < orderList.length; i++) {
-      const user = await userModel.findById(orderList[i].user_id);
-
-      orderList[i].userOrderName = user.fullname;
-      orderList[i].userOrderEmail = user.email;
-    }
-  }
-
   res.render('./admin/pages/order/order.view.ejs', {
     pageTitle: 'Danh sách đơn hàng',
     orderList: orderList,
@@ -278,15 +269,6 @@ const garbageOrder = async (req, res) => {
 
   const orderList = await orderModel.find(find).sort({ deletedAt: 'desc' });
 
-  if (orderList.length > 0) {
-    for (let i = 0; i < orderList.length; i++) {
-      const user = await userModel.findById(orderList[i].user_id);
-
-      orderList[i].userOrderName = user.fullname;
-      orderList[i].userOrderEmail = user.email;
-    }
-  }
-
   res.render('./admin/pages/order/garbage.view.ejs', {
     pageTitle: 'Thùng rác đơn hàng',
     orderList,
@@ -356,16 +338,23 @@ const detailOrder = async (req, res) => {
     return;
   }
 
-  const userOrder = await userModel.findById(order.user_id).select('-password -refreshToken');
+  const userOrder = await userModel.findById(order.userOrderInfo.user_id);
+
   let productListInOrder = [];
+  let productList = [];
   let orderTotal = 0;
 
   for (const productOrder of order.products) {
-    let product = await productModel
-      .findOne({ _id: productOrder.product_id, deleted: false, status: 'active' })
-      .select('title thumbnail');
+    const productInfo = await productModel.findById(productOrder.product_id);
+    const product = {};
 
+    product.id = productOrder.product_id;
     product.price = productOrder.price;
+    product.title = productOrder.title;
+    product.thumbnail = productOrder.thumbnail;
+    product.brand = productOrder.brand;
+    product.warranty = productOrder.warranty;
+    product.dimension = productOrder.dimension;
     product.discount = productOrder.discount;
     product.quantity = productOrder.quantity;
     product.total =
@@ -374,6 +363,7 @@ const detailOrder = async (req, res) => {
 
     orderTotal += product.total;
     productListInOrder.push(product);
+    productList.push(productInfo);
   }
 
   // Search
@@ -400,6 +390,7 @@ const detailOrder = async (req, res) => {
     pageTitle: `Đơn hàng ${order.orderCode}`,
     orderDetail: order,
     userOrder,
+    productList,
     productListInOrder,
     orderTotal,
     keyword: objSearch.keyword,

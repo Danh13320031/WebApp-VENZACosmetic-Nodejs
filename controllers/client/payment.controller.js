@@ -2,12 +2,13 @@ import ejs from 'ejs';
 import { emailConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
+import generateOrderCodeHelper from '../../helpers/client/generateOrderCode.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
-import productCategoryModel from '../../models/productCategory.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
-import generateOrderCodeHelper from '../../helpers/client/generateOrderCode.helper.js';
+import productCategoryModel from '../../models/productCategory.model.js';
+import userModel from '../../models/user.model.js';
 
 // [GET]: /payment
 const payment = async (req, res) => {
@@ -29,14 +30,29 @@ const createOfflinePayment = async (req, res) => {
   const cartId = req.cookies.cartId;
   const user = res.locals.user;
   const userId = user ? user._id : null;
-  const userInfo = {
+  const userOrder = await userModel.findById(userId);
+  const userOrderInfo = {
+    user_id: userOrder._id,
+    fullname: userOrder.fullname,
+    email: userOrder.email,
+    phone: userOrder.phone,
+    address: userOrder.address,
+    avatar: userOrder.avatar,
+  };
+  const userConsigneeInfo = {
     fullname: body.fullname,
     email: body.email,
     phone: body.phone,
     address: body.address,
+    note: body.note,
   };
-  const paymentMethod = body.payment_method;
-  const shipping = {
+  const payments = {
+    payment_id: '',
+    method: body.payment_method,
+    bank: '',
+    status: '',
+  };
+  const shippings = {
     method: body.shipping_method,
   };
   const orderCode = await generateOrderCodeHelper();
@@ -50,6 +66,11 @@ const createOfflinePayment = async (req, res) => {
     for (let i = 0; i < cart.products.length; i++) {
       const productInfo = {
         product_id: cart.products[i].product_id,
+        title: '',
+        thumbnail: '',
+        brand: '',
+        warranty: '',
+        dimension: { width: 0, height: 0, depth: 0 },
         price: 0,
         discount: 0,
         quantity: cart.products[i].quantity,
@@ -58,6 +79,11 @@ const createOfflinePayment = async (req, res) => {
         .findById(cart.products[i].product_id)
         .select('title thumbnail price discount stock');
 
+      productInfo.title = product.title;
+      productInfo.thumbnail = product.thumbnail;
+      productInfo.brand = product.brand;
+      productInfo.warranty = product.warranty;
+      productInfo.dimension = product.dimension;
       productInfo.price = product.price;
       productInfo.discount = product.discount;
       total +=
@@ -72,14 +98,14 @@ const createOfflinePayment = async (req, res) => {
   }
 
   const orderBody = {
-    user_id: userId,
     cart_id: cartId,
     orderCode: orderCode,
     position: orderCount + 1,
-    userInfo: userInfo,
-    paymentMethod: paymentMethod,
+    userOrderInfo: userOrderInfo,
+    userConsigneeInfo: userConsigneeInfo,
+    payments: payments,
     products: products,
-    shipping: shipping,
+    shippings: shippings,
   };
 
   orderBody.total = Number.parseFloat(total);

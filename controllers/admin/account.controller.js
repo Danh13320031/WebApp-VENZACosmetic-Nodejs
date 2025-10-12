@@ -99,13 +99,20 @@ const createAccountPost = async (req, res) => {
 // GET: /admin/accounts/update/:id     --Tới trang cập nhật quản trị viên
 const updateAccountGet = async (req, res) => {
   const id = req.params.id;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Không tìm thấy quản trị viên');
+    return;
+  }
+
   const find = {
     _id: id,
     deleted: false,
   };
 
   try {
-    const account = await accountModel.findOne(find).select('-token');
+    const account = await accountModel.findOne(find).select('-token -password');
     const roleList = await roleModel.find({ deleted: false });
 
     res.render('./admin/pages/account/update.view.ejs', {
@@ -117,6 +124,7 @@ const updateAccountGet = async (req, res) => {
     console.log('Not found: ', err);
     alertMessageHelper(req, 'alertFailure', 'Not found');
     res.redirect('back');
+    return;
   }
 };
 
@@ -124,6 +132,13 @@ const updateAccountGet = async (req, res) => {
 const updateAccountPatch = async (req, res) => {
   try {
     const id = req.params.id;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Không tìm thấy quản trị viên');
+      return;
+    }
+
     if (req.body.password && req.body.password !== '') {
       const hassPassword = await bcrypt.hash(req.body.password, saltRoundsConst);
       req.body.password = hassPassword;

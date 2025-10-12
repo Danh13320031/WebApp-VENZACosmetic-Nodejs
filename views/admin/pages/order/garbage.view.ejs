@@ -97,19 +97,19 @@
                         </td>
                         <td class="fw-bold"><%= order.orderCode %></td>
                         <td>
-                          <div class="text-wrap"><i class="fa-solid fa-user me-1"></i><%= order.userOrderName %></div>
-                          <div class="text-wrap"><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderEmail %></div>
+                          <div class="text-wrap"><i class="fa-solid fa-user me-1"></i><%= order.userOrderInfo.fullname %></div>
+                          <div class="text-wrap"><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderInfo.email %></div>
                         </td>
                         <td>
-                          <div><i class="fa-solid fa-user me-1"></i><%= order.userInfo.fullname %></div>
-                          <div><i class="fa-solid fa-phone me-1"></i><%= order.userInfo.phone %></div>
+                          <div><i class="fa-solid fa-user me-1"></i><%= order.userConsigneeInfo.fullname %></div>
+                          <div><i class="fa-solid fa-phone me-1"></i><%= order.userConsigneeInfo.phone %></div>
                         </td>
                         <td class="fw-bold text-warning">
                           <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                           }).format(order.total) %>
                         </td>
-                        <% if (order.paymentMethod === 'online') { %>
-                        <td>Thanh toán online</td>
+                        <% if (order.payments.method === 'online') { %>
+                        <td><span class="badge bg-warning text-wrap">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
                         <% } else { %>
                         <td><span class="badge bg-warning text-wrap">Thanh toán khi nhận hàng</span></td>
                         <% } %>

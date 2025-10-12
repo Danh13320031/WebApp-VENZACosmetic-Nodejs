@@ -109,13 +109,13 @@ const loginPostValidate = async (req, res, next) => {
     const user = await userModel.findOne({ email: req.body.email });
 
     if (!user) {
-      alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
+      alertMessageHelper(req, 'alertFailure', 'Email chưa được đăng ký');
       res.redirect('back');
       return;
     } else {
       const checkPassword = await bcript.compare(req.body.password, user.password);
 
-      if (!checkPassword) {
+      if (!checkPassword || user.email !== req.body.email) {
         alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
         res.redirect('back');
         return;

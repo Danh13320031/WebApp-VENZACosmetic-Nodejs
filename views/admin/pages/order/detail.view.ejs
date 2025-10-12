@@ -46,7 +46,7 @@
               <div class="d-md-flex d-block align-items-start gap-2 order-person-order-box">
                 <div class="order-person-order-image">
                   <img
-                    src="<%= userOrder.avatar %>"
+                    src="<%= orderDetail.userOrderInfo.avatar %>"
                     alt=""
                     class="rounded-2 order-person-order-avatar"
                   />
@@ -58,30 +58,31 @@
                         <b>Họ và tên: </b>
                       </span>
                       <h5 class="mb-0 text-primary text-wrap order-person-order-value">
-                        <%= userOrder.fullname %>
+                        <%= orderDetail.userOrderInfo.fullname %>
                       </h5>
                     </li>
                     <li class="order-person-order-item">
                       <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Địa chỉ email: </b><%= userOrder.email %>
+                        <b>Địa chỉ email: </b><%= orderDetail.userOrderInfo.email %>
                       </span>
                     </li>
                     <li class="order-person-order-item">
                       <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Số điện thoại: </b><%= userOrder.phone %>
+                        <b>Số điện thoại: </b><%= orderDetail.userOrderInfo.phone %>
                       </span>
                     </li>
                     <li class="order-person-order-item">
                       <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Địa chỉ: </b><%= userOrder.address ? userOrder.address : 'Chưa cập nhật'
-                        %>
+                        <b>Địa chỉ: </b><%= orderDetail.userOrderInfo.address ?
+                        orderDetail.userOrderInfo.address : 'Chưa cập nhật' %>
                       </span>
                     </li>
+                    <% if(userOrder) { %>
                     <li class="order-person-order-item">
-                      <% if (userOrder.status === 'active') { %>
                       <span class="fs-6 text-wrap order-person-order-value">
                         <b>Trạng thái: </b>
                       </span>
+                      <% if (userOrder.status === 'active') { %>
                       <span
                         class="badge badge-primary order-person-order-value"
                         style="background: var(--success-color-admin)"
@@ -89,9 +90,6 @@
                         Hoạt động
                       </span>
                       <% } else { %>
-                      <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Trạng thái: </b>
-                      </span>
                       <span
                         class="badge badge-primary order-person-order-value"
                         style="background: var(--warning-color-admin)"
@@ -100,18 +98,60 @@
                       </span>
                       <% } %>
                     </li>
+                    <li class="order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Tình trạng: </b>
+                      </span>
+                      <% if (userOrder.deleted) { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--error-color-admin)"
+                      >
+                        Đã bị xóa mềm
+                      </span>
+                      <% } else { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--info-color-admin)"
+                      >
+                        Đang lưu trong hệ thống
+                      </span>
+                      <% } %>
+                    </li>
+                    <% } else { %>
+                    <li class="order-person-order-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Tồn tại: </b>
+                      </span>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--error-color-admin)"
+                      >
+                        Đã bị xóa khỏi hệ thống
+                      </span>
+                    </li>
+                    <% } %>
                   </ul>
                 </div>
               </div>
               <div
                 class="d-block mt-2 mt-md-0 d-md-flex justify-content-end align-items-end gap-2 order-person-order-button"
               >
+                <% if(userOrder) { %> <% if(userOrder.deleted) { %>
+                <a
+                  href="<%= prefixAdmin %>/users/garbage"
+                  class="btn btn-primary order-person-order-button-update"
+                  ><i class="me-1 bi bi-pencil-square"></i>
+                  Thùng rác
+                </a>
+                <% } else { %>
                 <a
                   href="<%= prefixAdmin %>/users/update/<%= userOrder._id %>"
                   class="btn btn-primary order-person-order-button-update"
                   ><i class="me-1 bi bi-pencil-square"></i>
                   Chỉnh sửa
                 </a>
+                <% } %> <% } %>
               </div>
             </div>
           </div>
@@ -131,17 +171,17 @@
                         <b>Họ và tên: </b>
                       </span>
                       <h5 class="mb-0 text-primary text-wrap order-person-receiver-value">
-                        <%= orderDetail.userInfo.fullname %>
+                        <%= orderDetail.userConsigneeInfo.fullname %>
                       </h5>
                     </li>
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-receiver-value">
-                        <b>Địa chỉ email: </b><%= orderDetail.userInfo.email %>
+                        <b>Địa chỉ email: </b><%= orderDetail.userConsigneeInfo.email %>
                       </span>
                     </li>
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-receiver-value">
-                        <b>Số điện thoại: </b><%= orderDetail.userInfo.phone %>
+                        <b>Số điện thoại: </b><%= orderDetail.userConsigneeInfo.phone %>
                       </span>
                     </li>
                   </ul>
@@ -171,20 +211,20 @@
                     </li>
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-receiver-value">
-                        <b>Địa chỉ giao hàng: </b><%= orderDetail.userInfo.address %>
+                        <b>Địa chỉ giao hàng: </b><%= orderDetail.userConsigneeInfo.address %>
                       </span>
                     </li>
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-receiver-value">
-                        <b>Được đặt lúc: </b>
+                        <b>Đặt lúc: </b>
                         <%= moment(orderDetail.createdAt).format('h:mm:ss - DD/MM/YYYY') %>
                       </span>
                     </li>
                     <li class="order-person-receiver-item">
-                      <% if (orderDetail.paymentMethod === 'offline') { %>
                       <span class="fs-6 text-wrap order-person-order-value">
                         <b>Phương thức thanh toán: </b>
                       </span>
+                      <% if (orderDetail.payments.method === 'offline') { %>
                       <span
                         class="badge badge-primary order-person-order-value"
                         style="background: var(--warning-color-admin)"
@@ -192,14 +232,45 @@
                         Thanh toán khi nhận hàng
                       </span>
                       <% } else { %>
-                      <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Phương thức thanh toán: </b>
-                      </span>
                       <span
                         class="badge badge-primary order-person-order-value"
                         style="background: var(--info-color-admin)"
                       >
                         Thanh toán trực tuyến
+                      </span>
+                      <% } %>
+                    </li>
+                    <li class="order-person-receiver-item">
+                      <span class="fs-6 text-wrap order-person-order-value">
+                        <b>Phương thức vận chuyển: </b>
+                      </span>
+                      <% if (orderDetail.shippings.method === 'standard') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--warning-color-admin)"
+                      >
+                        Giao hàng tiêu chuẩn
+                      </span>
+                      <% } else if (orderDetail.shippings.method === 'fast') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--info-color-admin)"
+                      >
+                        Giao hàng nhanh
+                      </span>
+                      <% } else if (orderDetail.shippings.method === 'shop') { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--success-color-admin)"
+                      >
+                        Nhận tại cửa hàng
+                      </span>
+                      <% } else { %>
+                      <span
+                        class="badge badge-primary order-person-order-value"
+                        style="background: var(--error-color-admin)"
+                      >
+                        Chưa xác định
                       </span>
                       <% } %>
                     </li>
@@ -334,13 +405,16 @@
                           </span>
                         </td>
                         <td>
+                          <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id) {
+                          %>
                           <a
-                            href="<%= prefixAdmin %>/products/detail/<%= product._id %>"
+                            href="<%= prefixAdmin %>/products/detail/<%= product.id %>"
                             class="btn btn-outline-black text-black border-black btn-sm"
                           >
                             Chi tiết
                             <i class="bi bi-arrow-right-short ml-1"></i>
                           </a>
+                          <% } %> <% }) %>
                         </td>
                       </tr>
                       <% }) %> <% } %>

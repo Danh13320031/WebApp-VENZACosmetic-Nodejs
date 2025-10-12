@@ -20,6 +20,14 @@ userRoute.post(
   userValidate.createUserValidate,
   userController.createUserPost
 );
+userRoute.get('/update/:id', userController.updateUserGet);
+userRoute.patch(
+  '/update/:id',
+  upload.single('avatar'),
+  uploadMiddleware.uploadCloud,
+  userValidate.updateUserValidate,
+  userController.updateUserPatch
+);
 userRoute.patch('/change-status/:status/:id', userController.changeStatusUser);
 userRoute.patch('/change-verification/:verification/:id', userController.changeVerificationUser);
 userRoute.patch('/change-multi', userController.changeMultiUser);
