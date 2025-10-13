@@ -5,6 +5,7 @@ import accountRoute from './account.route.js';
 import authRoute from './auth.route.js';
 import dashboardRoute from './dashboard.route.js';
 import orderRoute from './order.route.js';
+import orderStatisticRoute from './orderStatistic.route.js';
 import permissionRoute from './permission.route.js';
 import productRoute from './product.route.js';
 import productCategoryRoute from './productCategory.route.js';
@@ -32,6 +33,11 @@ const routerAdmin = (app) => {
   app.use(`${systemConfig.prefixAdmin}/auth`, authRoute);
   app.use(`${systemConfig.prefixAdmin}/profile`, authMiddleware.requireAuth, profileRoute);
   app.use(`${systemConfig.prefixAdmin}/orders`, authMiddleware.requireAuth, orderRoute);
+  app.use(
+    `${systemConfig.prefixAdmin}/order-statistics`,
+    authMiddleware.requireAuth,
+    orderStatisticRoute
+  );
   app.use(`${systemConfig.prefixAdmin}/settings`, authMiddleware.requireAuth, settingRoute);
 };
 

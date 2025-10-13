@@ -41,7 +41,7 @@ const productCategory = async (req, res) => {
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
-    res.render('./admin/pages/category/category.view.ejs', {
+    res.render('./admin/pages/productCategory/category.view.ejs', {
       pageTitle: 'Danh mục sản phẩm',
       categoryList,
       activeStatus,
@@ -63,7 +63,7 @@ const createProductCategoryGet = async (req, res) => {
   const categoryList = await productCategoryModel.find(find);
   const newCategoryList = categoryTreeHelper(categoryList);
 
-  res.render('./admin/pages/category/create.view.ejs', {
+  res.render('./admin/pages/productCategory/create.view.ejs', {
     pageTitle: 'Thêm mới danh mục sản phẩm',
     categoryList: newCategoryList,
   });
@@ -105,7 +105,7 @@ const updateProductCategoryGet = async (req, res) => {
       deleted: false,
     });
 
-    res.render('./admin/pages/category/update.view.ejs', {
+    res.render('./admin/pages/productCategory/update.view.ejs', {
       pageTitle: 'Chỉnh sửa danh mục sản phẩm',
       category,
       categoryList: newCategoryList,
@@ -267,7 +267,7 @@ const garbageProductCategory = async (req, res) => {
     deletedAt: 'desc',
   });
 
-  res.render('./admin/pages/category/garbage.view.ejs', {
+  res.render('./admin/pages/productCategory/garbage.view.ejs', {
     pageTitle: 'Thùng rác danh mục',
     categoryList,
     statusList: [],

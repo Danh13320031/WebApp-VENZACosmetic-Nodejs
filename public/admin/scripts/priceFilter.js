@@ -1,4 +1,5 @@
 const formPrice = document.getElementById('form-price');
+const buttonRemovePrice = document.querySelector('.btn-remove-price');
 
 if (formPrice) {
   formPrice.addEventListener('submit', (e) => {
@@ -16,6 +17,15 @@ if (formPrice) {
       url.searchParams.delete('max');
     }
 
+    window.location.href = url.href;
+  });
+}
+
+if (buttonRemovePrice) {
+  buttonRemovePrice.addEventListener('click', () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('min');
+    url.searchParams.delete('max');
     window.location.href = url.href;
   });
 }

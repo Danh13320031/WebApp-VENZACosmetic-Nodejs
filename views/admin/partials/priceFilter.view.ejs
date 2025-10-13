@@ -1,5 +1,5 @@
 <form action="" class="mb-1" id="form-price">
-  <div class="form-box d-flex justify-content-center w-100">
+  <div class="form-box d-flex justify-content-center w-100 form-group">
     <input
       type="number"
       min="0"
@@ -16,6 +16,11 @@
       placeholder="Giá tối đa"
       class="form-control me-1 form-inpmax"
     />
-    <button type="submit" class="btn btn-primary btn-price"><i class="bi bi-funnel"></i></button>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary btn-price"><i class="bi bi-funnel"></i></button>
+      <button type="button" class="btn btn-primary btn-remove-price">
+        <i class="bi bi-eraser"></i>
+      </button>
+    </div>
   </div>
 </form>
