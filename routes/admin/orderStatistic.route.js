@@ -4,5 +4,6 @@ import orderStatisticController from '../../controllers/admin/orderStatistic.con
 const orderStatisticRoute = express.Router();
 
 orderStatisticRoute.get('/day', orderStatisticController.orderStatisticDay);
+orderStatisticRoute.get('/month', orderStatisticController.orderStatisticMonth);
 
 export default orderStatisticRoute;
