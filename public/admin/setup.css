@@ -84,6 +84,7 @@
 
 /* Setup scrollbar */
 ::-webkit-scrollbar {
+  display: none;
   width: 10px;
   background: var(--light-gray-color-admin);
 }

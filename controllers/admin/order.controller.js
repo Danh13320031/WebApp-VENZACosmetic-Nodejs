@@ -13,59 +13,63 @@ import productModel from '../../models/product.model.js';
 
 // GET: /admin/accounts
 const order = async (req, res) => {
-  const find = { deleted: false };
+  try {
+    const find = { deleted: false };
 
-  // Search
-  const objSearch = searchHelper(req.query);
-  if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
 
-  // Status Filter
-  const statusList = [
-    { name: 'Tất cả', class: '', status: '' },
-    { name: 'Chờ xác nhận', class: '', status: 'pending' },
-    { name: 'Đã xác nhận', class: '', status: 'confirmed' },
-    { name: 'Đang giao', class: '', status: 'shipping' },
-    { name: 'Đã giao', class: '', status: 'delivered' },
-    { name: 'Đã hủy', class: '', status: 'cancelled' },
-  ];
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Chờ xác nhận', class: '', status: 'pending' },
+      { name: 'Đã xác nhận', class: '', status: 'confirmed' },
+      { name: 'Đang giao', class: '', status: 'shipping' },
+      { name: 'Đã giao', class: '', status: 'delivered' },
+      { name: 'Đã hủy', class: '', status: 'cancelled' },
+    ];
 
-  const activeStatus = statusFilterHelper(req.query, statusList);
-  if (req.query.status) find.status = req.query.status;
+    const activeStatus = statusFilterHelper(req.query, statusList);
+    if (req.query.status) find.status = req.query.status;
 
-  // Sort
-  const sort = sortHelper(req.query);
-  const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+    // Sort
+    const sort = sortHelper(req.query);
+    const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
 
-  // Price Filter
-  const valueRange = priceFilterHelper(req.query);
-  if (req.query.min && req.query.max) {
-    find.$and = [{ total: { $gt: valueRange.min } }, { total: { $lt: valueRange.max } }];
+    // Price Filter
+    const valueRange = priceFilterHelper(req.query);
+    if (req.query.min && req.query.max) {
+      find.$and = [{ total: { $gt: valueRange.min } }, { total: { $lt: valueRange.max } }];
+    }
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const productTotal = await orderModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    const orderList = await orderModel
+      .find(find)
+      .sort(sort)
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
+
+    res.render('./admin/pages/order/order.view.ejs', {
+      pageTitle: 'Danh sách đơn hàng',
+      orderList: orderList,
+      keyword: objSearch.keyword,
+      activeStatus,
+      sortValue,
+      valueRange,
+      objPagination,
+      statusList,
+    });
+  } catch (err) {
+    console.log('Not found: ', err);
   }
-
-  // Pagination
-  const paginationObj = {
-    limit: 8,
-    currentPage: 1,
-  };
-  const productTotal = await orderModel.countDocuments(find);
-  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
-
-  const orderList = await orderModel
-    .find(find)
-    .sort(sort)
-    .limit(objPagination.limit)
-    .skip(objPagination.productSkip);
-
-  res.render('./admin/pages/order/order.view.ejs', {
-    pageTitle: 'Danh sách đơn hàng',
-    orderList: orderList,
-    keyword: objSearch.keyword,
-    activeStatus,
-    sortValue,
-    valueRange,
-    objPagination,
-    statusList,
-  });
 };
 
 // PATCH: /admin/orders/order-change-status/:status/:id?_method=PATCH

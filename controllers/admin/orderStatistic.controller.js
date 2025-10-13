@@ -1,0 +1,88 @@
+import moment from 'moment-timezone';
+import { timezone } from '../../constants/constant.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
+import orderModel from '../../models/order.model.js';
+
+const orderStatisticDay = async (req, res) => {
+  try {
+    const currentDay = moment().tz(timezone).endOf('day').toDate();
+    const yesterday = moment().subtract(1, 'days').tz(timezone).startOf('day').toDate();
+
+    const minDay = req.query.minDay
+      ? moment(req.query.minDay).tz(timezone).startOf('day').toDate()
+      : yesterday;
+    const maxDay = req.query.maxDay
+      ? moment(req.query.maxDay).tz(timezone).endOf('day').toDate()
+      : currentDay;
+
+    const dayRange = {
+      minDay,
+      maxDay,
+    };
+
+    const find = {
+      deleted: false,
+      createdAt: { $gte: dayRange.minDay, $lte: dayRange.maxDay },
+    };
+
+    const countOrderListDay = await orderModel.find(find);
+    const countOrderDay = countOrderListDay.length;
+    const revenueDay = countOrderListDay.reduce((total, item) => total + item.total, 0);
+    const orderTotalListDay = countOrderListDay.map((item) => item.total);
+    const orderCodeListDay = countOrderListDay.map((item) => item.orderCode);
+    const orderMaxDay = await orderModel.findOne(find).sort({ total: 'desc' }).limit(1);
+    const orderMinDay = await orderModel.findOne(find).sort({ total: 'asc' }).limit(1);
+    const orderListDay = {
+      orderTotalListDay,
+      orderCodeListDay,
+    };
+
+    // TabList
+    const tabList = [
+      { title: 'Thống kê theo ngày', class: 'active', slug: 'day' },
+      { title: 'Thống kê theo tháng', class: '', slug: 'month' },
+      { title: 'Thống kê theo quý', class: '', slug: 'quarter' },
+      { title: 'Thống kê theo năm', class: '', slug: 'year' },
+    ];
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 5,
+      currentPage: 1,
+    };
+    const productTotal = await orderModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    const orderList = await orderModel
+      .find(find)
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
+
+    res.render('./admin/pages/orderStatistic/statistic-day.view.ejs', {
+      pageTitle: 'Thống kê đơn hàng',
+      orderList: orderList,
+      keyword: objSearch.keyword,
+      objPagination,
+      tabList,
+      dayRange,
+      orderListDay,
+      countOrderDay,
+      orderMaxDay,
+      orderMinDay,
+      revenueDay,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const orderStatisticController = {
+  orderStatisticDay,
+};
+
+export default orderStatisticController;

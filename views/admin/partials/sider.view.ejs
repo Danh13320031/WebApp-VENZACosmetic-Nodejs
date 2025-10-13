@@ -63,6 +63,7 @@
               >
             </nav>
           </div>
+
           <a
             class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
             sidebar-number="2"
@@ -95,6 +96,7 @@
               >
             </nav>
           </div>
+
           <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
             sidebar-number="3"
@@ -103,22 +105,40 @@
             <div class="sb-nav-link-icon"><i class="fa-solid fa-code"></i></div>
             Mã giảm giá
           </a>
+
           <a
-            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
-            sidebar-number="3"
-            href="<%= prefixAdmin %>/orders"
+            class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
+            sidebar-number="2"
+            href="#"
+            data-bs-toggle="collapse"
+            data-bs-target="#orderColapseLayouts"
+            aria-expanded="false"
+            aria-controls="orderColapseLayouts"
           >
             <div class="sb-nav-link-icon"><i class="bi bi-bag-check-fill"></i></div>
             Đơn hàng
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
           </a>
-          <a
-            class="text-white d-flex gap-2 nav-link sidebar-nav-link"
-            sidebar-number="3"
-            href="<%= prefixAdmin %>/payments"
+          <div
+            class="collapse"
+            id="orderColapseLayouts"
+            aria-labelledby="headingOne"
+            data-bs-parent="#sidenavAccordion"
           >
-            <div class="sb-nav-link-icon"><i class="fa-solid fa-credit-card"></i></div>
-            Thanh toán
-          </a>
+            <nav class="sb-sidenav-menu-nested nav gap-1">
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/orders"
+                ><i class="bi bi-caret-right-fill me-1"></i>Danh sách đơn hàng</a
+              >
+              <a
+                class="text-white d-flex gap-2 w-100 nav-link sidebar-nav-link"
+                href="<%= prefixAdmin %>/order-statistics/day"
+                ><i class="bi bi-caret-right-fill me-1"></i>Thống kê đơn hàng</a
+              >
+            </nav>
+          </div>
+
           <a
             class="text-white d-flex gap-2 nav-link sidebar-nav-link"
             sidebar-number="3"
@@ -262,6 +282,7 @@
               >
             </nav>
           </div>
+
           <!-- <a
             class="text-white d-flex gap-2 nav-link collapsed sidebar-nav-link"
             href="#"
@@ -331,8 +352,9 @@
                 </nav>
               </div>
             </nav>
-          </div>
-          <a class="text-white d-flex gap-2 nav-link sidebar-nav-link" href="charts.html">
+          </div> -->
+
+          <!-- <a class="text-white d-flex gap-2 nav-link sidebar-nav-link" href="charts.html">
             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
             Charts
           </a>
