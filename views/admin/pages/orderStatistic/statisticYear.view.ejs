@@ -41,49 +41,45 @@
           </div>
         </div>
 
-        <div class="card mb-3">
-          <div class="title-font card-header">Bộ lọc</div>
-          <div class="card-body">
-            <div class="container-fluid">
-              <div class="row gap-md-0 gap-2">
-                <div class="col-12">
-                  <%-include("../../partials/statusFilter.view.ejs") %>
-                </div>
-                <!-- <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"> -->
-                  <%#-include("../../partials/priceFilter.view.ejs") %>
-                <!-- </div> -->
-              </div>
-            </div>
+        <div class="row my-2">
+          <div class="col-12">
+            <ul class="nav nav-underline flex-nowrap py-2 overflow-x-scroll border border-bottom-1 border-top-0 border-end-0 border-start-0">
+              <%-include("../../partials/tabList.view.ejs", { tabUrl: 'order-statistics', tabList: tabList }) %>
+            </ul>
           </div>
         </div>
 
         <div class="card mb-3">
-          <div class="title-font card-header">Danh sách (trang hiện tại: <%= objPagination.currentPage %>)</div>
-          <div class="card-body">
-            <div class="container-fluid p-2 p-md-2">
-              <div class="row gap-md-0 gap-2">
-                <div class="col-lg-4 col-12">
-                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, type: 'order', url: 'orders' }) %>
+          <div class="title-font card-header d-md-flex d-block gap-2 justify-content-between align-items-center">
+            <div class="mb-0">Danh sách (trang hiện tại: <%= objPagination.currentPage %>)</div>
+            <div class="mt-md-0 mt-2">
+              <form action="" class="w-100 form-statistic-year">
+                <div class="input-group">
+                  <input 
+                    type="number" 
+                    name="year" 
+                    placeholder="Nhập số năm..." 
+                    value="<%= moment(yearRange.startYear).format('YYYY') %>" 
+                    min="1"
+                    max="<%= new Date().getFullYear() %>"
+                    step="1"
+                    class="form-control"
+                    style="width: max-content;"
+                  />
+                  <div class="flex-fill btn-group">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i></button>
+                    <button type="button" class="btn btn-primary" button-reset-statistic-year><i class="bi bi-eraser"></i></button>
+                  </div>
                 </div>
-                <div class="col-lg-4 col-12">
-                  <%-include("../../partials/sort.view.ejs", { 
-                    sortOption: ['createdAt-desc', 'createdAt-asc', 'position-asc', 'position-desc', 'total-asc', 'total-desc', 'orderCode-asc', 'orderCode-desc'] 
-                  }) %>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                  <%-include("../../partials/priceFilter.view.ejs") %>
-                </div>
-              </div>
+              </form>
             </div>
-
+          </div>
+          <div class="card-body">
             <div class="container-fluid w-100">
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
                   <table class="table table-hover table-sm w-100">
                     <thead class="content-font">
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        <input type="checkbox" name="checkall" class="me-5" />
-                      </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Mã đơn hàng
                       </th>
@@ -120,14 +116,6 @@
                       <% if (orderList && orderList.length > 0) { %> <% orderList.forEach((order,
                       index) => { %>
                       <tr>
-                        <td>
-                          <input
-                            type="checkbox"
-                            name="checkid"
-                            value="<%= order._id %>"
-                            class="me-5"
-                          />
-                        </td>
                         <td class="fw-bold"><%= order.orderCode %></td>
                         <td>
                           <div class="text-wrap"><i class="fa-solid fa-user me-1"></i><%= order.userOrderInfo.fullname %></div>
@@ -261,7 +249,7 @@
                                 class="text-light"
                                 style="background: var(--info-color-admin)"
                               >
-                                Đã hoàn tiền
+                                Đã hoàn trả
                               </option>
                             </select>
                           </div>
@@ -288,18 +276,33 @@
               </div>
             </div>
           </div>
+          <div class="card-footer d-md-flex align-items-center justify-content-between gap-2 d-block py-4">
+            <ul class="ps-0 mb-md-0 mb-2 d-flex flex-column gap-1">
+              <li class="content-font mb-0 text-md-left">- Tổng số đơn hàng: <span class="fw-bold"><%= countOrderYear ? countOrderYear : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu cao nhất: <span class="fw-bold"><%= orderMaxYear ? orderMaxYear.orderCode : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu thấp nhất: <span class="fw-bold"><%= orderMinYear ? orderMinYear.orderCode : 'Ko tìm thấy' %></span></li>
+            </ul>
+            <h2 class="title-font mb-0 text-md-right text-left">Tổng doanh thu: <span class="text-danger"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(revenueYear) %></span></h2>
+          </div>
         </div>
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-9 col-md-9 col-12">
+            <div class="col-12">
               <%-include("../../partials/pagination.view.ejs") %>
             </div>
-            <div class="col-lg-3 col-md-3 col-12">
-              <a href="<%= prefixAdmin %>/orders/garbage" class="btn btn-primary w-100 float-end">
-                <i class="bi bi-trash me-2"></i>
-                Thùng rác
-              </a>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <%-include("../../partials/barChart.view.ejs", { 
+                name: 'Biểu đồ doanh thu đơn hàng theo năm', 
+                data: orderListYear.orderTotalListYear, 
+                labels: orderListYear.orderCodeListYear,
+                axis: false,
+              }) %>
             </div>
           </div>
         </div>
@@ -317,20 +320,19 @@
     <!-- Script File -->
     <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/sidebarToggle.js"></script>
-    <script src="/admin/scripts/statusFilter.js"></script>
     <script src="/admin/scripts/search.js"></script>
-    <script src="/admin/scripts/sort.js"></script>
-    <script src="/admin/scripts/priceFilter.js"></script>
-    <script src="/admin/scripts/changeMulti.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/order/changeStatusSelect.js"></script>
+    <script src="/admin/scripts/order/statisticByYear.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <script src="../reload/reload.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/admin/scripts/setBarChart.js"></script>
+    <script src="../../reload/reload.js"></script>
   </body>
 </html>

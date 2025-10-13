@@ -64,7 +64,7 @@ const statisticOrderByDay = async (req, res) => {
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
-    res.render('./admin/pages/orderStatistic/statistic-day.view.ejs', {
+    res.render('./admin/pages/orderStatistic/statisticDay.view.ejs', {
       pageTitle: 'Thống kê đơn hàng',
       orderList: orderList,
       keyword: objSearch.keyword,
@@ -138,7 +138,7 @@ const statisticOrderByMonth = async (req, res) => {
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
-    res.render('./admin/pages/orderStatistic/statistic-month.view.ejs', {
+    res.render('./admin/pages/orderStatistic/statisticMonth.view.ejs', {
       pageTitle: 'Thống kê đơn hàng',
       orderList: orderList,
       keyword: objSearch.keyword,
@@ -212,7 +212,7 @@ const statisticOrderByQuarter = async (req, res) => {
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
-    res.render('./admin/pages/orderStatistic/statistic-quarter.view.ejs', {
+    res.render('./admin/pages/orderStatistic/statisticQuarter.view.ejs', {
       pageTitle: 'Thống kê đơn hàng',
       orderList: orderList,
       keyword: objSearch.keyword,
@@ -230,10 +230,82 @@ const statisticOrderByQuarter = async (req, res) => {
   }
 };
 
+// GET: /admin/order-statistic/year
+const statisticOrderByYear = async (req, res) => {
+  try {
+    const currentYear = req.query.year ? req.query.year : moment().tz(timezone).format('YYYY');
+    const startYear = new Date(currentYear, 0, 1);
+    const endYear = new Date(currentYear, 11, 32);
+    const yearRange = {
+      startYear,
+      endYear,
+    };
+
+    const find = {
+      deleted: false,
+      createdAt: { $gte: startYear, $lte: endYear },
+    };
+
+    const countOrderListYear = await orderModel.find(find);
+    const countOrderYear = countOrderListYear.length;
+    const revenueYear = countOrderListYear.reduce((total, item) => total + item.total, 0);
+    const orderTotalListYear = countOrderListYear.map((item) => item.total);
+    const orderCodeListYear = countOrderListYear.map((item) => item.orderCode);
+    const orderMaxYear = await orderModel.findOne(find).sort({ total: 'desc' }).limit(1);
+    const orderMinYear = await orderModel.findOne(find).sort({ total: 'asc' }).limit(1);
+    const orderListYear = {
+      orderTotalListYear,
+      orderCodeListYear,
+    };
+
+    // TabList
+    const tabList = [
+      { title: 'Thống kê theo ngày', class: '', slug: 'day' },
+      { title: 'Thống kê theo tháng', class: '', slug: 'month' },
+      { title: 'Thống kê theo quý', class: '', slug: 'quarter' },
+      { title: 'Thống kê theo năm', class: 'active', slug: 'year' },
+    ];
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 5,
+      currentPage: 1,
+    };
+    const productTotal = await orderModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    const orderList = await orderModel
+      .find(find)
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
+
+    res.render('./admin/pages/orderStatistic/statisticYear.view.ejs', {
+      pageTitle: 'Thống kê đơn hàng',
+      orderList: orderList,
+      keyword: objSearch.keyword,
+      objPagination,
+      tabList,
+      yearRange,
+      countOrderYear,
+      orderMaxYear,
+      orderMinYear,
+      revenueYear,
+      orderListYear,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const orderStatisticController = {
   statisticOrderByDay,
   statisticOrderByMonth,
   statisticOrderByQuarter,
+  statisticOrderByYear,
 };
 
 export default orderStatisticController;

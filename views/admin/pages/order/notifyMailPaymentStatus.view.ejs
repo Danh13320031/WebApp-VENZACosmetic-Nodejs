@@ -1,0 +1,27 @@
+<div class="order-notify-mail">
+  <p>Xin chào,</p>
+
+  <p>Đơn hàng của bạn có mã: <strong style="color: #f5b607"><%= orderCode %></strong></p>
+
+  <p>
+    Trạng thái thanh toán: <% if (status === 'pending') { %>
+    <strong style="color: #2484bb">Chưa thanh toán</strong>
+    <% } else if (status === 'success') { %>
+    <strong style="color: #51a351">Đã thanh toán</strong>
+    <% } else if (status === 'failed') { %>
+    <strong style="color: #d43027">Thất bại</strong>
+    <% } else if (status === 'refunded') { %>
+    <strong style="color: #2f96b4">Đã hoàn tiền</strong>
+    <% } else { %>
+    <strong>Không xác định</strong>
+    <% } %>
+  </p>
+
+  <p>Cảm ơn bạn đã mua hàng tại VENZA Cosmetic!</p>
+
+  <p>Trân trọng,<br />Đội ngũ VENZA Cosmetic</p>
+
+  <a href="http://127.0.0.1:5000/" class="order-notify-mail-logo">
+    <img src="<%= clientWebsite ? clientWebsite.logo : '' %>" alt="logo" width="130px" />
+  </a>
+</div>

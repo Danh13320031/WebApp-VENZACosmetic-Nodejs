@@ -11,5 +11,10 @@ orderStatisticRoute.get(
   orderStatisticValidate.statisticOrderByQuarterValidate,
   orderStatisticController.statisticOrderByQuarter
 );
+orderStatisticRoute.get(
+  '/year',
+  orderStatisticValidate.statisticOrderByYearValidate,
+  orderStatisticController.statisticOrderByYear
+);
 
 export default orderStatisticRoute;

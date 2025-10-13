@@ -91,13 +91,18 @@ const changeStatusOrder = async (req, res) => {
       return;
     }
 
-    const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
-      clientWebsite: res.locals.clientWebsite,
-      orderCode: order.orderCode,
-      status: status,
-    });
+    if (status !== 'pending') {
+      const html = await ejs.renderFile(
+        './views/admin/pages/order/notifyMailOrderStatus.view.ejs',
+        {
+          clientWebsite: res.locals.clientWebsite,
+          orderCode: order.orderCode,
+          status: status,
+        }
+      );
 
-    await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
+      await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
+    }
 
     await orderModel.findByIdAndUpdate(id, { status: status });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
@@ -119,6 +124,27 @@ const changeStatusPayment = async (req, res) => {
       alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
       res.redirect('back');
       return;
+    }
+
+    const order = await orderModel.findById(id);
+
+    if (!order) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    if (status !== 'pending') {
+      const html = await ejs.renderFile(
+        './views/admin/pages/order/notifyMailPaymentStatus.view.ejs',
+        {
+          clientWebsite: res.locals.clientWebsite,
+          orderCode: order.orderCode,
+          status: status,
+        }
+      );
+
+      await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái thanh toán', html);
     }
 
     await orderModel.findByIdAndUpdate(id, { 'payments.status': status });
@@ -250,11 +276,16 @@ const changeMultiOrder = async (req, res) => {
 
       if (orderList.length > 0) {
         for (const order of orderList) {
-          const html = await ejs.renderFile('./views/admin/pages/order/notifyMail.view.ejs', {
-            clientWebsite: res.locals.clientWebsite,
-            orderCode: order.orderCode,
-            status: order.status,
-          });
+          if (order.status === 'pending') break;
+
+          const html = await ejs.renderFile(
+            './views/admin/pages/order/notifyMailOrderStatus.view.ejs',
+            {
+              clientWebsite: res.locals.clientWebsite,
+              orderCode: order.orderCode,
+              status: order.status,
+            }
+          );
 
           await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
         }
