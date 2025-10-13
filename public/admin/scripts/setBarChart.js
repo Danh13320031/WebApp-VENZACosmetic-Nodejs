@@ -1,7 +1,8 @@
 const barChart = document.getElementById('bar-chart');
-const barChartName = document.getElementById('bar-chart-name');
-const barCharData = document.getElementById('bar-chart-data');
-const barCharLabels = document.getElementById('bar-chart-labels');
+const barChartName = document.getElementById('bar-chart-name').getAttribute('data-value');
+const barCharData = document.getElementById('bar-chart-data').getAttribute('data-value');
+const barCharLabels = document.getElementById('bar-chart-labels').getAttribute('data-value');
+const barCharAxis = document.getElementById('bar-chart-axis').getAttribute('data-value');
 
 // Color set
 const colorsBg = ['#ff638581', '#36a3eb86', '#ffcf5681', '#4bc0c080', '#9966ff81', '#ffa04083'];
@@ -14,15 +15,15 @@ Chart.defaults.color = '#2484bb';
 new Chart(barChart, {
   type: 'bar',
   data: {
-    labels: barCharLabels.textContent.split(','),
+    labels: barCharLabels.split(','),
     datasets: [
       {
-        label: barChartName.textContent,
-        data: barCharData.textContent.split(','),
-        backgroundColor: barCharLabels.textContent
+        label: barChartName,
+        data: barCharData.split(','),
+        backgroundColor: barCharLabels
           .split(',')
           .map((_, index) => colorsBg[index % colorsBg.length]),
-        borderColor: barCharLabels.textContent
+        borderColor: barCharLabels
           .split(',')
           .map((_, index) => colorBorder[index % colorBorder.length]),
         borderWidth: 1,
@@ -36,7 +37,7 @@ new Chart(barChart, {
         beginAtZero: true,
       },
     },
-    indexAxis: 'y',
+    indexAxis: barCharAxis,
     responsive: true,
     maintainAspectRatio: false,
     aspectRatio: 16 / 9,

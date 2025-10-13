@@ -1,0 +1,11 @@
+<% if(tabList && tabList.length > 0) { %> <% tabList.forEach((tab) => { %>
+<li class="nav-item text-nowrap">
+  <a
+    class="nav-link text-primary text-nowrap <% if(tab.class) { %>active<% } %>"
+    aria-current="page"
+    href="<%= prefixAdmin %>/<%= tabUrl %>/<%= tab.slug %>"
+  >
+    <%= tab.title %>
+  </a>
+</li>
+<% }) %> <% } %>

@@ -53,25 +53,18 @@
           <div class="title-font card-header d-md-flex d-block gap-2 justify-content-between align-items-center">
             <div class="mb-0">Danh sách (trang hiện tại: <%= objPagination.currentPage %>)</div>
             <div class="mt-md-0 mt-2">
-              <form action="" class="form-statistic-day">
+              <form action="" class="form-statistic-month">
                 <div class="input-group">
                   <input 
-                    type="date" 
-                    name="minDay" 
-                    placeholder="Nhập số ngày..." 
-                    value="<%= moment(dayRange.minDay).format('YYYY-MM-DD') %>" 
-                    class="form-control" 
-                  />
-                  <input 
-                    type="date" 
-                    name="maxDay" 
-                    placeholder="Nhập số ngày..." 
-                    value="<%= moment(dayRange.maxDay).format('YYYY-MM-DD') %>" 
+                    type="month" 
+                    name="month" 
+                    placeholder="Nhập số tháng..." 
+                    value="<%= moment(monthRange.startMonth).format('YYYY-MM') %>" 
                     class="form-control"
                   />
                   <div class="btn-group">
                     <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i></button>
-                    <button type="button" class="btn btn-primary" button-reset-statistic-day><i class="bi bi-eraser"></i></button>
+                    <button type="button" class="btn btn-primary" button-reset-statistic-month><i class="bi bi-eraser"></i></button>
                   </div>
                 </div>
               </form>
@@ -281,11 +274,11 @@
           </div>
           <div class="card-footer d-md-flex align-items-center justify-content-between gap-2 d-block py-4">
             <ul class="ps-0 mb-md-0 mb-2 d-flex flex-column gap-1">
-              <li class="content-font mb-0 text-md-left">- Tổng số đơn hàng: <span class="fw-bold"><%= countOrderDay ? countOrderDay : 'Ko tìm thấy' %></span></li>
-              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu cao nhất: <span class="fw-bold"><%= orderMaxDay ? orderMaxDay.orderCode : 'Ko tìm thấy' %></span></li>
-              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu thấp nhất: <span class="fw-bold"><%= orderMinDay ? orderMinDay.orderCode : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Tổng số đơn hàng: <span class="fw-bold"><%= countOrderMonth ? countOrderMonth : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu cao nhất: <span class="fw-bold"><%= orderMaxMonth ? orderMaxMonth.orderCode : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu thấp nhất: <span class="fw-bold"><%= orderMinMonth ? orderMinMonth.orderCode : 'Ko tìm thấy' %></span></li>
             </ul>
-            <h2 class="title-font mb-0 text-md-right text-left">Tổng doanh thu: <span class="text-danger"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(revenueDay) %></span></h2>
+            <h2 class="title-font mb-0 text-md-right text-left">Tổng doanh thu: <span class="text-danger"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(revenueMonth) %></span></h2>
           </div>
         </div>
 
@@ -301,9 +294,9 @@
           <div class="row">
             <div class="col-12">
               <%-include("../../partials/barChart.view.ejs", { 
-                name: 'Biểu đồ doanh thu đơn hàng theo ngày', 
-                data: orderListDay.orderTotalListDay, 
-                labels: orderListDay.orderCodeListDay,
+                name: 'Biểu đồ doanh thu đơn hàng theo tháng', 
+                data: orderListMonth.orderTotalListMonth, 
+                labels: orderListMonth.orderCodeListMonth,
                 axis: false,
               }) %>
             </div>
@@ -327,7 +320,7 @@
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/order/changeStatusSelect.js"></script>
-    <script src="/admin/scripts/order/statisticByDay.js"></script>
+    <script src="/admin/scripts/order/statisticByMonth.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
