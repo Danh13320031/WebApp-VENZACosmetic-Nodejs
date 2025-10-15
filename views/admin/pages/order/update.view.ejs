@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
+
+    <!-- Style Library & Framework -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Style File -->
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+  </head>
+  <body>
+    <%-include("../../partials/header.view.ejs") %>
+
+    <div class="body">
+      <%-include("../../partials/sider.view.ejs") %>
+      <div class="main">
+        <%-include("../../partials/alertMessage.view.ejs") %> <%
+        if(roleAuth.permission.includes('order-update')) { %>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
+        <form
+          action="<%= prefixAdmin %>/orders/update/<%= order._id %>?_method=PATCH"
+          method="POST"
+          id="form-handle"
+        >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="orderCode" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Mã đơn hàng
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.orderCode %>"
+                    name="orderCode"
+                    required
+                    disabled
+                    class="form-control"
+                    id="orderCode"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="createdAt" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Đặt lúc
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value="<%= moment(order.createdAt).format('YYYY-MM-DDTHH:mm:ss') %>"
+                    name="createdAt"
+                    required
+                    disabled
+                    class="form-control"
+                    id="createdAt"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="status" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Trạng thái đơn hàng
+                  </label>
+                  <select name="status" required class="form-control" id="status">
+                    <option value="" disabled>-- Lựa chọn --</option>
+                    <option value="pending" <% if(order.status === 'pending') { %> selected <% } %> >Chờ xác nhận</option>
+                    <option value="confirmed" <% if(order.status === 'confirmed') { %> selected <% } %> >Đã xác nhận</option>
+                    <option value="shipping" <% if(order.status === 'shipping') { %> selected <% } %> >Đang giao</option>
+                    <option value="delivered" <% if(order.status === 'delivered') { %> selected <% } %> >Đã giao</option>
+                    <option value="cancelled" <% if(order.status === 'cancelled') { %> selected <% } %> >Đã hủy</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="address" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Địa chỉ giao hàng
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userConsigneeInfo.address %>"
+                    name="address"
+                    required
+                    class="form-control"
+                    id="address"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="paymentStatus" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Tình trạng thanh toán
+                  </label>
+                  <select name="paymentStatus" required class="form-control" id="paymentStatus">
+                    <option value="" disabled>-- Lựa chọn --</option>
+                    <option value="pending" <% if(order.payments.status === 'pending') { %> selected <% } %> >Chưa thanh toán</option>
+                    <option value="success" <% if(order.payments.status === 'success') { %> selected <% } %> >Đã thanh toán</option>
+                    <option value="failed" <% if(order.payments.status === 'failed') { %> selected <% } %> >Thất bại</option>
+                    <option value="refunded" <% if(order.payments.status === 'refunded') { %> selected <% } %> >Đã hoàn tiền</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="paymentMethod" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Phương thức thanh toán
+                  </label>
+                  <select name="paymentMethod" required class="form-control" id="paymentMethod" <% if(order.payments.status !== 'pending') { %> disabled <% } %>>
+                    <option value="" disabled>-- Lựa chọn --</option>
+                    <option value="offline" <% if(order.payments.method === 'offline') { %> selected <% } %> >Thanh toán khi nhận hàng</option>
+                    <option value="online" <% if(order.payments.method === 'online') { %> selected <% } %> >Thanh toán trực tuyến</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="note" class="fw-bold">Ghi chú</label>
+                  <textarea name="note" class="form-control" id="note"><%= order.userConsigneeInfo.note %></textarea>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userOrderName" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Họ và tên người đặt
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userOrderInfo.fullname %>"
+                    name="userOrderName"
+                    required
+                    disabled
+                    class="form-control"
+                    id="userOrderName"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userOrderEmail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Email người đặt
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userOrderInfo.email %>"
+                    name="userOrderEmail"
+                    required
+                    disabled
+                    class="form-control"
+                    id="userOrderEmail"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userOrderPhone" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Số điện thoại người đặt
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userOrderInfo.phone %>"
+                    name="userOrderPhone"
+                    required
+                    disabled
+                    class="form-control"
+                    id="userOrderPhone"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userOrderAddress" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Địa chi người đặt
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userOrderInfo.address ? order.userOrderInfo.address : '' %>"
+                    name="userOrderAddress"
+                    required
+                    disabled
+                    class="form-control"
+                    id="userOrderAddress"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userConsigneeName" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Họ tên người nhận
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userConsigneeInfo.fullname %>"
+                    name="userConsigneeName"
+                    required
+                    class="form-control"
+                    id="userConsigneeName"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userConsigneeEmail" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Email người nhận
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userConsigneeInfo.email %>"
+                    name="userConsigneeEmail"
+                    required
+                    class="form-control"
+                    id="userConsigneeEmail"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="userConsigneePhone" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Số điện thoại người nhận
+                  </label>
+                  <input
+                    type="text"
+                    value="<%= order.userConsigneeInfo.phone %>"
+                    name="userConsigneePhone"
+                    required
+                    class="form-control"
+                    id="userConsigneePhone"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <div class="d-md-flex justify-content-between align-items-center d-block">
+                      <h5 class="title-font mb-2 mb-md-0">
+                        Thông tin sản phẩm
+                      </h5>
+                      <div>
+                        <%-include("../../partials/search.view.ejs", { placeholder: 'Nhập tên sản phẩm...' }) %>
+                      </div>
+                      <div class="form-group me-1 d-none">
+                        <input type="text" name="products" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="container-fluid w-100">
+                      <div class="row">
+                        <div class="col-12">
+                          <table class="table table-hover table-sm w-100">
+                            <thead class="content-font">
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                <input type="checkbox" name="checkall" class="me-5" />
+                                STT
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline d-none">Mã sản phẩm</th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Ảnh sản phẩm
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Tiêu đề
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Giá tiền (VNĐ)
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Giảm giá (%)
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Số lượng
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Thành tiền
+                              </th>
+                              <th class="bg-primary-subtle text-primary text-decoration-underline">
+                                Hành động
+                              </th>
+                            </thead>
+
+                            <tbody class="content-font">
+                              <% if (productListInOrder && productListInOrder.length > 0) { %> <%
+                              productListInOrder.forEach((product, index) => { %>
+                              <tr>
+                                <td>
+                                  <input
+                                    type="checkbox"
+                                    name="checkid"
+                                    value="<%= product.id %>"
+                                    class="me-5"
+                                  />
+                                  <span><%= index + 1 %></span>
+                                </td>
+                                <td class="d-none">
+                                  <input type="text" name="productId" value="<%= product.id %>" />
+                                </td>
+                                <td>
+                                  <img
+                                    src="<%= product.thumbnail %>"
+                                    alt="<%= product.title %>"
+                                    width="100px"
+                                  />
+                                </td>
+                                <td><span><%= product.title %></span></td>
+                                <td>
+                                  <input type="number" name="productPrice" value="<%= product.price %>" min="0" step="1000" class="text-center form-control"/>
+                                </td>
+                                <td><input type="number" name="productDiscount" value="<%= product.discount %>" min="0" max="100" step="0.1" class="text-center form-control"/></td>
+                                <td><input type="number" name="productQuantity" value="<%= product.quantity %>" min="0" max="100" step="1" class="text-center form-control"/></td>
+                                <td>
+                                  <span class="fw-bold" style="color: var(--warning-color-admin)"
+                                    ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                                    }).format(product.total) %>
+                                  </span>
+                                </td>
+                                <td>
+                                  <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id) {
+                                  %>
+                                  <a
+                                    href="<%= prefixAdmin %>/products/detail/<%= product.id %>"
+                                    class="btn btn-outline-black text-black border-black btn-sm"
+                                  >
+                                    Chi tiết
+                                    <i class="bi bi-arrow-right-short ml-1"></i>
+                                  </a>
+                                  <% } %> <% }) %>
+                                </td>
+                              </tr>
+                              <% }) %> <% } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-footer">
+                    <div class="container-fluid">
+                      <div class="row justify-content-between align-items-center">
+                        <div class="col-lg-6 col-12">
+                          <%-include("../../partials/pagination.view.ejs") %>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                          <div class="d-md-flex justify-content-end d-block text-center order-total">
+                            <h3 class="title-font mb-0" style="color: var(--error-color-admin)">
+                              Tổng tiền: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                              'VND' }).format(order.total) %>
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <button type="submit" class="btn btn-outline-primary w-100 form-create">
+              <i class="bi bi-pencil-square me-1"></i>Cập nhật đơn hàng
+            </button>
+          </div>
+        </form>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Script File -->
+    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/statusFilter.js"></script>
+    <script src="/admin/scripts/search.js"></script>
+    <script src="/admin/scripts/pagination.js"></script>
+    <script src="/admin/scripts/order/changeStatusSelect.js"></script>
+    <script src="/admin/scripts/order/submitUpdateForm.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/toggleAccountInfo.js"></script>
+
+    <!-- Script Library & Framwork -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.tiny.cloud/1/j8bmm28z8l7u8m5at9v64rveeytj143ibxpezl0aks1g6uzx/tinymce/8/tinymce.min.js"
+      referrerpolicy="origin"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/admin/scripts/tinymce.js"></script>
+    <script src="../../../reload/reload.js"></script>
+  </body>
+</html>

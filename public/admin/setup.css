@@ -321,5 +321,5 @@ input[type='radio']:focus {
 }
 
 textarea {
-  min-height: px !important;
+  min-height: 200px !important;
 }

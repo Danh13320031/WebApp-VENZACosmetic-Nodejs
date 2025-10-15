@@ -72,6 +72,149 @@ const order = async (req, res) => {
   }
 };
 
+// GET: /admin/orders/update/:id
+const updateOrderGet = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+    return;
+  }
+
+  const order = await orderModel.findById(id);
+
+  if (!order) {
+    res.redirect('back');
+    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+    return;
+  }
+
+  const userOrder = await userModel.findById(order.userOrderInfo.user_id);
+
+  let productListInOrder = [];
+  let productList = [];
+  let orderTotal = 0;
+
+  for (const productOrder of order.products) {
+    const productInfo = await productModel.findById(productOrder.product_id);
+    const product = {};
+
+    product.id = productOrder.product_id;
+    product.price = productOrder.price;
+    product.title = productOrder.title;
+    product.thumbnail = productOrder.thumbnail;
+    product.brand = productOrder.brand;
+    product.warranty = productOrder.warranty;
+    product.dimension = productOrder.dimension;
+    product.discount = productOrder.discount;
+    product.quantity = productOrder.quantity;
+    product.total =
+      (productOrder.price - (productOrder.price * productOrder.discount) / 100) *
+      productOrder.quantity;
+
+    orderTotal += product.total;
+    productListInOrder.push(product);
+    productList.push(productInfo);
+  }
+
+  // Search
+  let keywordStr = '';
+  const objSearch = searchHelper(req.query);
+
+  if (objSearch.rexKeywordString) keywordStr = objSearch.rexKeywordString;
+  productListInOrder = productListInOrder.filter((product) => product.title.match(keywordStr));
+
+  // Pagination
+  const paginationObj = {
+    limit: 4,
+    currentPage: 1,
+  };
+  const productTotal = productListInOrder.length;
+  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+  productListInOrder = productListInOrder.slice(
+    objPagination.productSkip,
+    objPagination.productSkip + objPagination.limit
+  );
+
+  res.render('./admin/pages/order/update.view.ejs', {
+    pageTitle: `Đơn hàng ${order.orderCode}`,
+    order: order,
+    userOrder,
+    productList,
+    productListInOrder,
+    orderTotal,
+    keyword: objSearch.keyword,
+    objPagination,
+  });
+};
+
+// PATCH: /admin/orders/update/:id
+const updateOrderPatch = async (req, res) => {
+  try {
+    const id = req.params.id ? req.params.id : null;
+    const order = await orderModel.findById(id);
+
+    if (!order) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+      return;
+    }
+
+    const userConsigneeInfo = {};
+
+    if (req.body.userConsigneeName) userConsigneeInfo.fullname = req.body.userConsigneeName;
+    if (req.body.userConsigneeEmail) userConsigneeInfo.email = req.body.userConsigneeEmail;
+    if (req.body.userConsigneePhone) userConsigneeInfo.phone = req.body.userConsigneePhone;
+    if (req.body.address) userConsigneeInfo.address = req.body.address;
+    if (req.body.note) userConsigneeInfo.note = req.body.note;
+    req.body.userConsigneeInfo = userConsigneeInfo;
+
+    const payments = {};
+
+    if (req.body.paymentStatus) payments.status = req.body.paymentStatus;
+    if (req.body.paymentMethod) payments.method = req.body.paymentMethod;
+    req.body.payments = payments;
+
+    if (req.body.products) req.body.products = JSON.parse(req.body.products);
+
+    if (order.products.length > 0) {
+      let total = 0;
+
+      for (const product of order.products) {
+        if (req.body.products && req.body.products.length > 0) {
+          for (const prd of req.body.products) {
+            if (product.product_id === prd.product_id) {
+              product.quantity = prd.quantity;
+              product.price = prd.price;
+              product.discount = prd.discount;
+            }
+          }
+        }
+
+        total += product.quantity * (product.price - (product.price * product.discount) / 100);
+      }
+
+      await orderModel.findByIdAndUpdate(id, {
+        total: total,
+        products: order.products,
+        payments: req.body.payments,
+        userConsigneeInfo: req.body.userConsigneeInfo,
+      });
+    }
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
+    res.redirect('back');
+    return;
+  } catch (err) {
+    console.log('Update order fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/orders/order-change-status/:status/:id?_method=PATCH
 const changeStatusOrder = async (req, res) => {
   try {
@@ -302,6 +445,12 @@ const changeMultiOrder = async (req, res) => {
 const deleteOrder = async (req, res) => {
   const { id } = req.params;
 
+  if (!id) {
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+
   try {
     await orderModel.findByIdAndUpdate(id, {
       deleted: true,
@@ -454,6 +603,8 @@ const detailOrder = async (req, res) => {
 
 const orderController = {
   order,
+  updateOrderGet,
+  updateOrderPatch,
   changeStatusOrder,
   changeStatusPayment,
   changeMultiOrder,

@@ -139,6 +139,13 @@ input[type='radio']:checked {
   background: var(--primary-color);
   border: var(--border-thickness-button) solid var(--primary-color);
 }
+textarea.textarea-type01 {
+  border: var(--border-thickness-field) solid var(--dark-gray-color);
+  border-radius: none;
+  padding: var(--padding-field);
+  outline: none;
+  box-shadow: none;
+}
 /* End Bootstrap Setup */
 
 /* TinyMCE setup */

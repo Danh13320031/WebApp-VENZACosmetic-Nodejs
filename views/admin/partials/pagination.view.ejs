@@ -2,16 +2,16 @@
   <ul class="pagination">
     <% if(objPagination.currentPage <= 1) {%>
     <li class="page-item disabled">
-      <button class="text-primary page-link">Trước</button>
+      <button type="button" class="text-primary page-link">Trước</button>
     </li>
     <% } else {%>
     <li class="page-item">
-      <button class="text-primary page-link previous">Trước</button>
+      <button type="button" class="text-primary page-link previous">Trước</button>
     </li>
     <% } %> <%# End Button Previous %> <% for(let i = 1; i <= objPagination.pageTotal; i++) {%> <%
     if(i == objPagination.currentPage) {%>
     <li class="page-item active" aria-current="page">
-      <button
+      <button type="button"
         class="page-link"
         style="background: var(--secondary-color-admin); border-color: var(--secondary-color-admin)"
         page-number="<%= i %>"
@@ -21,16 +21,16 @@
     </li>
     <% } else {%>
     <li class="page-item">
-      <button class="text-primary page-link" page-number="<%= i %>" href="#"><%= i %></button>
+      <button type="button" class="text-primary page-link" page-number="<%= i %>"><%= i %></button>
     </li>
     <% } %> <% } %> <%# End Button Number %> <% if(objPagination.currentPage >=
     objPagination.pageTotal) {%>
     <li class="page-item disabled">
-      <button class="text-primary page-link" href="#">Sau</button>
+      <button type="button" class="text-primary page-link">Sau</button>
     </li>
     <% } else {%>
     <li class="page-item">
-      <button class="text-primary page-link next" href="#">Sau</button>
+      <button type="button" class="text-primary page-link next">Sau</button>
     </li>
     <% } %> <%# End Button Next %>
   </ul>

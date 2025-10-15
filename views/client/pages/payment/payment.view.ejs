@@ -42,7 +42,8 @@
     <%-include("../../partials/headerMobile.view.ejs") %>
 
     <main class="main">
-      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl }) %>
+      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl })
+      %>
 
       <div class="pb-5 payment-wrapper">
         <div class="container">
@@ -108,6 +109,7 @@
                                 ></span>
                               </div>
                             </div>
+
                             <div class="col-lg-6 col-12">
                               <div class="w-100 payment-info-form-input form-input-phone">
                                 <label
@@ -133,6 +135,7 @@
                             </div>
                           </div>
                         </div>
+
                         <div class="d-flex flex-column payment-info-form-input form-input-email">
                           <label
                             for="email"
@@ -151,6 +154,7 @@
                             style="color: var(--error-color); font-size: var(--error-font-size)"
                           ></span>
                         </div>
+
                         <div
                           class="d-flex flex-column position-relative payment-info-form-input form-input-address"
                         >
@@ -179,6 +183,7 @@
                             ></ul>
                           </div>
                         </div>
+
                         <div class="payment-info-form-input form-input-checkout">
                           <h4 class="title-font payment-info-form-title">Phương thức thanh toán</h4>
                           <div class="payment-info-form-radio">
@@ -214,6 +219,7 @@
                             style="color: var(--error-color); font-size: var(--error-font-size)"
                           ></span>
                         </div>
+
                         <div class="payment-info-form-input form-input-shipping">
                           <h4 class="title-font payment-info-form-title">Phương thức vận chuyển</h4>
                           <div class="payment-info-form-radio">
@@ -263,6 +269,21 @@
                             style="color: var(--error-color); font-size: var(--error-font-size)"
                           ></span>
                         </div>
+
+                        <div class="d-flex flex-column payment-info-form-input form-input-note">
+                          <label
+                            for="note"
+                            class="title-font payment-info-form-label form-label-note"
+                            >Ghi chú khác</label
+                          >
+                          <textarea
+                            name="note"
+                            id="note"
+                            placeholder="Nhập các ghi chú khác..."
+                            class="textarea-type01"
+                          ></textarea>
+                        </div>
+
                         <div class="payment-info-form-btn">
                           <button
                             type="submit"
