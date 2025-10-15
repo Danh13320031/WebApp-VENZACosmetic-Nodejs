@@ -8,11 +8,9 @@
     >
       <h1 class="text-light heading-font p-0 mb-0 banner-page-title"><%= pageTitle %></h1>
       <div class="d-flex gap-1 banner-page-url">
-        <a class="content-font banner-page-link" href="<%= pageUrl.homePage %>">Trang chủ</a>
-        <span class="text-light">/</span>
-        <a
-          class="content-font banner-page-link"
-          href="<%= pageUrl.homePage + pageUrl.currentPage %>"
+        <a class="content-font banner-page-link" href="<%=pageUrl.homePage %>">Trang chủ</a>
+        <span class="content-font text-light">/</span>
+        <a class="content-font banner-page-link" href="<%=pageUrl.homePage + pageUrl.currentPage%>"
           ><%= pageTitle %></a
         >
       </div>

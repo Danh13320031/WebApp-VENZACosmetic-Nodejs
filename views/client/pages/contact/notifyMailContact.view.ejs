@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <main class="main">
+      <div class="mail-container">
+        <div class="header">📩 Liên hệ mới từ website VENZA</div>
+        <div class="content">
+          <p><span class="highlight">Họ và tên:</span> <%= fullname %></p>
+          <p><span class="highlight">Email:</span> <%= email %></p>
+          <p><span class="highlight">Số điện thoại:</span> <%= phone %></p>
+          <p><span class="highlight">Chủ đề:</span> <%= subject %></p>
+          <p><span class="highlight">Nội dung:</span></p>
+          <div class="text-to-html"><%- message %></div>
+        </div>
+        <div class="footer">
+          Email này được gửi tự động từ hệ thống website VENZA.<br />
+          Vui lòng không phản hồi trực tiếp vào địa chỉ này.
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+  </body>
+</html>
