@@ -16,8 +16,19 @@ const statisticOrderByQuarterValidate = async (req, res, next) => {
   next();
 };
 
+const statisticOrderByYearValidate = async (req, res, next) => {
+  // Check year
+  if (!req.query.year) req.query.year = moment().tz(timezone).format('YYYY');
+  if (req.query.year < 2020) req.query.year = 2020;
+  if (req.query.year > moment().tz(timezone).format('YYYY'))
+    req.query.year = moment().tz(timezone).format('YYYY');
+
+  next();
+};
+
 const orderStatisticValidate = {
   statisticOrderByQuarterValidate,
+  statisticOrderByYearValidate,
 };
 
 export default orderStatisticValidate;
