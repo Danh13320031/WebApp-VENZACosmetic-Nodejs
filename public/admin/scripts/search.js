@@ -1,12 +1,10 @@
-const formSearch = document.getElementById('form-search');
+const buttonSearch = document.querySelector('button[type="button"].btn-search');
 const buttonRemoveSearch = document.querySelector('.btn-remove-search');
 
-if (formSearch) {
-  formSearch.addEventListener('submit', (e) => {
-    e.preventDefault();
-
+if (buttonSearch) {
+  buttonSearch.addEventListener('click', () => {
     const url = new URL(window.location.href);
-    const inputSearchValue = formSearch.querySelector('.input-search').value;
+    const inputSearchValue = document.querySelector('input[id="input-search"].input-search').value;
 
     url && inputSearchValue
       ? url.searchParams.set('keyword', inputSearchValue)

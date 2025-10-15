@@ -253,16 +253,25 @@
                         <td><%= moment(order.createdAt).format('DD/MM/YYYY - h:mm:ss') %></td>
                         <td><%= order.position %></td>
                         <td>
-                          <button
-                            class="btn btn-danger btn-sm ml-1 btn-delete"
-                            data-id="<%= order._id %>"
-                          >
-                            <i class="bi bi-trash3 me-1"></i>Xóa
-                          </button>
-                          <a
-                            href="<%= prefixAdmin %>/orders/detail/<%= order._id %>"
-                            class="btn btn-outline-black text-black border-black btn-sm"
-                            >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i></a>
+                          <div class="d-flex flex-wrap gap-1">
+                              <a
+                              href="<%= prefixAdmin %>/orders/update/<%= order._id %>"
+                              data-id="<%= order._id %>"
+                              class="btn btn-primary btn-sm btn-update"
+                            >
+                              <i class="bi bi-pencil-square me-1"></i>Sửa
+                            </a>
+                            <button
+                              class="btn btn-danger btn-sm ml-1 btn-delete"
+                              data-id="<%= order._id %>"
+                            >
+                              <i class="bi bi-trash3 me-1"></i>Xóa
+                            </button>
+                            <a
+                              href="<%= prefixAdmin %>/orders/detail/<%= order._id %>"
+                              class="btn btn-outline-black text-black border-black btn-sm"
+                              >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i></a>
+                          </div>
                         </td>
                       </tr>
                       <% }) %> <% } %>
