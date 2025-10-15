@@ -75,6 +75,37 @@
 }
 /* End Field Setup */
 
+/* TinyMCE setup */
+div[role='application'].tox-tinymce {
+  border: 1px solid var(--dark-gray-color) !important;
+  border-radius: unset !important;
+}
+.tox .tox-edit-area::before {
+  border: 2px solid var(--primary-color) !important;
+  border-radius: unset !important;
+}
+.tox .tox-mbtn--active,
+.tox .tox-mbtn:not(:disabled).tox-mbtn--active:focus {
+  background: var(--light-primary-color) !important;
+}
+.tox .tox-tbtn:focus::after {
+  box-shadow: 0 0 0 2px var(--primary-color) !important;
+}
+.tox .tox-mbtn:focus:not(:disabled)::after {
+  box-shadow: 0 0 0 2px var(--primary-color) !important;
+}
+.tox
+  .tox-collection--list
+  .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
+  background-color: var(--primary-color) !important;
+}
+.tox .tox-tbtn--active,
+.tox .tox-tbtn--enabled,
+.tox .tox-tbtn--enabled:focus,
+.tox .tox-tbtn--enabled:hover {
+  background: var(--light-primary-color) !important;
+}
+
 /* Scrollbar Setup */
 ::-webkit-scrollbar {
   width: 10px;
@@ -103,7 +134,7 @@ input[type='email'].input-type01,
 input[type='password'].input-type01,
 input[type='number'].input-type01 {
   border: var(--border-thickness-field) solid var(--dark-gray-color);
-  border-radius: none;
+  border-radius: none !important;
   padding: var(--padding-field);
   outline: none;
   box-shadow: none;

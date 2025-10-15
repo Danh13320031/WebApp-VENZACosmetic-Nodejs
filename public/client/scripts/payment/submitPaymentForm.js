@@ -34,8 +34,9 @@ if (paymentForm) {
 
   function validateEmail(emailEl) {
     const value = emailEl.value.trim();
+    const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
     if (!value) return 'Email không được để trống';
-    if (!validator.isEmail(value)) return 'Email không hợp lệ';
+    if (!emailRegex.test(value)) return 'Email không hợp lệ';
     return '';
   }
 
