@@ -199,7 +199,10 @@
             >
           </li>
           <li class="navheader-menu-item">
-            <a href="/about.html" class="navheader-menu-link nav-link">Giới thiệu</a>
+            <a href="/about" <% if(aboutActive) { %>
+              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
+              nav-link" <% } %> >Giới thiệu</a
+            >
           </li>
           <li class="navheader-menu-item">
             <a href="/products" <% if(productActive) { %>
