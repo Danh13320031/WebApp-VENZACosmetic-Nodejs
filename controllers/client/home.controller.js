@@ -9,6 +9,20 @@ const home = async (req, res) => {
   const productList = await productModel.find(find).sort({ createdAt: 'desc' });
   const categoryTree = categoryTreeHelper(categoryList);
 
+  // Product like filter
+  const productLike = res.locals.productLike;
+  if (productLike && productLike.products.length > 0) {
+    productList.forEach((product) => {
+      const productLikeItem = productLike.products.find(
+        (productLikeItem) => productLikeItem.product_id === product._id.toString()
+      );
+
+      if (productLikeItem) {
+        product.isLike = true;
+      }
+    });
+  }
+
   res.render('./client/pages/home/index.view.ejs', {
     pageTitle: 'Trang chủ',
     categoryTree: categoryTree,

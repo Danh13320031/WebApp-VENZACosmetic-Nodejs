@@ -12,6 +12,8 @@ import {
   verifyTokenExpiresIn,
 } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import handleCartLoginHelper from '../../helpers/client/cart/handleCartLogin.helper.js';
+import handleProductLikeLoginHelper from '../../helpers/client/productLike/handleProductLikeLogin.helper.js';
 import generateOtpHelper from '../../helpers/generateOtp.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
@@ -41,7 +43,6 @@ const registerPost = async (req, res) => {
       expiresIn: verifyTokenExpiresIn,
     });
     const link = `http://${process.env.HOSTNAME}:${process.env.PORT}/register-change-isverified/${verifyToken}`;
-
     const html = await ejs.renderFile('./views/client/pages/auth/notifyMailActive.view.ejs', {
       clientWebsite: res.locals.clientWebsite,
       fullname: user.fullname,
@@ -120,42 +121,9 @@ const loginPost = async (req, res) => {
     user.refreshToken = refreshToken;
     await user.save();
 
-    // Xử lý cart
-    const cartId = req.cookies.cartId || null;
-    let userCart = await cartModel.findOne({ user_id: user._id });
-    let guestCart = null;
+    await handleCartLoginHelper(req, res, user);
+    await handleProductLikeLoginHelper(req, res, user);
 
-    if (cartId) {
-      guestCart = await cartModel.findById(cartId);
-    }
-
-    if (guestCart && !guestCart.user_id) {
-      if (!userCart) {
-        guestCart.user_id = user._id;
-        await guestCart.save();
-        userCart = guestCart;
-      } else {
-        guestCart.products.forEach((gp) => {
-          const existing = userCart.products.find((up) => up.product_id === gp.product_id);
-
-          if (existing) {
-            existing.quantity += gp.quantity;
-          } else {
-            userCart.products.push(gp);
-          }
-        });
-
-        await userCart.save();
-        await guestCart.deleteOne();
-      }
-    }
-
-    if (!userCart) {
-      userCart = new cartModel({ user_id: user._id, products: [] });
-      await userCart.save();
-    }
-
-    res.cookie('cartId', userCart._id, { httpOnly: true, maxAge: maxAgeCartStorage });
     alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
     res.redirect('/');
     return;

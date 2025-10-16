@@ -4,5 +4,6 @@ const productRoute = express.Router();
 
 productRoute.get('/', productController.product);
 productRoute.get('/detail/:productSlug', productController.getProductDetail);
+productRoute.post('/add-favorite/:id', productController.addProductFavorite);
 
 export default productRoute;

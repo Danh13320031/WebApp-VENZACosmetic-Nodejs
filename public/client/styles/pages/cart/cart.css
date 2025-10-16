@@ -71,6 +71,13 @@
   color: var(--dark-gray-color);
   font-size: var(--icon-font-size);
 }
+.card-bg .card-favorite i {
+  font-size: var(--icon-font-size);
+  color: var(--dark-gray-color);
+}
+.card-bg .card-favorite.active i {
+  color: var(--error-color);
+}
 .card-bg .card-rating .card-star i {
   font-size: var(--icon-font-size2);
   color: var(--dark-gray-color);

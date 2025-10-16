@@ -240,8 +240,8 @@
                     }).format(Number.parseFloat(product.price - (product.price / 100 *
                         product.discount)))%>
                       </h5>
-                      <div class="card-favorite">
-                        <i class="bi bi-suit-heart-fill"></i>
+                      <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
+                        <button class="border-0 btn-add-favorite" data-id="<%= product._id %>"><i class="bi bi-suit-heart-fill"></i></button>
                       </div>
                     </div>
                     <div class="content-font text-danger text-decoration-line-through">
@@ -310,6 +310,13 @@
       id="form-change-quantity-cart"
     ></form>
 
+    <form 
+      action="/products/add-favorite" 
+      method="POST" 
+      class="d-none form-add-favorite" 
+      id="form-add-favorite">
+    </form>
+
     <!-- Scripts File -->
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
@@ -326,6 +333,7 @@
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 

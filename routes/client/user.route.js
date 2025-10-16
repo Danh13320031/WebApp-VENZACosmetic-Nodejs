@@ -12,14 +12,15 @@ const upload = multer();
 // Config Cloudinary Package
 cloudinaryPackageConfig();
 
-userRoute.get('/profile', authMiddleware.requireLogin, userController.profileGet);
+userRoute.get('/profile', authMiddleware.requireLogin, userController.updateProfileGet);
 userRoute.patch(
   '/profile',
   authMiddleware.requireLogin,
   upload.single('avatar'),
   uploadMiddleware.uploadCloud,
   userValidate.profilePatchValidate,
-  userController.profilePatch
+  userController.updateProfilePatch
 );
+userRoute.get('/history', authMiddleware.requireLogin, userController.historyGet);
 
 export default userRoute;

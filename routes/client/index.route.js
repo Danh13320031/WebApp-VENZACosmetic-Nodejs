@@ -1,5 +1,6 @@
 import authMiddleware from '../../middlewares/client/auth.middleware.js';
 import cartMiddleware from '../../middlewares/client/cart.middleware.js';
+import productLikeMiddleware from '../../middlewares/client/productLike.middleware.js';
 import settingMiddleware from '../../middlewares/setting.middleware.js';
 import aboutRoute from './about.route.js';
 import authRoute from './auth.route.js';
@@ -15,6 +16,7 @@ const routerClient = (app) => {
   app.use(settingMiddleware.settingClient);
   app.use(authMiddleware.checkToken);
   app.use(cartMiddleware.cartStorage);
+  app.use(productLikeMiddleware.productLikeStorage);
 
   app.use('/', homeRoute);
   app.use('/about', aboutRoute);
