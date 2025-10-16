@@ -205,10 +205,10 @@
                           </div>
                         </td>
                         <% if (order.payments.method === 'online') { %>
-                        <td><span class="badge bg-warning text-wrap">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
+                        <td><span class="badge text-wrap" style="background: var(--info-color-admin);">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
                         <% } else { %>
                         <td>
-                          <div class="badge bg-warning text-wrap">Thanh toán khi nhận hàng</div>
+                          <div class="badge text-wrap" style="background: var(--warning-color-admin);">Thanh toán khi nhận hàng</div>
                         </td>
                         <% } %>
                         <td>

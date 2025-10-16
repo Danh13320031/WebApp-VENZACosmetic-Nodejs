@@ -8,6 +8,7 @@ import contactRoute from './contact.route.js';
 import homeRoute from './home.route.js';
 import paymentRoute from './payment.route.js';
 import productRoute from './product.route.js';
+import userRoute from './user.route.js';
 
 const routerClient = (app) => {
   app.use(settingMiddleware.settingGeneral);
@@ -21,6 +22,7 @@ const routerClient = (app) => {
   app.use('/contact', contactRoute);
   app.use('/cart', cartRoute);
   app.use('/payment', paymentRoute);
+  app.use('/user', userRoute);
   app.use('/', authRoute);
 };
 

@@ -91,11 +91,11 @@
   position: relative;
 }
 .header .header-others .header-others-box .header-others-auth .auth-avatar .auth-list {
-  width: 150px;
+  width: max-content;
   padding-left: unset;
   position: absolute;
   z-index: 999;
-  top: 60px;
+  top: 50px;
   left: -105px;
   background: var(--dark-gray-color);
   opacity: 0;
@@ -116,7 +116,7 @@
   position: absolute;
   z-index: 999;
   top: -4px;
-  right: 20px;
+  right: 55px;
   background: var(--dark-gray-color);
   transform: rotateZ(45deg);
 }
