@@ -365,6 +365,15 @@ button.slick-next.slick-arrow i:hover {
   color: var(--dark-gray-color);
   font-size: var(--icon-font-size);
 }
+.card-feature .card-bg .card-favorite i,
+.card-sale .card-bg .card-favorite i {
+  font-size: var(--icon-font-size);
+  color: var(--dark-gray-color);
+}
+.card-feature .card-bg .card-favorite.active i,
+.card-sale .card-bg .card-favorite.active i {
+  color: var(--error-color);
+}
 .card-feature .card-bg .card-rating .card-star i,
 .card-sale .card-bg .card-rating .card-star i {
   font-size: var(--icon-font-size2);

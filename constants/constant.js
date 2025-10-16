@@ -8,6 +8,7 @@ export const otpExpiresIn = 3 * 60 * 1000;
 export const emailConst = 'danh13320031@gmail.com';
 
 export const maxAgeCartStorage = 30 * 24 * 60 * 60 * 1000;
+export const maxAgeProductLikeStorage = 30 * 24 * 60 * 60 * 1000;
 
 // Regular expression
 export const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;

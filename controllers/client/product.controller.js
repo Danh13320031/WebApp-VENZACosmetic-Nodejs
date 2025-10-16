@@ -1,4 +1,5 @@
-import { productLimitConst } from '../../constants/constant.js';
+import { maxAgeProductLikeStorage, productLimitConst } from '../../constants/constant.js';
+import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
@@ -10,8 +11,9 @@ import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
+import productLikeModel from '../../models/productLike.model.js';
 
 // GET: /products
 const product = async (req, res) => {
@@ -76,6 +78,20 @@ const product = async (req, res) => {
     .limit(productLimit || productLimitConst)
     .skip(objPagination.productSkip);
 
+  // Product like filter
+  const productLike = res.locals.productLike;
+  if (productLike && productLike.products.length > 0) {
+    productList.forEach((product) => {
+      const productLikeItem = productLike.products.find(
+        (productLikeItem) => productLikeItem.product_id === product._id.toString()
+      );
+
+      if (productLikeItem) {
+        product.isLike = true;
+      }
+    });
+  }
+
   res.render('./client/pages/product/product.view.ejs', {
     pageTitle: 'Danh sách sản phẩm',
     categoryTree: categoryTree,
@@ -121,6 +137,20 @@ const getProductDetail = async (req, res) => {
       $and: [find, { brand: product.brand }, { _id: { $ne: product._id } }],
     });
 
+    // Product like filter
+    const productLike = res.locals.productLike;
+    if (productLike && productLike.products.length > 0) {
+      relatedProductList.forEach((product) => {
+        const productLikeItem = productLike.products.find(
+          (productLikeItem) => productLikeItem.product_id === product._id.toString()
+        );
+
+        if (productLikeItem) {
+          product.isLike = true;
+        }
+      });
+    }
+
     res.render('./client/pages/product/productDetail.view.ejs', {
       pageTitle: product.title,
       categoryTree: categoryTree,
@@ -133,9 +163,62 @@ const getProductDetail = async (req, res) => {
   }
 };
 
+const addProductFavorite = async (req, res) => {
+  try {
+    const user = res.locals.user;
+    const userId = user ? user._id : null;
+    const productLikeId = req.cookies.productLikeId || null;
+    const productId = req.params.id;
+
+    let productLike = await productLikeModel.findOne({ _id: productLikeId, deleted: false });
+
+    if (!productLike) {
+      productLike = new productLikeModel({
+        user_id: userId || null,
+        products: [{ product_id: productId, likedAt: new Date() }],
+      });
+      await productLike.save();
+    } else {
+      const existing = productLike.products.find((p) => p.product_id.toString() === productId);
+
+      if (existing) {
+        productLike.products = productLike.products.filter(
+          (p) => p.product_id.toString() !== productId
+        );
+
+        await productLike.save();
+
+        alertMessageHelper(req, 'alertSuccess', 'Đã xóa sản phẩm khỏi danh sach yêu thich');
+        res.redirect('back');
+        return;
+      }
+
+      if (userId && !productLike.user_id) {
+        productLike.user_id = userId;
+      }
+
+      productLike.products.push({ product_id: productId, likedAt: new Date() });
+      await productLike.save();
+    }
+
+    res.cookie('productLikeId', productLike._id, {
+      httpOnly: true,
+      maxAge: maxAgeProductLikeStorage,
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Đã thêm vào danh sách yêu thích');
+    res.redirect('back');
+  } catch (error) {
+    console.error(error);
+    alertMessageHelper(req, 'alertFailure', 'Đã xảy ra lỗi, vui lòng thử lại');
+    res.redirect('back');
+  }
+};
+
 const productController = {
   product,
   getProductDetail,
+  addProductFavorite,
 };
 
 export default productController;

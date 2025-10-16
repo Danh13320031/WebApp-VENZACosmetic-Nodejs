@@ -58,6 +58,20 @@ const cart = async (req, res) => {
       .sort({ createdAt: 'desc' })
       .limit(6);
 
+    // Product like filter
+    const productLike = res.locals.productLike;
+    if (productLike && productLike.products.length > 0) {
+      relatedProductList.forEach((product) => {
+        const productLikeItem = productLike.products.find(
+          (productLikeItem) => productLikeItem.product_id === product._id.toString()
+        );
+
+        if (productLikeItem) {
+          product.isLike = true;
+        }
+      });
+    }
+
     res.render('./client/pages/cart/cart.view.ejs', {
       pageTitle: 'Giỏ hàng',
       categoryTree: categoryTree,
