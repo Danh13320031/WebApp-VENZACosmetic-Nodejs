@@ -132,12 +132,22 @@ input[type='password']:focus {
 input[type='text'].input-type01,
 input[type='email'].input-type01,
 input[type='password'].input-type01,
-input[type='number'].input-type01 {
+input[type='number'].input-type01,
+input[type='file'].input-type01,
+input[type='date'].input-type01 {
   border: var(--border-thickness-field) solid var(--dark-gray-color);
   border-radius: none !important;
   padding: var(--padding-field);
   outline: none;
   box-shadow: none;
+}
+input[type='file']::file-selector-button {
+  padding: 8px 15px;
+  color: var(--light-gray-color);
+  background: var(--dark-gray-color);
+  text-transform: uppercase;
+  border: var(--border-thickness-button) solid var(--dark-gray-color);
+  cursor: pointer;
 }
 input[type='range'] {
   appearance: none;

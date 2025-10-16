@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import streamifier from 'streamifier';
+import alertMessageHelper from '../helpers/alertMessagge.helper.js';
 
 // Upload stream 1 file
 const uploadStream = (file) => {
@@ -54,10 +55,44 @@ const uploadCloud = async (req, res, next) => {
       return next();
     }
 
+    if (req.file.size > 1024 * 1024 * 5) {
+      alertMessageHelper(req, 'alertFailure', 'Dung lượng file không được vượt quá 5MB');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png') {
+      alertMessageHelper(req, 'alertFailure', 'Chỉ chấp nhận file JPEG hoặc PNG');
+      res.redirect('back');
+      return;
+    }
+
+    if (req.files) {
+      for (const field in req.files) {
+        const files = req.files[field];
+        for (const file of files) {
+          if (file.size > 1024 * 1024 * 5) {
+            alertMessageHelper(req, 'alertFailure', 'Dung lượng file không được vượt quá 5MB');
+            res.redirect('back');
+            return;
+          }
+
+          if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+            alertMessageHelper(req, 'alertFailure', 'Chỉ chấp nhận file JPEG hoặc PNG');
+            res.redirect('back');
+            return;
+          }
+        }
+      }
+    }
+
     await upload(req);
     next();
   } catch (error) {
     console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'Upload ảnh thất bại');
+    res.redirect('back');
+    return;
   }
 };
 
