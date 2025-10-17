@@ -379,7 +379,8 @@
               <h5 class="title-font mb-2 mb-md-0">
                 Thông tin sản phẩm (Trang hiện tại: <%= objPagination.currentPage %>)
               </h5>
-              <%-include("../../partials/search.view.ejs", { placeholder: 'Nhập tên sản phẩm...' }) %>
+              <%-include("../../partials/search.view.ejs", { placeholder: 'Nhập tên sản phẩm...' })
+              %>
             </div>
           </div>
 
@@ -489,13 +490,21 @@
           </div>
         </div>
 
-        <a
-          href="<%= prefixAdmin %>/orders/update/<%= orderDetail._id %>"
-          data-id="<%= orderDetail._id %>"
-          class="btn btn-primary btn-sm mb-1 w-100 btn-update"
-        >
-          <i class="bi bi-pencil-square me-1"></i>Chỉnh sửa đơn hàng
-        </a>
+        <div class="d-flex justify-content-between gap-3 flex-wrap">
+          <a
+            href="<%= prefixAdmin %>/orders/update/<%= orderDetail._id %>"
+            data-id="<%= orderDetail._id %>"
+            class="btn btn-primary btn-sm btn-update"
+          >
+            <i class="bi bi-pencil-square me-1"></i>Chỉnh sửa đơn hàng
+          </a>
+          <a
+            href="<%= prefixAdmin %>/orders/print/<%= orderDetail._id %>"
+            class="btn btn-outline-black text-black border-black btn-sm btn-print"
+          >
+            <i class="bi bi-printer me-1"></i>In hóa đơn hàng
+          </a>
+        </div>
 
         <% } %>
       </div>
