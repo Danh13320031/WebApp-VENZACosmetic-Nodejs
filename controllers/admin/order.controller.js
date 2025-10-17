@@ -1,5 +1,7 @@
 import ejs from 'ejs';
-import { emailConst } from '../../constants/constant.js';
+import * as html_to_pdf from 'html-pdf-node';
+import moment from 'moment-timezone';
+import { emailConst, timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import priceFilterHelper from '../../helpers/priceFilter.helper.js';
@@ -8,8 +10,8 @@ import sendMailHelper from '../../helpers/sendMail.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import orderModel from '../../models/order.model.js';
-import userModel from '../../models/user.model.js';
 import productModel from '../../models/product.model.js';
+import userModel from '../../models/user.model.js';
 
 // GET: /admin/accounts
 const order = async (req, res) => {
@@ -601,6 +603,78 @@ const detailOrder = async (req, res) => {
   });
 };
 
+// GET: /admin/orders/print/:id
+const printOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+      return;
+    }
+
+    const order = await orderModel.findById(id);
+
+    if (!order) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
+      return;
+    }
+
+    let productListInOrder = [];
+    let productList = [];
+    let orderTotal = 0;
+
+    for (const productOrder of order.products) {
+      const productInfo = await productModel.findById(productOrder.product_id);
+      const product = {};
+
+      product.id = productOrder.product_id;
+      product.price = productOrder.price;
+      product.title = productOrder.title;
+      product.thumbnail = productOrder.thumbnail;
+      product.brand = productOrder.brand;
+      product.warranty = productOrder.warranty;
+      product.dimension = productOrder.dimension;
+      product.discount = productOrder.discount;
+      product.quantity = productOrder.quantity;
+      product.total =
+        (productOrder.price - (productOrder.price * productOrder.discount) / 100) *
+        productOrder.quantity;
+
+      orderTotal += product.total;
+      productListInOrder.push(product);
+      productList.push(productInfo);
+    }
+
+    const html = await ejs.renderFile('./views/admin/pages/order/print.view.ejs', {
+      generalWebsite: res.locals.generalWebsite,
+      orderDetail: order,
+      productList,
+      productListInOrder,
+      orderTotal,
+      moment,
+    });
+
+    const file = {
+      content: html,
+      name: `order-invoice-${order.orderCode}-${moment(order.createdAt).format('DD-MM-YYYY')}.pdf`,
+    };
+    const pdfBuffer = await html_to_pdf.generatePdf(file, { format: 'A5' });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
+    res.send(pdfBuffer);
+    return;
+  } catch (error) {
+    console.log(error);
+    alertMessageHelper(req, 'alertFailure', 'In thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const orderController = {
   order,
   updateOrderGet,
@@ -613,6 +687,7 @@ const orderController = {
   restoreOrder,
   deleteGarbageOrder,
   detailOrder,
+  printOrder,
 };
 
 export default orderController;

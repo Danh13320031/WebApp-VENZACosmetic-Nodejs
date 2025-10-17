@@ -106,9 +106,6 @@
                         Ngày đặt
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Vị trí
-                      </th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
                       </th>
                     </thead>
@@ -264,7 +261,6 @@
                           </div>
                         </td>
                         <td><%= moment(order.createdAt).format('DD/MM/YYYY - h:mm:ss') %></td>
-                        <td><%= order.position %></td>
                         <td>
                           <div class="d-flex flex-wrap gap-1">
                             <a
@@ -284,6 +280,12 @@
                             href="<%= prefixAdmin %>/orders/detail/<%= order._id %>"
                             class="btn btn-outline-black text-black border-black btn-sm"
                             >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i></a>
+                          <a
+                            href="<%= prefixAdmin %>/orders/print/<%= order._id %>"
+                            class="btn btn-outline-black text-black border-black btn-sm btn-print"
+                          >
+                            <i class="bi bi-printer"></i>
+                          </a>
                           </div>
                         </td>
                       </tr>

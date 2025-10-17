@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hóa đơn thanh toán</title>
+  </head>
+  <body>
+    <h2 style="text-align: center">HÓA ĐƠN THANH TOÁN</h2>
+
+    <p>Mã đơn hàng: <%= orderDetail.orderCode %></p>
+    <p>Ngày tạo: <%= moment(orderDetail.createdAt).format('DD/MM/YYYY - h:mm:ss') %></p>
+
+    <h3>Thông tin cửa hàng</h3>
+    <p>Tên: <%= generalWebsite?.name || '' %></p>
+    <p>Số điện thoại: <%= generalWebsite?.phone || '' %></p>
+    <p>Email: <%= generalWebsite?.email || '' %></p>
+    <p>Địa chỉ: <%= generalWebsite?.address[0] || '' %></p>
+
+    <h3>Thông tin khách hàng</h3>
+    <p>Họ tên: <%= orderDetail.userConsigneeInfo.fullname %></p>
+    <p>Số điện thoại: <%= orderDetail.userConsigneeInfo.phone %></p>
+    <p>Địa chỉ: <%= orderDetail.userConsigneeInfo.address %></p>
+    <% if (orderDetail.userConsigneeInfo.note) { %>
+    <p>Ghi chú: <%= orderDetail.userConsigneeInfo.note %></p>
+    <% } %>
+
+    <h3>Chi tiết đơn hàng</h3>
+    <table border="1" cellspacing="0" cellpadding="5" width="100%">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giảm giá</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orderDetail.products.forEach((product, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= product.title %></td>
+          <td><%= product.quantity %></td>
+          <td><%= product.discount %>%</td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+            }).format(product.price) %>
+          </td>
+          <td>
+            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+            }).format(product.price * product.quantity * (1 - product.discount / 100)) %>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h3>Tổng kết</h3>
+    <p>
+      <strong>Thành tiền:</strong>
+      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+      }).format(orderDetail.total) %>
+    </p>
+
+    <br />
+    <table width="100%">
+      <tr>
+        <td align="center">
+          Người mua hàng<br />
+          (Ký, ghi rõ họ tên)
+        </td>
+        <td align="center">
+          Người bán hàng<br />
+          (Ký, ghi rõ họ tên)
+        </td>
+      </tr>
+    </table>
+
+    <br /><br />
+    <p align="center">
+      Cảm ơn quý khách đã mua hàng tại <%= generalWebsite?.name || "VENZA Cosmetic" %>!
+    </p>
+  </body>
+</html>
