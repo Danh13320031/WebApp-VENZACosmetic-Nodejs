@@ -3,6 +3,9 @@ import { saltRoundsConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
+import orderModel from '../../models/order.model.js';
+import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import userModel from '../../models/user.model.js';
 
@@ -67,10 +70,56 @@ const historyGet = async (req, res) => {
     const categoryTree = categoryTreeHelper(categoryList);
     const pageUrl = createPageUrlHelper(req);
 
+    // Handle favorite product list history
+    const productList = await productModel.find(find).sort({ createdAt: 'desc' });
+
+    const productLike = res.locals.productLike;
+    if (productLike && productLike.products.length > 0) {
+      productList.forEach((product) => {
+        const productLikeItem = productLike.products.find(
+          (productLikeItem) => productLikeItem.product_id === product._id.toString()
+        );
+
+        if (productLikeItem) {
+          product.isLike = true;
+        }
+      });
+    }
+
+    let productWithLikeList = productList.filter((product) => product.isLike === true);
+
+    // Pagination
+    const paginationObj = {
+      limit: 5,
+      currentPage: 1,
+    };
+    const productTotal = productWithLikeList.length;
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    productWithLikeList = productWithLikeList.slice(
+      objPagination.productSkip,
+      objPagination.productSkip + objPagination.limit
+    );
+
+    // Handle order list history
+    const user = res.locals.user ? res.locals.user : null;
+    const userEmail = user.email ? user.email : null;
+    let orderList = await orderModel
+      .find({ deleted: false, 'userOrderInfo.email': userEmail })
+      .sort({ createdAt: 'desc' });
+
+    orderList = orderList.slice(
+      objPagination.productSkip,
+      objPagination.productSkip + objPagination.limit
+    );
+
     res.render('./client/pages/user/history.view.ejs', {
       pageTitle: 'Nhật ký hoạt động',
       pageUrl: pageUrl,
       categoryTree: categoryTree,
+      productWithLikeList: productWithLikeList,
+      orderList: orderList,
+      objPagination: objPagination,
     });
   } catch (err) {
     console.log('Display user history fail: ', err);

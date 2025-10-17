@@ -1,0 +1,20 @@
+<ul class="content-font pagination-list nav nav-pills ps-0 d-flex flex-wrap gap-1 justify-content-center">
+  <li class="pagination-item page-first nav-link <% if(objPagination.currentPage <= 1) { %>active<% } %>">
+    Đầu
+  </li>
+  <button <% if(objPagination.currentPage <= 1) { %>
+    disabled
+    <% } %> 
+    class="pagination-item page-prev nav-link">
+    <i class="bi bi-arrow-left-short"></i>
+  </button>
+  <% for(let i = 1; i <= objPagination.pageTotal; i++) { %>
+    <li class="pagination-item page-number nav-link <% if(i === objPagination.currentPage) { %>active<% } %>" page-number="<%= i %>"><%= i %></li>
+  <% } %>
+  <button <% if(objPagination.currentPage >= objPagination.pageTotal) { %>disabled<% } %> class="pagination-item page-next nav-link">
+    <i class="bi bi-arrow-right-short"></i>
+  </button>
+  <li class="pagination-item page-last nav-link <% if(objPagination.currentPage >= objPagination.pageTotal) { %>active<% } %>">
+    Cuối
+  </li>
+</ul>

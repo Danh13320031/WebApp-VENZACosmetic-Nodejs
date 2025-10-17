@@ -1,1 +1,332 @@
-<h1><%= pageTitle %></h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
+
+    <!-- Styles File -->
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css" />
+    <link rel="stylesheet" href="/client/styles/pages/user/profile.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <!-- End Styles File -->
+
+    <!-- Styles Library & Framework Link -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- BoxIcon -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <!-- SlickSlide -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- End Styles Library & Framework Link -->
+  </head>
+  <body>
+    <%-include('../../partials/alertMessage.view.ejs') %>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
+    aboutActive: '', productActive: '', newsActive: '', contactActive: '', cartActive: '' }); %>
+    <%-include("../../partials/headerMobile.view.ejs") %>
+
+    <main class="main">
+      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl })%>
+
+      <section class="history-favorite">
+        <h3 class="heading-font text-center pt-0">Danh sách sản phẩm đã yêu thích</h3>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="overflow-x-scroll w-100 cart-table-wrapper">
+                <table class="w-100 table cart-table">
+                  <thead class="cart-head">
+                    <tr class="text-uppercase cart-head-row cart-row row-title">
+                      <th class="cart-head-cell cart-cell cell-title">Stt</th>
+                      <th class="cart-head-cell cart-cell cell-title">Ảnh</th>
+                      <th class="cart-head-cell cart-cell cell-title">Tiêu đề</th>
+                      <th class="cart-head-cell cart-cell cell-title">Giá</th>
+                      <th class="cart-head-cell cart-cell cell-title">Giảm giá</th>
+                      <th class="cart-head-cell cart-cell cell-title">Số lượng hàng</th>
+                      <th class="cart-head-cell cart-cell cell-title">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody class="content-font cart-body">
+                    <% if(!productWithLikeList || productWithLikeList.length <= 0) { %>
+                    <tr class="cart-body-row cart-row">
+                      <td class="cart-body-cell cart-cell" colspan="7">
+                        <div class="text-center">Chưa có sản phẩm nào</div>
+                      </td>
+                    </tr>
+                    <% } %> <% if(productWithLikeList && productWithLikeList.length > 0) { %> <%
+                    productWithLikeList.forEach((product, index) => { %>
+                    <tr class="cart-body-row cart-row">
+                      <td class="cart-body-cell cart-cell"><%= index + 1 %></td>
+                      <td class="cart-body-cell cart-cell">
+                        <a
+                          href="/products/detail/<%= product.slug %>"
+                          class="card-body-product-link"
+                          ><img
+                            src="<%= product.thumbnail %>"
+                            alt="ảnh-san-pham"
+                            width="60px"
+                            class="cart-body-product-thumbnail"
+                        /></a>
+                      </td>
+                      <td class="text-wrap cart-body-cell cart-cell">
+                        <a
+                          href="/products/detail/<%= product.slug %>"
+                          class="text-decoration-none text-dark text-wrap cart-body-product-link"
+                        >
+                          <%= product.title %>
+                        </a>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div
+                          class="fw-bold card-body-product-price"
+                          style="color: var(--primary-color)"
+                        >
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(Number.parseFloat(product.price - (product.price / 100 *
+                          product.discount)))%>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="fw-bold card-body-product-discount">
+                          <%= product.discount %>%
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <% if(product.stock === 0) { %>
+                        <div class="cart-body-product-quantity" style="color: var(--error-color)">
+                          Đã hết hàng
+                        </div>
+                        <% } else { %>
+                        <div class="cart-body-product-quantity">
+                          Còn <%= product.stock %> trong kho
+                        </div>
+                        <% } %>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="d-flex flex-wrap gap-2 cart-body-product-action">
+                          <button
+                            class="button-icon-primary content-font cart-body-product-remove btn-add-favorite"
+                            data-id="<%= product._id %>"
+                          >
+                            <i class="fa-solid fa-trash-can me-1"></i>Xóa
+                          </button>
+                          <a
+                            href="/products/detail/<%= product.slug %>"
+                            class="text-decoration-none button-icon-primary cart-body-product-like"
+                          >
+                            Chi tiết
+                            <i class="bi bi-caret-right-fill ms-1"></i>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    <% }) %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="history-order">
+        <h3 class="heading-font text-center">Lịch sử đơn hàng</h3>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="overflow-x-scroll w-100 cart-table-wrapper">
+                <table class="w-100 table cart-table">
+                  <thead class="cart-head">
+                    <tr class="text-uppercase cart-head-row cart-row row-title">
+                      <th class="cart-head-cell cart-cell cell-title">Stt</th>
+                      <th class="cart-head-cell cart-cell cell-title">Mã đơn hàng</th>
+                      <th class="cart-head-cell cart-cell cell-title">Ngày đặt</th>
+                      <th class="cart-head-cell cart-cell cell-title">Tổng tiền</th>
+                      <th class="cart-head-cell cart-cell cell-title">Trạng thái</th>
+                      <th class="cart-head-cell cart-cell cell-title">Phương thức thanh toán</th>
+                      <th class="cart-head-cell cart-cell cell-title">Trạng thái thanh toán</th>
+                    </tr>
+                  </thead>
+                  <tbody class="content-font cart-body">
+                    <% if(!orderList || orderList.length <= 0) { %>
+                    <tr class="cart-body-row cart-row">
+                      <td class="cart-body-cell cart-cell" colspan="7">
+                        <div class="text-center">Chưa có đơn hàng nào</div>
+                      </td>
+                    </tr>
+                    <% } %> <% if(orderList && orderList.length > 0) { %> <%
+                    orderList.forEach((order, index) => { %>
+                    <tr class="cart-body-row cart-row">
+                      <td class="cart-body-cell cart-cell"><%= index + 1 %></td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="fw-bold cart-body-order-code"><%= order.orderCode %></div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="cart-body-order-date">
+                          <%= moment(order.createdAt).format('DD/MM/YYYY - HH:mm') %>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div
+                          class="fw-bold cart-body-order-total"
+                          style="color: var(--primary-color)"
+                        >
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                          }).format(order.total) %>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="cart-body-order-status">
+                          <% if(order.status === 'pending') { %>
+                          <span class="badge" style="background: var(--warning-color)">
+                            Đang chờ xác nhận
+                          </span>
+                          <% } else if (order.status === 'confirmed') { %>
+                          <span class="badge" style="background: var(--info-color)">
+                            Đã được xác nhận
+                          </span>
+                          <% } else if (order.status === 'shipping') { %>
+                          <span class="badge" style="background: var(--primary-color)">
+                            Đang được giao
+                          </span>
+                          <% } else if (order.status === 'delivered') { %>
+                          <span class="badge" style="background: var(--success-color)">
+                            Đã được giao
+                          </span>
+                          <% } else if (order.status === 'cancelled') { %>
+                          <span class="badge" style="background: var(--error-color)">
+                            Đã bị hủy
+                          </span>
+                          <% } else { %>
+                          <span class="badge" style="background: var(--dark-gray-color)">
+                            Ko xác định
+                          </span>
+                          <% } %>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="cart-body-order-payment">
+                          <% if(order.payments.method === 'offline') { %>
+                          <span class="badge" style="background: var(--warning-color)">
+                            Thanh toán khi giao hàng
+                          </span>
+                          <% } else { %>
+                          <span class="badge" style="background: var(--primary-color)">
+                            Thanh toán online
+                          </span>
+                          <% } %>
+                        </div>
+                      </td>
+                      <td class="cart-body-cell cart-cell">
+                        <div class="cart-body-order-payment-status">
+                          <% if(order.payments.status === 'pending') { %>
+                          <span class="badge" style="background: var(--warning-color)">
+                            Chưa thanh toán
+                          </span>
+                          <% } else if (order.payments.status === 'success') { %>
+                          <span class="badge" style="background: var(--success-color)">
+                            Đã thanh toán
+                          </span>
+                          <% } else if (order.payments.status === 'failed') { %>
+                          <span class="badge" style="background: var(--error-color)">
+                            Thất bại
+                          </span>
+                          <% } else if (order.payments.status === 'refunded') { %>
+                          <span class="badge" style="background: var(--info-color)">
+                            Đã hoàn tiền
+                          </span>
+                          <% } else { %>
+                          <span class="badge" style="background: var(--dark-gray-color)">
+                            Ko xác định
+                          </span>
+                          <% } %>
+                        </div>
+                      </td>
+                    </tr>
+                    <% }) %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%-include('../../partials/footer.view.ejs') %>
+
+    <form
+      action="/cart/delete"
+      method="POST"
+      class="d-none form-delete-product-cart"
+      id="form-delete-product-cart"
+    ></form>
+
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
+    <form
+      action="/products/add-favorite"
+      method="POST"
+      class="d-none form-add-favorite"
+      id="form-add-favorite"
+    ></form>
+
+    <!-- Scripts File -->
+    <script src="/client/scripts/alertMessage.js"></script>
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/product/toggleSearchProduct.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/previewImage.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/addProductLike.js"></script>
+    <!-- End Scripts File -->
+
+    <!-- Scripts Library & Framework Link -->
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <!-- SlickSlide -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <!-- <script src="./scripts/googlemap.js"></script> -->
+    <!-- End Scripts Library & Framework Link -->
+    <script
+      src="https://cdn.tiny.cloud/1/j8bmm28z8l7u8m5at9v64rveeytj143ibxpezl0aks1g6uzx/tinymce/8/tinymce.min.js"
+      referrerpolicy="origin"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/client/scripts/tinymce.js"></script>
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>

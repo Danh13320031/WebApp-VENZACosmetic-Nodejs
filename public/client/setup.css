@@ -9,6 +9,11 @@
   text-decoration: none;
   font-family: var(--primary-font-family);
 }
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
 /* End Layout Setup */
 
 /* Color Setup */
@@ -46,7 +51,7 @@
 
   --heading-font-size: 30px;
   --title-font-size: 20px;
-  --content-font-size: 15px;
+  --content-font-size: 17px;
   --paragraph-font-size: ;
   --error-font-size: 13px;
   --icon-font-size: 15px;

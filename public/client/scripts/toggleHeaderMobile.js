@@ -10,6 +10,7 @@ if (iconBar) {
       navHeaderMobie.classList.toggle('active');
       navHeaderMobieBox.classList.toggle('active');
       navheaderMobieBg.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
     }
   });
 }
@@ -22,5 +23,6 @@ if (navHeaderMobieBox) {
     navHeaderMobie.classList.remove('active');
     navHeaderMobieBox.classList.remove('active');
     navheaderMobieBg.classList.remove('active');
+    document.body.classList.remove('no-scroll');
   });
 }

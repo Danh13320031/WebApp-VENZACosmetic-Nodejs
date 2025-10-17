@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css" />
     <link rel="stylesheet" href="/client/styles/pages/cart/cart.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
@@ -132,6 +133,12 @@
                     <%}%>
                   </tbody>
                 </table>
+                <% if (cart.products.length > 0) { %>
+                <div class="d-flex justify-content-center my-3">
+                  <%-include('../../partials/pagination.view.ejs', { objPagination: objPagination })
+                  %>
+                </div>
+                <% } %>
               </div>
             </div>
 
@@ -146,9 +153,15 @@
                       class="input-type01 cart-coupon-input"
                       placeholder="Nhập mã giảm giá..."
                     />
-                    <button type="submit" class="button-primary w-100 cart-coupon-btn">
+                    <button type="submit" class="button-primary w-100 cart-coupon-btn-apply">
                       Áp dụng
                     </button>
+                    <a
+                      href="/user/profile"
+                      class="button-primary w-100 text-center text-decoration-none cart-coupon-btn-link"
+                    >
+                      Mã giảm giá của tôi
+                    </a>
                   </form>
                   <hr />
                 </div>
@@ -181,13 +194,16 @@
                   </div>
                   <hr />
                 </div>
+                <% if(cart.products.length > 0) { %>
                 <div class="cart-payment">
                   <a
                     href="/payment"
                     class="button-secondary w-100 d-block text-center text-decoration-none cart-payment-btn"
-                    >Tiến hành thanh toán</a
                   >
+                    Tiến hành thanh toán
+                  </a>
                 </div>
+                <% } %>
               </div>
             </div>
           </div>
@@ -216,11 +232,12 @@
                     <a
                       href="/products/detail/<%= product.slug %>"
                       class="content-font card-link-detail"
-                      >Xem chi tiết</a
                     >
+                      Xem chi tiết
+                    </a>
                   </div>
                 </div>
-                <div class="content-font card-title mt-1">
+                <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
                   <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %> <%
                   } else { %> <%= product.title %> <% } %>
                 </div>
@@ -292,6 +309,7 @@
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 

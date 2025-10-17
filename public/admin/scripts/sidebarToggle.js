@@ -8,6 +8,7 @@ if (sidebarToggle) {
 
     sidebarNav.classList.toggle('show');
     sidebarOverlay.classList.toggle('show');
+    document.body.classList.toggle('no-scroll');
   });
 
   sidebarOverlay.addEventListener('click', () => {
@@ -16,5 +17,6 @@ if (sidebarToggle) {
 
     sidebarNav.classList.remove('show');
     sidebarOverlay.classList.remove('show');
+    document.body.classList.remove('no-scroll');
   });
 }
