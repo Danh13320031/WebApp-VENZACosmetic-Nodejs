@@ -1,10 +1,11 @@
-import { maxAgeCartStorage } from '../../constants/constant.js';
+import { maxAgeCartStorage, productLimitConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import cartModel from '../../models/cart.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
 
 // [GET]: /cart
 const cart = async (req, res) => {
@@ -17,6 +18,7 @@ const cart = async (req, res) => {
     const cart = await cartModel.findById(cartId);
     let productIdCartList = [];
     let productBrandCartList = [];
+    let objPagination = {};
 
     if (cart.products.length > 0) {
       for (let i = 0; i < cart.products.length; i++) {
@@ -45,6 +47,19 @@ const cart = async (req, res) => {
             0
           )
         ) || 0;
+
+      // Pagination
+      const paginationObj = {
+        limit: 5 || productLimitConst,
+        currentPage: 1,
+      };
+      const productTotal = await cart.products.length;
+      objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+      cart.products = cart.products.slice(
+        objPagination.productSkip,
+        objPagination.productSkip + objPagination.limit
+      );
     }
 
     const relatedProductList = await productModel
@@ -78,6 +93,7 @@ const cart = async (req, res) => {
       pageUrl: pageUrl,
       cart: cart,
       relatedProductList: relatedProductList,
+      objPagination: objPagination,
     });
   } catch (error) {
     console.log(error);

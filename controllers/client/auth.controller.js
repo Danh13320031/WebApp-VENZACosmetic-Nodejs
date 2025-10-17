@@ -6,6 +6,7 @@ import {
   accessTokenExpiresIn,
   emailConst,
   maxAgeCartStorage,
+  maxAgeProductLikeStorage,
   otpExpiresIn,
   refreshTokenExpiresIn,
   saltRoundsConst,
@@ -18,6 +19,7 @@ import generateOtpHelper from '../../helpers/generateOtp.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import otpModel from '../../models/otp.model.js';
+import productLikeModel from '../../models/productLike.model.js';
 import userModel from '../../models/user.model.js';
 
 // [GET]: /register
@@ -145,6 +147,13 @@ const logout = async (req, res) => {
     res.cookie('cartId', guestCart._id, {
       httpOnly: true,
       maxAge: maxAgeCartStorage,
+    });
+
+    const guestProductLike = new productLikeModel({ user_id: null, products: [] });
+    await guestProductLike.save();
+    res.cookie('productLikeId', guestProductLike._id, {
+      httpOnly: true,
+      maxAge: maxAgeProductLikeStorage,
     });
 
     alertMessageHelper(req, 'alertSuccess', 'Đăng xuất thành công');

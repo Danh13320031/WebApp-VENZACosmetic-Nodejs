@@ -7,6 +7,7 @@ if (productFilterButton) {
 
     if (!productFilter) return;
     productFilter.classList.add('show');
+    document.body.classList.add('no-scroll');
   });
 }
 
@@ -16,5 +17,6 @@ if (productFilterClose) {
 
     if (!productFilter) return;
     productFilter.classList.remove('show');
+    document.body.classList.remove('no-scroll');
   });
 }

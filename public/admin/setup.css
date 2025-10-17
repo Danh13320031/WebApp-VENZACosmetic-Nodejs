@@ -8,6 +8,10 @@
   list-style: none;
   font-family: var(--primary-font-family);
 }
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
 .body {
   display: flex;
   height: 100%;

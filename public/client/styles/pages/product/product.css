@@ -206,25 +206,3 @@
   border: var(--border-thickness-button) solid var(--light-gray-color);
 }
 /* End Product Filter Mobile */
-
-/* Pagination */
-.product-pagination .product-pagination-item {
-  padding: 5px 12px;
-  margin: 0px 2px;
-  color: var(--dark-gray-color);
-  border: var(--border-thickness-button) solid var(--light-gray-color);
-  border-radius: 0px !important;
-  transition: 0.4s ease;
-  cursor: pointer;
-}
-.product-pagination .product-pagination-item.nav-link.active {
-  color: var(--light-gray-color);
-  background: var(--dark-gray-color);
-  border: var(--border-thickness-button) solid var(--dark-gray-color);
-}
-.product-pagination .product-pagination-item:hover {
-  color: var(--light-gray-color);
-  background: var(--dark-gray-color);
-  border: var(--border-thickness-button) solid var(--dark-gray-color);
-}
-/* End Pagination */

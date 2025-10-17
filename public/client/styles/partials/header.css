@@ -26,7 +26,7 @@
 .header {
   position: sticky;
   z-index: 999;
-  top: 33px;
+  top: 0px;
   width: 100%;
   padding: 20px 0px;
   background: white;
@@ -96,7 +96,7 @@
   position: absolute;
   z-index: 999;
   top: 50px;
-  left: -105px;
+  right: 0px;
   background: var(--dark-gray-color);
   opacity: 0;
   visibility: hidden;
@@ -116,7 +116,7 @@
   position: absolute;
   z-index: 999;
   top: -4px;
-  right: 55px;
+  right: 10%;
   background: var(--dark-gray-color);
   transform: rotateZ(45deg);
 }
@@ -226,8 +226,8 @@
 
 /* Nav */
 .navheader {
-  position: fixed;
-  top: 133px;
+  position: sticky;
+  top: 100px;
   left: 0;
   z-index: 980;
   width: 100%;

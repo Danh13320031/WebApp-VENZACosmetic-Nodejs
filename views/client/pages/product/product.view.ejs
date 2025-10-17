@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css">
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
 
@@ -230,7 +231,7 @@
                         >
                       </div>
                     </div>
-                    <div class="content-font card-title mt-1">
+                    <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
                       <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...'
                       %> <% } else { %> <%= product.title %><% } %>
                     </div>
@@ -268,23 +269,7 @@
               <!-- Product Pagination -->
               <div class="row g-2">
                 <div class="product-pagination mt-5 d-flex justify-content-center">
-                  <ul class="content-font product-pagination-list nav nav-pills ps-0 d-flex flex-wrap gap-1 justify-content-center">
-                    <li class="product-pagination-item page-first nav-link <% if(objPagination.currentPage <= 1) { %>active<% } %>">
-                      Đầu
-                    </li>
-                    <button <% if(objPagination.currentPage <= 1) { %>disabled<% } %> class="product-pagination-item page-prev nav-link">
-                      <i class="bi bi-arrow-left-short"></i>
-                    </button>
-                    <% for(let i = 1; i <= objPagination.pageTotal; i++) { %>
-                      <li class="product-pagination-item page-number nav-link <% if(i === objPagination.currentPage) { %>active<% } %>" page-number="<%= i %>"><%= i %></li>
-                    <% } %>
-                    <button <% if(objPagination.currentPage >= objPagination.pageTotal) { %>disabled<% } %> class="product-pagination-item page-next nav-link">
-                      <i class="bi bi-arrow-right-short"></i>
-                    </button>
-                    <li class="product-pagination-item page-last nav-link <% if(objPagination.currentPage >= objPagination.pageTotal) { %>active<% } %>">
-                      Cuối
-                    </li>
-                  </ul>
+                  <%-include("../../partials/pagination.view.ejs", { objPagination: objPagination }) %>
                 </div>
               </div>
               <!-- End product pagination -->
@@ -329,10 +314,10 @@
     <script src="/client/scripts/product/filterByCategory.js"></script>
     <script src="/client/scripts/product/filterByProductQuantity.js"></script>
     <script src="/client/scripts/product/removeProductFilter.js"></script>
-    <script src="/client/scripts/product/pagination.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
