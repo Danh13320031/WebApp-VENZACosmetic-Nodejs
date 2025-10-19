@@ -13,6 +13,9 @@ const createProductComment = async (data) => {
   if (data.user_id) {
     userComment = await userModel.findById(data.user_id).select('fullname avatar');
 
+    const countProductComment = await productCommentModel.countDocuments({ deleted: false });
+
+    data.position = countProductComment + 1;
     productComment = new productCommentModel(data);
     await productComment.save();
   }

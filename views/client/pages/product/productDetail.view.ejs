@@ -214,7 +214,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <h3 class="heading-font text-center product-comment-title">Bình luận</h3>
+              <h3 class="heading-font text-center product-comment-title">Các đánh giá</h3>
             </div>
           </div>
         </div>
@@ -233,7 +233,7 @@
                   ></textarea>
                   <div class="mar-top clearfix">
                     <button class="button-primary pull-right" id="btn-comment-owner" type="submit">
-                      Bình luận
+                      <i class="fa-solid fa-paper-plane me-2"></i>Gửi
                     </button>
                     <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
                     <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
@@ -291,9 +291,11 @@
             </div>
           </div>
         </div>
-        <div>
+        <% if(productCommentList && productCommentList.length > 0) { %>
+        <div class="d-flex justify-content-center my-3">
           <%-include("../../partials/pagination.view.ejs", { objPagination: objPagination }) %>
         </div>
+        <% } %>
       </section>
       <!-- End product comment -->
 

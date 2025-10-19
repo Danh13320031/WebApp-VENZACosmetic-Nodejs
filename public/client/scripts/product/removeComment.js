@@ -19,6 +19,8 @@ if (panelCommentBox) {
   socket.on('deleteComment', (comment) => {
     if (!comment) return;
 
+    
+
     const commentBlock = panelCommentBox
       .querySelector(
         `.btn-remove-comment[data-id="${comment.productCommentId}"][data-user-id="${comment.productCommentUserId}"]`
