@@ -1,11 +1,12 @@
-import { maxAgeCartStorage, productLimitConst } from '../../constants/constant.js';
+import { maxAgeCartStorage, notFoundPage, productLimitConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
-import cartModel from '../../models/cart.model.js';
-import productCategoryModel from '../../models/productCategory.model.js';
-import productModel from '../../models/product.model.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
+import cartModel from '../../models/cart.model.js';
+import productModel from '../../models/product.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 
 // [GET]: /cart
 const cart = async (req, res) => {
@@ -87,18 +88,23 @@ const cart = async (req, res) => {
       });
     }
 
-    res.render('./client/pages/cart/cart.view.ejs', {
-      pageTitle: 'Giỏ hàng',
-      categoryTree: categoryTree,
-      pageUrl: pageUrl,
-      cart: cart,
-      relatedProductList: relatedProductList,
-      objPagination: objPagination,
-    });
+    res.render(
+      './client/pages/cart/cart.view.ejs',
+      {
+        pageTitle: 'Giỏ hàng',
+        categoryTree: categoryTree,
+        pageUrl: pageUrl,
+        cart: cart,
+        relatedProductList: relatedProductList,
+        objPagination: objPagination,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
   } catch (error) {
-    console.log(error);
-    res.redirect('back');
-    return;
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -159,42 +165,31 @@ const addProductToCart = async (req, res) => {
     alertMessageHelper(req, 'alertSuccess', 'Thêm vào giỏ hàng thành công');
     res.redirect('back');
   } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Thêm vào giỏ hàng thất bại');
+    handleErrorHelper(req, res, error);
   }
 };
 
 // [DELETE]: /cart/delete/:productId
 const deleteProductInCart = async (req, res) => {
-  const productId = req.params.productId;
-  const cartId = req.cookies.cartId;
-
-  if (!cartId) {
-    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
-    res.redirect('back');
-    return;
-  }
-
   try {
+    const productId = req.params.productId;
+    const cartId = req.cookies.cartId;
+
     await cartModel.findByIdAndUpdate(cartId, { $pull: { products: { product_id: productId } } });
     alertMessageHelper(req, 'alertSuccess', 'Đã xóa sản phẩm khỏi giỏ hàng');
     res.redirect('back');
     return;
   } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
-    res.redirect('back');
-    return;
+    handleErrorHelper(req, res, error);
   }
 };
 
 // [PATCH]: /cart/update/:productId/:quantity
 const changeProductQuantity = async (req, res) => {
-  const productId = req.params.productId;
-  const quantity = req.params.quantity;
-  const cartId = req.cookies.cartId;
-
   try {
+    const productId = req.params.productId;
+    const quantity = req.params.quantity;
+    const cartId = req.cookies.cartId;
     const product = await productModel.findById(productId).select('stock');
 
     if (quantity > product.stock) {
@@ -215,9 +210,9 @@ const changeProductQuantity = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật giỏ hàng thành công');
     res.redirect('back');
+    return;
   } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Cập nhật giỏ hàng thất bại');
+    handleErrorHelper(req, res, error);
   }
 };
 

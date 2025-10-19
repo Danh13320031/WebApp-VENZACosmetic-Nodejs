@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/comment.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/detail.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
@@ -56,7 +59,7 @@
                 <img
                   width="100%"
                   class="product-thumbnail-image fit"
-                  src="<%= product.thumbnail %>"
+                  src="<%= product ? product.thumbnail : '' %>"
                 />
               </div>
 
@@ -76,16 +79,18 @@
             <!-- Product details info -->
             <div class="col-lg-6">
               <div class="product-info ps-lg-3">
-                <h4 class="heading-font product-info-title mb-3"><%= product.title %></h4>
+                <h4 class="heading-font product-info-title mb-3">
+                  <%= product.title ? product.title : '' %>
+                </h4>
                 <div class="d-flex flex-row my-3">
                   <div class="content-font product-info-rating rating-star mb-1 me-2">
                     <% for (let i = 0; i < product.rating; i++) { %><i class="fas fa-star"></i><% }
                     %>
                     <span class="product-info-rating rating-number ms-1">
-                      <%= product.rating %>
+                      <%= product.rating ? product.rating : '' %>
                     </span>
                   </div>
-                  <% if(product.stock <= 0) { %>
+                  <% if(!product || product.stock <= 0) { %>
                   <span
                     class="content-font product-info-stock mb-1"
                     style="color: var(--error-color)"
@@ -94,7 +99,9 @@
                   <% } else { %>
                   <span class="content-font product-info-stock mb-1"
                     ><i class="fas fa-shopping-basket fa-sm mx-1"></i>Còn
-                    <span class="content-font info-stock-number fw-bold"><%= product.stock %></span>
+                    <span class="content-font info-stock-number fw-bold"
+                      ><%= product.stock ? product.stock : '' %></span
+                    >
                     mặt hàng</span
                   >
                   <span class="content-font text-success ms-2">trong kho</span>
@@ -118,12 +125,12 @@
                 <div class="row">
                   <dt class="product-info-categoty category-title col-4">Thể loại:</dt>
                   <dd class="product-info-categoty category-content content-font col-8">
-                    <%= category.title %>
+                    <%= category.title ? category.title : '' %>
                   </dd>
 
                   <dt class="product-info-brand brand-title col-4">Thương hiệu:</dt>
                   <dd class="product-info-brand brand-content content-font col-8">
-                    <%= product.brand %>
+                    <%= product.brand ? product.brand : '' %>
                   </dd>
                 </div>
 
@@ -202,6 +209,87 @@
       </section>
       <!-- End product detail description -->
 
+      <!-- Start product comment -->
+      <section class="product-comment">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h3 class="heading-font text-center product-comment-title">Bình luận</h3>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 bootstrap snippets">
+              <div class="panel">
+                <div class="panel-body comment-box-user">
+                  <textarea
+                    rows="2"
+                    placeholder="What are you thinking?"
+                    id="textarea-comment-owner"
+                    class="textarea-type01 w-100"
+                    data-product-id="<%= product ? product._id : '' %>"
+                    data-user-id="<%= user ? user._id : '' %>"
+                  ></textarea>
+                  <div class="mar-top clearfix">
+                    <button class="button-primary pull-right" id="btn-comment-owner" type="submit">
+                      Bình luận
+                    </button>
+                    <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
+                    <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                    <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="panel-body comment-box-list">
+                  <%# Newsfeed Content %> <% if (productCommentList && productCommentList.length >
+                  0) { %> <% productCommentList.forEach(comment => { %>
+                  <div class="media-block">
+                    <a class="media-left" href="#"
+                      ><img
+                        class="img-circle img-sm me-2"
+                        alt="Profile Picture"
+                        src="<%= comment.userCommentInfo.avatar %>"
+                    /></a>
+                    <div class="media-body">
+                      <div class="mar-btm">
+                        <a
+                          href="#"
+                          class="title-font text-decoration-none btn-link text-semibold media-heading box-inline"
+                          style="color: var(--primary-color)"
+                        >
+                          <%= comment.userCommentInfo.fullname %>
+                        </a>
+                        <p class="text-muted text-sm"><%= moment(comment.createdAt).fromNow() %></p>
+                      </div>
+                      <p class="content-font"><%= comment.content %></p>
+                      <div class="pad-ver">
+                        <div class="btn-group">
+                          <a class="btn btn-sm btn-default btn-hover-success" href="#">
+                            <i class="fa fa-thumbs-up"></i>
+                          </a>
+                          <a class="btn btn-sm btn-default btn-hover-danger" href="#">
+                            <i class="fa fa-thumbs-down"></i>
+                          </a>
+                        </div>
+                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Bình luận</a>
+                      </div>
+                      <hr />
+                    </div>
+                  </div>
+                  <% }) %> <% } %> <%# End Newsfeed Content %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <%-include("../../partials/pagination.view.ejs", { objPagination: objPagination }) %>
+        </div>
+      </section>
+      <!-- End product comment -->
+
       <!-- Start related products -->
       <section class="pb-5 related-products">
         <h3 class="heading-font text-center related-products-title">Sản phẩm liên quan</h3>
@@ -269,6 +357,7 @@
       <!-- End related products -->
     </main>
 
+    <%-include("../../partials/buttonScrollToTop.view.ejs") %>
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
@@ -293,8 +382,12 @@
     ></form>
 
     <!-- Scripts File -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/scripts/product/createComment.js"></script>
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/scrollToTop.js"></script>
     <script src="/client/scripts/customInputRange.js"></script>
     <script src="/client/scripts/product/showProductFilter.js"></script>
     <script src="/client/scripts/product/handleQuantityCart.js"></script>
