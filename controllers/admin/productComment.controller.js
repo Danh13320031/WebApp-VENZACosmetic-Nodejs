@@ -72,8 +72,39 @@ const productComment = async (req, res) => {
   }
 };
 
+// PATCH: /admin/product-comments/change-status/:status/:id?_method=PATCH
+const changeStatusProductComment = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id || !status) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    const productComment = await productCommentModel.findById(id);
+
+    if (!productComment) {
+      alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+      res.redirect('back');
+      return;
+    }
+
+    await productCommentModel.findByIdAndUpdate(id, { status: status });
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
+  } catch (err) {
+    console.log('Update productComment fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const productCommentController = {
   productComment,
+  changeStatusProductComment,
 };
 
 export default productCommentController;
