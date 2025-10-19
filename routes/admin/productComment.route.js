@@ -4,5 +4,9 @@ import productCommentController from '../../controllers/admin/productComment.con
 const productCommentRoute = express.Router();
 
 productCommentRoute.get('/', productCommentController.productComment);
+productCommentRoute.patch(
+  '/change-status/:status/:id',
+  productCommentController.changeStatusProductComment
+);
 
 export default productCommentRoute;
