@@ -7,6 +7,7 @@ const objSchema = {
   parent_id: { type: String, require: true, default: '' },
   content: { type: String, require: true },
   images: { type: Array, require: true, default: [] },
+  likes: { type: Number, require: true, default: 0 },
   rating: { type: Number, require: true, default: 0 },
   status: { type: String, require: true, default: 'pending' },
   deleted: { type: Boolean, require: true, default: false },

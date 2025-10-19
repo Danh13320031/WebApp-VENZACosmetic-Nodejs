@@ -9,8 +9,12 @@ export const socketIOPackageConfig = (server) => {
   io.on('connection', (socket) => {
     console.log(`Client ${socket.id} connected`);
 
+    // Handle product comment
     socket.on('sendComment', async (data) => {
       await commentController.createProductComment(data);
+    });
+    socket.on('removeComment', async (data) => {
+      await commentController.removeProductComment(data);
     });
   });
 

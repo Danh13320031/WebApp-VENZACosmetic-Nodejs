@@ -1,6 +1,4 @@
-const socket = io();
 const btnCommentOwner = document.getElementById('btn-comment-owner');
-const panelCommentBox = document.querySelector('.panel-body.comment-box-list');
 
 const createBlockComment = (comment) => {
   const blockComment = `
@@ -30,8 +28,15 @@ const createBlockComment = (comment) => {
           <a class="btn btn-sm btn-default btn-hover-danger" href="#">
             <i class="fa fa-thumbs-down"></i>
           </a>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-sm btn-default btn-hover-danger btn-remove-comment"
+            data-id="${comment.productComment._id}"
+            data-user-id="${comment.userComment._id}"
+          >
+            Xóa
+          </a>
         </div>
-        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Bình luận</a>
       </div>
       <hr />
     </div>
@@ -71,12 +76,14 @@ socket.on('newComment', (comment) => {
     return;
   }
 
+  const panelCommentBox = document.querySelector('.panel-body.comment-box-list');
   if (!panelCommentBox) return;
 
   const mediaBlock = document.createElement('div');
 
   mediaBlock.classList.add('py-3');
   mediaBlock.classList.add('media-block');
+  mediaBlock.classList.add('media-block-comment');
   mediaBlock.innerHTML = createBlockComment(comment);
   panelCommentBox.insertBefore(mediaBlock, panelCommentBox.firstChild);
 });

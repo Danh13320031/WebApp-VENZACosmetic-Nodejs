@@ -17,7 +17,7 @@ const createProductComment = async (data) => {
     await productComment.save();
   }
 
-  const commentBlock =
+  const commentCreateBlock =
     userComment && productComment
       ? {
           productComment: productComment,
@@ -28,11 +28,37 @@ const createProductComment = async (data) => {
 
   const io = IO();
 
-  io.emit('newComment', commentBlock);
+  io.emit('newComment', commentCreateBlock);
+};
+
+const removeProductComment = async (data) => {
+  if (!data) return;
+
+  const io = IO();
+  let productComment = null;
+
+  if (data.user_id) {
+    productComment = await productCommentModel.findById(data.id).select('user_id deleted');
+
+    if (productComment && String(productComment.user_id) === String(data.user_id)) {
+      await productCommentModel.updateOne(
+        { _id: data.id },
+        { deleted: true, deletedAt: new Date() }
+      );
+
+      io.emit('deleteComment', {
+        productCommentId: data.id,
+        productCommentUserId: data.user_id,
+      });
+    } else {
+      console.log('User không có quyền xoá comment này.');
+    }
+  }
 };
 
 const commentController = {
   createProductComment,
+  removeProductComment,
 };
 
 export default commentController;
