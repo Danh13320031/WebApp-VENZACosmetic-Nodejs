@@ -3,21 +3,33 @@ import { emailConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 
 // [GET]: /contact
 const contact = async (req, res) => {
-  const find = { status: 'active', deleted: false };
-  const categoryList = await productCategoryModel.find(find);
-  const categoryTree = categoryTreeHelper(categoryList);
-  const pageUrl = createPageUrlHelper(req);
+  try {
+    const find = { status: 'active', deleted: false };
+    const categoryList = await productCategoryModel.find(find);
+    const categoryTree = categoryTreeHelper(categoryList);
+    const pageUrl = createPageUrlHelper(req);
 
-  res.render('./client/pages/contact/contact.view.ejs', {
-    pageTitle: 'Liên hệ & Giúp đỡ',
-    pageUrl: pageUrl,
-    categoryTree: categoryTree,
-  });
+    res.render(
+      './client/pages/contact/contact.view.ejs',
+      {
+        pageTitle: 'Liên hệ & Giúp đỡ',
+        pageUrl: pageUrl,
+        categoryTree: categoryTree,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
 };
 
 // [POST]: /contact
@@ -39,12 +51,10 @@ const contactPost = async (req, res) => {
     await sendMailHelper(emailConst, 'Liên hệ từ website VENZA', html);
 
     alertMessageHelper(req, 'alertSuccess', 'Gửi liên hệ thành công');
-  } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Gửi liên hệ thất bại');
-  } finally {
-    res.redirect('/contact');
+    res.redirect('back');
     return;
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 

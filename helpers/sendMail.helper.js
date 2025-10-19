@@ -12,6 +12,9 @@ const sendMailHelper = async (to, subject, html) => {
   await transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.log(err);
+      const error = new Error(err.message);
+      error.status = 500;
+      throw error;
     }
   });
 };

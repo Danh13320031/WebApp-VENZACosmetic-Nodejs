@@ -1,0 +1,108 @@
+.product-comment .img-sm {
+  width: 46px;
+  height: 46px;
+}
+
+.product-comment .panel {
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.075);
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 15px;
+}
+
+.product-comment .panel .panel-footer,
+.product-comment .panel > :last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.product-comment .panel .panel-heading,
+.product-comment .panel > :first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* .product-comment .panel-body {
+  padding: 25px 20px;
+} */
+
+.product-comment .media-block .media-left {
+  display: block;
+  float: left;
+}
+
+.product-comment .media-block .media-right {
+  float: right;
+}
+
+.product-comment .media-block .media-body {
+  display: block;
+  overflow: hidden;
+  width: auto;
+}
+
+.product-comment .middle .media-left,
+.product-comment .middle .media-right,
+.product-comment .middle .media-body {
+  vertical-align: middle;
+}
+
+.product-comment .thumbnail {
+  border-radius: 0;
+  border-color: #e9e9e9;
+}
+
+.product-comment .tag.tag-sm,
+.product-comment .btn-group-sm > .tag {
+  padding: 5px 10px;
+}
+
+.product-comment .tag:not(.label) {
+  background-color: #fff;
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: 1px solid #cdd6e1;
+  font-size: 12px;
+  line-height: 1.42857;
+  vertical-align: middle;
+  -webkit-transition: all 0.15s;
+  transition: all 0.15s;
+}
+.product-comment .text-muted,
+.product-comment a.text-muted:hover,
+.product-comment a.text-muted:focus {
+  color: #acacac;
+}
+.product-comment .text-sm {
+  font-size: 0.9em;
+}
+.product-comment .text-5x,
+.product-comment .text-4x,
+.product-comment .text-5x,
+.product-comment .text-2x,
+.product-comment .text-lg,
+.product-comment .text-sm,
+.product-comment .text-xs {
+  line-height: 1.25;
+}
+
+.product-comment .btn-trans {
+  background-color: transparent;
+  border-color: transparent;
+  color: #929292;
+}
+
+.product-comment .btn-icon {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.product-comment .btn-sm,
+.product-comment .btn-group-sm > .btn,
+.product-comment .btn-icon.btn-sm {
+  padding: 5px 10px !important;
+}
+
+.product-comment .mar-top {
+  margin-top: 15px;
+}

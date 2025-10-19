@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/pagination.css">
@@ -279,6 +280,7 @@
       </div>
     </main>
 
+    <%-include('../../partials/buttonScrollToTop.view.ejs') %>
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
@@ -305,6 +307,7 @@
     <!-- Scripts File -->
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/scrollToTop.js"></script>
     <script src="/client/scripts/customInputRange.js"></script>
     <script src="/client/scripts/product/showProductFilter.js"></script>
     <script src="/client/scripts/product/filterByPrice.js"></script>

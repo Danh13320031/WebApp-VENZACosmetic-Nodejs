@@ -13,9 +13,10 @@ import {
   verifyTokenExpiresIn,
 } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
-import handleCartLoginHelper from '../../helpers/client/cart/handleCartLogin.helper.js';
-import handleProductLikeLoginHelper from '../../helpers/client/productLike/handleProductLikeLogin.helper.js';
+import handleCartLoginHelper from '../../helpers/client/auth/handleCartLogin.helper.js';
+import handleProductLikeLoginHelper from '../../helpers/client/auth/handleProductLikeLogin.helper.js';
 import generateOtpHelper from '../../helpers/generateOtp.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import otpModel from '../../models/otp.model.js';
@@ -25,9 +26,16 @@ import userModel from '../../models/user.model.js';
 // [GET]: /register
 const registerGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/register.view.ejs', { pageTitle: 'Đăng ký' });
-  } catch (err) {
-    console.log('Not found: ', err);
+    res.render('./client/pages/auth/register.view.ejs', { pageTitle: 'Đăng ký' }, (err, html) => {
+      if (err) {
+        console.log(err);
+        handleErrorHelper(req, res, err);
+        return;
+      }
+      res.send(html);
+    });
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -57,7 +65,7 @@ const registerPost = async (req, res) => {
       `http://${process.env.HOSTNAME}:${process.env.PORT}/register-verify/?duration=${verifyTokenExpiresIn}`
     );
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -66,12 +74,19 @@ const registerVerifyGet = async (req, res) => {
   try {
     const duration = req.query.duration;
 
-    res.render('./client/pages/auth/registerVerify.view.ejs', {
-      pageTitle: 'Kích hoạt tài khoản',
-      duration: duration,
-    });
+    res.render(
+      './client/pages/auth/registerVerify.view.ejs',
+      {
+        pageTitle: 'Kích hoạt tài khoản',
+        duration: duration,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -98,9 +113,18 @@ const regiterVerifyPatch = async (req, res) => {
 // [GET]: /login
 const loginGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/login.view.ejs', { pageTitle: 'Đăng nhập' });
+    res.render('./client/pages/auth/login.view.ejs', { pageTitle: 'Đăng nhập' }, (err, html) => {
+      if (err) {
+        console.log(err);
+        handleErrorHelper(req, res, err);
+        return;
+      }
+      res.send(html);
+    });
   } catch (err) {
-    console.log('Not found: ', err);
+    console.log(err);
+    handleErrorHelper(req, res, err);
+    return;
   }
 };
 
@@ -130,8 +154,7 @@ const loginPost = async (req, res) => {
     res.redirect('/');
     return;
   } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -162,15 +185,24 @@ const logout = async (req, res) => {
   } catch (error) {
     console.log(error);
     alertMessageHelper(req, 'alertFailure', 'Đăng xuất thất bại');
+    res.redirect('/');
+    return;
   }
 };
 
 // [GET]: /forgot-password
 const forgotPasswordGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/forgotPassword.view.ejs', { pageTitle: 'Quên mật khẩu' });
+    res.render(
+      './client/pages/auth/forgotPassword.view.ejs',
+      { pageTitle: 'Quên mật khẩu' },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -208,7 +240,7 @@ const forgotPasswordPost = async (req, res) => {
     res.redirect(`/forgot-password-otp?email=${email}`);
     return;
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -217,12 +249,19 @@ const enterOTP = async (req, res) => {
   try {
     const email = req.query.email;
 
-    res.render('./client/pages/auth/forgotPasswordOtp.view.ejs', {
-      pageTitle: 'Xác thực OTP',
-      email: email,
-    });
+    res.render(
+      './client/pages/auth/forgotPasswordOtp.view.ejs',
+      {
+        pageTitle: 'Xác thực OTP',
+        email: email,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -252,19 +291,22 @@ const checkOtp = async (req, res) => {
       return;
     }
   } catch (error) {
-    console.log(error);
-    alertMessageHelper(req, 'alertFailure', 'Xác thức OTP thất bại');
+    handleErrorHelper(req, res, error);
   }
 };
 
 // [GET]: /forgot-password-reset
 const resetPasswordGet = async (req, res) => {
   try {
-    res.render('./client/pages/auth/forgotPasswordReset.view.ejs', {
-      pageTitle: 'Đổi mật khẩu',
-    });
+    res.render(
+      './client/pages/auth/forgotPasswordReset.view.ejs',
+      {
+        pageTitle: 'Đổi mật khẩu',
+      },
+      (err) => handleErrorHelper(req, res, err)
+    );
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -281,7 +323,7 @@ const resetPasswordPost = async (req, res) => {
     res.redirect('/');
     return;
   } catch (error) {
-    console.log(error);
+    handleErrorHelper(req, res, error);
   }
 };
 

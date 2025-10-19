@@ -18,3 +18,6 @@ export const passwordRegex =
 export const otpRegex = /^[0-9]{5}$/;
 
 export const timezone = 'Asia/Ho_Chi_Minh';
+
+// Page error
+export const notFoundPage = '/error/404';
