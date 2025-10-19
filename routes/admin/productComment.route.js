@@ -8,5 +8,6 @@ productCommentRoute.patch(
   '/change-status/:status/:id',
   productCommentController.changeStatusProductComment
 );
+productCommentRoute.patch('/change-multi', productCommentController.changeMultiProductComment);
 
 export default productCommentRoute;
