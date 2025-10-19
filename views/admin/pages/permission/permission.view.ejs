@@ -125,7 +125,7 @@
                   <% }) %>
                 </tr>
 
-                <!-- Các quyền dành cho danh mục -->
+                <!-- Các quyền dành cho danh mục sản phẩm -->
                 <tr>
                   <td class="bg-body-secondary"><b>Các quyền về danh mục sản phẩm</b></td>
                   <% roleList.forEach(role => { %>
@@ -169,6 +169,56 @@
                   <% }) %>
                 </tr>
                 <tr data-name="category-hard-delete">
+                  <td>Xóa cứng</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+
+                <!-- Các quyền dành cho bình luận sản phẩm -->
+                <tr>
+                  <td class="bg-body-secondary"><b>Các quyền về bình luận sản phẩm</b></td>
+                  <% roleList.forEach(role => { %>
+                  <td class="bg-body-secondary"></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-view">
+                  <td>Xem</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-add">
+                  <td>Thêm mới</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-change-status">
+                  <td>Đổi trạng thái</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-update">
+                  <td>Chỉnh sửa</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-sort-delete">
+                  <td>Xóa mềm</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-restore">
+                  <td>Khôi phục</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-comment-hard-delete">
                   <td>Xóa cứng</td>
                   <% roleList.forEach(role => { %>
                   <td class="text-center"><input type="checkbox" /></td>

@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import commentController from '../controllers/client/comment.controller.js';
+import commentController from '../controllers/client/productComment.controller.js';
 
 let io;
 

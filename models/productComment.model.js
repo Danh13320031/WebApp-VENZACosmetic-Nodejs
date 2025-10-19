@@ -9,7 +9,8 @@ const objSchema = {
   images: { type: Array, require: true, default: [] },
   likes: { type: Number, require: true, default: 0 },
   rating: { type: Number, require: true, default: 0 },
-  status: { type: String, require: true, default: 'pending' },
+  status: { type: String, require: true, default: 'inactive' },
+  position: { type: Number, require: true, default: 1 },
   deleted: { type: Boolean, require: true, default: false },
   deletedAt: { type: Date },
 };

@@ -9,6 +9,9 @@ if (selectChangeStatusList.length > 0) {
         const selectName = e.target.name;
         let formChangeStatusSelect;
 
+        if (selectName === 'status')
+          formChangeStatusSelect = document.querySelector('form[form-change-status-select]');
+
         if (selectName === 'orderStatus')
           formChangeStatusSelect = document.querySelector('form[form-order-change-status-select]');
 
