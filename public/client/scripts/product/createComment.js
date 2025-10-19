@@ -56,6 +56,11 @@ if (btnCommentOwner) {
     if (!userId) window.location.href = '/login';
     if (!productId) window.location.href = '/error/404';
 
+    const confirm = window.confirm(
+      'Để tránh các bình luận tiêu cực, bình luận của bạn sẽ được kiểm duyệt'
+    );
+    if (!confirm) return;
+
     const data = {
       content: commentValue,
       product_id: productId,

@@ -166,9 +166,9 @@
                               data-id="<%= comment._id %>"
                               change-status-select
                               class="badge p-2 form-control"
-                              <% if (comment.status === 'active') { %>
+                              <% if (comment.status === 'inactive') { %>
                                 style="color: var(--error-color-admin); border-color: var(--error-color-admin)"
-                              <% } else if (comment.status === 'inactive') { %>
+                              <% } else if (comment.status === 'active') { %>
                                 style="color: var(--success-color-admin); border-color: var(--success-color-admin)"
                               <% } else { %>
                                 style="color: var(--secondary-color-admin); border-color: var(--secondary-color-admin)"
@@ -179,17 +179,17 @@
                                 <% if (comment.status === 'active') { %> selected <% } %>
                                 value="active"
                                 class="text-light"
-                                style="background: var(--error-color-admin)"
+                                style="background: var(--success-color-admin)"
                               >
-                                Ngừng hoạt động
+                                Hoạt động
                               </option>
                               <option
                                 <% if (comment.status === 'inactive') { %> selected <% } %>
                                 value="inactive"
                                 class="text-light"
-                                style="background: var(--success-color-admin)"
+                                style="background: var(--error-color-admin)"
                               >
-                                Hoạt động
+                                Ngừng hoạt động
                               </option>
                             </select>
                           </div>
