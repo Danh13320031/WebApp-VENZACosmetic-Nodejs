@@ -52,7 +52,10 @@ if (btnCommentOwner) {
     const productId = textareaCommentOwner.getAttribute('data-product-id');
     const userId = textareaCommentOwner.getAttribute('data-user-id');
 
-    if (!commentValue) return;
+    if (!commentValue) {
+      alert('Vui lòng nhập bình luận.');
+      return;
+    }
     if (!userId) window.location.href = '/login';
     if (!productId) window.location.href = '/error/404';
 
