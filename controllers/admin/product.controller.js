@@ -314,9 +314,9 @@ const changeMultiProduct = async (req, res) => {
 
 // PATCH: /admin/products/delete/:id?_method=PATCH
 const deleteProduct = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     await productModel.findByIdAndUpdate(id, {
       deleted: true,
       'deletedBy.account_id': res.locals.accountLogin._id,

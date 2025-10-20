@@ -109,6 +109,12 @@
                         Người bình luận
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Ảnh sản phẩm
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Tiêu đề
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Thời gian
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
@@ -142,15 +148,27 @@
                           />
                           <%= index + 1 %>
                         </td>
-                        <td><div class="w-50"><%= comment.content %></div></td>
+                        <td><div class="text-wrap"><%= comment.content %></div></td>
                         <td>
                           <img
-                            src="<%= comment.userInfo.avatar %>"
-                            alt="<%= comment.userInfo.fullname %>"
+                            src="<%= comment.userInfo?.avatar ? comment.userInfo.avatar : 'Người dùng đã bị xóa' %>"
+                            alt="<%= comment.userInfo?.fullname ? comment.userInfo.fullname : 'Người dùng đã bị xóa' %>"
                             width="100px"
                           />
                         </td>
-                        <td><%= comment.userInfo.fullname %></td>
+                        <td><%= comment.userInfo?.fullname ? comment.userInfo.fullname : 'Người dùng đã bị xóa' %></td>
+                        <td>
+                          <img
+                            src="<%= comment.productInfo?.thumbnail ? comment.productInfo.thumbnail : 'Sản phẩm đã bị xóa' %>"
+                            alt="<%= comment.productInfo?.title ? comment.productInfo.title : 'Sản phẩm đã bị xóa' %>"
+                            width="100px"
+                          />
+                        </td>
+                        <td>
+                          <div class="text-wrap">
+                          <%= comment.productInfo?.title ? comment.productInfo.title : 'Sản phẩm đã bị xóa' %>
+                          </div>
+                        </td>
                         <td>
                           <i class="fa-solid fa-clock me-1"></i>
                           <%= moment(comment.createdAt).format('DD/MM/YYYY - h:mm:ss') %>

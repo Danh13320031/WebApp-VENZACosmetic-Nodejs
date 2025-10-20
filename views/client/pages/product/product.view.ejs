@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
     <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMessage.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonHotLine.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
@@ -280,8 +283,11 @@
       </div>
     </main>
 
+    <%-include('../../partials/buttonMessage.view.ejs') %>
+    <%-include('../../partials/buttonHotLine.view.ejs') %>
+    <%-include('../../partials/buttonMailTo.view.ejs') %>
     <%-include('../../partials/buttonScrollToTop.view.ejs') %>
-    <%-include("../../partials/footer.view.ejs") %>
+    <%-include('../../partials/footer.view.ejs') %>
 
     <form
       action="/cart/delete"
