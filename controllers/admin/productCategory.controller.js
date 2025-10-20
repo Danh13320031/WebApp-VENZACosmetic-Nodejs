@@ -1,6 +1,7 @@
 import systemConfig from '../../configs/system.config.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
@@ -276,31 +277,42 @@ const garbageProductCategory = async (req, res) => {
 
 // PATCH: /admin/product-categories/restore-garbage/:id?_method=PATCH
 const restoreGarbageProductCategory = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      const error = new Error('Không tìm thấy danh mục');
+      error.status = 404;
+      throw error;
+    }
+
     await productCategoryModel.findByIdAndUpdate(id, {
       deleted: false,
     });
     alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
     res.redirect('back');
   } catch (err) {
-    console.log('Restore product fail: ', err);
+    handleErrorHelper(req, res, err);
   }
 };
 
 // DELETE: /admin/product-categories/delete-garbage/:id?_method=DELETE
 const deleteGarbageProductCategory = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      const error = new Error('Không tìm thấy danh mục');
+      error.status = 404;
+      throw error;
+    }
+
     await productCategoryModel.findByIdAndDelete(id);
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
-  } catch (err) {
-    console.log('Delete garbage fail: ', err);
-    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
-  } finally {
     res.redirect('back');
+    return;
+  } catch (err) {
+    handleErrorHelper(req, res, err);
   }
 };
 

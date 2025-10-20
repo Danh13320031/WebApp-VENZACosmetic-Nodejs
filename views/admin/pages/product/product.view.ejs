@@ -127,49 +127,53 @@
                     </thead>
 
                     <tbody class="content-font">
-                      <% productList.forEach((item, index) => { %>
-                      <tr title="<%= item.title %>">
+                      <% productList.forEach((product, index) => { %>
+                      <tr title="<%= product.title %>">
                         <td>
                           <input
                             type="checkbox"
                             name="checkid"
-                            value="<%= item._id %>"
+                            value="<%= product._id %>"
                             class="me-5"
                           />
                           <%= index + 1 %>
                         </td>
                         <td>
-                          <img src="<%= item.thumbnail %>" alt="<%= item.title %>" width="100px" />
+                          <img
+                            src="<%= product.thumbnail %>"
+                            alt="<%= product.title %>"
+                            width="100px"
+                          />
                         </td>
-                        <td><%= item.title %></td>
+                        <td><%= product.title %></td>
                         <td>
                           <b class="fw-bold" style="color: var(--error-color-admin)"
                             ><i
                               ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                              'VND' }).format(Number.parseFloat(item.price - (item.price / 100 *
-                              item.discount))) %>
+                              'VND' }).format(Number.parseFloat(product.price - (product.price / 100
+                              * product.discount))) %>
                             </i>
                           </b>
                           <span class="text-decoration-line-through"
                             ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                            }).format(item.price) %>
+                            }).format(product.price) %>
                           </span>
                         </td>
                         <td>
                           <p>
-                            <i class="fa-solid fa-user me-1"></i><%= item.accountFullNameCreate%>
+                            <i class="fa-solid fa-user me-1"></i><%= product.accountFullNameCreate%>
                           </p>
-                          <% if(item.accountFullNameCreate) { %>
+                          <% if(product.accountFullNameCreate) { %>
                           <p>
                             <i class="fa-solid fa-clock me-1"></i><%=
-                            moment(item.createdBy.createdAt).format('DD/MM/YYYY - h:mm:ss')%>
+                            moment(product.createdBy.createdAt).format('DD/MM/YYYY - h:mm:ss')%>
                           </p>
                           <% } else { %>
                           <p>Không tìm thấy</p>
                           <% } %>
                         </td>
                         <td>
-                          <% let updatedBy = item.updatedBy.slice(-1)[0] %> <% if(updatedBy) { %>
+                          <% let updatedBy = product.updatedBy.slice(-1)[0] %> <% if(updatedBy) { %>
                           <p>
                             <i class="fa-solid fa-user me-1"></i><%= updatedBy.accountFullNameUpdate
                             %>
@@ -184,10 +188,10 @@
                         </td>
                         <% if(roleAuth.permission.includes('product-change-status')) {%>
                         <td>
-                          <% if(item.status === 'active') {%>
+                          <% if(product.status === 'active') {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= item._id %>"
+                            data-id="<%= product._id %>"
                             data-status="active"
                             change-status
                             class="badge"
@@ -198,7 +202,7 @@
                           <% } else {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= item._id %>"
+                            data-id="<%= product._id %>"
                             data-status="inactive"
                             change-status
                             class="badge"
@@ -209,12 +213,12 @@
                           <% } %>
                         </td>
                         <% } %>
-                        <td><%= item.position %></td>
+                        <td><%= product.position %></td>
                         <td>
                           <% if(roleAuth.permission.includes('product-update')) {%>
                           <a
-                            href="<%= prefixAdmin %>/products/update/<%= item._id %>"
-                            data-id="<%= item._id %>"
+                            href="<%= prefixAdmin %>/products/update/<%= product._id %>"
+                            data-id="<%= product._id %>"
                             class="btn btn-primary btn-sm mb-1 btn-update"
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
@@ -224,7 +228,7 @@
                           <% if(roleAuth.permission.includes('product-sort-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
-                            data-id="<%= item._id %>"
+                            data-id="<%= product._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
@@ -232,7 +236,7 @@
                           <%#--------------------------------------------------------------------------------%>
                           <% if(roleAuth.permission.includes('product-view')) {%>
                           <a
-                            href="<%= prefixAdmin %>/products/detail/<%= item._id %>"
+                            href="<%= prefixAdmin %>/products/detail/<%= product._id %>"
                             class="btn btn-outline-black text-black border-black btn-sm mb-1 ml-1 btn-detail"
                           >
                             Chi tiết<i class="bi bi-arrow-right-short ml-1"></i>

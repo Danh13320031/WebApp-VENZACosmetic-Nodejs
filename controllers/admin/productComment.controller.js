@@ -96,8 +96,8 @@ const changeStatusProductComment = async (req, res) => {
 
     await productCommentModel.findByIdAndUpdate(id, { status: status });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
-  } catch (err) {
-    console.log('Update productComment fail: ', err);
+  } catch (error) {
+    console.log('Update productComment fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
   } finally {
     res.redirect('back');
@@ -186,8 +186,8 @@ const changeMultiProductComment = async (req, res) => {
     } else {
       res.redirect('back');
     }
-  } catch (err) {
-    console.log('Change multi status fail: ', err);
+  } catch (error) {
+    console.log('Change multi status fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
     res.redirect('back');
   }
@@ -206,11 +206,104 @@ const deleteProductComment = async (req, res) => {
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
     return;
-  } catch (err) {
-    console.log('Delete product fail: ', err);
+  } catch (error) {
+    console.log('Delete product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
     res.redirect('back');
     return;
+  }
+};
+
+// GET: /admin/product-comments/garbage
+const garbageProductCategory = async (req, res) => {
+  try {
+    const find = { deleted: true };
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.content = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 6,
+      currentPage: 1,
+    };
+    const productTotal = await productCommentModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    const productCommentList = await productCommentModel
+      .find(find)
+      .skip(objPagination.productSkip)
+      .limit(objPagination.limit);
+
+    if (productCommentList.length > 0) {
+      for (const comment of productCommentList) {
+        const userComment = await userModel.findById(comment.user_id).select('fullname avatar');
+        const product = await productModel.findById(comment.product_id).select('title thumbnail');
+        if (userComment) comment.userInfo = userComment;
+        if (product) comment.productInfo = product;
+      }
+    }
+
+    res.render('./admin/pages/productComment/garbage.view.ejs', {
+      pageTitle: 'Thùng rác bình luận',
+      productCommentList,
+      keyword: objSearch.keyword,
+      objPagination,
+      statusList,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// PATCH: /admin/product-comments/restore-garbage/:id?_method=PATCH
+const restoreGarbageProductComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      const error = new Error('Không tìm thấy bình luận');
+      error.status = 404;
+      throw error;
+    }
+
+    await productCommentModel.findByIdAndUpdate(id, {
+      deleted: false,
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+    res.redirect('back');
+    return;
+  } catch (err) {
+    handleErrorHelper(req, res, err);
+  }
+};
+
+// DELETE: /admin/product-comments/delete-garbage/:id?_method=DELETE
+const deleteGarbageProductComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      const error = new Error('Không tìm thấy bình luận');
+      error.status = 404;
+      throw error;
+    }
+
+    await productCommentModel.findByIdAndDelete(id);
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (err) {
+    handleErrorHelper(req, res, err);
   }
 };
 
@@ -219,6 +312,9 @@ const productCommentController = {
   changeStatusProductComment,
   changeMultiProductComment,
   deleteProductComment,
+  garbageProductCategory,
+  restoreGarbageProductComment,
+  deleteGarbageProductComment,
 };
 
 export default productCommentController;
