@@ -1,8 +1,8 @@
-.button-scroll-to-top {
+.button-message {
   width: 50px;
   height: 50px;
   position: fixed;
-  bottom: 20px;
+  bottom: 230px;
   right: 20px;
   border: none;
   border-radius: 50%;
@@ -13,16 +13,9 @@
   align-items: center;
   cursor: pointer;
   z-index: 900;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s ease-out;
 }
-.button-scroll-to-top.active {
-  opacity: 1;
-  visibility: visible;
-}
-.button-scroll-to-top::before,
-.button-scroll-to-top::after {
+.button-message::before,
+.button-message::after {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -36,13 +29,13 @@
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
   content: '';
-  animation: scroll-to-top-before 2s ease-in-out infinite;
+  animation: button-message-before 2s ease-in-out infinite;
 }
-.button-scroll-to-top::after {
-  animation: scroll-to-top-after 1s ease-in-out infinite 0.5s;
+.button-message::after {
+  animation: button-message-after 1s ease-in-out infinite 0.5s;
 }
 
-@keyframes scroll-to-top-before {
+@keyframes button-message-before {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -53,7 +46,7 @@
   }
 }
 
-@keyframes scroll-to-top-after {
+@keyframes button-message-after {
   0% {
     transform: scale(1);
     opacity: 1;

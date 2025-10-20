@@ -1,4 +1,4 @@
-const buttonScrollToTop = document.querySelector('.scroll-to-top');
+const buttonScrollToTop = document.querySelector('.button-scroll-to-top');
 
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;

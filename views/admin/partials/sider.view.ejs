@@ -375,7 +375,7 @@
         ></a>
         <ul class="d-flex justify-content-start mb-3 ps-0 btn-group sidebar-nav-contact">
           <li class="btn btn-light">
-            <div class="before"></div>
+            <!-- <div class="before"></div> -->
             <a
               href="tel:<%= generalWebsite ? generalWebsite.phone : '#' %>"
               class="text-decoration-none text-primary"
@@ -384,7 +384,8 @@
           </li>
           <li class="btn btn-light">
             <a
-              href="mailto:<%= generalWebsite ? generalWebsite.email : '#' %>"
+              href="<%= generalWebsite ? `https://mail.google.com/mail/u/0/?fs=1&to=${generalWebsite.email}&tf=cm:` : '#' %>"
+              target="_blank"
               class="text-decoration-none text-primary"
               ><i class="fa-solid fa-envelope"></i
             ></a>

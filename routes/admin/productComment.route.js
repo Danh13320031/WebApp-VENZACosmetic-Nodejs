@@ -9,5 +9,6 @@ productCommentRoute.patch(
   productCommentController.changeStatusProductComment
 );
 productCommentRoute.patch('/change-multi', productCommentController.changeMultiProductComment);
+productCommentRoute.patch('/delete/:id', productCommentController.deleteProductComment);
 
 export default productCommentRoute;
