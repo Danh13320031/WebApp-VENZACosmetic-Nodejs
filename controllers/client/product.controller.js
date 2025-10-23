@@ -81,7 +81,7 @@ const product = async (req, res) => {
       .limit(productLimit || productLimitConst)
       .skip(objPagination.productSkip);
 
-    // Product like filter
+    // Handle product like
     const productLike = res.locals.productLike;
     if (productLike && productLike.products.length > 0) {
       productList.forEach((product) => {

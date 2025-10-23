@@ -1,4 +1,4 @@
-export const productLimitConst = 15;
+export const productLimitConst = 16;
 
 export const saltRoundsConst = 10;
 export const verifyTokenExpiresIn = 5 * 60 * 1000;

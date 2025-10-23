@@ -17,6 +17,7 @@ const cart = async (req, res) => {
     const pageUrl = createPageUrlHelper(req);
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findById(cartId);
+
     let productIdCartList = [];
     let productBrandCartList = [];
     let objPagination = {};
@@ -63,6 +64,7 @@ const cart = async (req, res) => {
       );
     }
 
+    // Handle related product
     const relatedProductList = await productModel
       .find({
         $and: [
@@ -74,7 +76,7 @@ const cart = async (req, res) => {
       .sort({ createdAt: 'desc' })
       .limit(6);
 
-    // Product like filter
+    // Handle product like
     const productLike = res.locals.productLike;
     if (productLike && productLike.products.length > 0) {
       relatedProductList.forEach((product) => {
@@ -113,8 +115,10 @@ const addProductToCart = async (req, res) => {
   try {
     const productId = req.params.productId;
     const quantity = req.body.quantity ? Number.parseInt(req.body.quantity) : 1;
+
     let cartId = req.cookies.cartId;
     let cart = null;
+    
     const objectOrder = { product_id: productId, quantity };
 
     if (cartId) {

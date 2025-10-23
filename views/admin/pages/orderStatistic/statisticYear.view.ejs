@@ -52,8 +52,8 @@
         <div class="card mb-3">
           <div class="title-font card-header d-md-flex d-block gap-2 justify-content-between align-items-center">
             <div class="mb-0">Danh sách (trang hiện tại: <%= objPagination.currentPage %>)</div>
-            <div class="mt-md-0 mt-2">
-              <form action="" class="w-100 form-statistic-year">
+            <div class="mt-md-0 mt-2 d-flex gap-2 flex-wrap">
+              <form action="" class="form-statistic-year">
                 <div class="input-group">
                   <input 
                     type="number" 
@@ -72,6 +72,12 @@
                   </div>
                 </div>
               </form>
+              <a 
+                href="<%= prefixAdmin %>/order-statistics/year/export?year=<%= moment(yearRange.startYear).format('YYYY') %>" 
+                class="btn btn-outline-black text-black border-black" 
+                button-export-statistic-year>
+                <i class="fa-solid fa-print"></i>
+              </a>
             </div>
           </div>
           <div class="card-body">
@@ -288,8 +294,8 @@
           <div class="card-footer d-md-flex align-items-center justify-content-between gap-2 d-block py-4">
             <ul class="ps-0 mb-md-0 mb-2 d-flex flex-column gap-1">
               <li class="content-font mb-0 text-md-left">- Tổng số đơn hàng: <span class="fw-bold"><%= countOrderYear ? countOrderYear : 'Ko tìm thấy' %></span></li>
-              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu cao nhất: <span class="fw-bold"><%= orderMaxYear ? orderMaxYear.orderCode : 'Ko tìm thấy' %></span></li>
-              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu thấp nhất: <span class="fw-bold"><%= orderMinYear ? orderMinYear.orderCode : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu cao nhất: <span class="fw-bold"><%= orderMaxYear ? orderMaxYear.orderCode + ' - ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderMaxYear.total) : 'Ko tìm thấy' %></span></li>
+              <li class="content-font mb-0 text-md-left">- Đơn có doanh thu thấp nhất: <span class="fw-bold"><%= orderMinYear ? orderMinYear.orderCode + ' - ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderMinYear.total) : 'Ko tìm thấy' %></span></li>
             </ul>
             <h2 class="title-font mb-0 text-md-right text-left">Tổng doanh thu: <span class="text-danger"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(revenueYear) %></span></h2>
           </div>
@@ -307,9 +313,9 @@
           <div class="row">
             <div class="col-12">
               <%-include("../../partials/barChart.view.ejs", { 
-                name: 'Biểu đồ doanh thu đơn hàng theo năm', 
-                data: orderListYear.orderTotalListYear, 
-                labels: orderListYear.orderCodeListYear,
+                name: chartName, 
+                data: chartData, 
+                labels: chartLabels,
                 axis: false,
               }) %>
             </div>

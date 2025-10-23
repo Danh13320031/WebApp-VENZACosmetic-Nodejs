@@ -12,7 +12,7 @@ const home = async (req, res) => {
     const productList = await productModel.find(find).sort({ createdAt: 'desc' });
     const categoryTree = categoryTreeHelper(categoryList);
 
-    // Product like filter
+    // Handle product like
     const productLike = res.locals.productLike;
     if (productLike && productLike.products.length > 0) {
       productList.forEach((product) => {
