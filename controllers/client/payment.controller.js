@@ -39,6 +39,7 @@ const createOfflinePayment = async (req, res) => {
     const user = res.locals.user;
     const userId = user ? user._id : null;
     const userOrder = await userModel.findById(userId);
+
     const userOrderInfo = {
       user_id: userOrder._id,
       fullname: userOrder.fullname,
@@ -47,6 +48,7 @@ const createOfflinePayment = async (req, res) => {
       address: userOrder.address,
       avatar: userOrder.avatar,
     };
+
     const userConsigneeInfo = {
       fullname: body.fullname,
       email: body.email,
@@ -54,13 +56,13 @@ const createOfflinePayment = async (req, res) => {
       address: body.address,
       note: body.note,
     };
-    const payments = {
-      method: body.payment_method,
-    };
-    const shippings = {
-      method: body.shipping_method,
-    };
+
+    const payments = { method: body.payment_method };
+    const shippings = { method: body.shipping_method };
+
+    // Handle generate order code
     const orderCode = await generateOrderCodeHelper();
+
     const orderCount = await orderModel.countDocuments();
     const cart = await cartModel.findById(cartId);
 
@@ -80,6 +82,7 @@ const createOfflinePayment = async (req, res) => {
           discount: 0,
           quantity: cart.products[i].quantity,
         };
+
         const product = await productModel
           .findById(cart.products[i].product_id)
           .select('title thumbnail price discount stock');
@@ -91,6 +94,7 @@ const createOfflinePayment = async (req, res) => {
         productInfo.dimension = product.dimension;
         productInfo.price = product.price;
         productInfo.discount = product.discount;
+
         total +=
           (product.price - (product.price * product.discount) / 100) * cart.products[i].quantity;
         products.push(productInfo);
@@ -128,6 +132,7 @@ const createOfflinePayment = async (req, res) => {
         );
       });
 
+      // Handle notify mail payment success
       const html = await ejs.renderFile('./views/client/pages/payment/paymentSuccess.view.ejs', {
         ...res.locals,
         pageTitle: 'Thanh toán thành công',
