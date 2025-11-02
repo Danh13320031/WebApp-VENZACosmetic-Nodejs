@@ -3,7 +3,12 @@ const Schema = mongoose.Schema;
 
 const objSchema = {
   user_id: { type: String },
-  products: [{ product_id: String, quantity: Number }],
+  products: [
+    {
+      product_id: { type: String, require: true },
+      quantity: { type: Number, require: true },
+    },
+  ],
 };
 
 const cartSchema = new Schema(objSchema, { timestamps: true }, { collection: 'Cart' });

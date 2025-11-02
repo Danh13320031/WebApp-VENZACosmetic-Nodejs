@@ -12,14 +12,12 @@ const objSchema = {
   discount: { type: Number, default: 0 },
   shipping_fee: { type: Number, require: true, default: 0 },
   warranty: { type: String },
-  reviewer_name: { type: String, require: true, default: '' },
-  reviewer_email: { type: String, require: true },
   stock: { type: Number, require: true },
   category: { type: String, require: true },
   brand: { type: String, require: true },
   thumbnail: { type: String, require: true },
   images: { type: Array, require: true },
-  status: { type: String, require: true, default: 'inactive' },
+  status: { type: String, require: true, enum: ['active', 'inactive'], default: 'inactive' },
   featured: { type: String, require: true, default: '0' },
   createdBy: {
     account_id: { type: String, require: true },
@@ -28,7 +26,7 @@ const objSchema = {
   updatedBy: [
     {
       account_id: { type: String, require: true },
-      updatedAt: { type: Date, default: Date.now },
+      updatedAt: { type: Date, default: Date.now, require: true },
     },
   ],
   deletedBy: {
@@ -36,13 +34,8 @@ const objSchema = {
     deletedAt: { type: Date },
   },
   deleted: { type: Boolean, require: true, default: false },
-  dimension: {
-    width: { type: Number },
-    height: { type: Number },
-    depth: { type: Number },
-  },
-  position: { type: Number, require: true },
-  slug: { type: String, slug: 'title', unique: true },
+  position: { type: Number, require: true, default: 1 },
+  slug: { type: String, slug: 'title', unique: true, require: true },
 };
 
 const productSchema = new Schema(objSchema, { timestamps: true }, { collection: 'Product' });

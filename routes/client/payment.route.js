@@ -4,7 +4,7 @@ import paymentValidate from '../../validators/client/payment.validate.js';
 import authMiddleware from '../../middlewares/client/auth.middleware.js';
 const paymentRoute = express.Router();
 
-paymentRoute.get('/', paymentController.payment);
+paymentRoute.get('/', authMiddleware.requireLogin, paymentController.payment);
 paymentRoute.post(
   '/payment-create-offline',
   authMiddleware.requireLogin,

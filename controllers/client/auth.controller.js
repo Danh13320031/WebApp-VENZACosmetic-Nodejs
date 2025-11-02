@@ -145,10 +145,62 @@ const loginPost = async (req, res) => {
     res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: refreshTokenExpiresIn });
 
     user.refreshToken = refreshToken;
+    user.loginType = 'email';
+
+    if (!user.loginMethod.includes('email')) user.loginMethod.push('email');
+
     await user.save();
 
-    await handleCartLoginHelper(req, res, user);
-    await handleProductLikeLoginHelper(req, res, user);
+    const cartId = await handleCartLoginHelper(req, res, user);
+    const productLikeId = await handleProductLikeLoginHelper(req, user);
+
+    res.cookie('cartId', cartId, { httpOnly: true, maxAge: maxAgeCartStorage });
+    res.cookie('productLikeId', productLikeId, {
+      httpOnly: true,
+      maxAge: maxAgeProductLikeStorage,
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
+    res.redirect('/');
+    return;
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// [GET]: /login/google/callback
+const loginGoogleCallback = async (req, res) => {
+  try {
+    const find = { email: req.user.email, deleted: false, status: 'active' };
+    let user = await userModel.findOne(find);
+
+    if (!user) user = new userModel(req.user);
+    if (user) await userModel.findByIdAndUpdate(user._id, req.user);
+
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, {
+      expiresIn: accessTokenExpiresIn,
+    });
+    const refreshToken = jwt.sign({ id: user._id }, process.env.jWT_REFRESH_TOKEN_SECRET, {
+      expiresIn: refreshTokenExpiresIn,
+    });
+
+    res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: accessTokenExpiresIn });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: refreshTokenExpiresIn });
+
+    if (!user.loginMethod.includes('google')) user.loginMethod.push('google');
+
+    user.refreshToken = refreshToken;
+
+    await user.save();
+
+    const cartId = await handleCartLoginHelper(req, user);
+    const productLikeId = await handleProductLikeLoginHelper(req, user);
+
+    res.cookie('cartId', cartId, { httpOnly: true, maxAge: maxAgeCartStorage });
+    res.cookie('productLikeId', productLikeId, {
+      httpOnly: true,
+      maxAge: maxAgeProductLikeStorage,
+    });
 
     alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
     res.redirect('/');
@@ -303,7 +355,10 @@ const resetPasswordGet = async (req, res) => {
       {
         pageTitle: 'Đổi mật khẩu',
       },
-      (err) => handleErrorHelper(req, res, err)
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
     );
   } catch (error) {
     handleErrorHelper(req, res, error);
@@ -334,6 +389,7 @@ const authController = {
   regiterVerifyPatch,
   loginGet,
   loginPost,
+  loginGoogleCallback,
   logout,
   forgotPasswordGet,
   forgotPasswordPost,

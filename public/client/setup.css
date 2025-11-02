@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-/* Layout Setup */
+/* Layout setup */
 * {
   margin: 0;
   padding: 0;
@@ -14,9 +14,8 @@ body.no-scroll {
   overflow: hidden;
   height: 100vh;
 }
-/* End Layout Setup */
 
-/* Color Setup */
+/* Color setup */
 :root {
   --primary-color: #f5b607;
   --light-primary-color: #fffcf5;
@@ -42,9 +41,8 @@ body.no-scroll {
   --warning-color: #ffa600;
   --info-color: #2f96b4;
 }
-/* End Color Setup */
 
-/* Font Setup */
+/* Font setup */
 :root {
   --primary-font-family: 'Roboto', serif;
   --secondary-font-family: 'Lato', sans-serif;
@@ -61,24 +59,21 @@ body.no-scroll {
   --title-font-weight: 600;
   --content-font-weight: 300;
 }
-/* End Font Setup */
 
-/* Button Setup */
+/* Button setup */
 :root {
   --padding-button: 6px 18px;
   --padding-button2: 6px 10px;
   --border-thickness-button: 1px;
   --border-radius-button: 6px;
 }
-/* End Button Setup */
 
-/* Field Setup */
+/* Field setup */
 :root {
   --padding-field: 9px 6px;
   --border-thickness-field: 1px;
   --border-radius-field: 6px;
 }
-/* End Field Setup */
 
 /* TinyMCE setup */
 div[role='application'].tox-tinymce {
@@ -110,8 +105,11 @@ div[role='application'].tox-tinymce {
 .tox .tox-tbtn--enabled:hover {
   background: var(--light-primary-color) !important;
 }
+span.tox-statusbar__branding {
+  display: none !important;
+}
 
-/* Scrollbar Setup */
+/* Scrollbar setup */
 ::-webkit-scrollbar {
   width: 10px;
   background-color: white;
@@ -121,9 +119,8 @@ div[role='application'].tox-tinymce {
   border-radius: 10px;
   cursor: pointer;
 }
-/* End Scrollbar Setup */
 
-/* Bootstrap Setup */
+/* Bootstrap setup */
 .container {
   max-width: 1200px;
 }
@@ -192,7 +189,6 @@ textarea.textarea-type01 {
   outline: none;
   box-shadow: none;
 }
-/* End Bootstrap Setup */
 
 /* TinyMCE setup */
 @media screen and (max-width: 992px) {

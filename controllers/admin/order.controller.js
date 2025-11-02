@@ -543,7 +543,7 @@ const detailOrder = async (req, res) => {
     return;
   }
 
-  const userOrder = await userModel.findById(order.userOrderInfo.user_id);
+  const userOrder = await userModel.findOne({ email: order.userOrderInfo.email });
 
   let productListInOrder = [];
   let productList = [];

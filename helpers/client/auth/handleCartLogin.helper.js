@@ -1,7 +1,6 @@
-import { maxAgeCartStorage } from '../../../constants/constant.js';
 import cartModel from '../../../models/cart.model.js';
 
-const handleCartLoginHelper = async (req, res, user) => {
+const handleCartLoginHelper = async (req, user) => {
   // Xử lý cart
   const cartId = req.cookies.cartId || null;
   let userCart = await cartModel.findOne({ user_id: user._id });
@@ -37,7 +36,7 @@ const handleCartLoginHelper = async (req, res, user) => {
     await userCart.save();
   }
 
-  res.cookie('cartId', userCart._id, { httpOnly: true, maxAge: maxAgeCartStorage });
+  return userCart._id;
 };
 
 export default handleCartLoginHelper;

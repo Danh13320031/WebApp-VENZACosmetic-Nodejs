@@ -2,12 +2,14 @@ import moment from 'moment-timezone';
 import { timezone } from '../../constants/constant.js';
 
 const statisticOrderByDayValidate = async (req, res, next) => {
-  const currentDay = moment().tz(timezone).format('DD');
   const currentMonth = moment().tz(timezone).format('MM');
   const currentYear = moment().tz(timezone).format('YYYY');
 
-  if (!req.query.minDay) req.query.minDay = `${currentYear}-${currentMonth}-${currentDay - 1}`;
-  if (!req.query.maxDay) req.query.maxDay = `${currentYear}-${currentMonth}-${currentDay}`;
+  const currentDay = moment().tz(timezone).format('YYYY-MM-DD');
+  const yesterday = moment().tz(timezone).subtract(1, 'day').format('YYYY-MM-DD');
+
+  if (!req.query.minDay) req.query.minDay = yesterday;
+  if (!req.query.maxDay) req.query.maxDay = currentDay;
 
   if (
     (req.query.minDay && currentMonth < moment(req.query.minDay).tz(timezone).format('MM')) ||
@@ -15,7 +17,7 @@ const statisticOrderByDayValidate = async (req, res, next) => {
     currentYear < moment(req.query.minDay).tz(timezone).format('YYYY') ||
     currentYear > moment(req.query.minDay).tz(timezone).format('YYYY')
   )
-    req.query.minDay = `${currentYear}-${currentMonth}-${currentDay - 1}`;
+    req.query.minDay = yesterday;
 
   if (
     (req.query.maxDay && currentMonth < moment(req.query.maxDay).tz(timezone).format('MM')) ||
@@ -23,7 +25,7 @@ const statisticOrderByDayValidate = async (req, res, next) => {
     currentYear < moment(req.query.maxDay).tz(timezone).format('YYYY') ||
     currentYear > moment(req.query.maxDay).tz(timezone).format('YYYY')
   )
-    req.query.maxDay = `${currentYear}-${currentMonth}-${currentDay}`;
+    req.query.maxDay = currentDay;
 
   next();
 };

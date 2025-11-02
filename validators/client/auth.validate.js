@@ -1,4 +1,4 @@
-import bcript from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { emailRegex, otpRegex, passwordRegex, phoneRegex } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import otpModel from '../../models/otp.model.js';
@@ -113,7 +113,13 @@ const loginPostValidate = async (req, res, next) => {
       res.redirect('back');
       return;
     } else {
-      const checkPassword = await bcript.compare(req.body.password, user.password);
+      if (user.loginType && user.loginType !== 'email') {
+        alertMessageHelper(req, 'alertFailure', 'Tài khoản đang đăng ký bằng ' + user.loginType);
+        res.redirect('back');
+        return;
+      }
+
+      const checkPassword = await bcrypt.compare(req.body.password, user.password);
 
       if (!checkPassword || user.email !== req.body.email) {
         alertMessageHelper(req, 'alertFailure', 'Email hoặc mật khẩu không đúng');
@@ -141,6 +147,41 @@ const loginPostValidate = async (req, res, next) => {
     }
 
     next();
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const loginGoogleCallbackValidate = async (req, res, next) => {
+  try {
+    if (!req.user) {
+      alertMessageHelper(req, 'alertFailure', 'Đăng nhập thất bại');
+      res.redirect('/login');
+      return;
+    }
+
+    const user = await userModel.findOne({ email: req.user.email });
+
+    if (!user) {
+      next();
+      return;
+    } else {
+      if (user.status === 'inactive') {
+        alertMessageHelper(req, 'alertFailure', 'Tài khoản đã bị khóa');
+        res.redirect('/login');
+        return;
+      }
+
+      if (user.deleted === true) {
+        alertMessageHelper(req, 'alertFailure', 'Tài khoản đã bị xoá');
+        res.redirect('/login');
+        return;
+      }
+    }
+
+    next();
+    return;
   } catch (error) {
     console.log(error);
   }
@@ -314,6 +355,7 @@ const resetPasswordPostValidate = async (req, res, next) => {
 const authValidate = {
   registerPostValidate,
   loginPostValidate,
+  loginGoogleCallbackValidate,
   forgotPasswordPostValidate,
   checkOtpValidate,
   resetPasswordPostValidate,
