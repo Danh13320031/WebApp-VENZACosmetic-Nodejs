@@ -351,7 +351,8 @@
                                   </span>
                                 </td>
                                 <td>
-                                  <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id) {
+                                  <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id &&
+                          prd.deleted === false) {
                                   %>
                                   <a
                                     href="<%= prefixAdmin %>/products/detail/<%= product.id %>"

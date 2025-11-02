@@ -444,22 +444,24 @@
                           </span>
                         </td>
                         <td>
-                          <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id) {
-                          %>
-                          <a
-                            href="<%= prefixAdmin %>/products/update/<%= product.id %>"
-                            data-id="<%= product.id %>"
-                            class="btn btn-primary btn-sm mb-1 btn-update"
-                          >
-                            <i class="bi bi-pencil-square me-1"></i>Sửa
-                          </a>
-                          <a
-                            href="<%= prefixAdmin %>/products/detail/<%= product.id %>"
-                            class="btn btn-outline-black text-black border-black btn-sm"
-                          >
-                            Chi tiết
-                            <i class="bi bi-arrow-right-short ml-1"></i>
-                          </a>
+                          <% productList.forEach((prd) => { %> <% if(prd && prd.id === product.id &&
+                          prd.deleted === false) { %>
+                          <div class="d-flex gap-1 flex-wrap">
+                            <a
+                              href="<%= prefixAdmin %>/products/update/<%= product.id %>"
+                              data-id="<%= product.id %>"
+                              class="btn btn-primary btn-sm btn-update"
+                            >
+                              <i class="bi bi-pencil-square me-1"></i>Sửa
+                            </a>
+                            <a
+                              href="<%= prefixAdmin %>/products/detail/<%= product.id %>"
+                              class="btn btn-outline-black text-black border-black btn-sm"
+                            >
+                              Chi tiết
+                              <i class="bi bi-arrow-right-short ml-1"></i>
+                            </a>
+                          </div>
                           <% } %> <% }) %>
                         </td>
                       </tr>

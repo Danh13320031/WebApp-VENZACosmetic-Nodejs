@@ -5,13 +5,18 @@ const objSchema = {
   cart_id: { type: String, require: true },
   orderCode: { type: String, require: true, unique: true },
   position: { type: Number, require: true, default: 1 },
-  status: { type: String, require: true, default: 'pending' },
+  status: {
+    type: String,
+    require: true,
+    enum: ['pending', 'confirmed', 'shipping', 'delivered', 'cancelled'],
+    default: 'pending',
+  },
   discount: { type: Number, require: true, default: 0 },
   total: { type: Number, require: true, default: 0 },
   shippingFee: { type: Number, require: true, default: 0 },
   payments: {
     method: { type: String, require: true, enum: ['offline', 'online'], default: 'offline' },
-    bank: { type: String, require: true, default: '' },
+    bank: { type: String },
     status: {
       type: String,
       require: true,
@@ -51,10 +56,7 @@ const objSchema = {
     expiredAt: { type: Date },
   },
   shippings: {
-    shipping_id: { type: String, require: true, default: '' },
-    method: { type: String, default: 'standard' },
-    status: { type: String, default: 'pending' },
-    tracking_code: { type: String },
+    method: { type: String, require: true },
   },
   deleted: { type: Boolean, default: false },
   deletedAt: { type: Date },

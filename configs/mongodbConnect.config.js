@@ -7,8 +7,8 @@ const connect = async () => {
       serverSelectionTimeoutMS: 30000,
     });
     console.log('Connect Success!');
-  } catch (err) {
-    console.log('Connect Fail: ', err);
+  } catch (error) {
+    console.log('Connect Fail: ', error);
   }
 };
 

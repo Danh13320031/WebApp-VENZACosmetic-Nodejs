@@ -125,6 +125,7 @@ const createOfflinePayment = async (req, res) => {
     if (order) {
       await cartModel.updateOne({ _id: cartId }, { products: [] });
 
+      // Handle update stock
       products.forEach(async (product) => {
         await productModel.updateOne(
           { _id: product.product_id },
@@ -139,7 +140,7 @@ const createOfflinePayment = async (req, res) => {
         orderCode: order.orderCode,
       });
 
-      // order.userInfo.email
+      // order.userOrderInfo.email
       await sendMailHelper(emailConst, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
       res.redirect('/payment/payment-success/' + order.orderCode);
       return;

@@ -1,7 +1,6 @@
-import { maxAgeProductLikeStorage } from '../../../constants/constant.js';
 import productLikeModel from '../../../models/productLike.model.js';
 
-const handleProductLikeLoginHelper = async (req, res, user) => {
+const handleProductLikeLoginHelper = async (req, user) => {
   const productLikeId = req.cookies.productLikeId || null;
   let userProductLike = await productLikeModel.findOne({ user_id: user._id });
   let guestProductLike = null;
@@ -36,10 +35,7 @@ const handleProductLikeLoginHelper = async (req, res, user) => {
     await userProductLike.save();
   }
 
-  res.cookie('productLikeId', userProductLike._id, {
-    httpOnly: true,
-    maxAge: maxAgeProductLikeStorage,
-  });
+  return userProductLike._id;
 };
 
 export default handleProductLikeLoginHelper;

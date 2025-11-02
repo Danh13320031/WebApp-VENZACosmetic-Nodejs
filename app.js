@@ -8,6 +8,7 @@ import reload from 'reload';
 import { fileURLToPath } from 'url';
 import bodyParserPackageConfig from './configs/bodyParserPackage.config.js';
 import flashPackageConfig from './configs/flashPackage.config.js';
+import googleStrategyOauthConfig from './configs/googleStrategyOauth.config.js';
 import connect from './configs/mongodbConnect.config.js';
 import publicFileConfig from './configs/publicFile.config.js';
 import { socketIOPackageConfig } from './configs/socketIoPackage.config.js';
@@ -38,6 +39,9 @@ templateEngineConfig(__dirname, app);
 app.use(methodOverride('_method'));
 // Config Flash Package
 flashPackageConfig(app);
+// Config Google Oauth
+app.use(googleStrategyOauthConfig().initialize());
+app.use(googleStrategyOauthConfig().session());
 
 routerClient(app);
 routerAdmin(app);

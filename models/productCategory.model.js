@@ -7,7 +7,7 @@ const objSchema = {
   title: { type: String, require: true },
   description: { type: String, require: true },
   thumbnail: { type: String, require: true },
-  status: { type: String, require: true, default: 'inactive' },
+  status: { type: String, require: true, enum: ['active', 'inactive'], default: 'inactive' },
   deleted: { type: Boolean, require: true, default: false },
   position: { type: Number, require: true },
   parent_id: { type: String, require: true, default: '' },

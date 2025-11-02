@@ -1,19 +1,22 @@
 import mongoose from 'mongoose';
-import validator from 'validator';
 const Schema = mongoose.Schema;
 
 const objSchema = {
+  google_id: { type: String },
+  loginType: { type: String, enum: ['email', 'google'] },
+  loginMethod: { type: Array, require: true, default: [] },
   fullname: { type: String, required: true },
   birthDay: { type: String },
   email: { type: String, required: true, unique: true },
-  phone: { type: String, required: true, unique: true },
+  phone: { type: String, unique: true, default: null },
   address: { type: String, default: '' },
-  password: { type: String, required: true },
-  isVerified: { type: Boolean, default: false },
-  refreshToken: { type: String, default: '' },
+  password: { type: String, default: null },
+  isVerified: { type: Boolean, require: true, default: false },
+  refreshToken: { type: String, require: true, default: '' },
   status: { type: String, require: true, enum: ['active', 'inactive'], default: 'active' },
   avatar: {
     type: String,
+    require: true,
     default:
       'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg',
   },
