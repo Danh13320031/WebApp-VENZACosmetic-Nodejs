@@ -10,6 +10,10 @@
   font-family: var(--primary-font-family);
 }
 
+body {
+  overflow-x: hidden;
+}
+
 body.no-scroll {
   overflow: hidden;
   height: 100vh;

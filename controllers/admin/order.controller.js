@@ -1,7 +1,8 @@
 import ejs from 'ejs';
 import * as html_to_pdf from 'html-pdf-node';
 import moment from 'moment-timezone';
-import { emailConst, timezone } from '../../constants/constant.js';
+import { emailConst } from '../../constants/constant.js';
+import handleReturnToStockHelper from '../../helpers/admin/order/handleReturnToStock.helper.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import priceFilterHelper from '../../helpers/priceFilter.helper.js';
@@ -67,7 +68,7 @@ const order = async (req, res) => {
       sortValue,
       valueRange,
       objPagination,
-      statusList,
+      statusList: [],
     });
   } catch (err) {
     console.log('Not found: ', err);
@@ -198,12 +199,28 @@ const updateOrderPatch = async (req, res) => {
         total += product.quantity * (product.price - (product.price * product.discount) / 100);
       }
 
+      // Handle return to stock
+      await handleReturnToStockHelper(req.body.status, order.products);
+
       await orderModel.findByIdAndUpdate(id, {
+        ...req.body,
         total: total,
         products: order.products,
-        payments: req.body.payments,
-        userConsigneeInfo: req.body.userConsigneeInfo,
       });
+
+      // Handle send mail
+      if (req.body.status !== 'pending') {
+        const html = await ejs.renderFile(
+          './views/admin/pages/order/notifyMailOrderStatus.view.ejs',
+          {
+            clientWebsite: res.locals.clientWebsite,
+            orderCode: order.orderCode,
+            status: req.body.status,
+          }
+        );
+
+        await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
+      }
     }
 
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
@@ -228,7 +245,7 @@ const changeStatusOrder = async (req, res) => {
       return;
     }
 
-    const order = await orderModel.findById(id).select('orderCode userInfo');
+    const order = await orderModel.findById(id).select('orderCode userInfo products');
 
     if (!order) {
       alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
@@ -236,6 +253,7 @@ const changeStatusOrder = async (req, res) => {
       return;
     }
 
+    // Handle send mail
     if (status !== 'pending') {
       const html = await ejs.renderFile(
         './views/admin/pages/order/notifyMailOrderStatus.view.ejs',
@@ -248,6 +266,9 @@ const changeStatusOrder = async (req, res) => {
 
       await sendMailHelper(emailConst, 'VENZA - Cập nhật trạng thái đơn hàng', html);
     }
+
+    // Handle return to stock
+    await handleReturnToStockHelper(status, order.products);
 
     await orderModel.findByIdAndUpdate(id, { status: status });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
@@ -417,12 +438,16 @@ const changeMultiOrder = async (req, res) => {
 
       const orderList = await orderModel
         .find({ _id: { $in: idsArr } })
-        .select('userInfo orderCode status');
+        .select('userInfo orderCode status products');
 
       if (orderList.length > 0) {
         for (const order of orderList) {
           if (order.status === 'pending') break;
 
+          // Handle return to stock
+          await handleReturnToStockHelper(order.status, order.products);
+
+          // Handle send mail
           const html = await ejs.renderFile(
             './views/admin/pages/order/notifyMailOrderStatus.view.ejs',
             {
@@ -483,15 +508,15 @@ const garbageOrder = async (req, res) => {
 
 // PATCH: /admin/orders/restore-garbage/:id?_method=PATCH
 const restoreOrder = async (req, res) => {
-  const { id } = req.params;
-
-  if (!id) {
-    res.redirect('back');
-    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
-    return;
-  }
-
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+      return;
+    }
+
     await orderModel.findByIdAndUpdate(id, { deleted: false });
     alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
   } catch (err) {
@@ -505,15 +530,15 @@ const restoreOrder = async (req, res) => {
 
 // DELETE: /admin/orders/delete-garbage/:id?_method=DELETE
 const deleteGarbageOrder = async (req, res) => {
-  const { id } = req.params;
-
-  if (!id) {
-    res.redirect('back');
-    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
-    return;
-  }
-
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+      return;
+    }
+
     await orderModel.findByIdAndDelete(id);
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
   } catch (err) {
@@ -527,80 +552,84 @@ const deleteGarbageOrder = async (req, res) => {
 
 // GET: /admin/orders/detail/:id
 const detailOrder = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  if (!id) {
-    res.redirect('back');
-    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
-    return;
+    if (!id) {
+      const err = new Error('Ko tìm thấy đơn hàng');
+      err.status = 404;
+      throw err;
+    }
+
+    const order = await orderModel.findById(id);
+
+    if (!order) {
+      const err = new Error('Ko tìm thấy đơn hàng');
+      err.status = 404;
+      throw err;
+    }
+
+    const userOrder = await userModel.findOne({ email: order.userOrderInfo.email });
+
+    let productListInOrder = [];
+    let productList = [];
+    let orderTotal = 0;
+
+    for (const productOrder of order.products) {
+      const productInfo = await productModel.findById(productOrder.product_id);
+      const product = {};
+
+      product.id = productOrder.product_id;
+      product.price = productOrder.price;
+      product.title = productOrder.title;
+      product.thumbnail = productOrder.thumbnail;
+      product.brand = productOrder.brand;
+      product.warranty = productOrder.warranty;
+      product.dimension = productOrder.dimension;
+      product.discount = productOrder.discount;
+      product.quantity = productOrder.quantity;
+      product.total =
+        (productOrder.price - (productOrder.price * productOrder.discount) / 100) *
+        productOrder.quantity;
+
+      orderTotal += product.total;
+      productListInOrder.push(product);
+      productList.push(productInfo);
+    }
+
+    // Search
+    let keywordStr = '';
+    const objSearch = searchHelper(req.query);
+
+    if (objSearch.rexKeywordString) keywordStr = objSearch.rexKeywordString;
+    productListInOrder = productListInOrder.filter((product) => product.title.match(keywordStr));
+
+    // Pagination
+    const paginationObj = {
+      limit: 4,
+      currentPage: 1,
+    };
+    const productTotal = productListInOrder.length;
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    productListInOrder = productListInOrder.slice(
+      objPagination.productSkip,
+      objPagination.productSkip + objPagination.limit
+    );
+
+    res.render('./admin/pages/order/detail.view.ejs', {
+      pageTitle: `Đơn hàng ${order.orderCode}`,
+      orderDetail: order,
+      userOrder,
+      productList,
+      productListInOrder,
+      orderTotal,
+      keyword: objSearch.keyword,
+      objPagination,
+    });
+  } catch (error) {
+    handleError(req, res, error);
   }
-
-  const order = await orderModel.findById(id);
-
-  if (!order) {
-    res.redirect('back');
-    alertMessageHelper(req, 'alertFailure', 'Ko tìm thấy đơn hàng');
-    return;
-  }
-
-  const userOrder = await userModel.findOne({ email: order.userOrderInfo.email });
-
-  let productListInOrder = [];
-  let productList = [];
-  let orderTotal = 0;
-
-  for (const productOrder of order.products) {
-    const productInfo = await productModel.findById(productOrder.product_id);
-    const product = {};
-
-    product.id = productOrder.product_id;
-    product.price = productOrder.price;
-    product.title = productOrder.title;
-    product.thumbnail = productOrder.thumbnail;
-    product.brand = productOrder.brand;
-    product.warranty = productOrder.warranty;
-    product.dimension = productOrder.dimension;
-    product.discount = productOrder.discount;
-    product.quantity = productOrder.quantity;
-    product.total =
-      (productOrder.price - (productOrder.price * productOrder.discount) / 100) *
-      productOrder.quantity;
-
-    orderTotal += product.total;
-    productListInOrder.push(product);
-    productList.push(productInfo);
-  }
-
-  // Search
-  let keywordStr = '';
-  const objSearch = searchHelper(req.query);
-
-  if (objSearch.rexKeywordString) keywordStr = objSearch.rexKeywordString;
-  productListInOrder = productListInOrder.filter((product) => product.title.match(keywordStr));
-
-  // Pagination
-  const paginationObj = {
-    limit: 4,
-    currentPage: 1,
-  };
-  const productTotal = productListInOrder.length;
-  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
-
-  productListInOrder = productListInOrder.slice(
-    objPagination.productSkip,
-    objPagination.productSkip + objPagination.limit
-  );
-
-  res.render('./admin/pages/order/detail.view.ejs', {
-    pageTitle: `Đơn hàng ${order.orderCode}`,
-    orderDetail: order,
-    userOrder,
-    productList,
-    productListInOrder,
-    orderTotal,
-    keyword: objSearch.keyword,
-    objPagination,
-  });
 };
 
 // GET: /admin/orders/print/:id

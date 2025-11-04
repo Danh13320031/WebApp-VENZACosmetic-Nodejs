@@ -18,6 +18,21 @@ const payment = async (req, res) => {
     const categoryList = await productCategoryModel.find(find);
     const categoryTree = categoryTreeHelper(categoryList);
     const pageUrl = createPageUrlHelper(req);
+    const cardId = req.cookies.cardId;
+    const cart = await cartModel.findById(cardId);
+
+    // Handle check product stock
+    if (cart && cart.products.length > 0) {
+      for (const prd of cart.products) {
+        const product = await productModel.findById(prd.product_id);
+
+        if (product && product.stock <= 0) {
+          alertMessageHelper(req, 'alertFailure', `Sản phẩm ${product.title} đã hết hàng`);
+          res.redirect('back');
+          return;
+        }
+      }
+    }
 
     res.render('./client/pages/payment/payment.view.ejs', {
       pageTitle: 'Thanh toán',
@@ -123,6 +138,7 @@ const createOfflinePayment = async (req, res) => {
     await order.save();
 
     if (order) {
+      // Handle clear cart
       await cartModel.updateOne({ _id: cartId }, { products: [] });
 
       // Handle update stock

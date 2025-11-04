@@ -8,9 +8,14 @@
       <select name="type" class="form-control">
         <option disabled selected>-- Danh mục lựa chọn --</option>
         <% if(roleAuth.permission.includes(`${type}-change-status`)) {%> <% if (statusList &&
-        statusList.length > 0) { %> <% statusList.forEach((item) => { %>
+        statusList.length > 0) { %> <% statusList.forEach((item) => { %> <% if(item.status ===
+        'cancelled') { %>
         <option class="" value="<%= item.status %>" class="text-success"><%= item.name %></option>
-        <% }) %> <% } %> <% } %>
+        <% } else if(item.status === 'delivered') { %>
+        <option class="" value="<%= item.status %>" class="text-danger"><%= item.name %></option>
+        <% } else { %>
+        <option class="" value="<%= item.status %>" class="text-primary"><%= item.name %></option>
+        <% } %> <% }) %> <% } %> <% } %>
         <%#----------------------------------------------------------------------------------%> <%
         if(roleAuth.permission.includes(`${type}-sort-delete`)) {%>
         <option value="soft-delete" class="text-danger">Xóa mềm tất cả</option>

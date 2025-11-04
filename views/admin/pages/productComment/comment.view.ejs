@@ -113,6 +113,9 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Đánh giá
                       </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Vị trí
+                      </th>
                       <% if(roleAuth.permission.includes('product-comment-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
@@ -165,6 +168,7 @@
                         </td>
                         <td><%= comment.likes %></td>
                         <td><%= comment.rating %></td>
+                        <td><%= comment.position %></td>
                         <% if(roleAuth.permission.includes('product-comment-change-status')) {%>
                         <td>
                           <div class="d-flex align-items-center gap-2">

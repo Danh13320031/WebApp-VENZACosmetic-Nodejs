@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonHotLine.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/detail.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
@@ -324,8 +325,9 @@
                     <a
                       href="/products/detail/<%= product.slug %>"
                       class="content-font card-link-detail"
-                      >Xem chi tiết</a
                     >
+                      Xem chi tiết
+                    </a>
                   </div>
                 </div>
                 <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
@@ -373,6 +375,7 @@
     <%-include('../../partials/buttonHotLine.view.ejs') %>
     <%-include('../../partials/buttonMailTo.view.ejs') %>
     <%-include('../../partials/buttonScrollToTop.view.ejs') %>
+    <%-include('../../partials/buttonChatBot.view.ejs') %>
     <%-include('../../partials/footer.view.ejs') %>
 
     <form

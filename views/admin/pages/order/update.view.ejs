@@ -77,7 +77,7 @@
                     ><span class="text-danger"><b>*</b></span>
                     Trạng thái đơn hàng
                   </label>
-                  <select name="status" required class="form-control" id="status">
+                  <select name="status" required <%  if(order.status === 'delivered' || order.status === 'cancelled') { %> disabled <% } %> class="form-control" id="status">
                     <option value="" disabled>-- Lựa chọn --</option>
                     <option value="pending" <% if(order.status === 'pending') { %> selected <% } %> >Chờ xác nhận</option>
                     <option value="confirmed" <% if(order.status === 'confirmed') { %> selected <% } %> >Đã xác nhận</option>
@@ -235,7 +235,7 @@
                 <div class="form-group mb-4">
                   <label for="userConsigneeEmail" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span>
-                    Email người nhận
+                    Email xác nhận đơn hàng
                   </label>
                   <input
                     type="text"

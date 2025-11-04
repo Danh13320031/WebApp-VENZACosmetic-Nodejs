@@ -1,12 +1,7 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
 const updateOrderPatchValidate = (req, res, next) => {
-  // Check order
-  if (!req.body.status) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
-    res.redirect('back');
-    return;
-  }
+  // Check address
   if (!req.body.address) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập địa chỉ giao hàng');
     res.redirect('back');

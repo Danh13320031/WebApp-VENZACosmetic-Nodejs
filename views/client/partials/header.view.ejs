@@ -199,11 +199,27 @@
     <div class="row">
       <div class="col-12 navheader-menu">
         <ul class="navheader-menu-list nav nav-pills nav-fill">
-          <li class="navheader-menu-item">
-            <a href="/" <% if(homeActive) { %>
-              class="navheader-menu-link nav-link active" <% } else { %> class="navheader-menu-link
-              nav-link" <% } %> aria-current="page" >Trang chủ</a
-            >
+          <li class="overflow-x-hidden navheader-menu-item">
+            <a
+              href="/products?sale=true"
+              class="navheader-menu-link nav-link d-flex align-items-center gap-1 active"
+              style="
+                background-color: var(--light-primary-color) !important;
+                color: var(--primary-color) !important;
+              "
+              aria-current="page"
+              ><img
+                src="/client/images/flash_sale_unscreen.gif"
+                alt="hot-sale"
+                width="18px"
+                style="transform: scale(2); filter: drop-shadow(0px 0px 2px var(--primary-color))"
+              />
+              <span
+                class="text-uppercase fst-italic"
+                style="filter: drop-shadow(0px 0px 2px var(--primary-color))"
+                >Flash Sale</span
+              >
+            </a>
           </li>
           <li class="navheader-menu-item">
             <a href="/about" <% if(aboutActive) { %>
