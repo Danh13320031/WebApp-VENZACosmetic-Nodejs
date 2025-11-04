@@ -6,7 +6,10 @@
     <title><%= pageTitle %></title>
 
     <!-- Styles File -->
-    <link rel="stylesheet" href="/client/setup.css" />
+    <link
+      rel="stylesheet"
+      href="<%= url.includes(prefixAdmin) ? '/admin/setup.css' : '/client/setup.css' %>"
+    />
     <!-- End Styles File -->
 
     <!-- Styles Library & Framework Link -->
@@ -25,16 +28,22 @@
   </head>
   <body>
     <main class="main">
-      <div
-        class="error-box w-100 vh-100 d-flex flex-column justify-content-center align-items-center"
-        style="background: var(--light-primary-color)"
-      >
-        <h1 class="heading-font py-0" style="font-size: 100px; color: var(--primary-color)">
+      <div <% if(url.includes(prefixAdmin)) { %>
+        style="background: var(--light-secondary-color-admin)" <% } else { %> style="background:
+        var(--light-primary-color)" <% } %> class="error-box w-100 vh-100 d-flex flex-column
+        flex-wrap p-5 justify-content-center align-items-center" >
+        <h1 <% if(url.includes(prefixAdmin)) { %>
+          style="font-size: 100px; color: var(--dark-secondary-color-admin)" <% } else { %>
+          style="font-size: 100px; color: var(--primary-color)" <% } %> class="heading-font py-0" >
           <%= pageTitle %>
         </h1>
-        <p class="content-font"><%= message %></p>
+        <p class="content-font text-center text-wrap"><%= message %></p>
         <p class="content-font"><%= url %></p>
-        <a href="/" class="button-primary text-decoration-none">Quay lại trang chủ</a>
+        <a
+          href="<%= url.includes(prefixAdmin) ? `${prefixAdmin}/dashboard` : '/' %>"
+          class="<%= url.includes(prefixAdmin) ? 'btn btn-outline-dark text-decoration-none' : 'button-primary text-decoration-none' %>"
+          >Quay lại trang chủ</a
+        >
       </div>
     </main>
 

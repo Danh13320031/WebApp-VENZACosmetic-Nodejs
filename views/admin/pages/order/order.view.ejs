@@ -156,7 +156,9 @@
                               <% } %>
                               value="<%= order.status %>"
                             >
-                              <option
+                              <% if(order.status !== 'cancelled') { %>
+                                <% if (order.status !== 'delivered') { %>
+                                  <option
                                 <% if (order.status === 'pending') { %> selected <% } %>
                                 value="pending"
                                 class="text-light"
@@ -180,6 +182,7 @@
                               >
                                 Đang giao
                               </option>
+                                <% } %>
                               <option
                                 <% if (order.status === 'delivered') { %> selected <% } %>
                                 value="delivered"
@@ -188,7 +191,9 @@
                               >
                                 Đã giao
                               </option>
-                              <option
+                              <% } %>
+                              <% if(order.status !== 'delivered') { %>
+                                <option
                                 <% if (order.status === 'cancelled') { %> selected <% } %>
                                 value="cancelled"
                                 class="text-light"
@@ -196,6 +201,7 @@
                               >
                                 Đã hủy
                               </option>
+                              <% } %>
                             </select>
                           </div>
                         </td>

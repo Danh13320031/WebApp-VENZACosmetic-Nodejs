@@ -1,0 +1,126 @@
+.button-chatbot {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 160px;
+  right: 20px;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  background: none;
+  color: var(--light-gray-color);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 900;
+  transition: 0.3s ease-out;
+}
+.button-chatbot::before,
+.button-chatbot::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  content: '';
+  animation: chatbox-before 2s ease-in-out infinite alternate;
+}
+.button-chatbot::after {
+  animation: chatbox-after 1s ease-in-out infinite alternate;
+}
+
+@keyframes chatbox-before {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes chatbox-after {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.button-chatbot .button-chatbot-icon {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.button-chatbot .button-chatbot-icon::before {
+  position: absolute;
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: white;
+  bottom: calc(140% - 6px);
+  right: 50%;
+  border-bottom: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+  z-index: 450;
+  transform: translateX(50%) rotate(45deg);
+  animation: chatbot-message-review-arrow 60s ease-in-out infinite;
+}
+@keyframes chatbot-message-review-arrow {
+  0%,
+  6% {
+    opacity: 1;
+  }
+  9%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.button-chatbot .button-chatbot-icon::after {
+  position: absolute;
+  bottom: 140%;
+  right: 0%;
+  content: '🥰 Xin chào! Tôi có thể giúp gì cho bạn ko?';
+  width: 200px;
+  text-wrap: wrap;
+  padding: 5px 10px;
+  background: white;
+  border: 1px solid var(--primary-color);
+  font-family: var(--primary-font-family);
+  color: var(--dark-gray-color);
+  text-align: left;
+  border-radius: 5px;
+  z-index: 400;
+  animation: chatbot-message-review-text 60s ease-in-out infinite;
+  transform-origin: right bottom;
+}
+@keyframes chatbot-message-review-text {
+  0%,
+  6% {
+    transform: scale(1);
+  }
+  9%,
+  100% {
+    transform: scale(0);
+  }
+}
+
+.button-chatbot .button-chatbot-icon img {
+  width: 100%;
+  filter: drop-shadow(0px 0px 5px var(--primary-color));
+}

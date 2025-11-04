@@ -39,7 +39,8 @@ const statisticOrderByDay = async (req, res) => {
     const orderList = await orderModel
       .find(find)
       .limit(objPagination.limit)
-      .skip(objPagination.productSkip);
+      .skip(objPagination.productSkip)
+      .sort({ createdAt: 'desc' });
 
     res.render(
       './admin/pages/orderStatistic/statisticDay.view.ejs',
@@ -123,7 +124,8 @@ const statisticOrderByMonth = async (req, res) => {
     const orderList = await orderModel
       .find(find)
       .limit(objPagination.limit)
-      .skip(objPagination.productSkip);
+      .skip(objPagination.productSkip)
+      .sort({ createdAt: 'desc' });
 
     res.render(
       './admin/pages/orderStatistic/statisticMonth.view.ejs',
@@ -207,7 +209,8 @@ const statisticOrderByQuarter = async (req, res) => {
     const orderList = await orderModel
       .find(find)
       .limit(objPagination.limit)
-      .skip(objPagination.productSkip);
+      .skip(objPagination.productSkip)
+      .sort({ createdAt: 'desc' });
 
     res.render(
       './admin/pages/orderStatistic/statisticQuarter.view.ejs',
@@ -291,7 +294,8 @@ const statisticOrderByYear = async (req, res) => {
     const orderList = await orderModel
       .find(find)
       .limit(objPagination.limit)
-      .skip(objPagination.productSkip);
+      .skip(objPagination.productSkip)
+      .sort({ createdAt: 'desc' });
 
     res.render(
       './admin/pages/orderStatistic/statisticYear.view.ejs',
