@@ -47,11 +47,9 @@ const productComment = async (req, res) => {
 
     if (productCommentList.length > 0) {
       for (const comment of productCommentList) {
-        const userComment = await userModel
-          .findById(comment.user_id)
-          .select('fullname avatar email');
-        console.log(userComment);
+        const userComment = await userModel.findById(comment.user_id).select('fullname avatar');
         const product = await productModel.findById(comment.product_id).select('title thumbnail');
+        
         if (userComment) comment.userInfo = userComment;
         if (product) comment.productInfo = product;
       }

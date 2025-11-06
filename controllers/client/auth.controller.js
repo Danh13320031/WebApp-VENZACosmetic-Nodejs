@@ -95,7 +95,7 @@ const regiterVerifyPatch = async (req, res) => {
   try {
     const token = req.params.verifyToken;
     const decode = jwt.verify(token, process.env.JWT_VERIFY_TOKEN_SECRET);
-    const user = await userModel.findById(decode.id);
+    const user = await userModel.findById(decode.id).select('isVerified');
 
     await userModel.findByIdAndUpdate(user._id, { isVerified: true });
 

@@ -88,6 +88,9 @@ div[role='application'].tox-tinymce {
   border: 2px solid var(--primary-color) !important;
   border-radius: unset !important;
 }
+.tox .tox-promotion {
+  display: none !important;
+}
 .tox .tox-mbtn--active,
 .tox .tox-mbtn:not(:disabled).tox-mbtn--active:focus {
   background: var(--light-primary-color) !important;

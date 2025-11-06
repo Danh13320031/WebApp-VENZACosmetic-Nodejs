@@ -173,4 +173,14 @@ $(document).ready(function () {
       },
     ],
   });
+
+  $('.product-review-card-sider').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    prevArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+    nextArrow:
+      '<button class="slick-arrow slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+  });
 });

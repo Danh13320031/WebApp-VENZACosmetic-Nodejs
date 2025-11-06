@@ -39,12 +39,6 @@
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
     <!-- End Styles Library & Framework Link -->
-
-    <style>
-      .text-to-html img {
-        max-width: 100% !important;
-      }
-    </style>
   </head>
   <body>
     <%-include('../../partials/alertMessage.view.ejs') %>
@@ -64,18 +58,37 @@
                   width="100%"
                   class="product-thumbnail-image fit"
                   src="<%= product ? product.thumbnail : '' %>"
+                  alt="review-image"
                 />
               </div>
 
+              <div class="product-detail-review-image" preview-image-box>
+                <div class="product-detail-review-overlay" preview-image-overlay></div>
+                <div class="product-review-card-sider">
+                  <% for(let i = 0; i < product.images.length; i++) { %>
+                  <div class="product-image-box">
+                    <img
+                      width="100%"
+                      class="product-image-item border p-2"
+                      src="<%= product ? product.images[i] : '' %>"
+                      alt="review-image"
+                    />
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+
               <!-- Product detail image list -->
-              <div class="product-detail-image d-flex justify-content-center mb-3">
+              <div class="product-detail-image d-flex justify-content-center gap-2 mb-3">
                 <% for(let i = 0; i < product.images.length; i++) { %>
-                <img
-                  width="60"
-                  height="60"
-                  class="product-image-item border me-2"
-                  src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp"
-                />
+                <div class="product-image-box" preview-image>
+                  <img
+                    width="60"
+                    height="60"
+                    class="product-image-item border"
+                    src="<%= product ? product.images[i] : '' %>"
+                  />
+                </div>
                 <% } %>
               </div>
             </div>
@@ -204,9 +217,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <div class="product-format-detail-content text-to-html tinymce">
-                <%= product.detail %>
-              </div>
+              <div class="product-format-detail-content tinymce"><%- product.detail %></div>
             </div>
           </div>
         </div>
@@ -417,6 +428,7 @@
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
+    <script src="/client/scripts/product/showReviewImageProduct.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 

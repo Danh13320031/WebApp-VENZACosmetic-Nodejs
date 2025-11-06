@@ -14,6 +14,9 @@ import publicFileConfig from './configs/publicFile.config.js';
 import { socketIOPackageConfig } from './configs/socketIoPackage.config.js';
 import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
+import tinyMcePackageConfig from './configs/tinyMcePackage.config.js';
+import { checkDiscountConst } from './constants/constant.js';
+import cronJobs from './jobs/cron.jobs.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
 import routerError from './routes/error/index.route.js';
@@ -33,6 +36,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 publicFileConfig(__dirname, app);
 // Config BodyParser Package
 bodyParserPackageConfig(app);
+// Config TinyMce Package
+tinyMcePackageConfig(app);
 // Config Template Engine
 templateEngineConfig(__dirname, app);
 // Config MethodOverride Package
@@ -46,6 +51,8 @@ app.use(googleStrategyOauthConfig().session());
 routerClient(app);
 routerAdmin(app);
 routerError(app);
+
+cronJobs.checkDiscountJob(checkDiscountConst);
 
 reload(app)
   .then(() => {

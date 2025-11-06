@@ -10,12 +10,16 @@ const productRoute = express.Router();
 
 // // Config Cloudinary Package
 cloudinaryPackageConfig();
+const uploadFields = [
+  { name: 'thumbnail', maxCount: 1 },
+  { name: 'images', maxCount: 4 },
+];
 
 productRoute.get('/', productController.product);
 productRoute.get('/create', productController.createProductGet);
 productRoute.post(
   '/create',
-  upload.single('thumbnail'),
+  upload.fields(uploadFields),
   uploadMiddleware.uploadCloud,
   productValidate.createProductValidate,
   productController.createProductPost
@@ -23,7 +27,7 @@ productRoute.post(
 productRoute.get('/update/:id', productController.updateProductGet);
 productRoute.patch(
   '/update/:id',
-  upload.single('thumbnail'),
+  upload.fields(uploadFields),
   uploadMiddleware.uploadCloud,
   productValidate.updateProductValidate,
   productController.updateProductPatch
