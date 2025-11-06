@@ -10,7 +10,7 @@ const objSchema = {
   price: { type: Number, require: true, default: 0 },
   rating: { type: Number, default: 0 },
   discount: { type: Number, default: 0 },
-  shipping_fee: { type: Number, require: true, default: 0 },
+  discountExpiredAt: { type: Date, default: null },
   warranty: { type: String },
   stock: { type: Number, require: true },
   category: { type: String, require: true },

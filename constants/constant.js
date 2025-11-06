@@ -21,3 +21,6 @@ export const timezone = 'Asia/Ho_Chi_Minh';
 
 // Page error
 export const notFoundPage = '/error/404';
+
+// cron jobs
+export const checkDiscountConst = '* * * * *';

@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+import { timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
 const createProductValidate = (req, res, next) => {
@@ -29,9 +31,9 @@ const createProductValidate = (req, res, next) => {
     return;
   }
 
-  // Check shipping fee
-  if (!req.body.shipping_fee) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng phí vận chuyển');
+  // Check discount expired at
+  if (req.body.discountExpiredAt <= moment(Date.now()).tz(timezone).format('YYYY-MM-DD')) {
+    alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
     res.redirect('back');
     return;
   }
@@ -39,6 +41,20 @@ const createProductValidate = (req, res, next) => {
   // Check status
   if (!req.body.status) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
+    res.redirect('back');
+    return;
+  }
+
+  // Check thumbnail
+  if (!req.body.thumbnail || req.body.thumbnail.length === 0) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn hình anh');
+    res.redirect('back');
+    return;
+  }
+
+  // Check images
+  if (!req.body.images || req.body.images.length < 1 || req.body.images.length > 4) {
+    alertMessageHelper(req, 'alertFailure', 'Phải có tối thiểu 1 hình ảnh');
     res.redirect('back');
     return;
   }
@@ -75,16 +91,23 @@ const updateProductValidate = (req, res, next) => {
     return;
   }
 
-  // Check shipping fee
-  if (!req.body.shipping_fee) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng phí vận chuyển');
+  // Check status
+  if (!req.body.status) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
     res.redirect('back');
     return;
   }
 
-  // Check status
-  if (!req.body.status) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
+  // Check images
+  if (!req.body.images && !req.body.oldImages) {
+    alertMessageHelper(req, 'alertFailure', 'Phải có ít nhất 1 hình ảnh phụ');
+    res.redirect('back');
+    return;
+  }
+
+  // Check discount expired at
+  if (req.body.discountExpiredAt <= moment(Date.now()).tz(timezone).format('YYYY-MM-DD')) {
+    alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
     res.redirect('back');
     return;
   }

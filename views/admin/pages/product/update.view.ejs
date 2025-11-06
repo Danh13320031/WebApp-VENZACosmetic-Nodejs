@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
     <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
+    <link rel="stylesheet" href="/admin/styles/pages/product/product.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -129,7 +131,24 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="stock" class="fw-bold">Số lượng</label>
+                  <label for="discountExpiredAt" class="fw-bold">Ngày kết thúc giảm giá</label>
+                  <input
+                    type="date"
+                    min="<%= moment(Date.now()).add(1, 'days').format('YYYY-MM-DD') %>"
+                    value="<%= moment(product.discountExpiredAt).format('YYYY-MM-DD') %>"
+                    name="discountExpiredAt"
+                    class="form-control"
+                    id="discountExpiredAt"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="stock" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Số lượng
+                  </label>
                   <input
                     type="number"
                     value="<%= product.stock %>"
@@ -206,23 +225,6 @@
                 </div>
               </div>
 
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="shipping_fee" class="fw-bold">Phí vận chuyển (đ)</label>
-                  <input
-                    type="number"
-                    value="<%= product.shipping_fee %>"
-                    min="0"
-                    step="0.01"
-                    name="shipping_fee"
-                    placeholder="Ví dụ: 45.34, 5.5, 70.56,..."
-                    required
-                    class="form-control"
-                    id="shipping"
-                  />
-                </div>
-              </div>
-
               <div class="col-12">
                 <div class="form-group mb-4">
                   <div class="image-box">
@@ -249,6 +251,56 @@
                     id="thumbnail"
                     input-upload-image
                   />
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="images" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Ảnh phụ (.png / .jpg)
+                  </label>
+                  <div class="image-box">
+                    <ul
+                      class="d-flex justify-content-center align-items-center ps-0 gap-2 flex-wrap image-box-list"
+                    >
+                      <% for(let i = 0; i < 4; i++) { %>
+                      <li
+                        class="d-flex flex-column justify-content-between gap-1 p-2 border image-box-item"
+                      >
+                        <div class="w-100 d-flex flex-column align-items-end">
+                          <div class="image-box-item-close">
+                            <i
+                              class="bi bi-x-lg image-delete-array product-image-item"
+                              data-order="<%= i %>"
+                            ></i>
+                          </div>
+                          <img
+                            src="<%= product.images[i] %>"
+                            alt="Hiển thị hình ảnh sản phẩm"
+                            width="100%"
+                            class="image-upload-array product-image-item-<%= i %>"
+                          />
+                        </div>
+                        <div class="w-100 image-box-item-input">
+                          <input
+                            type="file"
+                            name="images"
+                            accept="image/*"
+                            class="form-control product-image-item product-image-item-<%= i %>"
+                            data-order="<%= i %>"
+                            input-image-array
+                          /><input
+                            type="hidden"
+                            name="oldImages"
+                            value="<%= product.images[i] %>"
+                            class="input-hidden-array product-image-item-<%= i %>"
+                          />
+                        </div>
+                      </li>
+                      <% } %>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
@@ -291,20 +343,19 @@
       </div>
     </div>
 
+    <%-include("../../partials/footer.view.ejs") %>
+
     <!-- Script File -->
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
+    <script src="/admin/scripts/product/previewImageArray.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.tiny.cloud/1/j8bmm28z8l7u8m5at9v64rveeytj143ibxpezl0aks1g6uzx/tinymce/8/tinymce.min.js"
-      referrerpolicy="origin"
-      crossorigin="anonymous"
-    ></script>
+    <script src="/tinymce/tinymce.min.js"></script>
     <script src="/admin/scripts/tinymce.js"></script>
     <script src="../../../reload/reload.js"></script>
   </body>

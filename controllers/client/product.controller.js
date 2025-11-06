@@ -7,7 +7,6 @@ import filterByFeaturedProductHelper from '../../helpers/client/filterByFeatured
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import filterByQuantityHelper from '../../helpers/client/filterByQuantity.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
-import filterByShippingFeeHelper from '../../helpers/client/filterByShippingFee.helper.js';
 import handleProductCommentHelper from '../../helpers/client/product/handleProductComment.helper.js';
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
@@ -38,10 +37,6 @@ const product = async (req, res) => {
     // Filter product by sale product
     const objectFilterSale = filterBySaleHelper(req.query);
     if (objectFilterSale.flag) find.discount = { $gt: 0 };
-
-    // Filter product by freeship product
-    const objectFilterByShippingFee = filterByShippingFeeHelper(req.query);
-    if (objectFilterByShippingFee.flag) find.shipping_fee = 0;
 
     // Filter product by featured product
     const objectFilterByFeatured = filterByFeaturedProductHelper(req.query);
@@ -106,7 +101,6 @@ const product = async (req, res) => {
         priceFilter: objectFilterByPrice,
         productMaxPrice: productMaxPrice,
         filterBySaleStatus: objectFilterSale.flag,
-        filterByFreeShipStatus: objectFilterByShippingFee.flag,
         filterByFeaturedStatus: objectFilterByFeatured.flag,
         filterByCategoryActive: filterByCategoryActive,
         removeFilterArr: removeFilterArr,

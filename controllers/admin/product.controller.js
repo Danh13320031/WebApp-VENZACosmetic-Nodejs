@@ -108,11 +108,11 @@ const createProductPost = async (req, res) => {
   try {
     const countRecord = await productModel.countDocuments();
 
+    if (req.body.thumbnail) req.body.thumbnail = req.body.thumbnail[0];
     if (req.body.price) req.body.price = Number.parseFloat(req.body.price);
     if (req.body.discount) req.body.discount = Number.parseFloat(req.body.discount);
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
-    if (req.body.shipping_fee) req.body.shipping_fee = Number.parseFloat(req.body.shipping_fee);
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     else req.body.position = countRecord + 1;
@@ -167,12 +167,12 @@ const updateProductPatch = async (req, res) => {
       updatedAt: new Date(),
     };
 
+    if (req.body.thumbnail) req.body.thumbnail = req.body.thumbnail[0];
     if (req.body.price) req.body.price = Number.parseFloat(req.body.price);
     if (req.body.discount) req.body.discount = Number.parseFloat(req.body.discount);
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
-    if (req.body.shipping_fee) req.body.shipping_fee = Number.parseFloat(req.body.shipping_fee);
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
 
     await productModel.findByIdAndUpdate(id, {
@@ -261,13 +261,14 @@ const changeMultiProduct = async (req, res) => {
               {
                 $set: {
                   deleted: true,
-                  'deletedBy.account_id': res.locals.account._id,
+                  'deletedBy.account_id': res.locals.accountLogin._id,
                   'deletedBy.deletedAt': new Date(),
                 },
               }
             );
             alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
           } catch (err) {
+            console.log(err);
             alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
           } finally {
             res.redirect('back');

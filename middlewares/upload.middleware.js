@@ -7,7 +7,7 @@ const uploadStream = (file) => {
   return new Promise((resolve, reject) => {
     const options = {};
 
-    if (file.fieldname === 'avatar') {
+    if (file.fieldname === 'avatar' || file.fieldname === 'images') {
       options.transformation = [
         {
           gravity: 'auto',
@@ -30,7 +30,9 @@ const uploadStream = (file) => {
 };
 
 // Upload cho 1 hoặc nhiều file
-const upload = async (req) => {
+const upload = async (req, res) => {
+  const oldImages = req.body.oldImages ? req.body.oldImages.filter((image) => image !== '') : [];
+
   if (req.file) {
     const result = await uploadStream(req.file);
     req.body[req.file.fieldname] = result.url;
@@ -39,11 +41,18 @@ const upload = async (req) => {
   if (req.files) {
     for (const field in req.files) {
       const files = req.files[field];
-      req.body[field] = [];
 
-      for (const file of files) {
-        const result = await uploadStream(file);
-        req.body[field].push(result.url);
+      if (field === 'images') {
+        req.body[field] = [...oldImages];
+
+        const result = await Promise.all(files.map((file) => uploadStream(file)));
+        const newUrls = result.map((r) => r.url);
+        req.body[field].push(...newUrls);
+      } else {
+        req.body[field] = [];
+
+        const result = await Promise.all(files.map((file) => uploadStream(file)));
+        req.body[field] = result.map((r) => r.url);
       }
     }
   }
@@ -55,16 +64,18 @@ const uploadCloud = async (req, res, next) => {
       return next();
     }
 
-    if (req.file.size > 1024 * 1024 * 5) {
-      alertMessageHelper(req, 'alertFailure', 'Dung lượng file không được vượt quá 5MB');
-      res.redirect('back');
-      return;
-    }
+    if (req.file) {
+      if (req.file.size > 1024 * 1024 * 5) {
+        alertMessageHelper(req, 'alertFailure', 'Dung lượng file không được vượt quá 5MB');
+        res.redirect('back');
+        return;
+      }
 
-    if (req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png') {
-      alertMessageHelper(req, 'alertFailure', 'Chỉ chấp nhận file JPEG hoặc PNG');
-      res.redirect('back');
-      return;
+      if (req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png') {
+        alertMessageHelper(req, 'alertFailure', 'Chỉ chấp nhận file JPEG hoặc PNG');
+        res.redirect('back');
+        return;
+      }
     }
 
     if (req.files) {
@@ -86,7 +97,7 @@ const uploadCloud = async (req, res, next) => {
       }
     }
 
-    await upload(req);
+    await upload(req, res);
     next();
   } catch (error) {
     console.log(error);

@@ -1,3 +1,64 @@
+.product-detail .product-detail-image .product-image-box .product-image-item {
+  cursor: pointer;
+}
+.product-detail .product-detail-image .product-image-box .product-image-item:hover {
+  border-color: var(--primary-color) !important;
+}
+.product-detail .product-detail-image .product-image-box {
+  position: relative;
+}
+.product-detail .product-detail-image .product-image-box::after {
+  position: absolute;
+  content: 'Xem';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+.product-detail .product-detail-image .product-image-box:hover::after {
+  opacity: 1;
+}
+
+.product-detail-review-image {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+}
+.product-detail-review-image.active {
+  opacity: 1;
+  visibility: visible;
+}
+.product-detail-review-image .product-detail-review-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.678);
+  cursor: pointer;
+}
+.product-detail-review-image .product-review-card-sider {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .product-info-title {
   text-align: left;
   padding: 0px;

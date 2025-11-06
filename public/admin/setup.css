@@ -235,6 +235,9 @@ body.no-scroll {
 }
 
 /* Setup tiniymce editor */
+.tox .tox-promotion {
+  display: none !important;
+}
 .tox.tox-edit-focus .tox-edit-area::before {
   border: 1px solid var(--secondary-color-admin);
 }
