@@ -131,11 +131,11 @@
 
               <div class="col-6">
                 <div class="form-group mb-4">
-                  <label for="discountExpiredAt" class="fw-bold">Ngày kết thúc giảm giá</label>
+                  <label for="discountExpiredAt" class="fw-bold">Thời gian kết thúc giảm giá</label>
                   <input
-                    type="date"
-                    min="<%= moment(Date.now()).add(1, 'days').format('YYYY-MM-DD') %>"
-                    value="<%= moment(product.discountExpiredAt).format('YYYY-MM-DD') %>"
+                    type="datetime-local"
+                    min="<%= moment(Date.now()).add(1, 'days').format('YYYY-MM-DDTHH:mm') %>"
+                    value="<%= moment(product.discountExpiredAt).tz(timezone).format('YYYY-MM-DDTHH:mm') %>"
                     name="discountExpiredAt"
                     class="form-control"
                     id="discountExpiredAt"
