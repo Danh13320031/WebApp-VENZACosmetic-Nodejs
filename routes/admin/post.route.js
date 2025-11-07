@@ -29,5 +29,7 @@ postRoute.patch(
   postController.updatePostPatch
 );
 postRoute.patch('/change-status/:status/:id', postController.changeStatusPost);
+postRoute.patch('/change-multi', postController.changeMultiPost);
+postRoute.patch('/delete/:id', postController.deletePost);
 
 export default postRoute;
