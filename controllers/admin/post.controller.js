@@ -179,12 +179,36 @@ const updatePostPatch = async (req, res) => {
   }
 };
 
+// PATCH: /admin/posts/change-status/:status/:id
+const changeStatusPost = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await postModel.findByIdAndUpdate(id, { status });
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Update post fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const postController = {
   post,
   createPostGet,
   createPostPost,
   updatePostGet,
   updatePostPatch,
+  changeStatusPost,
 };
 
 export default postController;
