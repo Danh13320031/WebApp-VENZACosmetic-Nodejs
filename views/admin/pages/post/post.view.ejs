@@ -113,6 +113,9 @@
                       </th>
                       <% } %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Xuất bản
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Vị trí
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
@@ -171,6 +174,18 @@
                           >
                             Ngừng hoạt động
                           </a>
+                          <% } %>
+                        </td>
+                        <% } %> <% if(roleAuth.permission.includes('product-change-status')) {%>
+                        <td>
+                          <% if(post.published === true) {%>
+                          <span class="badge" style="background: var(--info-color-admin)">
+                            Đã đăng
+                          </span>
+                          <% } else {%>
+                          <span class="badge" style="background: var(--warning-color-admin)">
+                            Chưa đăng
+                          </span>
                           <% } %>
                         </td>
                         <% } %>

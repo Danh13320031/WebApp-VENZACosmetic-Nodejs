@@ -21,7 +21,9 @@ const checkDiscountTimeJob = (discountScheduleCheck) => {
       };
 
       const result = await productModel.updateMany(find, { $set: { discount: 0 } });
-      console.log('Check discount time success: ', result.modifiedCount);
+      if (result.modifiedCount > 0)
+        console.log(`Đã có ${result.modifiedCount} sản phẩm hết hạn giảm giá`);
+      else console.log('Không có sản phẩm hết hạn giảm giá');
     } catch (error) {
       console.log('Check discount time fail: ', error);
     }
@@ -42,11 +44,13 @@ const checkPostTimeJob = (postScheduleCheck) => {
       const find = {
         deleted: false,
         'postedBy.postedAt': { $lte: currentDate },
-        status: { $ne: 'active' },
+        published: { $ne: true },
       };
 
-      const result = await postModel.updateMany(find, { $set: { status: 'active' } });
-      console.log('Check post time success: ', result.modifiedCount);
+      const result = await postModel.updateMany(find, { $set: { published: true } });
+      if (result.modifiedCount > 0)
+        console.log(`Đã có ${result.modifiedCount} bài viết được xuất bản`);
+      else console.log('Không có bài viết được xuất bản');
     } catch (error) {
       console.log('Check post time fail: ', error);
     }
@@ -54,7 +58,6 @@ const checkPostTimeJob = (postScheduleCheck) => {
 
   cron.schedule(postScheduleCheck, checkPostScheduler, options);
 };
-
 
 const cronJobs = {
   checkDiscountTimeJob,

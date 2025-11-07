@@ -28,5 +28,6 @@ postRoute.patch(
   postValidate.updatePostValidate,
   postController.updatePostPatch
 );
+postRoute.patch('/change-status/:status/:id', postController.changeStatusPost);
 
 export default postRoute;
