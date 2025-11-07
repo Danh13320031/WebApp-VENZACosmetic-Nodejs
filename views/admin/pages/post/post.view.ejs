@@ -36,7 +36,8 @@
           </div>
 
           <div class="col-lg-4 col-md-6 col-12">
-            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tên sản phẩm..."}) %>
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tiêu đề bài viết..."})
+            %>
           </div>
         </div>
 
@@ -46,7 +47,7 @@
             <div class="container-fluid">
               <div class="row gap-md-0 gap-2">
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                  <%#-include("../../partials/statusFilter.view.ejs") %>
+                  <%-include("../../partials/statusFilter.view.ejs") %>
                 </div>
                 <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
                   <%#-include("../../partials/categoryFilter.view.ejs") %>
@@ -61,25 +62,25 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
-                  'products', type: 'product' }) %>
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  'posts', type: 'post' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
-                  'position-desc', 'price-asc', 'price-desc', 'title-asc', 'title-desc']}) %>
+                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  'position-desc', 'title-asc', 'title-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%# if(roleAuth.permission.includes('product-add')) {%>
+                  <% if(roleAuth.permission.includes('product-add')) {%>
                   <a href="<%= prefixAdmin %>/posts/create" class="btn btn-primary w-100 float-end">
                     <i class="bi bi-plus-lg me-1"></i>Thêm mới bài viết
                   </a>
-                  <%# } %>
+                  <% } %>
                 </div>
               </div>
             </div>
@@ -216,7 +217,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%#-include("../../partials/pagination.view.ejs") %>
+              <%-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
               <a href="<%= prefixAdmin %>/posts/garbage" class="btn btn-primary w-100 float-end"

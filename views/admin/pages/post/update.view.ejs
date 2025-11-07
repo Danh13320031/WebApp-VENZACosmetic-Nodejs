@@ -28,10 +28,10 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('product-add')) {%>
+        if(roleAuth.permission.includes('product-update')) {%>
         <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
-          action="<%= prefixAdmin %>/posts/create"
+          action="<%= prefixAdmin %>/posts/update/<%= post._id %>?_method=PATCH"
           method="POST"
           enctype="multipart/form-data"
           id="form-handle"
@@ -46,6 +46,7 @@
                   <input
                     type="text"
                     name="title"
+                    value="<%= post.title %>"
                     placeholder="Nhập tiêu đề..."
                     required
                     class="form-control"
@@ -80,7 +81,9 @@
                     placeholder="Nhập mô tả..."
                     class="form-control"
                     id="summary"
-                  ></textarea>
+                  >
+<%= post.summary %></textarea
+                  >
                 </div>
               </div>
 
@@ -95,7 +98,9 @@
                     placeholder="Nhập nội dung..."
                     class="form-control"
                     id="content"
-                  ></textarea>
+                  >
+<%= post.content %></textarea
+                  >
                 </div>
               </div>
 
@@ -105,6 +110,7 @@
                   <input
                     type="number"
                     name="position"
+                    value="<%= post.position %>"
                     min="1"
                     placeholder="Tự động tăng"
                     class="form-control"
@@ -120,11 +126,11 @@
                   </label>
                   <input
                     type="number"
-                    value="0"
+                    name="rating"
+                    value="<%= post.rating %>"
                     min="0"
                     max="5"
                     step="1"
-                    name="rating"
                     placeholder="Ví dụ: 5, 4, 3, 2, 1"
                     class="form-control"
                     id="rating"
@@ -140,11 +146,14 @@
                   </label>
                   <input
                     type="datetime-local"
-                    min="<%= moment(Date.now()).format('YYYY-MM-DDTHH:mm') %>"
                     name="postedAt"
-                    class="form-control"
-                    id="postedAt"
-                  />
+                    <% if (post?.postedBy?.postedAt && moment().isAfter(moment(post.postedBy.postedAt))) { %>
+                    readonly 
+                    <% } %> 
+                    class="form-control" 
+                    value="<%= post?.postedBy?.postedAt ?
+                    moment(post.postedBy.postedAt).tz(timezone).format('YYYY-MM-DDTHH:mm') :
+                    moment().tz(timezone).format('YYYY-MM-DDTHH:mm')%>" />
                 </div>
               </div>
 
@@ -155,7 +164,11 @@
                       <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
                     </div>
                     <div class="d-flex justify-content-center image-upload-box">
-                      <img src="" alt="Hiển thị hình ảnh bài viết" class="image-upload" />
+                      <img
+                        src="<%= post.thumbnail %>"
+                        alt="Hiển thị hình ảnh bài viết"
+                        class="image-upload"
+                      />
                     </div>
                   </div>
                   <label for="thumbnail" class="fw-bold"
@@ -166,7 +179,6 @@
                     type="file"
                     name="thumbnail"
                     accept="image/*"
-                    required
                     class="form-control"
                     id="thumbnail"
                     input-upload-image
@@ -174,28 +186,17 @@
                 </div>
               </div>
 
-              <div class="col-lg-6 col-md-6 col-12">
+              <div class="col-lg-6 col-md-6 col-6">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span>
-                    Trạng thái
-                  </label>
-                  <input
-                    type="radio"
-                    name="status"
-                    value="active"
-                    class="form-check-input"
-                    id="status-active"
-                  />
+                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
+                  >
+                  <input type="radio" name="status" value="active" <% if(post.status === 'active')
+                  {%> checked <% } %> class="form-check-input" id="status-active" />
                   <label for="status-active" class="me-4">Hoạt động</label>
-                  <input
-                    type="radio"
-                    name="status"
-                    value="inactive"
-                    checked
-                    class="form-check-input"
-                    id="status-inactive"
-                  />
+
+                  <input type="radio" name="status" value="inactive" <% if(post.status ===
+                  'inactive') {%> checked <% } %> class="form-check-input" id="status-inactive" />
                   <label for="status-inactive">Ngừng hoạt động</label>
                 </div>
               </div>
@@ -206,28 +207,17 @@
                     ><span class="text-danger"><b>*</b></span>
                     Nổi bật
                   </label>
-                  <input
-                    type="radio"
-                    name="featured"
-                    value="1"
-                    class="form-check-input"
-                    id="featured1"
-                  />
+                  <input type="radio" name="featured" value="1" class="form-check-input"
+                  id="featured1" <% if(post.featured=== '1') {%> checked <% } %> />
                   <label for="featured1" class="me-4">Có</label>
-                  <input
-                    type="radio"
-                    name="featured"
-                    value="0"
-                    checked
-                    class="form-check-input"
-                    id="featured0"
-                  />
+                  <input type="radio" name="featured" value="0" class="form-check-input"
+                  id="featured0" <% if(post.featured === '0') {%> checked <% } %> />
                   <label for="featured0">Ko</label>
                 </div>
               </div>
             </div>
             <button type="submit" class="btn btn-outline-primary w-100 form-create">
-              <i class="bi bi-plus-lg me-1"></i>Thêm mới bài viết
+              <i class="bi bi-pencil-square me-1"></i>Cập nhật bài viết
             </button>
           </div>
         </form>

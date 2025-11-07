@@ -9,6 +9,7 @@ const objSchema = {
   seoMetaDescription: { type: String },
   seoMetaKeyword: { type: String },
   copyright: { type: String },
+  mainAddress: { type: String, require: true },
   address: { type: Array, length: 5, require: true },
   tiktok: { type: String },
   facebook: { type: String },

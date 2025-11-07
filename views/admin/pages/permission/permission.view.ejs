@@ -225,6 +225,56 @@
                   <% }) %>
                 </tr>
 
+                <!-- Các quyền dành cho bài viết -->
+                <tr>
+                  <td class="bg-body-secondary"><b>Các quyền về bài viết</b></td>
+                  <% roleList.forEach(role => { %>
+                  <td class="bg-body-secondary"></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-view">
+                  <td>Xem</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-add">
+                  <td>Thêm mới</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-change-status">
+                  <td>Đổi trạng thái</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-update">
+                  <td>Chỉnh sửa</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-sort-delete">
+                  <td>Xóa mềm</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-restore">
+                  <td>Khôi phục</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="post-hard-delete">
+                  <td>Xóa cứng</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+
                 <!-- Các quyền dành cho tài khoản -->
                 <tr>
                   <td class="bg-body-secondary"><b>Các quyền về quản trị viên</b></td>

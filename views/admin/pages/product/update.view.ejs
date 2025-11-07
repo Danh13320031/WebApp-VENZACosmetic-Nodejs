@@ -48,6 +48,7 @@
                     type="text"
                     value="<%= product.title %>"
                     name="title"
+                    placeholder="Nhập tiêu đề..."
                     required
                     class="form-control"
                     id="title"
@@ -74,7 +75,12 @@
               <div class="col-12">
                 <div class="form-group mb-4">
                   <label for="description" class="fw-bold">Mô tả ngắn</label>
-                  <textarea name="description" class="form-control" id="description">
+                  <textarea
+                    name="description"
+                    placeholder="Nhập mô tả..."
+                    class="form-control"
+                    id="description"
+                  >
 <%= product.description %></textarea
                   >
                 </div>
@@ -86,7 +92,12 @@
                     ><span class="text-danger"><b>*</b></span>
                     Mô tả chi tiết
                   </label>
-                  <textarea name="detail" class="form-control" id="detail">
+                  <textarea
+                    name="detail"
+                    placeholder="Nhập mô tả chi tiết..."
+                    class="form-control"
+                    id="detail"
+                  >
                     <%= product.detail %>
                   </textarea>
                 </div>
@@ -154,6 +165,7 @@
                     value="<%= product.stock %>"
                     min="0"
                     name="stock"
+                    placeholder="Ví dụ: 45, 5, 70,..."
                     required
                     class="form-control"
                     id="stock"
