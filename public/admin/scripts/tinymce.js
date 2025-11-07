@@ -1,5 +1,5 @@
 tinymce.init({
-  selector: 'textarea#detail',
+  selector: 'textarea#detail, textarea#content',
   license_key: 'gpl',
   plugins:
     'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',

@@ -31,7 +31,7 @@
         if(roleAuth.permission.includes('product-add')) {%>
         <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
-          action="<%= prefixAdmin %>/products/create"
+          action="<%= prefixAdmin %>/posts/create"
           method="POST"
           enctype="multipart/form-data"
           id="form-handle"
@@ -53,98 +53,32 @@
                     ><span class="text-danger"><b>*</b></span>
                     Danh mục
                   </label>
-                  <%# <input type="text" name="parent_id" id="parent_id" class="form-control" /> %>
                   <select name="category" id="category" class="form-control">
                     <option disabled selected>-- Chọn danh mục --</option>
-                    <% if(categoryList.length > 0) {%>
-                    <%-include("../../partials/selecttree.view.ejs", {categoryList, level: 1,
-                    parent_id: ''}) %> <% } %>
+                    <%# if(categoryList.length > 0) {%>
+                    <%#-include("../../partials/selecttree.view.ejs", {categoryList, level: 1,
+                    parent_id: ''}) %> <%# } %>
                   </select>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description" class="fw-bold">Mô tả ngắn</label>
-                  <textarea name="description" class="form-control" id="description"></textarea>
+                  <label for="summary" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Mô tả ngắn
+                  </label>
+                  <textarea name="summary" class="form-control" id="summary"></textarea>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="detail" class="fw-bold"
+                  <label for="content" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span>
-                    Mô tả chi tiết
+                    Nội dung
                   </label>
-                  <textarea name="detail" class="form-control" id="detail"></textarea>
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="price" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span>
-                    Giá (đ)
-                  </label>
-                  <input
-                    type="number"
-                    value="0"
-                    min="0"
-                    step="0.01"
-                    name="price"
-                    placeholder="Ví dụ: 45.34, 5.5, 70.56,..."
-                    required
-                    class="form-control"
-                    id="price"
-                  />
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="discount" class="fw-bold">Giảm giá (%)</label>
-                  <input
-                    type="number"
-                    value="0"
-                    min="0"
-                    step="0.01"
-                    name="discount"
-                    placeholder="Ví dụ: 10.3, 5.5, 7,..."
-                    required
-                    class="form-control"
-                    id="discount"
-                  />
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="discountExpiredAt" class="fw-bold">Ngày kết thúc giảm giá</label>
-                  <input
-                    type="datetime-local"
-                    min="<%= moment(Date.now()).add(1, 'days').format('YYYY-MM-DDTHH:mm') %>"
-                    name="discountExpiredAt"
-                    class="form-control"
-                    id="discountExpiredAt"
-                  />
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="stock" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span>
-                    Số lượng
-                  </label>
-                  <input
-                    type="number"
-                    value="0"
-                    min="0"
-                    name="stock"
-                    required
-                    class="form-control"
-                    id="stock"
-                  />
+                  <textarea name="content" class="form-control" id="content"></textarea>
                 </div>
               </div>
 
@@ -158,32 +92,6 @@
                     placeholder="Tự động tăng"
                     class="form-control"
                     id="position"
-                  />
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="warranty" class="fw-bold">Bảo hành</label>
-                  <input
-                    type="text"
-                    name="warranty"
-                    placeholder="Ví dụ: 1 year, 1.5 months, 2 years, lifetime,..."
-                    class="form-control"
-                    id="warranty"
-                  />
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="brand" class="fw-bold">Thương hiệu</label>
-                  <input
-                    type="text"
-                    name="brand"
-                    placeholder="Ví dụ: Chanel, La Roche-Posay,..."
-                    class="form-control"
-                    id="brand"
                   />
                 </div>
               </div>
@@ -207,6 +115,22 @@
                 </div>
               </div>
 
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="postedAt" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Ngày và giờ đăng
+                  </label>
+                  <input
+                    type="datetime-local"
+                    min="<%= moment(Date.now()).format('YYYY-MM-DDTHH:mm') %>"
+                    name="postedAt"
+                    class="form-control"
+                    id="postedAt"
+                  />
+                </div>
+              </div>
+
               <div class="col-12">
                 <div class="form-group mb-4">
                   <div class="image-box">
@@ -214,7 +138,7 @@
                       <i class="bi bi-x-lg float-end mb-2 image-delete"></i>
                     </div>
                     <div class="d-flex justify-content-center image-upload-box">
-                      <img src="" alt="Hiển thị hình ảnh sản phẩm" class="image-upload" />
+                      <img src="" alt="Hiển thị hình ảnh bài viết" class="image-upload" />
                     </div>
                   </div>
                   <label for="thumbnail" class="fw-bold"
@@ -233,56 +157,6 @@
                 </div>
               </div>
 
-              <div class="col-12">
-                <div class="form-group mb-4">
-                  <label for="images" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span>
-                    Ảnh phụ (.png / .jpg)
-                  </label>
-                  <div class="image-box">
-                    <ul
-                      class="d-flex justify-content-center align-items-center ps-0 gap-2 flex-wrap image-box-list"
-                    >
-                      <% for(let i = 0; i < 4; i++) { %>
-                      <li
-                        class="d-flex flex-column justify-content-between gap-1 p-2 border image-box-item"
-                      >
-                        <div class="w-100 d-flex flex-column align-items-end">
-                          <div class="image-box-item-close">
-                            <i
-                              class="bi bi-x-lg image-delete-array product-image-item"
-                              data-order="<%= i %>"
-                            ></i>
-                          </div>
-                          <img
-                            src=""
-                            alt="Hiển thị hình ảnh sản phẩm"
-                            width="100%"
-                            class="image-upload-array product-image-item-<%= i %>"
-                          />
-                        </div>
-                        <div class="w-100 image-box-item-input">
-                          <input
-                            type="file"
-                            name="images"
-                            accept="image/*"
-                            class="form-control product-image-item product-image-item-<%= i %>"
-                            data-order="<%= i %>"
-                            input-image-array
-                          /><input
-                            type="hidden"
-                            name="oldImages"
-                            value=""
-                            class="input-hidden-array product-image-item-<%= i %>"
-                          />
-                        </div>
-                      </li>
-                      <% } %>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
               <div class="col-lg-6 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
@@ -293,7 +167,6 @@
                     type="radio"
                     name="status"
                     value="active"
-                    checked
                     class="form-check-input"
                     id="status-active"
                   />
@@ -302,6 +175,7 @@
                     type="radio"
                     name="status"
                     value="inactive"
+                    checked
                     class="form-check-input"
                     id="status-inactive"
                   />
@@ -336,7 +210,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-outline-primary w-100 form-create">
-              <i class="bi bi-plus-lg me-1"></i>Thêm mới sản phẩm
+              <i class="bi bi-plus-lg me-1"></i>Thêm mới bài viết
             </button>
           </div>
         </form>

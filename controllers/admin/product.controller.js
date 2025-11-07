@@ -1,20 +1,21 @@
+import moment from 'moment-timezone';
 import systemConfig from '../../configs/system.config.js';
+import { timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import priceFilterHelper from '../../helpers/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
-import productCategoryModel from '../../models/productCategory.model.js';
 import productModel from '../../models/product.model.js';
+import productCategoryModel from '../../models/productCategory.model.js';
 
 // GET: /admin/products
 const product = async (req, res) => {
-  const find = {
-    deleted: false,
-  };
+  const find = { deleted: false };
 
   // Status Filter
   const statusList = [
@@ -73,34 +74,52 @@ const product = async (req, res) => {
       }
     }
 
-    res.render('./admin/pages/product/product.view.ejs', {
-      pageTitle: 'Danh sách sản phẩm',
-      productList,
-      activeStatus,
-      valueRange,
-      keyword: objSearch.keyword,
-      objPagination,
-      sortValue,
-      statusList,
-    });
-  } catch (err) {
-    console.log('productList error: ', err);
+    res.render(
+      './admin/pages/product/product.view.ejs',
+      {
+        pageTitle: 'Danh sách sản phẩm',
+        productList,
+        activeStatus,
+        valueRange,
+        keyword: objSearch.keyword,
+        objPagination,
+        sortValue,
+        statusList,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 
 // GET: /admin/products/create
 const createProductGet = async (req, res) => {
-  const find = {
-    deleted: false,
-  };
+  try {
+    const find = {
+      deleted: false,
+    };
 
-  const categoryList = await productCategoryModel.find(find);
-  const newCategoryList = categoryTreeHelper(categoryList);
+    const categoryList = await productCategoryModel.find(find);
+    const newCategoryList = categoryTreeHelper(categoryList);
 
-  res.render('./admin/pages/product/create.view.ejs', {
-    pageTitle: 'Thêm mới sản phẩm',
-    categoryList: newCategoryList,
-  });
+    res.render(
+      './admin/pages/product/create.view.ejs',
+      {
+        pageTitle: 'Thêm mới sản phẩm',
+        categoryList: newCategoryList,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
 };
 
 // POST: /admin/products/create
@@ -114,6 +133,8 @@ const createProductPost = async (req, res) => {
     if (req.body.stock) req.body.stock = Number.parseInt(req.body.stock);
     if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
     if (req.body.warranty === '') req.body.warranty = 'No warranty';
+    if (req.body.discountExpiredAt)
+      req.body.discountExpiredAt = moment.tz(req.body.discountExpiredAt, timezone).toDate();
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     else req.body.position = countRecord + 1;
 
@@ -126,8 +147,8 @@ const createProductPost = async (req, res) => {
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/products`);
     return;
-  } catch (err) {
-    console.log('Create product fail: ', err);
+  } catch (error) {
+    console.log('Create product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
     res.redirect('back');
     return;
@@ -146,15 +167,20 @@ const updateProductGet = async (req, res) => {
     const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
 
-    res.render('./admin/pages/product/update.view.ejs', {
-      pageTitle: 'Chỉnh sửa sản phẩm',
-      product,
-      categoryList: newCategoryList,
-    });
-  } catch (err) {
-    alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
-    res.redirect(`${systemConfig.prefixAdmin}/products`);
-    return;
+    res.render(
+      './admin/pages/product/update.view.ejs',
+      {
+        pageTitle: 'Chỉnh sửa sản phẩm',
+        product,
+        categoryList: newCategoryList,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -179,10 +205,12 @@ const updateProductPatch = async (req, res) => {
       ...req.body,
       $push: { updatedBy: updated },
     });
+
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Update product fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Update product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
     res.redirect('back');
     return;
@@ -202,10 +230,12 @@ const changeStatusProduct = async (req, res) => {
       status: status,
       $push: { updatedBy: updated },
     });
+
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Update product fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Update product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
     res.redirect('back');
     return;
@@ -305,11 +335,13 @@ const changeMultiProduct = async (req, res) => {
       }
     } else {
       res.redirect('back');
+      return;
     }
-  } catch (err) {
-    console.log('Change multi status fail: ', err);
+  } catch (error) {
+    console.log('Change multi status fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -326,79 +358,117 @@ const deleteProduct = async (req, res) => {
 
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Delete product fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Delete product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
     res.redirect('back');
+    return;
   }
 };
 
 // GET: /admin/products/garbage
 const garbageProduct = async (req, res) => {
-  const find = {
-    deleted: true,
-  };
+  try {
+    const find = {
+      deleted: true,
+    };
 
-  const productList = await productModel.find(find).sort({
-    deletedAt: 'desc',
-  });
+    const productList = await productModel.find(find).sort({
+      deletedAt: 'desc',
+    });
 
-  for (const product of productList) {
-    const account = await accountModel.findById(product.deletedBy.account_id).select('fullName');
-    if (account) product.accountFullNameDelete = account.fullName;
+    for (const product of productList) {
+      const account = await accountModel.findById(product.deletedBy.account_id).select('fullName');
+      if (account) product.accountFullNameDelete = account.fullName;
+    }
+
+    res.render(
+      './admin/pages/product/garbage.view.ejs',
+      {
+        pageTitle: 'Thùng rác sản phẩm',
+        productList,
+        statusList: [],
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
-
-  res.render('./admin/pages/product/garbage.view.ejs', {
-    pageTitle: 'Thùng rác sản phẩm',
-    productList,
-    statusList: [],
-  });
 };
 
 // PATCH: /admin/products/restore-garbage/:id?_method=PATCH
 const restoreGarbageProduct = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect('back');
+      alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+      return;
+    }
+
     await productModel.findByIdAndUpdate(id, {
       deleted: false,
     });
     alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Restore product fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Restore product fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    res.redirect('back');
+    return;
   }
 };
 
 // DELETE: /admin/products/delete-garbage/:id_method=DELETE
 const deleteGarbageProduct = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     await productModel.findByIdAndDelete(id);
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Delete garbage fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Delete garbage fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
   }
 };
 
 // GET: /admin/products/detail/:id
 const detailProduct = async (req, res) => {
-  const find = {
-    _id: req.params.id,
-    deleted: false,
-  };
-  const product = await productModel.findOne(find);
-  const category = await productCategoryModel
-    .findOne({ _id: product.category, deleted: false })
-    .select('title');
+  try {
+    const find = {
+      _id: req.params.id,
+      deleted: false,
+    };
+    const product = await productModel.findOne(find);
+    const category = await productCategoryModel
+      .findOne({ _id: product.category, deleted: false })
+      .select('title');
 
-  res.render('./admin/pages/product/detail.view.ejs', {
-    pageTitle: 'Chi tiết sản phẩm',
-    product,
-    category,
-  });
+    res.render(
+      './admin/pages/product/detail.view.ejs',
+      {
+        pageTitle: 'Chi tiết sản phẩm',
+        product,
+        category,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
 };
 
 const productController = {

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import http from 'http';
 import methodOverride from 'method-override';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import path from 'path';
 import reload from 'reload';
 import { fileURLToPath } from 'url';
@@ -15,7 +15,7 @@ import { socketIOPackageConfig } from './configs/socketIoPackage.config.js';
 import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
 import tinyMcePackageConfig from './configs/tinyMcePackage.config.js';
-import { checkDiscountConst } from './constants/constant.js';
+import { checkDiscountConst, timezone } from './constants/constant.js';
 import cronJobs from './jobs/cron.jobs.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
@@ -28,6 +28,7 @@ socketIOPackageConfig(server);
 connect();
 
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.timezone = timezone;
 app.locals.moment = moment;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -52,7 +53,8 @@ routerClient(app);
 routerAdmin(app);
 routerError(app);
 
-cronJobs.checkDiscountJob(checkDiscountConst);
+// Auto cron jobs
+cronJobs.checkDiscountTimeJob(checkDiscountConst);
 
 reload(app)
   .then(() => {
