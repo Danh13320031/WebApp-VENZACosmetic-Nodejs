@@ -1,7 +1,11 @@
 import systemConfig from '../../configs/system.config.js';
-import { timezone } from '../../constants/constant.js';
+import { notFoundPage, timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
+import sortHelper from '../../helpers/sort.helper.js';
+import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import postModel from '../../models/post.model.js';
 import moment from '../../node_modules/moment/moment.js';
@@ -10,7 +14,38 @@ import moment from '../../node_modules/moment/moment.js';
 const post = async (req, res) => {
   try {
     const find = { deleted: false };
-    const postList = await postModel.find(find);
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    const activeStatus = statusFilterHelper(req.query, statusList);
+    if (req.query.status) find.status = req.query.status;
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const postTotal = await postModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, postTotal);
+
+    // Sort
+    const sort = sortHelper(req.query);
+    const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
+    const postList = await postModel
+      .find(find)
+      .sort(sort)
+      .skip(objPagination.skip)
+      .limit(objPagination.limit);
 
     if (postList && postList.length > 0) {
       for (const post of postList) {
@@ -21,7 +56,15 @@ const post = async (req, res) => {
 
     res.render(
       './admin/pages/post/post.view.ejs',
-      { pageTitle: 'Danh sách bài viết', postList: postList },
+      {
+        pageTitle: 'Danh sách bài viết',
+        postList: postList,
+        activeStatus,
+        statusList,
+        keyword: objSearch.keyword,
+        objPagination,
+        sortValue,
+      },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
         res.send(html);
@@ -77,10 +120,71 @@ const createPostPost = async (req, res) => {
   }
 };
 
+// GET: /admin/posts/update/:id
+const updatePostGet = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      const err = new Error('Không tìm thấy bài viết');
+      err.status = 404;
+      throw err;
+    }
+
+    const post = await postModel.findOne({ _id: id, deleted: false });
+
+    res.render(
+      './admin/pages/post/update.view.ejs',
+      {
+        pageTitle: 'Chỉnh sửa bài viết',
+        post,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// PATCH: /admin/posts/update/:id
+const updatePostPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    const postedBy = {
+      account_id: res.locals.accountLogin ? res.locals.accountLogin._id : null,
+      postedAt: moment.tz(req.body.postedAt, timezone).toDate(),
+    };
+
+    if (req.body.rating) req.body.rating = Number.parseInt(req.body.rating);
+    if (req.body.position) req.body.position = Number.parseInt(req.body.position);
+    req.body.postedBy = postedBy;
+
+    await postModel.findByIdAndUpdate(id, req.body);
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
+  } catch (error) {
+    console.log('Update post fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+  } finally {
+    res.redirect('back');
+    return;
+  }
+};
+
 const postController = {
   post,
   createPostGet,
   createPostPost,
+  updatePostGet,
+  updatePostPatch,
 };
 
 export default postController;

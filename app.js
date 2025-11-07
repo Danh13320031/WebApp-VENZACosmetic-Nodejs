@@ -15,7 +15,7 @@ import { socketIOPackageConfig } from './configs/socketIoPackage.config.js';
 import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
 import tinyMcePackageConfig from './configs/tinyMcePackage.config.js';
-import { checkDiscountConst, timezone } from './constants/constant.js';
+import { checkDiscountConst, checkPostConst, timezone } from './constants/constant.js';
 import cronJobs from './jobs/cron.jobs.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
@@ -55,6 +55,7 @@ routerError(app);
 
 // Auto cron jobs
 cronJobs.checkDiscountTimeJob(checkDiscountConst);
+cronJobs.checkPostTimeJob(checkPostConst);
 
 reload(app)
   .then(() => {

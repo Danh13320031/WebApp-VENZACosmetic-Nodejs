@@ -79,6 +79,13 @@ const updatePostValidate = (req, res, next) => {
       return;
     }
 
+    // Check postedAt
+    if (!req.body.postedAt) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn thời gian đăng bài');
+      res.redirect('back');
+      return;
+    }
+
     next();
     return;
   } catch (error) {

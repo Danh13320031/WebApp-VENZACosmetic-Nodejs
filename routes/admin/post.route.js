@@ -20,5 +20,13 @@ postRoute.post(
   postValidate.createPostValidate,
   postController.createPostPost
 );
+postRoute.get('/update/:id', postController.updatePostGet);
+postRoute.patch(
+  '/update/:id',
+  upload.single('thumbnail'),
+  uploadMiddleware.uploadCloud,
+  postValidate.updatePostValidate,
+  postController.updatePostPatch
+);
 
 export default postRoute;

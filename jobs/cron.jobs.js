@@ -30,8 +30,35 @@ const checkDiscountTimeJob = (discountScheduleCheck) => {
   cron.schedule(discountScheduleCheck, checkDiscountScheduler, options);
 };
 
+const checkPostTimeJob = (postScheduleCheck) => {
+  const options = {
+    name: 'checkPostTimeJob',
+    timezone: timezone,
+  };
+
+  const checkPostScheduler = async () => {
+    try {
+      const currentDate = moment().tz(timezone).toDate();
+      const find = {
+        deleted: false,
+        'postedBy.postedAt': { $lte: currentDate },
+        status: { $ne: 'active' },
+      };
+
+      const result = await postModel.updateMany(find, { $set: { status: 'active' } });
+      console.log('Check post time success: ', result.modifiedCount);
+    } catch (error) {
+      console.log('Check post time fail: ', error);
+    }
+  };
+
+  cron.schedule(postScheduleCheck, checkPostScheduler, options);
+};
+
+
 const cronJobs = {
   checkDiscountTimeJob,
+  checkPostTimeJob,
 };
 
 export default cronJobs;
