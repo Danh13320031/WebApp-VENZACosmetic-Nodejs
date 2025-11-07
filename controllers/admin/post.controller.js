@@ -202,6 +202,111 @@ const changeStatusPost = async (req, res) => {
   }
 };
 
+// PATCH: /admin/posts
+const changeMultiPost = async (req, res) => {
+  try {
+    if (req.body.type && req.body.ids) {
+      const { type, ids } = req.body;
+      const idsArr = ids.split(', ');
+
+      switch (type) {
+        case 'active': {
+          try {
+            await postModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'active' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'inactive': {
+          try {
+            await postModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'inactive' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'soft-delete': {
+          try {
+            await postModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { deleted: true, deletedAt: new Date() } }
+            );
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'restore': {
+          try {
+            await postModel.updateMany({ _id: { $in: idsArr } }, { $set: { deleted: false } });
+            alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'hard-delete': {
+          try {
+            await postModel.deleteMany({ _id: { $in: idsArr } });
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        default:
+          break;
+      }
+    } else {
+      res.redirect('back');
+    }
+  } catch (err) {
+    console.log('Change multi status fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+    res.redirect('back');
+  }
+};
+
+// DELETE: /admin/posts/delete/:id
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await postModel.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedAt: new Date(),
+    });
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete product fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const postController = {
   post,
   createPostGet,
@@ -209,6 +314,8 @@ const postController = {
   updatePostGet,
   updatePostPatch,
   changeStatusPost,
+  changeMultiPost,
+  deletePost,
 };
 
 export default postController;
