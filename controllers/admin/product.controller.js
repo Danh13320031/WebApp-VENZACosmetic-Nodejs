@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import systemConfig from '../../configs/system.config.js';
-import { timezone } from '../../constants/constant.js';
+import { notFoundPage, timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
@@ -406,8 +406,7 @@ const restoreGarbageProduct = async (req, res) => {
     const { id } = req.params;
 
     if (!id) {
-      res.redirect('back');
-      alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+      res.redirect(notFoundPage);
       return;
     }
 
@@ -430,7 +429,13 @@ const deleteGarbageProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
     await productModel.findByIdAndDelete(id);
+
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
     return;

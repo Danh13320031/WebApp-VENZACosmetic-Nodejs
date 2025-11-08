@@ -300,7 +300,93 @@ const deletePost = async (req, res) => {
     res.redirect('back');
     return;
   } catch (error) {
-    console.log('Delete product fail: ', error);
+    console.log('Delete post fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
+const garbagePost = async (req, res) => {
+  try {
+    const find = {
+      deleted: true,
+    };
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    const postList = await postModel.find(find).sort({
+      deletedAt: 'desc',
+    });
+
+    if (postList && postList.length > 0) {
+      for (const post of postList) {
+        const account = await accountModel.findById(post.postedBy.account_id).select('fullName');
+        post.author = account ? account.fullName : '';
+      }
+    }
+
+    res.render(
+      './admin/pages/post/garbage.view.ejs',
+      {
+        pageTitle: 'Thùng rác bài viết',
+        postList,
+        statusList,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+const restoreGarbagePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await postModel.findByIdAndUpdate(id, { deleted: false });
+
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thông');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Restore post fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
+// DELETE: /admin/posts/delete-garbage/:id_method=DELETE
+const deleteGarbagePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await postModel.findByIdAndDelete(id);
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete garbage fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
     res.redirect('back');
     return;
@@ -316,6 +402,9 @@ const postController = {
   changeStatusPost,
   changeMultiPost,
   deletePost,
+  garbagePost,
+  restoreGarbagePost,
+  deleteGarbagePost,
 };
 
 export default postController;

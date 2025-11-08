@@ -31,5 +31,8 @@ postRoute.patch(
 postRoute.patch('/change-status/:status/:id', postController.changeStatusPost);
 postRoute.patch('/change-multi', postController.changeMultiPost);
 postRoute.patch('/delete/:id', postController.deletePost);
+postRoute.get('/garbage', postController.garbagePost);
+postRoute.patch('/restore-garbage/:id', postController.restoreGarbagePost);
+postRoute.delete('/delete-garbage/:id', postController.deleteGarbagePost);
 
 export default postRoute;

@@ -90,6 +90,7 @@
   height: auto;
   color: var(--dark-gray-color);
   font-family: var(--primary-font-family);
+  background: white;
   text-decoration: none;
   box-shadow: 0px 0px 18px var(--primary-shadow-color);
   cursor: pointer;
