@@ -36,8 +36,8 @@
           </div>
 
           <div class="col-lg-4 col-md-6 col-12">
-            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tiêu đề bài viết..."})
-            %>
+            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tiêu đề bài
+            viết..."}) %>
           </div>
         </div>
 
@@ -47,14 +47,10 @@
             <div class="container-fluid">
               <div class="row gap-md-0 gap-2">
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                  <%-include("../../partials/statusFilter.view.ejs") %>
+                  <%#-include("../../partials/statusFilter.view.ejs") %>
                 </div>
-                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
-                  <%#-include("../../partials/categoryFilter.view.ejs") %>
-                </div>
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                  <%#-include("../../partials/priceFilter.view.ejs") %>
-                </div>
+                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12"></div>
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
               </div>
             </div>
           </div>
@@ -62,7 +58,7 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
@@ -72,7 +68,7 @@
                   'posts', type: 'post' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  <%#-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
                   'position-desc', 'title-asc', 'title-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
@@ -89,9 +85,7 @@
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
                   <% if (postList.length == 0) {%>
-                  <div class="text-center text-white bg-danger p-2">
-                    Không tìm thấy bài viết nào trong kho
-                  </div>
+                  <div class="text-center text-white bg-danger p-2">Thùng rác trống</div>
                   <% } %>
                   <table class="table table-hover table-sm w-100">
                     <thead class="content-font">
@@ -191,32 +185,20 @@
                         <% } %>
                         <td><%= post.position %></td>
                         <td>
-                          <% if(roleAuth.permission.includes('product-update')) {%>
-                          <a
-                            href="<%= prefixAdmin %>/posts/update/<%= post._id %>"
+                          <% if(roleAuth.permission.includes('post-restore')) {%>
+                          <button
+                            class="btn btn-primary btn-sm mb-1 btn-restore"
                             data-id="<%= post._id %>"
-                            class="btn btn-primary btn-sm mb-1 btn-update"
                           >
-                            <i class="bi bi-pencil-square me-1"></i>Sửa
-                          </a>
-                          <% } %>
-                          <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-sort-delete')) {%>
+                            <i class="bi bi-arrow-clockwise me-1"></i>Khôi phục
+                          </button>
+                          <% } %> <% if(roleAuth.permission.includes('post-hard-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
                             data-id="<%= post._id %>"
                           >
-                            <i class="bi bi-trash3 me-1"></i>Xóa
+                            <i class="bi bi-trash3 me-1"></i>Xóa vĩnh viễn
                           </button>
-                          <% } %>
-                          <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-view')) {%>
-                          <a
-                            href="<%= prefixAdmin %>/posts/detail/<%= post._id %>"
-                            class="btn btn-outline-black text-black border-black btn-sm mb-1 ml-1 btn-detail"
-                          >
-                            Chi tiết<i class="bi bi-arrow-right-short ml-1"></i>
-                          </a>
                           <% } %>
                         </td>
                       </tr>
@@ -232,7 +214,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%-include("../../partials/pagination.view.ejs") %>
+              <%#-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
               <a href="<%= prefixAdmin %>/posts/garbage" class="btn btn-primary w-100 float-end"
@@ -241,28 +223,21 @@
             </div>
           </div>
         </div>
-
         <% } %>
       </div>
     </div>
 
     <%-include("../../partials/footer.view.ejs") %>
 
-    <form action="<%= prefixAdmin %>/posts" method="POST" class="d-none" form-change-status></form>
-    <form action="<%= prefixAdmin %>/posts" method="POST" class="d-none" form-delete></form>
+    <form action="<%= prefixAdmin %>/posts" method="POST" class="d-none" form-restore></form>
+    <form action="<%= prefixAdmin %>/posts" method="POST" class="d-none" form-delete-hard></form>
 
     <!-- Script File -->
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
-    <script src="/admin/scripts/statusFilter.js"></script>
-    <script src="/admin/scripts/search.js"></script>
-    <script src="/admin/scripts/pagination.js"></script>
-    <script src="/admin/scripts/displayModalConfirm.js"></script>
-    <script src="/admin/scripts/changeStatus.js"></script>
-    <script src="/admin/scripts/delete.js"></script>
+    <script src="/admin/scripts/deleteGarbage.js"></script>
+    <script src="/admin/scripts/restoreGarbage.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
-    <script src="/admin/scripts/sort.js"></script>
-    <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->

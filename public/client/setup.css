@@ -12,6 +12,7 @@
 
 body {
   overflow-x: hidden;
+  background: rgba(247, 247, 247, 0.452) !important;
 }
 
 body.no-scroll {
