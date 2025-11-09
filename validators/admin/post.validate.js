@@ -49,6 +49,13 @@ const createPostValidate = (req, res, next) => {
       return;
     }
 
+    // Check author
+    if (!req.body.author) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập người viết bài');
+      res.redirect('back');
+      return;
+    }
+
     next();
     return;
   } catch (error) {
@@ -82,6 +89,13 @@ const updatePostValidate = (req, res, next) => {
     // Check postedAt
     if (!req.body.postedAt) {
       alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn thời gian đăng bài');
+      res.redirect('back');
+      return;
+    }
+
+    // Check author
+    if (!req.body.author) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập tên người viết bài');
       res.redirect('back');
       return;
     }

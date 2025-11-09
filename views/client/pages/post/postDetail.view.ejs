@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %> <%# Styles File %>
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMessage.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonHotLine.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css" />
+    <link rel="stylesheet" href="/client/styles/pages/post/postDetail.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <%# End Styles File %> <%# Styles Library & Framework Link %> <%# Bootstrap %>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <%# BoxIcon %>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <%# SlickSlide %>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <%# End Styles Library & Framework Link %>
+  </head>
+  <body>
+    <%-include('../../partials/alertMessage.view.ejs') %>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
+    aboutActive: '', productActive: '', newsActive: 'active', contactActive: '', cartActive: '' });
+    %> <%-include("../../partials/headerMobile.view.ejs") %>
+
+    <main class="main">
+      <section class="post-detail mt-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="heading-font pb-0 text-start fs-1"><%= pageTitle %></h1>
+              <div class="d-flex justify-content-between post-info mt-3">
+                <time
+                  datetime="<%= post.postedBy.postedAt %>"
+                  class="content-font opacity-50 d-block mb-5"
+                  ><i class="bi bi-clock me-1"></i> Đăng lúc
+                  <span class="fw-bold"
+                    ><%= moment(post.postedBy.postedAt).tz(timezone).format('HH:mm - DD/MM/YYYY')
+                    %></span
+                  >
+                  bởi
+                  <span class="fw-bold"
+                    ><i class="bi bi-person-fill me-1"></i><%= post.poster %></span
+                  ></time
+                >
+                <div class="content-font post-author">
+                  <i class="bi bi-person-fill me-1"></i>
+                  Người viết:
+                  <span class="fw-bold"><%= post.author %></span>
+                </div>
+              </div>
+              <div class="content-font bg-white shadow rounded-4 p-4 tinymce post-content">
+                <%- post.content %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%-include('../../partials/buttonMessage.view.ejs') %>
+    <%-include('../../partials/buttonHotLine.view.ejs') %>
+    <%-include('../../partials/buttonMailTo.view.ejs') %>
+    <%-include('../../partials/buttonScrollToTop.view.ejs') %>
+    <%-include('../../partials/buttonChatBot.view.ejs') %>
+    <%-include('../../partials/footer.view.ejs') %>
+
+    <form
+      action="/cart/delete"
+      method="POST"
+      class="d-none form-delete-product-cart"
+      id="form-delete-product-cart"
+    ></form>
+
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
+    <%# Scripts File %>
+    <script src="/client/scripts/alertMessage.js"></script>
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/product/toggleSearchProduct.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/scrollReload.js"></script>
+    <%# End Scripts File %> <%# Scripts Library & Framework Link %> <%# Bootstrap %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <%# FontAwesome %>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <%# SlickSlide %>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <%#
+    <script src="./scripts/googlemap.js"></script>
+    %> <%# End Scripts Library & Framework Link %>
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>

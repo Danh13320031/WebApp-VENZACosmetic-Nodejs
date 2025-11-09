@@ -72,7 +72,9 @@
                     <% if(!productWithLikeList || productWithLikeList.length <= 0) { %>
                     <tr class="cart-body-row cart-row">
                       <td class="cart-body-cell cart-cell" colspan="7">
-                        <div class="text-center">Chưa có sản phẩm nào</div>
+                        <div class="text-center">
+                          Chưa có sản phẩm nào. <a href="/products">Xem ngay</a>
+                        </div>
                       </td>
                     </tr>
                     <% } %> <% if(productWithLikeList && productWithLikeList.length > 0) { %> <%
@@ -174,7 +176,9 @@
                     <% if(!orderList || orderList.length <= 0) { %>
                     <tr class="cart-body-row cart-row">
                       <td class="cart-body-cell cart-cell" colspan="7">
-                        <div class="text-center">Chưa có đơn hàng nào</div>
+                        <div class="text-center">
+                          Chưa có đơn hàng nào. <a href="/products">Mua ngay</a>
+                        </div>
                       </td>
                     </tr>
                     <% } %> <% if(orderList && orderList.length > 0) { %> <%

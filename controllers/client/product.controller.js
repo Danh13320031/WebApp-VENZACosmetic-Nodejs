@@ -188,6 +188,7 @@ const getProductDetail = async (req, res) => {
   }
 };
 
+// POST: /products/add-favorite/:id
 const addProductFavorite = async (req, res) => {
   try {
     const user = res.locals.user;

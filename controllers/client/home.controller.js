@@ -1,6 +1,7 @@
 import { timezone, productFlashSaleDurationMsConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import postModel from '../../models/post.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import moment from '../../node_modules/moment/moment.js';
@@ -27,14 +28,17 @@ const home = async (req, res) => {
       });
     }
 
+    // Handle featured product
     const productFeatureList = productList.filter((product) => {
       if (product.featured === '1') return product;
     });
 
+    // Handle sale product
     const productSaleList = productList.filter((product) => {
       if (product.discount !== 0) return product;
     });
 
+    // Handle flash sale product
     const productFlashSaleList = productList.filter((product) => {
       if (
         product.discount !== 0 &&
@@ -61,6 +65,23 @@ const home = async (req, res) => {
       secondNumber: duration.seconds(),
     };
 
+    // Handle post
+    const findPost = { status: 'active', deleted: false, published: true };
+    const postList = await postModel
+      .find(findPost)
+      .sort({ createdAt: 'desc' })
+      .select('-content')
+      .limit(3);
+
+    const postFeatured = await postModel
+      .findOne({
+        ...findPost,
+        featured: '1',
+      })
+      .limit(1)
+      .sort({ createdAt: 'desc' })
+      .select('-content');
+
     res.render(
       './client/pages/home/index.view.ejs',
       {
@@ -71,6 +92,8 @@ const home = async (req, res) => {
         productFlashSaleList,
         productList: productList,
         productFlashSaleDuration,
+        postList: postList,
+        postFeatured: postFeatured,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
