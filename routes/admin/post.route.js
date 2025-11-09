@@ -6,7 +6,13 @@ import uploadMiddleware from '../../middlewares/upload.middleware.js';
 import postValidate from '../../validators/admin/post.validate.js';
 
 const postRoute = express.Router();
-const upload = multer();
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fieldSize: 10 * 1024 * 1024,
+    fileSize: 10 * 1024 * 1024,
+  },
+});
 
 // Config Cloudinary Package
 cloudinaryPackageConfig();

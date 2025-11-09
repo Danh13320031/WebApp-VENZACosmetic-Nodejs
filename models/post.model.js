@@ -10,6 +10,7 @@ const objSchema = {
   thumbnail: { type: String, require: true },
   status: { type: String, require: true, default: 'active' },
   published: { type: Boolean, require: true, default: false },
+  author: { type: String, require: true, default: '' },
   rating: { type: Number, default: 0 },
   position: { type: Number, require: true, default: 1 },
   category_id: { type: String, require: true, default: null },

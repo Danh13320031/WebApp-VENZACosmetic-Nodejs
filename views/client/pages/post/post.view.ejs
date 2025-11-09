@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %> <%# Styles File %>
+    <link rel="stylesheet" href="/client/setup.css" />
+    <link rel="stylesheet" href="/client/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/client/styles/partials/header.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.css" />
+    <link rel="stylesheet" href="/client/styles/pages/index/index.responsive.css" />
+    <link rel="stylesheet" href="/client/styles/partials/breadcrumb.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMessage.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonHotLine.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
+    <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
+    <link rel="stylesheet" href="/client/styles/partials/pagination.css" />
+    <link rel="stylesheet" href="/client/styles/partials/footer.css" />
+    <%# End Styles File %> <%# Styles Library & Framework Link %> <%# Bootstrap %>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <%# BoxIcon %>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <%# SlickSlide %>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <%# End Styles Library & Framework Link %>
+  </head>
+  <body>
+    <%-include('../../partials/alertMessage.view.ejs') %>
+    <%-include('../../partials/header.view.ejs', { categoryListTree: categoryTree, homeActive: "",
+    aboutActive: '', productActive: '', newsActive: 'active', contactActive: '', cartActive: '' });
+    %> <%-include("../../partials/headerMobile.view.ejs") %>
+
+    <main class="main">
+      <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl })%>
+
+      <section class="post post-feature post-new">
+        <div class="container">
+          <div class="g-3 row">
+            <div class="col-lg-8 col-12">
+              <div class="g-3 row">
+                <div class="col-lg-5">
+                  <div class="border p-3 post-filter-box">
+                    <div class="post-filter-category">
+                      <h4 class="heading-font py-0 text-start post-filter-title">Danh mục</h4>
+                      <hr />
+                      <div></div>
+                    </div>
+                    <div class="post-filter-featured">
+                      <h4 class="heading-font py-0 text-start post-filter-title">Nổi bật</h4>
+                      <hr />
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <% if(postFeatured) { %>
+                  <div class="bg-white p-2 card-bg">
+                    <div class="position-relative h-100 card-image">
+                      <a href="" class="card-link">
+                        <img src="<%= postFeatured.thumbnail %>" alt="" class="card-img" />
+                      </a>
+                      <div
+                        class="w-100 h-100 position-absolute top-0 start-0 bg-black opacity-50 card-overlay"
+                      ></div>
+                      <a
+                        href="/posts/detail/<%= postFeatured.slug %>"
+                        class="button-primary position-absolute top-50 start-50 translate-middle shadow bg-transparent border border-color-white text-capitalize card-link-detail"
+                      >
+                        Xem chi tiết
+                      </a>
+                    </div>
+                    <div class="card-content">
+                      <a
+                        href="/posts/detail/<%= postFeatured.slug %>"
+                        class="title-font text-decoration-none card-title"
+                        title="<%= postFeatured.title %>"
+                      >
+                        <%= postFeatured.title %>
+                      </a>
+                      <div class="content-font fs-6 card-time">
+                        <i class="bi bi-clock me-1"></i><%=
+                        moment(postFeatured.postedBy.postedAt).format('HH:mm - DD/MM/YYYY') %>
+                      </div>
+                      <p
+                        class="content-font mb-0 text-justify card-summary"
+                        title="<%= postFeatured.summary %>"
+                      >
+                        <%= postFeatured.summary %>
+                      </p>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+                <div class="col-12">
+                  <div class="g-2 row">
+                    <h4 class="heading-font py-0 pb-2 text-start post-list-title">
+                      Danh sách bài viết
+                    </h4>
+                    <% if(postList && postList.length > 0) { %> <% postList.forEach((post) => { %>
+                    <div class="col-lg-4 col-6">
+                      <div class="bg-white p-2 card-bg">
+                        <div class="card-image">
+                          <a href="/posts/detail/<%= post.slug %>" class="card-link">
+                            <img
+                              src="<%= post.thumbnail %>"
+                              alt="<%= post.title %>"
+                              class="card-img"
+                            />
+                          </a>
+                        </div>
+                        <div class="flex-shrink-1 flex-grow-1 card-content">
+                          <a
+                            href="/posts/detail/<%= post.slug %>"
+                            class="content-font fw-bold text-decoration-none card-title"
+                            title="<%= post.title %>"
+                          >
+                            <%= `${post.title.substring(0, 50)}${post.title.length > 50 ? '...' :
+                            ''}` %>
+                          </a>
+                          <p class="content-font mb-0 text-justify card-summary">
+                            <%= `${post.summary.substring(0, 50)}${post.summary.length > 50 ? '...'
+                            : ''}` %>
+                          </p>
+                          <div class="d-flex justify-content-between">
+                            <div class="content-font fw-bold card-time">
+                              <i class="bi bi-clock me-1"></i>
+                              <%= moment(post.postedBy.postedAt).format('HH:mm - DD/MM/YYYY') %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% }) %> <% } %>
+                  </div>
+                </div>
+              </div>
+              <div class="g-2 row">
+                <div class="post-pagination mt-5 d-flex justify-content-center">
+                  <%-include("../../partials/pagination.view.ejs", { objPagination: objPagination })
+                  %>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-12">
+              <div class="d-flex flex-column gap-3">
+                <div class="border p-3 post-new-box">
+                  <h4 class="heading-font py-0 text-start post-new-title">Mới ra mắt</h4>
+                  <hr />
+                  <div class="gap-2 row">
+                    <% if(postNewList && postNewList.length > 0) { %> <%
+                    postNewList.forEach((post)=> { %>
+                    <div class="col-12">
+                      <div class="d-flex gap-2 bg-white p-2 card-bg">
+                        <div class="card-image">
+                          <a href="/posts/detail/<%= post.slug %>" class="card-link">
+                            <img
+                              src="<%= post.thumbnail %>"
+                              alt="<%= post.title %>"
+                              style="width: 120px; height: 120px"
+                              class="card-img"
+                            />
+                          </a>
+                        </div>
+                        <div class="flex-shrink-1 flex-grow-1 card-content">
+                          <a
+                            href="/posts/detail/<%= post.slug %>"
+                            class="content-font fw-bold text-decoration-none card-title"
+                            title="<%= post.title %>"
+                          >
+                            <%= `${post.title.substring(0, 50)}${post.title.length > 50 ? '...' :
+                            ''}` %>
+                          </a>
+                          <p class="content-font mb-0 text-justify card-summary">
+                            <%= `${post.summary.substring(0, 50)}${post.summary.length > 50 ? '...'
+                            : ''}` %>
+                          </p>
+                          <div class="d-flex justify-content-between">
+                            <div class="content-font fw-bold card-time">
+                              <i class="bi bi-clock me-1"></i>
+                              <%= moment(post.postedBy.postedAt).format('HH:mm - DD/MM/YYYY') %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% }) %> <% } %>
+                  </div>
+                </div>
+                <div class="post-ads">
+                  <a href="/products" class="post-ads-link">
+                    <img
+                      src="/client/images/banner/banner-ads-05.png"
+                      alt="ads"
+                      width="100%"
+                      class="post-ads-image"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <%-include('../../partials/buttonMessage.view.ejs') %>
+    <%-include('../../partials/buttonHotLine.view.ejs') %>
+    <%-include('../../partials/buttonMailTo.view.ejs') %>
+    <%-include('../../partials/buttonScrollToTop.view.ejs') %>
+    <%-include('../../partials/buttonChatBot.view.ejs') %>
+    <%-include('../../partials/footer.view.ejs') %>
+
+    <form
+      action="/cart/delete"
+      method="POST"
+      class="d-none form-delete-product-cart"
+      id="form-delete-product-cart"
+    ></form>
+
+    <form
+      action="/cart/change-quantity"
+      method="POST"
+      class="d-none form-change-quantity-cart"
+      id="form-change-quantity-cart"
+    ></form>
+
+    <%# Scripts File %>
+    <script src="/client/scripts/alertMessage.js"></script>
+    <script src="/client/scripts/toggleHeaderMobile.js"></script>
+    <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/product/toggleSearchProduct.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/scrollReload.js"></script>
+    <%# End Scripts File %> <%# Scripts Library & Framework Link %> <%# Bootstrap %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <%# FontAwesome %>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <%# SlickSlide %>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
+
+    <%#
+    <script src="./scripts/googlemap.js"></script>
+    %> <%# End Scripts Library & Framework Link %>
+
+    <script src="/reload/reload.js"></script>
+  </body>
+</html>

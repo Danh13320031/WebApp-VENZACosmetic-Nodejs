@@ -107,6 +107,9 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Người đăng
                       </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Tác giả
+                      </th>
                       <% if(roleAuth.permission.includes('product-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
@@ -140,8 +143,8 @@
                         </td>
                         <td><%= post.title %></td>
                         <td>
-                          <p><i class="fa-solid fa-user me-1"></i><%= post.author%></p>
-                          <% if(post.author) { %>
+                          <p><i class="fa-solid fa-user me-1"></i><%= post.poster%></p>
+                          <% if(post.poster) { %>
                           <p>
                             <i class="fa-solid fa-clock me-1"></i><%=
                             moment(post.postedBy.postedAt).format('DD/MM/YYYY - h:mm:ss')%>
@@ -149,6 +152,10 @@
                           <% } else { %>
                           <p>Không tìm thấy</p>
                           <% } %>
+                        </td>
+                        <td>
+                          <i class="fa-solid fa-user me-1"></i><%= post.author ? post.author :
+                          'Không tìm thấy' %>
                         </td>
                         <% if(roleAuth.permission.includes('product-change-status')) {%>
                         <td>

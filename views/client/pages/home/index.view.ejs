@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
-
-    <!-- Styles File -->
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %> <%# Styles File %>
     <link rel="stylesheet" href="/client/setup.css" />
     <link rel="stylesheet" href="/client/styles/partials/alert.css" />
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
@@ -15,10 +13,7 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
-    <!-- End Styles File -->
-
-    <!-- Styles Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# End Styles File %> <%# Styles Library & Framework Link %> <%# Bootstrap %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -27,15 +22,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- BoxIcon -->
+    <%# BoxIcon %>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <link
       rel="stylesheet"
       type="text/css"
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
-    <!-- End Styles Library & Framework Link -->
+    <%# End Styles Library & Framework Link %>
   </head>
   <body>
     <%-include('../../partials/alertMessage.view.ejs') %>
@@ -44,42 +39,61 @@
     }); %> <%-include("../../partials/headerMobile.view.ejs") %>
 
     <main class="main">
-      <!-- Banner Header -->
+      <%# Banner Header %>
       <section class="mt-3 mt-md-4 herobanner">
         <div class="container">
           <div class="row gap-md-0 px-2">
             <div class="col-lg-8 col-md-8 col-12 p-0">
               <div class="herobanner-slider button-trans">
                 <div class="mx-1 position-relative herobanner-box">
-                  <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center">
-                    <h1 class="heading-font py-0 fw-bold text-center text-white fs-1 d-lg-block d-none">
+                  <div
+                    class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center"
+                  >
+                    <h1
+                      class="heading-font py-0 fw-bold text-center text-white fs-1 d-lg-block d-none"
+                    >
                       <div>SUỐI NGUỒN</div>
                       <div>TƯƠI TRẺ</div>
                     </h1>
-                    <p class="content-font fst-italic text-white text-center mb-0 d-lg-block d-none">Đẹp theo bản sắc riêng biệt</p>
-                    <a 
-                      href="/products" 
+                    <p
+                      class="content-font fst-italic text-white text-center mb-0 d-lg-block d-none"
+                    >
+                      Đẹp theo bản sắc riêng biệt
+                    </p>
+                    <a
+                      href="/products"
                       class="button-primary text-decoration-none d-flex align-items-center herobanner-link"
                     >
-                    Xem nhiều hơn
-                    <i class="fa-solid fa-circle-play ms-2 d-lg-block d-none"></i>
+                      Xem nhiều hơn
+                      <i class="fa-solid fa-circle-play ms-2 d-lg-block d-none"></i>
                     </a>
                   </div>
                   <img src="/client/images/banner/hero-banner-02.jpg" alt="" width="100%" />
                 </div>
                 <div class="mx-1 herobanner-box">
-                  <div class="position-absolute d-flex gap-2 flex-column align-items-start" style="left: 41.5%; top: 50%; transform: translate(0%, -50%);">
-                    <p class="content-font text-capitalize fst-italic mb-0 p-2 bg-white d-lg-block d-none" style="color: var(--primary-color)">Cải Tiến Mới</p>
-                    <h1 class="heading-font py-0 fw-bold text-start fs-1 d-lg-block d-none" style="color: var(--dark-gray-color)">
+                  <div
+                    class="position-absolute d-flex gap-2 flex-column align-items-start"
+                    style="left: 41.5%; top: 50%; transform: translate(0%, -50%)"
+                  >
+                    <p
+                      class="content-font text-capitalize fst-italic mb-0 p-2 bg-white d-lg-block d-none"
+                      style="color: var(--primary-color)"
+                    >
+                      Cải Tiến Mới
+                    </p>
+                    <h1
+                      class="heading-font py-0 fw-bold text-start fs-1 d-lg-block d-none"
+                      style="color: var(--dark-gray-color)"
+                    >
                       <div>BỀN MÀU</div>
                       <div>VƯỢT TRỘI</div>
                     </h1>
-                    <a 
-                      href="/products" 
+                    <a
+                      href="/products"
                       class="button-secondary text-decoration-none herobanner-link"
                     >
-                    Xem thêm
-                    <i class="fa-solid fa-circle-play ms-2"></i>
+                      Xem thêm
+                      <i class="fa-solid fa-circle-play ms-2"></i>
                     </a>
                   </div>
                   <img src="/client/images/banner/hero-banner-01.png" alt="" width="100%" />
@@ -103,9 +117,7 @@
           </div>
         </div>
       </section>
-      <!-- End Banner Header -->
-
-      <!-- Product Type Card -->
+      <%# End Banner Header %> <%# Product Type Card %>
       <section class="product-type">
         <div class="container">
           <h3 class="heading-text text-center product-type-title">Các Loại Sản Phẩm</h3>
@@ -197,22 +209,22 @@
           </div>
         </div>
       </section>
-      <!-- End Product Type Card -->
-
-      <!-- Feature Card Slide -->
+      <%# End Product Type Card %> <%# Feature Card Slide %>
       <section class="card-feature">
         <div class="container">
           <h3 class="heading-font text-center card-feature-heading">Sản Phẩm Nổi Bật</h3>
           <div class="row">
             <div class="col-12">
               <div class="card-feature-slider button-trans">
-                <% productFeatureList.forEach((product) => { %> 
+                <% productFeatureList.forEach((product) => { %>
                 <div class="mx-1 card-bg" title="<%= product.title %>">
-                  <% if(product.discount > 0) {  %>
+                  <% if(product.discount > 0) { %>
                   <div class="card-discount-badge">
                     <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
                   </div>
-                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <span class="content-font text-white card-discount-text"
+                    >-<%= product.discount %>%</span
+                  >
                   <% } %>
                   <div class="card-image">
                     <img
@@ -263,21 +275,18 @@
                     </form>
                   </div>
                 </div>
-                <!-- End Card -->
-                <% }) %>
+                <%# End Card %> <% }) %>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- End Feature Card Slide -->
-
-      <!-- Banner Image -->
+      <%# End Feature Card Slide %> <%# Banner Image %>
       <section class="banner1 pt-5">
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <a href="" class="banner1-link"
+              <a href="/products" class="banner1-link"
                 ><img
                   src="/client/images/banner/banner-ads-08 (2).png"
                   alt=""
@@ -288,22 +297,22 @@
           </div>
         </div>
       </section>
-      <!-- End Banner Image -->
-
-      <!-- Sale Card Slide -->
+      <%# End Banner Image %> <%# Sale Card Slide %>
       <section class="card-sale">
         <div class="container">
           <h3 class="heading-font text-center card-sale-heading">Sản Phẩm Đang Giảm Giá</h3>
           <div class="row">
             <div class="col-12">
               <div class="card-sale-slider button-trans">
-                <% productSaleList.forEach((product) => { %> 
+                <% productSaleList.forEach((product) => { %>
                 <div class="mx-1 card-bg" title="<%= product.title %>">
-                  <% if(product.discount > 0) {  %>
+                  <% if(product.discount > 0) { %>
                   <div class="card-discount-badge">
                     <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
                   </div>
-                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <span class="content-font text-white card-discount-text"
+                    >-<%= product.discount %>%</span
+                  >
                   <% } %>
                   <div class="card-image">
                     <img
@@ -355,116 +364,134 @@
                     </form>
                   </div>
                 </div>
-                <!-- End Card -->
-                <% }) %>
+                <%# End Card %> <% }) %>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- End Sale Card Slide -->
-
-      <% if(productFlashSaleList.length > 0) {  %>
+      <%# End Sale Card Slide %> <% if(productFlashSaleList.length > 0) { %>
       <section class="card-flash-sale mt-5">
         <div class="container">
-          <div class="p-4 rounded-4 card-flash-sale-container" style="background-color: var(--primary-color);">
+          <div
+            class="p-4 rounded-4 card-flash-sale-container"
+            style="background-color: var(--primary-color)"
+          >
             <div class="row col-12">
               <div class="d-flex justify-content-center">
                 <div class="mb-2 d-flex flex-column align-items-center gap-2">
                   <h3
-                    class="heading-font py-2 px-4 ms-2 text-center fst-italic card-flash-sale-heading" 
-                    style="color: var(--primary-color); background-color: var(--dark-gray-color); text-shadow: 0px 0px 10px var(--primary-color); transform: skewX(-10deg);">
+                    class="heading-font py-2 px-4 ms-2 text-center fst-italic card-flash-sale-heading"
+                    style="
+                      color: var(--primary-color);
+                      background-color: var(--dark-gray-color);
+                      text-shadow: 0px 0px 10px var(--primary-color);
+                      transform: skewX(-10deg);
+                    "
+                  >
                     <img
                       src="/client/images/flash_sale_unscreen.gif"
                       alt="hot-sale"
                       width="18px"
-                      style="transform: scale(2); filter: drop-shadow(0px 0px 2px var(--primary-color))"
-                    /> 
+                      style="
+                        transform: scale(2);
+                        filter: drop-shadow(0px 0px 2px var(--primary-color));
+                      "
+                    />
                     Flash Sale
                   </h3>
-                  <div 
-                    class="heading-font py-0 card-flash-sale-time" 
-                    style="color: var(--light-primary-color); text-shadow: 0px 0px 10px var(--light-primary-color); transform: skewX(-10deg);"
+                  <div
+                    class="heading-font py-0 card-flash-sale-time"
+                    style="
+                      color: var(--light-primary-color);
+                      text-shadow: 0px 0px 10px var(--light-primary-color);
+                      transform: skewX(-10deg);
+                    "
                     data-time="<%= `${productFlashSaleDuration.dayNumber}:${productFlashSaleDuration.hourNumber}:${productFlashSaleDuration.minuteNumber}:${productFlashSaleDuration.secondNumber}` %>"
                     card-flash-sale-time
                   >
-                    <%= productFlashSaleDuration.dayNumber  %> days : <%= productFlashSaleDuration.hourNumber %> hours : <%= productFlashSaleDuration.minuteNumber %> minutes : <%= productFlashSaleDuration.secondNumber %> seconds
+                    <%= productFlashSaleDuration.dayNumber %> days : <%=
+                    productFlashSaleDuration.hourNumber %> hours : <%=
+                    productFlashSaleDuration.minuteNumber %> minutes : <%=
+                    productFlashSaleDuration.secondNumber %> seconds
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-              <div class="card-flash-sale-slider d-flex gap-2 button-trans" data-length="<%= productFlashSaleList.length %>">
-                <% productFlashSaleList.forEach((product) => { %>
-                <div class="mx-1 card-bg" title="<%= product.title %>">
-                  <% if(product.discount > 0) {  %>
-                  <div class="card-discount-badge">
-                    <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
-                  </div>
-                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
-                  <% } %>
-                  <div class="card-image">
-                    <img
-                      src="<%= product.thumbnail %>"
-                      alt="product"
-                      width="100%"
-                      class="card-thumbnail"
-                    />
-                    <div class="card-link">
-                      <a
-                        href="/products/detail/<%= product.slug %>"
-                        class="content-font card-link-detail"
-                      >
-                        Xem chi tiết
-                      </a>
+              <div class="col-12 d-flex justify-content-center">
+                <div
+                  class="card-flash-sale-slider w-100 d-flex gap-lg-2 gap-1 justify-content-center button-trans"
+                  data-length="<%= productFlashSaleList.length %>"
+                >
+                  <% productFlashSaleList.forEach((product) => { %>
+                  <div class="mx-1 card-bg" title="<%= product.title %>">
+                    <% if(product.discount > 0) { %>
+                    <div class="card-discount-badge">
+                      <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                    </div>
+                    <span class="content-font text-white card-discount-text"
+                      >-<%= product.discount %>%</span
+                    >
+                    <% } %>
+                    <div class="card-image">
+                      <img
+                        src="<%= product.thumbnail %>"
+                        alt="product"
+                        width="100%"
+                        class="card-thumbnail"
+                      />
+                      <div class="card-link">
+                        <a
+                          href="/products/detail/<%= product.slug %>"
+                          class="content-font card-link-detail"
+                        >
+                          Xem chi tiết
+                        </a>
+                      </div>
+                    </div>
+                    <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
+                      <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...'
+                      %> <% } else { %> <%= product.title %><% } %>
+                    </div>
+                    <div class="card-box d-flex justify-content-between align-items-center">
+                      <h5 class="title-font card-price">
+                        <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                        }).format(Number.parseFloat(product.price - (product.price / 100 *
+                        product.discount)))%>
+                      </h5>
+                      <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
+                        <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
+                          <i class="bi bi-suit-heart-fill"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="content-font text-danger text-decoration-line-through">
+                      Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
+                      'VND' }).format(product.price) %>
+                    </div>
+                    <div class="card-rating d-flex justify-content-between align-items-center">
+                      <div class="card-star">
+                        <% for(let i = 1; i <= product.rating; i++) { %>
+                        <i class="bi bi-star-fill"></i>
+                        <% } %>
+                      </div>
+                      <form <% if(product.stock>
+                        0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
+                        <button type="submit" class="border-0 bg-transparent">
+                          <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                        </button>
+                      </form>
                     </div>
                   </div>
-                  <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
-                    <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %>
-                    <% } else { %> <%= product.title %><% } %>
-                  </div>
-                  <div class="card-box d-flex justify-content-between align-items-center">
-                    <h5 class="title-font card-price">
-                      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                      }).format(Number.parseFloat(product.price - (product.price / 100 *
-                      product.discount)))%>
-                    </h5>
-                    <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
-                      <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
-                        <i class="bi bi-suit-heart-fill"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="content-font text-danger text-decoration-line-through">
-                    Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                    }).format(product.price) %>
-                  </div>
-                  <div class="card-rating d-flex justify-content-between align-items-center">
-                    <div class="card-star">
-                      <% for(let i = 1; i <= product.rating; i++) { %>
-                      <i class="bi bi-star-fill"></i>
-                      <% } %>
-                    </div>
-                    <form <% if(product.stock>
-                      0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
-                      <button type="submit" class="border-0 bg-transparent">
-                        <i title="add to cart" class="bi bi-bag-check-fill"></i>
-                      </button>
-                    </form>
-                  </div>
+                  <%# End Card %> <% }) %>
                 </div>
-                <!-- End Card -->
-                <% }) %>
               </div>
             </div>
           </div>
-          </div>
         </div>
       </section>
-      <% } %>
-
-      <!-- Google Map - Location -->
+      <% } %> <%# Google Map - Location %>
       <section class="location">
         <div class="container">
           <h3 class="heading-font text-center location-title">Vị Trí</h3>
@@ -484,148 +511,117 @@
           </div>
         </div>
       </section>
-      <!-- End Google Map - Location -->
+      <%# End Google Map - Location %>
 
       <section class="card-post">
         <div class="container">
           <h3 class="heading-font text-center post-title">Các bài viết về mỹ phẩm</h3>
-          <div class="d-lg-flex justify-content-between d-block gap-2">
-            <div class="column mb-lg-0 mb-2">
+          <div class="row">
+            <div class="col-lg-5 col-12 mb-lg-0 mb-2">
+              <% if(postFeatured) { %>
               <div class="bg-white p-2 card-bg">
                 <div class="position-relative h-100 card-image">
                   <a href="" class="card-link">
-                    <img
-                      src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
-                      alt=""
-                      class="card-img"
-                    />
-                    <div class="w-100 h-100 position-absolute top-0 start-0 bg-black opacity-50 card-overlay"></div>
-                    <a href="" class="button-primary position-absolute top-50 start-50 translate-middle shadow bg-transparent border border-color-white text-capitalize card-link-detail">Xem chi tiết </a>
+                    <img src="<%= postFeatured.thumbnail %>" alt="" class="card-img" />
+                  </a>
+                  <div
+                    class="w-100 h-100 position-absolute top-0 start-0 bg-black opacity-50 card-overlay"
+                  ></div>
+                  <a
+                    href="/posts/detail/<%= postFeatured.slug %>"
+                    class="button-primary position-absolute top-50 start-50 translate-middle shadow bg-transparent border border-color-white text-capitalize card-link-detail"
+                  >
+                    Xem chi tiết
+                  </a>
                 </div>
                 <div class="card-content">
-                  <div class="title-font card-title">
-                    3 Kiểu Makeup Xinh Như Hoa Cho Phái Đẹp Ngày 20/10
+                  <a
+                    href="/posts/detail/<%= postFeatured.slug %>"
+                    class="title-font text-decoration-none card-title"
+                    title="<%= postFeatured.title %>"
+                  >
+                    <%= `${postFeatured.title.substring(0, 50)}${postFeatured.title.length > 50 ?
+                    '...' : ''}` %>
+                  </a>
+                  <div class="content-font fs-6 card-time">
+                    <i class="bi bi-clock me-1"></i><%=
+                    moment(postFeatured.postedBy.postedAt).format('HH:mm - DD/MM/YYYY') %>
                   </div>
-                  <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
-                  <p class="content-font mb-0 text-justify card-summary">
-                    Ngày 20/10 là dịp để mỗi cô gái tỏa sáng theo cách riêng — dù là nhẹ nhàng tự
-                    nhiên hay rạng rỡ cuốn hút. Với No Makeup Look, bạn chỉ cần một lớp nền mỏng,
-                    môi hồng nhẹ đã đủ khiến ánh nhìn dừng lại. Nếu yêu làn da căng bóng chuẩn Hàn,
-                    Glass Skin Look sẽ giúp bạn rạng rỡ như phủ sương dưới nắng sớm. Còn với những
-                    ai muốn thêm chút ngọt ngào, makeup tone hồng chính là “bí kíp” khiến ngày 20/10
-                    của bạn thêm phần dịu dàng và đáng nhớ.
+                  <p
+                    class="content-font mb-0 text-justify card-summary"
+                    title="<%= postFeatured.summary %>"
+                  >
+                    <%= `${postFeatured.summary.substring(0, 100)}${postFeatured.summary.length >
+                    100 ? '...' : ''}` %>
                   </p>
                 </div>
               </div>
-            </div>
-            <div class="column">
-              <div class="gap-2 row">
-                <div class="col-12">
-                  <div class="d-flex gap-2 bg-white p-2 card-bg">
-                    <div class="w-25 card-image">
-                      <a href="" class="card-link">
-                        <img
-                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
-                          width="20%"
-                          alt=""
-                          class="card-img"
-                        />
-                      </a>
-                    </div>
-                    <div class="w-75 card-content">
-                      <div class="title-font card-title">
-                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
-                        "nàng" học sinh, sinh viên
-                      </div>
-                      <p class="content-font mb-0 text-justify card-summary">
-                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
-                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
-                      </p>
-                      <div class="d-flex justify-content-between pb-2">
-                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
-                        <div class="card-button">
-                          <a href="" class="button-primary text-lowercase card-link-detail"
-                            >Xem chi tiết
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="d-flex gap-2 bg-white p-2 card-bg">
-                    <div class="w-25 card-image">
-                      <a href="" class="card-link">
-                        <img
-                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
-                          width="20%"
-                          alt=""
-                          class="card-img"
-                        />
-                      </a>
-                    </div>
-                    <div class="w-75 card-content">
-                      <div class="title-font card-title">
-                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
-                        "nàng" học sinh, sinh viên
-                      </div>
-                      <p class="content-font mb-0 text-justify card-summary">
-                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
-                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
-                      </p>
-                      <div class="d-flex justify-content-between pb-2">
-                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
-                        <div class="card-button">
-                          <a href="" class="button-primary text-lowercase card-link-detail"
-                            >Xem chi tiết
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="d-flex gap-2 bg-white p-2 card-bg">
-                    <div class="w-25 card-image">
-                      <a href="" class="card-link">
-                        <img
-                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
-                          width="20%"
-                          alt=""
-                          class="card-img"
-                        />
-                      </a>
-                    </div>
-                    <div class="w-75 card-content">
-                      <div class="title-font card-title">
-                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
-                        "nàng" học sinh, sinh viên
-                      </div>
-                      <p class="content-font mb-0 text-justify card-summary">
-                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
-                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
-                      </p>
-                      <div class="d-flex justify-content-between pb-2">
-                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
-                        <div class="card-button">
-                          <a href="" class="button-primary text-lowercase card-link-detail"
-                            >Xem chi tiết
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <% } %>
+              <div class="w-100 d-flex jutify-content-end align-items-center mt-2">
+                <a
+                  href="/posts"
+                  class="button-secondary w-100 d-lg-block d-none text-center text-decoration-none"
+                >
+                  Xem tất cả<i class="bi bi-arrow-right-short ms-2"></i>
+                </a>
               </div>
             </div>
-          </div>
-
-          <div class="w-100 d-flex jutify-content-center align-items-center mt-2">
-            <a href="" class="button-secondary d-block text-center text-decoration-none">
-              Xem tất cả<i class="bi bi-arrow-right-short ms-2"></i>
-            </a>
+            <div class="col-lg-7 col-12">
+              <div class="gap-2 row">
+                <% if(postList && postList.length > 0) { %> <% postList.forEach((post) => { %>
+                <div class="col-12">
+                  <div class="d-flex gap-2 bg-white p-2 card-bg">
+                    <div class="card-image">
+                      <a href="" class="card-link">
+                        <img
+                          src="<%= post.thumbnail %>"
+                          alt="<%= post.title %>"
+                          style="width: 120px; height: 120px"
+                          class="card-img"
+                        />
+                      </a>
+                    </div>
+                    <div class="flex-shrink-1 flex-grow-1 card-content">
+                      <a
+                        href="/posts/detail/<%= post.slug %>"
+                        class="title-font text-decoration-none card-title"
+                        title="<%= post.title %>"
+                      >
+                        <%= `${post.title.substring(0, 50)}${post.title.length > 50 ? '...' : ''}`
+                        %>
+                      </a>
+                      <p class="content-font mb-0 text-justify card-summary">
+                        <%= `${post.summary.substring(0, 100)}${post.summary.length > 100 ? '...' :
+                        ''}` %>
+                      </p>
+                      <div class="d-flex justify-content-between mt-2">
+                        <div class="content-font fw-bold card-time">
+                          <i class="bi bi-clock me-1"></i>
+                          <%= moment(post.postedBy.postedAt).format('HH:mm - DD/MM/YYYY') %>
+                        </div>
+                        <div class="card-button">
+                          <a
+                            href="/posts/detail/<%= post.slug %>"
+                            class="button-primary text-lowercase card-link-detail"
+                          >
+                            Xem chi tiết
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %> <% } %>
+              </div>
+              <div class="w-100 d-flex jutify-content-end align-items-center mt-2">
+                <a
+                  href="/posts"
+                  class="button-secondary w-100 d-lg-none d-block text-center text-decoration-none"
+                >
+                  Xem tất cả<i class="bi bi-arrow-right-short ms-2"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -659,7 +655,7 @@
       id="form-add-favorite"
     ></form>
 
-    <!-- Scripts File -->
+    <%# Scripts File %>
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
@@ -669,14 +665,11 @@
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
-    <!-- End Scripts File -->
-
-    <!-- Scripts Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# End Scripts File %> <%# Scripts Library & Framework Link %> <%# Bootstrap %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FontAwesome -->
+    <%# FontAwesome %>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
       type="text/javascript"
@@ -684,8 +677,9 @@
     ></script>
     <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
 
-    <!-- <script src="./scripts/googlemap.js"></script> -->
-    <!-- End Scripts Library & Framework Link -->
+    <%#
+    <script src="./scripts/googlemap.js"></script>
+    %> <%# End Scripts Library & Framework Link %>
 
     <script src="/reload/reload.js"></script>
   </body>

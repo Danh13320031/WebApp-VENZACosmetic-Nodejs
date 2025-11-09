@@ -44,13 +44,13 @@ const post = async (req, res) => {
     const postList = await postModel
       .find(find)
       .sort(sort)
-      .skip(objPagination.skip)
-      .limit(objPagination.limit);
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
 
     if (postList && postList.length > 0) {
       for (const post of postList) {
         const account = await accountModel.findById(post.postedBy.account_id).select('fullName');
-        post.author = account ? account.fullName : '';
+        post.poster = account ? account.fullName : '';
       }
     }
 
