@@ -50,24 +50,53 @@
           <div class="row gap-md-0 px-2">
             <div class="col-lg-8 col-md-8 col-12 p-0">
               <div class="herobanner-slider button-trans">
+                <div class="mx-1 position-relative herobanner-box">
+                  <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center">
+                    <h1 class="heading-font py-0 fw-bold text-center text-white fs-1 d-lg-block d-none">
+                      <div>SUỐI NGUỒN</div>
+                      <div>TƯƠI TRẺ</div>
+                    </h1>
+                    <p class="content-font fst-italic text-white text-center mb-0 d-lg-block d-none">Đẹp theo bản sắc riêng biệt</p>
+                    <a 
+                      href="/products" 
+                      class="button-primary text-decoration-none d-flex align-items-center herobanner-link"
+                    >
+                    Xem nhiều hơn
+                    <i class="fa-solid fa-circle-play ms-2 d-lg-block d-none"></i>
+                    </a>
+                  </div>
+                  <img src="/client/images/banner/hero-banner-02.jpg" alt="" width="100%" />
+                </div>
                 <div class="mx-1 herobanner-box">
+                  <div class="position-absolute d-flex gap-2 flex-column align-items-start" style="left: 41.5%; top: 50%; transform: translate(0%, -50%);">
+                    <p class="content-font text-capitalize fst-italic mb-0 p-2 bg-white d-lg-block d-none" style="color: var(--primary-color)">Cải Tiến Mới</p>
+                    <h1 class="heading-font py-0 fw-bold text-start fs-1 d-lg-block d-none" style="color: var(--dark-gray-color)">
+                      <div>BỀN MÀU</div>
+                      <div>VƯỢT TRỘI</div>
+                    </h1>
+                    <a 
+                      href="/products" 
+                      class="button-secondary text-decoration-none herobanner-link"
+                    >
+                    Xem thêm
+                    <i class="fa-solid fa-circle-play ms-2"></i>
+                    </a>
+                  </div>
                   <img src="/client/images/banner/hero-banner-01.png" alt="" width="100%" />
-                </div>
-                <div class="mx-1 herobanner-box">
-                  <img src="/client/images/banner/hero-banner-02.jpg" alt="" width="100%" />
-                </div>
-                <div class="mx-1 herobanner-box">
-                  <img src="/client/images/banner/hero-banner-02.jpg" alt="" width="100%" />
                 </div>
               </div>
             </div>
             <div class="col-4 p-0 d-md-block d-none">
               <div class="herobanner-image d-flex flex-column gap-0">
                 <div class="banner flex-grow-1">
-                  <img src="/client/images/banner/hero-banner-03.jpg" alt="" width="100%" />
+                  <a href="/products">
+                    <img src="/client/images/banner/hero-banner-03.jpg" alt="" width="100%" />
+                  </a>
                 </div>
                 <div class="banner flex-grow-1">
-                  <img src="/client/images/banner/hero-banner-04.jpg" alt="" width="100%" />
+                  <a href="/products">
+                    <img src="/client/images/banner/hero-banner-04.jpg" alt="" width="100%" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -177,8 +206,14 @@
           <div class="row">
             <div class="col-12">
               <div class="card-feature-slider button-trans">
-                <% productList.forEach((product) => { %> <% if(product.featured === '1') {%>
-                <div class="card-bg" title="<%= product.title %>">
+                <% productFeatureList.forEach((product) => { %> 
+                <div class="mx-1 card-bg" title="<%= product.title %>">
+                  <% if(product.discount > 0) {  %>
+                  <div class="card-discount-badge">
+                    <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                  </div>
+                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <% } %>
                   <div class="card-image">
                     <img
                       src="<%= product.thumbnail %>"
@@ -229,7 +264,7 @@
                   </div>
                 </div>
                 <!-- End Card -->
-                <% } %> <% }) %>
+                <% }) %>
               </div>
             </div>
           </div>
@@ -244,7 +279,7 @@
             <div class="col-12">
               <a href="" class="banner1-link"
                 ><img
-                  src="https://tatthanh.com.vn/pic/Images/Module/News/images/image(4422).png"
+                  src="/client/images/banner/banner-ads-08 (2).png"
                   alt=""
                   width="100%"
                   class="banner1-img"
@@ -262,8 +297,14 @@
           <div class="row">
             <div class="col-12">
               <div class="card-sale-slider button-trans">
-                <% productList.forEach((product) => { %> <% if(product. discount !== 0) {%>
-                <div class="card-bg" title="<%= product.title %>">
+                <% productSaleList.forEach((product) => { %> 
+                <div class="mx-1 card-bg" title="<%= product.title %>">
+                  <% if(product.discount > 0) {  %>
+                  <div class="card-discount-badge">
+                    <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                  </div>
+                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <% } %>
                   <div class="card-image">
                     <img
                       src="<%= product.thumbnail %>"
@@ -275,8 +316,9 @@
                       <a
                         href="/products/detail/<%= product.slug %>"
                         class="content-font card-link-detail"
-                        >Xem chi tiết</a
                       >
+                        Xem chi tiết
+                      </a>
                     </div>
                   </div>
                   <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
@@ -314,13 +356,113 @@
                   </div>
                 </div>
                 <!-- End Card -->
-                <% } %> <% }) %>
+                <% }) %>
               </div>
             </div>
           </div>
         </div>
       </section>
       <!-- End Sale Card Slide -->
+
+      <% if(productFlashSaleList.length > 0) {  %>
+      <section class="card-flash-sale mt-5">
+        <div class="container">
+          <div class="p-4 rounded-4 card-flash-sale-container" style="background-color: var(--primary-color);">
+            <div class="row col-12">
+              <div class="d-flex justify-content-center">
+                <div class="mb-2 d-flex flex-column align-items-center gap-2">
+                  <h3
+                    class="heading-font py-2 px-4 ms-2 text-center fst-italic card-flash-sale-heading" 
+                    style="color: var(--primary-color); background-color: var(--dark-gray-color); text-shadow: 0px 0px 10px var(--primary-color); transform: skewX(-10deg);">
+                    <img
+                      src="/client/images/flash_sale_unscreen.gif"
+                      alt="hot-sale"
+                      width="18px"
+                      style="transform: scale(2); filter: drop-shadow(0px 0px 2px var(--primary-color))"
+                    /> 
+                    Flash Sale
+                  </h3>
+                  <div 
+                    class="heading-font py-0 card-flash-sale-time" 
+                    style="color: var(--light-primary-color); text-shadow: 0px 0px 10px var(--light-primary-color); transform: skewX(-10deg);"
+                    data-time="<%= `${productFlashSaleDuration.dayNumber}:${productFlashSaleDuration.hourNumber}:${productFlashSaleDuration.minuteNumber}:${productFlashSaleDuration.secondNumber}` %>"
+                    card-flash-sale-time
+                  >
+                    <%= productFlashSaleDuration.dayNumber  %> days : <%= productFlashSaleDuration.hourNumber %> hours : <%= productFlashSaleDuration.minuteNumber %> minutes : <%= productFlashSaleDuration.secondNumber %> seconds
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+              <div class="card-flash-sale-slider d-flex gap-2 button-trans" data-length="<%= productFlashSaleList.length %>">
+                <% productFlashSaleList.forEach((product) => { %>
+                <div class="mx-1 card-bg" title="<%= product.title %>">
+                  <% if(product.discount > 0) {  %>
+                  <div class="card-discount-badge">
+                    <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                  </div>
+                  <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <% } %>
+                  <div class="card-image">
+                    <img
+                      src="<%= product.thumbnail %>"
+                      alt="product"
+                      width="100%"
+                      class="card-thumbnail"
+                    />
+                    <div class="card-link">
+                      <a
+                        href="/products/detail/<%= product.slug %>"
+                        class="content-font card-link-detail"
+                      >
+                        Xem chi tiết
+                      </a>
+                    </div>
+                  </div>
+                  <div class="content-font overflow-x-hidden text-nowrap card-title mt-1">
+                    <% if(product.title.length > 25) { %> <%= product.title.slice(0, 25) + '...' %>
+                    <% } else { %> <%= product.title %><% } %>
+                  </div>
+                  <div class="card-box d-flex justify-content-between align-items-center">
+                    <h5 class="title-font card-price">
+                      <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                      }).format(Number.parseFloat(product.price - (product.price / 100 *
+                      product.discount)))%>
+                    </h5>
+                    <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
+                      <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
+                        <i class="bi bi-suit-heart-fill"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="content-font text-danger text-decoration-line-through">
+                    Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                    }).format(product.price) %>
+                  </div>
+                  <div class="card-rating d-flex justify-content-between align-items-center">
+                    <div class="card-star">
+                      <% for(let i = 1; i <= product.rating; i++) { %>
+                      <i class="bi bi-star-fill"></i>
+                      <% } %>
+                    </div>
+                    <form <% if(product.stock>
+                      0) { %> action="/cart/add/<%= product.id %>" method="POST" <% } %>>
+                      <button type="submit" class="border-0 bg-transparent">
+                        <i title="add to cart" class="bi bi-bag-check-fill"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <!-- End Card -->
+                <% }) %>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+      <% } %>
 
       <!-- Google Map - Location -->
       <section class="location">
@@ -343,6 +485,150 @@
         </div>
       </section>
       <!-- End Google Map - Location -->
+
+      <section class="card-post">
+        <div class="container">
+          <h3 class="heading-font text-center post-title">Các bài viết về mỹ phẩm</h3>
+          <div class="d-lg-flex justify-content-between d-block gap-2">
+            <div class="column mb-lg-0 mb-2">
+              <div class="bg-white p-2 card-bg">
+                <div class="position-relative h-100 card-image">
+                  <a href="" class="card-link">
+                    <img
+                      src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
+                      alt=""
+                      class="card-img"
+                    />
+                    <div class="w-100 h-100 position-absolute top-0 start-0 bg-black opacity-50 card-overlay"></div>
+                    <a href="" class="button-primary position-absolute top-50 start-50 translate-middle shadow bg-transparent border border-color-white text-capitalize card-link-detail">Xem chi tiết </a>
+                </div>
+                <div class="card-content">
+                  <div class="title-font card-title">
+                    3 Kiểu Makeup Xinh Như Hoa Cho Phái Đẹp Ngày 20/10
+                  </div>
+                  <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
+                  <p class="content-font mb-0 text-justify card-summary">
+                    Ngày 20/10 là dịp để mỗi cô gái tỏa sáng theo cách riêng — dù là nhẹ nhàng tự
+                    nhiên hay rạng rỡ cuốn hút. Với No Makeup Look, bạn chỉ cần một lớp nền mỏng,
+                    môi hồng nhẹ đã đủ khiến ánh nhìn dừng lại. Nếu yêu làn da căng bóng chuẩn Hàn,
+                    Glass Skin Look sẽ giúp bạn rạng rỡ như phủ sương dưới nắng sớm. Còn với những
+                    ai muốn thêm chút ngọt ngào, makeup tone hồng chính là “bí kíp” khiến ngày 20/10
+                    của bạn thêm phần dịu dàng và đáng nhớ.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="gap-2 row">
+                <div class="col-12">
+                  <div class="d-flex gap-2 bg-white p-2 card-bg">
+                    <div class="w-25 card-image">
+                      <a href="" class="card-link">
+                        <img
+                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
+                          width="20%"
+                          alt=""
+                          class="card-img"
+                        />
+                      </a>
+                    </div>
+                    <div class="w-75 card-content">
+                      <div class="title-font card-title">
+                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
+                        "nàng" học sinh, sinh viên
+                      </div>
+                      <p class="content-font mb-0 text-justify card-summary">
+                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
+                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
+                      </p>
+                      <div class="d-flex justify-content-between pb-2">
+                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
+                        <div class="card-button">
+                          <a href="" class="button-primary text-lowercase card-link-detail"
+                            >Xem chi tiết
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="d-flex gap-2 bg-white p-2 card-bg">
+                    <div class="w-25 card-image">
+                      <a href="" class="card-link">
+                        <img
+                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
+                          width="20%"
+                          alt=""
+                          class="card-img"
+                        />
+                      </a>
+                    </div>
+                    <div class="w-75 card-content">
+                      <div class="title-font card-title">
+                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
+                        "nàng" học sinh, sinh viên
+                      </div>
+                      <p class="content-font mb-0 text-justify card-summary">
+                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
+                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
+                      </p>
+                      <div class="d-flex justify-content-between pb-2">
+                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
+                        <div class="card-button">
+                          <a href="" class="button-primary text-lowercase card-link-detail"
+                            >Xem chi tiết
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="d-flex gap-2 bg-white p-2 card-bg">
+                    <div class="w-25 card-image">
+                      <a href="" class="card-link">
+                        <img
+                          src="https://images.squarespace-cdn.com/content/v1/53883795e4b016c956b8d243/1d57bb97-12b4-4205-9733-b13f91dd7986/my-pham1.jpg"
+                          width="20%"
+                          alt=""
+                          class="card-img"
+                        />
+                      </a>
+                    </div>
+                    <div class="w-75 card-content">
+                      <div class="title-font card-title">
+                        Back to school makeup 2025 - Tips trang điểm tự nhiên, chuẩn "Trend" cho các
+                        "nàng" học sinh, sinh viên
+                      </div>
+                      <p class="content-font mb-0 text-justify card-summary">
+                        Một lớp trang điểm tự nhiên, tươi tắn, phù hợp với môi trường học đường sẽ
+                        vừa giúp bạn rạng rỡ, vừa giữ được nét thanh lịch.
+                      </p>
+                      <div class="d-flex justify-content-between pb-2">
+                        <div class="content-font fw-bold card-time"><i class="bi bi-clock me-1"></i>2 phút trước</div>
+                        <div class="card-button">
+                          <a href="" class="button-primary text-lowercase card-link-detail"
+                            >Xem chi tiết
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-100 d-flex jutify-content-center align-items-center mt-2">
+            <a href="" class="button-secondary d-block text-center text-decoration-none">
+              Xem tất cả<i class="bi bi-arrow-right-short ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <%-include('../../partials/buttonMessage.view.ejs') %>
@@ -378,6 +664,7 @@
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
+    <script src="/client/scripts/home/flashSaleDurationClock.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>

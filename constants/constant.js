@@ -1,4 +1,5 @@
 export const productLimitConst = 16;
+export const productFlashSaleDurationMsConst = 3 * 24 * 60 * 60 * 1000;
 
 export const saltRoundsConst = 10;
 export const verifyTokenExpiresIn = 5 * 60 * 1000;

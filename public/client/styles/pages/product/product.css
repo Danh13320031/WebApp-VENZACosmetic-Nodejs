@@ -137,11 +137,26 @@
   box-shadow: 0px 0px 18px var(--primary-shadow-color);
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  position: relative;
 }
 .card-bg:hover {
   background: var(--light-primary-color);
   transform: translateY(-5px);
   transition: 0.2s ease-in-out;
+}
+.card-bg .card-discount-badge {
+  position: absolute;
+  top: 15px;
+  left: 95%;
+  transform: translate(-50%, -50%) scale(1.2);
+  z-index: 510;
+}
+.card-bg .card-discount-text {
+  position: absolute;
+  top: 15px;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  z-index: 550;
 }
 .card-bg .card-image {
   width: 100%;

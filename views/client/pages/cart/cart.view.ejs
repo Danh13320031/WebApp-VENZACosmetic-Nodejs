@@ -61,8 +61,9 @@
                       <th class="cart-head-cell cart-cell cell-title">Ảnh</th>
                       <th class="cart-head-cell cart-cell cell-title">Tên</th>
                       <th class="cart-head-cell cart-cell cell-title">Giá</th>
+                      <th class="cart-head-cell cart-cell cell-title">Giảm</th>
                       <th class="cart-head-cell cart-cell cell-title">Số lượng</th>
-                      <th class="cart-head-cell cart-cell cell-title">Thành tiền</th>
+                      <th class="cart-head-cell cart-cell cell-title">Tổng</th>
                       <th class="cart-head-cell cart-cell cell-title">Hành động</th>
                     </tr>
                   </thead>
@@ -84,10 +85,10 @@
                           />
                         </a>
                       </td>
-                      <td class="cart-body-cell cart-cell">
+                      <td class="w-25 cart-body-cell cart-cell">
                         <a
                           href="/products/detail/<%= product.productInfo.slug %>"
-                          class="text-decoration-none text-dark cart-body-product-link"
+                          class="text-decoration-none text-dark text-wrap cart-body-product-link"
                         >
                           <%= product.productInfo.title %>
                         </a>
@@ -96,7 +97,8 @@
                         <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                         }).format(product.productInfo.newPrice) %>
                       </td>
-                      <td class="cart-body-cell cart-cell">
+                      <td class="cart-body-cell cart-cell"><%= product.productInfo.discount %>%</td>
+                      <td class="cart-body-cell cart-cell" style="width: 10%">
                         <input
                           type="number"
                           min="0"
@@ -226,6 +228,14 @@
             ><% } %> <% relatedProductList.forEach(product => { %>
             <div class="col-lg-2 col-md-4 col-6">
               <div class="card-bg" title="<%= product.title %>">
+                <% if(product.discount > 0) { %>
+                <div class="card-discount-badge">
+                  <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                </div>
+                <span class="content-font text-white card-discount-text"
+                  >-<%= product.discount %>%</span
+                >
+                <% } %>
                 <div class="card-image">
                   <img
                     src="<%= product.thumbnail %>"

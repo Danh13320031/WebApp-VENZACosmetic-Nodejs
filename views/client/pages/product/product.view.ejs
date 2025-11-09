@@ -218,6 +218,12 @@
                 <!-- Card -->
                 <div class="col-lg-3 col-md-4 col-6">
                   <div class="card-bg" title="<%= product.title %>">
+                  <% if(product.discount > 0) {  %>
+                    <div class="card-discount-badge">
+                      <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                    </div>
+                    <span class="content-font text-white card-discount-text">-<%= product.discount %>%</span>
+                  <% } %>
                     <div class="card-image">
                       <img
                         src="<%= product.thumbnail %>"
