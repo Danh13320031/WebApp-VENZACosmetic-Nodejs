@@ -234,6 +234,7 @@ textarea.textarea-type01 {
   font-weight: var(--heading-font-weight);
   padding: 60px 0px;
   text-transform: capitalize;
+  margin-bottom: 0px;
 }
 .title-font {
   font-size: var(--title-font-size);
