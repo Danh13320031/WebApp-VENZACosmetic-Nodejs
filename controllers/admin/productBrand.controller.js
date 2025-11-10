@@ -180,6 +180,94 @@ const deleteProductBrand = async (req, res) => {
   }
 };
 
+// GET: /admin/product-brands/garbage
+const garbageProductBrand = async (req, res) => {
+  try {
+    const find = { deleted: true };
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const productBrandTotal = await productBrandModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productBrandTotal);
+
+    const productBrandList = await productBrandModel
+      .find(find)
+      .sort({ deletedAt: 'desc' })
+      .skip(objPagination.productSkip)
+      .limit(objPagination.limit);
+
+    res.render(
+      './admin/pages/productBrand/garbage.view.ejs',
+      {
+        pageTitle: 'Thùng rác thương hiệu',
+        productBrandList,
+        statusList: [],
+        keyword: objSearch.keyword,
+        objPagination,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// PATCH: /admin/product-brands/restore-garbage/:id?_method=PATCH
+const restoreProductBrand = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await productBrandModel.findByIdAndUpdate(id, { deleted: false });
+
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Restore product brand fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
+// DELETE: /admin/product-brands/delete-garbage/:id?_method=DELETE
+const deleteGarbageProductBrand = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await productBrandModel.findByIdAndDelete(id);
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete garbage product brand fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const productBrandController = {
   productBrand,
   createProductBrandGet,
@@ -187,6 +275,9 @@ const productBrandController = {
   updateProductBrandGet,
   updateProductBrandPatch,
   deleteProductBrand,
+  garbageProductBrand,
+  restoreProductBrand,
+  deleteGarbageProductBrand,
 };
 
 export default productBrandController;
