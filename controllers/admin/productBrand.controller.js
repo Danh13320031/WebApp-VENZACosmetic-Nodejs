@@ -157,6 +157,29 @@ const updateProductBrandPatch = async (req, res) => {
   }
 };
 
+// PATCH: /admin/product-brands/change-status/:status/:id?_method=PATCH
+const changeStatusProductBrand = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await productBrandModel.findByIdAndUpdate(id, { status: status });
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Update product brand fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/product-brands/delete/:id?_method=PATCH
 const deleteProductBrand = async (req, res) => {
   try {
@@ -274,6 +297,7 @@ const productBrandController = {
   createProductBrandPost,
   updateProductBrandGet,
   updateProductBrandPatch,
+  changeStatusProductBrand,
   deleteProductBrand,
   garbageProductBrand,
   restoreProductBrand,

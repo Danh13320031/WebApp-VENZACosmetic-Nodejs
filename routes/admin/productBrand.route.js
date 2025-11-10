@@ -32,5 +32,9 @@ productBrandRoute.patch('/delete/:id', productBrandController.deleteProductBrand
 productBrandRoute.get('/garbage', productBrandController.garbageProductBrand);
 productBrandRoute.patch('/restore-garbage/:id', productBrandController.restoreProductBrand);
 productBrandRoute.delete('/delete-garbage/:id', productBrandController.deleteGarbageProductBrand);
+productBrandRoute.patch(
+  '/change-status/:status/:id',
+  productBrandController.changeStatusProductBrand
+);
 
 export default productBrandRoute;
