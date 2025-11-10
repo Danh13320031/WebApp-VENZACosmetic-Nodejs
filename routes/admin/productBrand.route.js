@@ -20,5 +20,13 @@ productBrandRoute.post(
   productBrandValidate.createProductBrandPostValidate,
   productBrandController.createProductBrandPost
 );
+productBrandRoute.get('/update/:id', productBrandController.updateProductBrandGet);
+productBrandRoute.patch(
+  '/update/:id',
+  upload.single('thumbnail'),
+  uploadMiddleware.uploadCloud,
+  productBrandValidate.updateProductBrandPatchValidate,
+  productBrandController.updateProductBrandPatch
+);
 
 export default productBrandRoute;

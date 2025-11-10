@@ -5,11 +5,12 @@ import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import productBrandModel from '../../models/productBrand.model.js';
+import { StatusCodes } from 'http-status-codes';
 
 // GET: /admin/product-brands
 const productBrand = async (req, res) => {
   try {
-    const find = { deleted: false, status: 'active' };
+    const find = { deleted: false };
 
     // Status Filter
     const statusList = [
@@ -101,10 +102,66 @@ const createProductBrandPost = async (req, res) => {
   }
 };
 
+const updateProductBrandGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      const err = new Error('Không tìm thấy thương hiệu');
+      err.status = StatusCodes.NOT_FOUND;
+      throw err;
+    }
+
+    const productBrand = await productBrandModel.findOne({ _id: id, deleted: false });
+
+    if (!productBrand) {
+      const err = new Error('Không tìm thấy thương hiệu');
+      err.status = StatusCodes.NOT_FOUND;
+      throw err;
+    }
+
+    res.render(
+      './admin/pages/productBrand/update.view.ejs',
+      {
+        pageTitle: 'Chỉnh sửa thương hiệu',
+        productBrand: productBrand,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// PATCH: /admin/product-brands/update/:id?_method=PATCH
+const updateProductBrandPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (req.body.position) req.body.position = Number.parseInt(req.body.position);
+
+    await productBrandModel.findByIdAndUpdate(id, req.body);
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Update product brand fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const productBrandController = {
   productBrand,
   createProductBrandGet,
   createProductBrandPost,
+  updateProductBrandGet,
+  updateProductBrandPatch,
 };
 
 export default productBrandController;

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
-
-    <%# Styles File %>
+    <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %> <%# Styles File %>
     <link rel="stylesheet" href="/client/setup.css" />
     <link rel="stylesheet" href="/client/styles/partials/alert.css" />
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
@@ -18,10 +16,7 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
     <link rel="stylesheet" href="/client/styles/pages/product/detail.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
-    <%# End Styles File %>
-
-    <%# Styles Library & Framework Link %>
-    <%# Bootstrap %>
+    <%# End Styles File %> <%# Styles Library & Framework Link %> <%# Bootstrap %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -210,9 +205,7 @@
           </div>
         </div>
       </section>
-      <%# End product detail %>
-
-      <%# Start product detail description %>
+      <%# End product detail %> <%# Start product detail description %>
       <section class="pt-5 product-format_detail">
         <div class="container">
           <div class="row">
@@ -222,9 +215,7 @@
           </div>
         </div>
       </section>
-      <%# End product detail description %>
-
-      <%# Start product comment %>
+      <%# End product detail description %> <%# Start product comment %>
       <section class="product-comment">
         <div class="container">
           <div class="row">
@@ -312,9 +303,7 @@
         </div>
         <% } %>
       </section>
-      <%# End product comment %>
-
-      <%# Start related products %>
+      <%# End product comment %> <%# Start related products %>
       <section class="pb-5 related-products">
         <h3 class="heading-font text-center related-products-title">Sản phẩm liên quan</h3>
 
@@ -437,11 +426,7 @@
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/product/showReviewImageProduct.js"></script>
-    <script src="/client/scripts/scrollReload.js"></script>
-    <%# End Scripts File %>
-
-    <%# Scripts Library & Framework Link %>
-    <%# Bootstrap %>
+    <%# End Scripts File %> <%# Scripts Library & Framework Link %> <%# Bootstrap %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <%# FontAwesome %>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
@@ -456,8 +441,9 @@
     <script src="https://cdn.jsdelivr.net/npm/he/he.js"></script>
     <script src="/client/scripts/changeTextToHtml.js"></script>
 
-    <%# <script src="./scripts/googlemap.js"></script> %>
-    <%# End Scripts Library & Framework Link %>
+    <%#
+    <script src="./scripts/googlemap.js"></script>
+    %> <%# End Scripts Library & Framework Link %>
 
     <script src="/reload/reload.js"></script>
   </body>
