@@ -4,6 +4,7 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
+import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 
@@ -35,10 +36,14 @@ const productCategory = async (req, res) => {
   const productTotal = await productCategoryModel.countDocuments(find);
   const objPagination = paginationHelper(req.query, paginationObj, productTotal);
 
+  // Sort
+  const sort = sortHelper(req.query);
+  const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
   try {
     const categoryList = await productCategoryModel
       .find(find)
-      .sort({ position: 'desc' })
+      .sort(sort)
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
@@ -49,6 +54,7 @@ const productCategory = async (req, res) => {
       keyword: objSearch.keyword,
       objPagination,
       statusList,
+      sortValue,
     });
   } catch (err) {
     console.log('categoryList error: ', err);
