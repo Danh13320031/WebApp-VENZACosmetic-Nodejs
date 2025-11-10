@@ -225,6 +225,56 @@
                   <% }) %>
                 </tr>
 
+                <!-- Các quyền dành cho thương hiệu sản phẩm -->
+                <tr>
+                  <td class="bg-body-secondary"><b>Các quyền về thương hiệu sản phẩm</b></td>
+                  <% roleList.forEach(role => { %>
+                  <td class="bg-body-secondary"></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-view">
+                  <td>Xem</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-add">
+                  <td>Thêm mới</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-change-status">
+                  <td>Đổi trạng thái</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-update">
+                  <td>Chỉnh sửa</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-sort-delete">
+                  <td>Xóa mềm</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-restore">
+                  <td>Khôi phục</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="product-brand-hard-delete">
+                  <td>Xóa cứng</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+
                 <!-- Các quyền dành cho bài viết -->
                 <tr>
                   <td class="bg-body-secondary"><b>Các quyền về bài viết</b></td>

@@ -26,7 +26,7 @@
     <div class="body">
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
-        <%-include("../../partials/alertMessage.view.ejs") %> <%#
+        <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('category-view')) { %>
         <div class="row gap-md-0 gap-2">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -34,7 +34,8 @@
           </div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tên danh mục..."}) %>
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên thương hiệu..."})
+            %>
           </div>
         </div>
 
@@ -44,7 +45,7 @@
             <div class="container-fluid">
               <div class="row gap-md-0 gap-2">
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                  <%#-include("../../partials/statusFilter.view.ejs") %>
+                  <%-include("../../partials/statusFilter.view.ejs") %>
                 </div>
               </div>
             </div>
@@ -53,24 +54,29 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-lg-0 gap-2 justify-content-between">
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
-                  'product-categories', type: 'category' }) %>
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  'product-brands', type: 'product-brand' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%# if(roleAuth.permission.includes('category-add')) { %>
+                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  'position-desc', 'title-asc', 'title-desc', 'createdAt-asc', 'createdAt-desc']})
+                  %>
+                </div>
+                <div class="col-lg-4 col-12">
+                  <% if(roleAuth.permission.includes('category-add')) { %>
                   <a
                     href="<%= prefixAdmin %>/product-brands/create"
                     class="btn btn-primary w-100 float-end"
                   >
                     <i class="bi bi-plus-lg me-1"></i>Thêm mới thương hiệu
                   </a>
-                  <%# } %>
+                  <% } %>
                 </div>
               </div>
             </div>
@@ -78,11 +84,11 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
-                  <%# if (categoryList.length == 0) {%>
+                  <% if (productBrandList.length == 0) {%>
                   <div class="text-center text-white bg-danger p-2">
-                    Không tìm thấy danh mục nào
+                    Không tìm thấy thương hiệu nào
                   </div>
-                  <%# } %>
+                  <% } %>
                   <table class="table table-hover table-sm">
                     <thead class="content-font">
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
@@ -92,50 +98,50 @@
                         Hình ảnh
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Tiêu đề
+                        Tên thương hiệu
                       </th>
-                      <%# if(roleAuth.permission.includes('category-change-status')) { %>
+                      <% if(roleAuth.permission.includes('category-change-status')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
-                      <%# } %>
+                      <% } %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Vị trí
                       </th>
-                      <%# if(roleAuth.permission.includes('category-update') ||
+                      <% if(roleAuth.permission.includes('category-update') ||
                       roleAuth.permission.includes('category-sort-delete')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
                       </th>
-                      <%# } %>
+                      <% } %>
                     </thead>
 
                     <tbody class="content-font">
-                      <%# categoryList.forEach((item, index) => { %>
-                      <tr title="<%#= item.title %>">
+                      <% productBrandList.forEach((brand, index) => { %>
+                      <tr title="<%= brand.title %>">
                         <td>
                           <input
                             type="checkbox"
                             name="checkid"
-                            value="<%#= item._id %>"
+                            value="<%= brand._id %>"
                             class="me-5"
                           />
-                          <%#= index + 1 %>
+                          <%= index + 1 %>
                         </td>
                         <td>
                           <img
-                            src="<%#= item.thumbnail %>"
-                            alt="<%#= item.title %>"
+                            src="<%= brand.thumbnail %>"
+                            alt="<%= brand.title %>"
                             width="100px"
                           />
                         </td>
-                        <td><%#= item.title %></td>
-                        <%# if(roleAuth.permission.includes('category-change-status')) { %>
+                        <td><%= brand.title %></td>
+                        <% if(roleAuth.permission.includes('category-change-status')) { %>
                         <td>
-                          <%# if(item.status === 'active') {%>
+                          <% if(brand.status === 'active') {%>
                           <a
                             href="javascript:;"
-                            data-id="<%#= item._id %>"
+                            data-id="<%= brand._id %>"
                             data-status="active"
                             change-status
                             class="badge"
@@ -143,10 +149,10 @@
                           >
                             Hoạt động
                           </a>
-                          <%# } else {%>
+                          <% } else {%>
                           <a
                             href="javascript:;"
-                            data-id="<%#= item._id %>"
+                            data-id="<%= brand._id %>"
                             data-status="inactive"
                             change-status
                             class="badge"
@@ -154,33 +160,33 @@
                           >
                             Ngừng hoạt động
                           </a>
-                          <%# } %>
+                          <% } %>
                         </td>
-                        <%# } %>
-                        <td><%#= item.position %></td>
-                        <%# if(roleAuth.permission.includes('category-update') ||
+                        <% } %>
+                        <td><%= brand.position %></td>
+                        <% if(roleAuth.permission.includes('category-update') ||
                         roleAuth.permission.includes('category-sort-delete')) { %>
                         <td>
-                          <%# if(roleAuth.permission.includes('category-update')) { %>
+                          <% if(roleAuth.permission.includes('category-update')) { %>
                           <a
-                            href="<%#= prefixAdmin %>/product-categories/update/<%#= item._id %>"
-                            data-id="<%#= item._id %>"
+                            href="<%= prefixAdmin %>/product-categories/update/<%= brand._id %>"
+                            data-id="<%= brand._id %>"
                             class="btn btn-primary btn-sm mb-1 btn-update"
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <%# } %> <%# if(roleAuth.permission.includes('category-sort-delete')) { %>
+                          <% } %> <% if(roleAuth.permission.includes('category-sort-delete')) { %>
                           <button
                             class="btn btn-danger btn-sm ml-1 mb-1 btn-delete"
-                            data-id="<%#= item._id %>"
+                            data-id="<%= brand._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
-                          <%# } %>
+                          <% } %>
                         </td>
-                        <%# } %>
+                        <% } %>
                       </tr>
-                      <%# }); %>
+                      <% }); %>
                     </tbody>
                   </table>
                 </div>
@@ -192,32 +198,32 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%#-include("../../partials/pagination.view.ejs") %>
+              <%-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
               <a
-                href="<%#= prefixAdmin %>/product-categories/garbage"
+                href="<%= prefixAdmin %>/product-brands/garbage"
                 class="btn btn-primary w-100 float-end"
                 ><i class="bi bi-trash me-2"></i>Thùng rác
               </a>
             </div>
           </div>
         </div>
-        <%# } %>
+        <% } %>
       </div>
     </div>
 
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
-      action="<%#= prefixAdmin %>/product-categories"
+      action="<%= prefixAdmin %>/product-brands"
       method="POST"
       class="d-none"
       form-change-status
     ></form>
 
     <form
-      action="<%#= prefixAdmin %>/product-categories"
+      action="<%= prefixAdmin %>/product-brands"
       method="POST"
       class="d-none"
       form-delete
@@ -232,6 +238,7 @@
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
+    <script src="/admin/scripts/sort.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 

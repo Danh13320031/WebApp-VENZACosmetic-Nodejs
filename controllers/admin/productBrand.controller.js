@@ -1,14 +1,58 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
+import sortHelper from '../../helpers/sort.helper.js';
+import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import productBrandModel from '../../models/productBrand.model.js';
 
 // GET: /admin/product-brands
 const productBrand = async (req, res) => {
   try {
+    const find = { deleted: false, status: 'active' };
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    const activeStatus = statusFilterHelper(req.query, statusList);
+    if (req.query.status) find.status = req.query.status;
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const productBrandTotal = await productBrandModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productBrandTotal);
+
+    // Sort
+    const sort = sortHelper(req.query);
+    const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
+    const productBrandList = await productBrandModel
+      .find(find)
+      .sort(sort)
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
+
     res.render(
       './admin/pages/productBrand/brand.view.ejs',
       {
         pageTitle: 'Danh sách thương hiệu',
+        productBrandList: productBrandList,
+        activeStatus: activeStatus,
+        statusList: statusList,
+        keyword: objSearch.keyword,
+        objPagination: objPagination,
+        sortValue: sortValue,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);

@@ -63,6 +63,11 @@
                   'product-categories', type: 'category' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
+                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  'position-desc', 'title-asc', 'title-desc', 'createdAt-asc', 'createdAt-desc']})
+                  %>
+                </div>
+                <div class="col-lg-4 col-12">
                   <% if(roleAuth.permission.includes('category-add')) { %>
                   <a
                     href="<%= prefixAdmin %>/product-categories/create"
@@ -228,6 +233,7 @@
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
+    <script src="/admin/scripts/sort.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
