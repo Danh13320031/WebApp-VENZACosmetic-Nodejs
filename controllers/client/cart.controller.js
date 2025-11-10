@@ -64,7 +64,7 @@ const cart = async (req, res) => {
       );
     }
 
-    // Handle related product
+    // Handle related product with product brand
     const relatedProductList = await productModel
       .find({
         $and: [
@@ -118,7 +118,7 @@ const addProductToCart = async (req, res) => {
 
     let cartId = req.cookies.cartId;
     let cart = null;
-    
+
     const objectOrder = { product_id: productId, quantity };
 
     if (cartId) {
