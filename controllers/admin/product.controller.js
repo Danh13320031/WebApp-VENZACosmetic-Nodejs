@@ -12,6 +12,7 @@ import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
+import { StatusCodes } from 'http-status-codes';
 
 // GET: /admin/products
 const product = async (req, res) => {
@@ -160,10 +161,23 @@ const updateProductGet = async (req, res) => {
   try {
     const id = req.params.id;
 
+    if (!id) {
+      const err = new Error('Không tìm thấy sản phẩm');
+      err.status = StatusCodes.NOT_FOUND;
+      throw err;
+    }
+
     const find = {
       deleted: false,
     };
     const product = await productModel.findOne({ _id: id, deleted: false });
+
+    if (!product) {
+      const err = new Error('Không tìm thấy sản phẩm');
+      err.status = StatusCodes.NOT_FOUND;
+      throw err;
+    }
+
     const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
 
@@ -188,6 +202,12 @@ const updateProductGet = async (req, res) => {
 const updateProductPatch = async (req, res) => {
   try {
     const id = req.params.id;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
     const updated = {
       account_id: res.locals.accountLogin._id,
       updatedAt: new Date(),
@@ -349,6 +369,11 @@ const changeMultiProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
 
     await productModel.findByIdAndUpdate(id, {
       deleted: true,

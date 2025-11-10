@@ -27,7 +27,7 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('category-view')) { %>
+        if(roleAuth.permission.includes('product-brand-view')) { %>
         <div class="row gap-md-0 gap-2">
           <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
             <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
@@ -69,7 +69,7 @@
                   %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <% if(roleAuth.permission.includes('category-add')) { %>
+                  <% if(roleAuth.permission.includes('product-brand-add')) { %>
                   <a
                     href="<%= prefixAdmin %>/product-brands/create"
                     class="btn btn-primary w-100 float-end"
@@ -100,7 +100,7 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Tên thương hiệu
                       </th>
-                      <% if(roleAuth.permission.includes('category-change-status')) { %>
+                      <% if(roleAuth.permission.includes('product-brand-change-status')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
@@ -108,8 +108,8 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Vị trí
                       </th>
-                      <% if(roleAuth.permission.includes('category-update') ||
-                      roleAuth.permission.includes('category-sort-delete')) { %>
+                      <% if(roleAuth.permission.includes('product-brand-update') ||
+                      roleAuth.permission.includes('product-brand-sort-delete')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
                       </th>
@@ -136,7 +136,7 @@
                           />
                         </td>
                         <td><%= brand.title %></td>
-                        <% if(roleAuth.permission.includes('category-change-status')) { %>
+                        <% if(roleAuth.permission.includes('product-brand-change-status')) { %>
                         <td>
                           <% if(brand.status === 'active') {%>
                           <a
@@ -164,18 +164,19 @@
                         </td>
                         <% } %>
                         <td><%= brand.position %></td>
-                        <% if(roleAuth.permission.includes('category-update') ||
-                        roleAuth.permission.includes('category-sort-delete')) { %>
+                        <% if(roleAuth.permission.includes('product-brand-update') ||
+                        roleAuth.permission.includes('product-brand-sort-delete')) { %>
                         <td>
-                          <% if(roleAuth.permission.includes('category-update')) { %>
+                          <% if(roleAuth.permission.includes('product-brand-update')) { %>
                           <a
-                            href="<%= prefixAdmin %>/product-categories/update/<%= brand._id %>"
+                            href="<%= prefixAdmin %>/product-brands/update/<%= brand._id %>"
                             data-id="<%= brand._id %>"
                             class="btn btn-primary btn-sm mb-1 btn-update"
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <% } %> <% if(roleAuth.permission.includes('category-sort-delete')) { %>
+                          <% } %> <% if(roleAuth.permission.includes('product-brand-sort-delete')) {
+                          %>
                           <button
                             class="btn btn-danger btn-sm ml-1 mb-1 btn-delete"
                             data-id="<%= brand._id %>"

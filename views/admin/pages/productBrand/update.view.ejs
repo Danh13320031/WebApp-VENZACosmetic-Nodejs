@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
     <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
     <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
+    <link rel="stylesheet" href="/admin/styles/pages/product/product.css" />
   </head>
   <body>
     <%-include("../../partials/header.view.ejs") %>
@@ -27,59 +28,40 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('category-update')) { %>
+        if(roleAuth.permission.includes('product-add')) {%>
         <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
         <form
-          action="<%= prefixAdmin %>/product-categories/update/<%= category._id %>?_method=PATCH"
+          action="<%= prefixAdmin %>/product-brands/update/<%= productBrand._id %>?_method=PATCH"
           method="POST"
           enctype="multipart/form-data"
           id="form-handle"
         >
           <div class="container-fluid">
             <div class="row">
-              <div class="col-6">
+              <div class="col-lg-4 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="title" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span>
-                    Tiêu đề
+                    ><span class="text-danger"><b>*</b></span> Tiêu đề
                   </label>
                   <input
                     type="text"
-                    value="<%= category.title %>"
                     name="title"
-                    id="title"
+                    value="<%= productBrand.title %>"
+                    placeholder="Nhập tiêu đề..."
                     required
                     class="form-control"
+                    id="title"
                   />
                 </div>
               </div>
-              <div class="col-6">
-                <div class="form-group mb-4">
-                  <label for="parent_id" class="fw-bold">Danh mục cha</label>
-                  <%# <input type="text" name="parent_id" id="parent_id" class="form-control" /> %>
-                  <select name="parent_id" id="parent_id" class="form-control">
-                    <option disabled>-- Chọn danh mục cha --</option>
-                    <% if(categoryList.length > 0) {%>
-                    <%-include("../../partials/selecttree.view.ejs", {categoryList, level: 1,
-                    parent_id: category.parent_id}) %> <% } %>
-                  </select>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group mb-4">
-                  <label for="description" class="fw-bold">Mô tả</label>
-                  <textarea name="description" id="description" rows="5" class="form-control">
-<%= category.description %></textarea
-                  >
-                </div>
-              </div>
-              <div class="col-12">
+
+              <div class="col-lg-4 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="position" class="fw-bold">Vị trí</label>
                   <input
                     type="number"
-                    value="<%= category.position %>"
                     name="position"
+                    value="<%= productBrand.position %>"
                     min="1"
                     placeholder="Tự động tăng"
                     class="form-control"
@@ -87,7 +69,38 @@
                   />
                 </div>
               </div>
-              
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
+                  >
+                  <input type="radio" name="status" value="active" <% if(productBrand.status ===
+                  'active') {%>checked<% } %> class="form-check-input" id="status-active" />
+                  <label for="status-active" class="me-4">Hoạt động</label>
+                  <input type="radio" name="status" value="inactive" <% if(productBrand.status ===
+                  'inactive') {%>checked<% } %> class="form-check-input" id="status-inactive" />
+                  <label for="status-inactive">Ngừng hoạt động</label>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="description" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Mô tả chi tiết
+                  </label>
+                  <textarea
+                    name="description"
+                    placeholder="Nhập nội dung..."
+                    class="form-control product-brand-description"
+                    id="description"
+                  >
+<%= productBrand.description %></textarea
+                  >
+                </div>
+              </div>
+
               <div class="col-12">
                 <div class="form-group mb-4">
                   <div class="image-box">
@@ -96,13 +109,13 @@
                     </div>
                     <div class="d-flex justify-content-center image-upload-box">
                       <img
-                        src="<%= category.thumbnail %>"
+                        src="<%= productBrand.thumbnail %>"
                         alt="Hiển thị hình ảnh sản phẩm"
                         class="image-upload"
                       />
                     </div>
                   </div>
-                  <label for="thumbnail" class="fw-bold">Ảnh (.png / .jpg)</label>
+                  <label for="thumbnail" class="fw-bold">Ảnh logo (.png / .jpg)</label>
                   <input
                     type="file"
                     name="thumbnail"
@@ -113,23 +126,9 @@
                   />
                 </div>
               </div>
-
-              <div class="col-12">
-                <div class="form-group mb-4">
-                  <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
-                  >
-                  <input type="radio" name="status" value="active" <% if(category.status ===
-                  'active') {%>checked<% } %> class="form-check-input" id="status-active" />
-                  <label for="status-active" class="me-4">Hoạt động</label>
-                  <input type="radio" name="status" value="inactive" <% if(category.status ===
-                  'inactive') {%>checked<% } %> class="form-check-input" id="status-inactive" />
-                  <label for="status-inactive">Ngừng hoạt động</label>
-                </div>
-              </div>
             </div>
             <button type="submit" class="btn btn-outline-primary w-100 form-create">
-              <i class="bi bi-pencil-square me-1"></i>Cập nhật danh mục
+              <i class="bi bi-pencil-square me-1"></i>Câp nhật thương hiệu
             </button>
           </div>
         </form>
@@ -137,19 +136,20 @@
       </div>
     </div>
 
-    <%-include('../../partials/footer.view.ejs') %>
+    <%-include("../../partials/footer.view.ejs") %>
 
     <!-- Script File -->
-    <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/previewImage.js"></script>
-    <script src="/admin/scripts/showAlert.js"></script>
+    <script src="/admin/scripts/product/previewImageArray.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <!-- Script Library & Framwork -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="/admin/scripts/tinymce.js"></script>
     <script src="../../reload/reload.js"></script>
   </body>
 </html>
