@@ -1,4 +1,5 @@
 import systemConfig from '../../configs/system.config.js';
+import { notFoundPage } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
@@ -88,8 +89,8 @@ const createProductCategoryPost = async (req, res) => {
     await newCategory.save();
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/categories`);
-  } catch (err) {
-    console.log('Create category fail: ', err);
+  } catch (error) {
+    console.log('Create category fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
     res.redirect('back');
   }
@@ -117,8 +118,8 @@ const updateProductCategoryGet = async (req, res) => {
       category,
       categoryList: newCategoryList,
     });
-  } catch (err) {
-    console.log('Not Found: ', err);
+  } catch (error) {
+    console.log('Not Found: ', error);
     alertMessageHelper(req, 'alertFailure', 'Not Found');
     res.redirect('back');
   }
@@ -129,15 +130,22 @@ const updateProductCategoryPatch = async (req, res) => {
   try {
     const id = req.params.id;
 
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
 
     await productCategoryModel.findByIdAndUpdate(id, req.body);
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
-  } catch (err) {
-    console.log('Update product fail: ', err);
+    return;
+  } catch (error) {
+    console.log('Update product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
     res.redirect('back');
+    return;
   }
 };
 
@@ -150,8 +158,8 @@ const changeStatusProductCategory = async (req, res) => {
       status: status,
     });
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
-  } catch (err) {
-    console.log('Update product fail: ', err);
+  } catch (error) {
+    console.log('Update product fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
   } finally {
     res.redirect('back');
@@ -256,8 +264,8 @@ const deleteProductCategory = async (req, res) => {
       deletedAt: new Date(),
     });
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
-  } catch (err) {
-    console.log('Delete category fail: ', err);
+  } catch (error) {
+    console.log('Delete category fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
   } finally {
     res.redirect('back');
@@ -297,8 +305,8 @@ const restoreGarbageProductCategory = async (req, res) => {
     });
     alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
     res.redirect('back');
-  } catch (err) {
-    handleErrorHelper(req, res, err);
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 
@@ -317,8 +325,8 @@ const deleteGarbageProductCategory = async (req, res) => {
     alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
     res.redirect('back');
     return;
-  } catch (err) {
-    handleErrorHelper(req, res, err);
+  } catch (error) {
+    handleErrorHelper(req, res, error);
   }
 };
 

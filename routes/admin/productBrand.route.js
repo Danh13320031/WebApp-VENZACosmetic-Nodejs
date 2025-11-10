@@ -28,5 +28,6 @@ productBrandRoute.patch(
   productBrandValidate.updateProductBrandPatchValidate,
   productBrandController.updateProductBrandPatch
 );
+productBrandRoute.patch('/delete/:id', productBrandController.deleteProductBrand);
 
 export default productBrandRoute;

@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+import { notFoundPage } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
@@ -5,7 +7,6 @@ import searchHelper from '../../helpers/search.helper.js';
 import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import productBrandModel from '../../models/productBrand.model.js';
-import { StatusCodes } from 'http-status-codes';
 
 // GET: /admin/product-brands
 const productBrand = async (req, res) => {
@@ -156,12 +157,36 @@ const updateProductBrandPatch = async (req, res) => {
   }
 };
 
+// PATCH: /admin/product-brands/delete/:id?_method=PATCH
+const deleteProductBrand = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await productBrandModel.findByIdAndUpdate(id, { deleted: true });
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete product brand fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const productBrandController = {
   productBrand,
   createProductBrandGet,
   createProductBrandPost,
   updateProductBrandGet,
   updateProductBrandPatch,
+  deleteProductBrand,
 };
 
 export default productBrandController;
