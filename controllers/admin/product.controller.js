@@ -399,9 +399,25 @@ const garbageProduct = async (req, res) => {
       deleted: true,
     };
 
-    const productList = await productModel.find(find).sort({
-      deletedAt: 'desc',
-    });
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const productTotal = await productModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    const productList = await productModel
+      .find(find)
+      .sort({
+        deletedAt: 'desc',
+      })
+      .skip(objPagination.productSkip)
+      .limit(objPagination.limit);
 
     for (const product of productList) {
       const account = await accountModel.findById(product.deletedBy.account_id).select('fullName');
@@ -414,6 +430,8 @@ const garbageProduct = async (req, res) => {
         pageTitle: 'Thùng rác sản phẩm',
         productList,
         statusList: [],
+        keyword: objSearch.keyword,
+        objPagination,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);

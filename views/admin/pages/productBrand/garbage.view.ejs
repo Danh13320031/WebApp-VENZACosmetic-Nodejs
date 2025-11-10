@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %>
-
-    <!-- Style Library & Framework -->
+    <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %> <%# Style Library &
+    Framework %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -13,7 +12,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
 
-    <!-- Style File -->
+    <%# Style File %>
     <link rel="stylesheet" href="/admin/setup.css" />
     <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
@@ -27,27 +26,28 @@
       <%-include("../../partials/sider.view.ejs") %>
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('product-view')) { %>
-        <div class="row gap-md-0 gap-2 justify-content-between">
-          <div class="col-lg-8 col-md-4 col-12">
+        if(roleAuth.permission.includes('product-brand-view')) { %>
+        <div class="row gap-md-0 gap-2">
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
             <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
           </div>
-
-          <div class="col-lg-4 col-md-6 col-12">
-            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên sản phẩm..."}) %>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"></div>
+          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên thương hiệu..."})
+            %>
           </div>
         </div>
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách sản phẩm đã xóa (trang hiện tại: <%= objPagination.currentPage %>)
+            Danh sách thương hiệu đã bị xóa (trang hiện tại: <%= objPagination.currentPage %>)
           </div>
           <div class="card-body">
-            <div class="container-fluid mb-2">
-              <div class="row">
-                <div class="col-lg-5 col-12">
+            <div class="container-fluid p-2 p-md-2">
+              <div class="row gap-lg-0 gap-2 justify-content-between">
+                <div class="col-lg-4 col-12">
                   <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
-                  'products', type: 'product' }) %>
+                  'product-brands', type: 'product-brand' }) %>
                 </div>
               </div>
             </div>
@@ -55,111 +55,99 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
-                  <% if (productList.length == 0) {%>
+                  <% if (productBrandList.length == 0) {%>
                   <div class="text-center text-white bg-danger p-2">
-                    <i class="bi bi-trash2 me-1"></i>Không tìm thấy sản phẩm nào
+                    Không tìm thấy thương hiệu nào
                   </div>
                   <% } %>
                   <table class="table table-hover table-sm">
                     <thead class="content-font">
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        <input type="checkbox" name="checkall" class="me-5" />
+                        <input type="checkbox" name="checkall" class="me-5" />STT
                       </th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">STT</th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hình ảnh
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Tiêu đề
+                        Tên thương hiệu
                       </th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Người xóa
-                      </th>
+                      <% if(roleAuth.permission.includes('product-brand-change-status')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
+                      <% } %>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Vị trí
+                      </th>
+                      <% if(roleAuth.permission.includes('product-brand-update') ||
+                      roleAuth.permission.includes('product-brand-sort-delete')) { %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Hành động
                       </th>
+                      <% } %>
                     </thead>
 
                     <tbody class="content-font">
-                      <% productList.forEach((product, index) => { %>
-                      <tr title="<%= product.title %>">
+                      <% productBrandList.forEach((brand, index) => { %>
+                      <tr title="<%= brand.title %>">
                         <td>
                           <input
                             type="checkbox"
                             name="checkid"
-                            value="<%= product._id %>"
+                            value="<%= brand._id %>"
                             class="me-5"
                           />
+                          <%= index + 1 %>
                         </td>
-                        <td><%= index + 1 %></td>
                         <td>
                           <img
-                            src="<%= product.thumbnail %>"
-                            alt="<%= product.title %>"
+                            src="<%= brand.thumbnail %>"
+                            alt="<%= brand.title %>"
                             width="100px"
                           />
                         </td>
-                        <td><%= product.title %></td>
+                        <td><%= brand.title %></td>
+                        <% if(roleAuth.permission.includes('product-brand-change-status')) { %>
                         <td>
-                          <b class="text-danger"
-                            ><i
-                              ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                              'VND' }).format(Number.parseFloat(product.price - (product.price / 100
-                              * product.discount))) %>
-                            </i>
-                          </b>
-                          | Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
-                          currency: 'VND' }).format(product.price) %>
-                        </td>
-                        <td>
-                          <p><%= product.accountFullNameDelete%></p>
-                          <% if(product.accountFullNameDelete) { %>
-                          <p>
-                            <%= moment(product.deletedBy.deletedAt).format('DD/MM/YYYY - h:mm:ss')%>
-                          </p>
-                          <% } else { %>
-                          <p>Không có</p>
-                          <% } %>
-                        </td>
-                        <td>
-                          <% if(product.status === 'active') {%>
+                          <% if(brand.status === 'active') {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= product._id %>"
+                            data-id="<%= brand._id %>"
                             data-status="active"
                             change-status
-                            class="badge text-bg-success"
+                            class="badge"
+                            style="background: var(--success-color-admin)"
                           >
                             Hoạt động
                           </a>
                           <% } else {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= product._id %>"
+                            data-id="<%= brand._id %>"
                             data-status="inactive"
                             change-status
-                            class="badge text-bg-danger"
+                            class="badge"
+                            style="background: var(--warning-color-admin)"
                           >
                             Ngừng hoạt động
                           </a>
                           <% } %>
                         </td>
+                        <% } %>
+                        <td><%= brand.position %></td>
                         <td>
-                          <% if(roleAuth.permission.includes('product-restore')) {%>
+                          <% if(roleAuth.permission.includes('product-brand-restore')) {%>
                           <button
                             class="btn btn-primary btn-sm mb-1 btn-restore"
-                            data-id="<%= product._id %>"
+                            data-id="<%= brand._id %>"
                           >
                             <i class="bi bi-arrow-clockwise me-1"></i>Khôi phục
                           </button>
-                          <% } %> <% if(roleAuth.permission.includes('product-hard-delete')) {%>
+                          <% } %> <% if(roleAuth.permission.includes('product-brand-hard-delete'))
+                          {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
-                            data-id="<%= product._id %>"
+                            data-id="<%= brand._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa vĩnh viễn
                           </button>
@@ -182,28 +170,39 @@
             </div>
           </div>
         </div>
-
         <% } %>
       </div>
     </div>
 
-    <% include('../../partials/footer.view.ejs') %>
+    <%-include("../../partials/footer.view.ejs") %>
 
-    <form action="<%= prefixAdmin %>/products" method="POST" class="d-none" form-restore></form>
-    <form action="<%= prefixAdmin %>/products" method="POST" class="d-none" form-delete-hard></form>
+    <form
+      action="<%= prefixAdmin %>/product-brands"
+      method="POST"
+      class="d-none"
+      form-restore
+    ></form>
+    <form
+      action="<%= prefixAdmin %>/product-brands"
+      method="POST"
+      class="d-none"
+      form-delete-hard
+    ></form>
 
-    <!-- Script File -->
-    <script src="/admin/scripts/search.js"></script>
+    <%# Script File %>
+    <script src="/admin/scripts/showAlert.js"></script>
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/deleteGarbage.js"></script>
     <script src="/admin/scripts/restoreGarbage.js"></script>
+    <script src="/admin/scripts/search.js"></script>
+    <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
-    <!-- Script Library & Framwork -->
+    <%# Script Library & Framwork %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <script src="../../reload/reload.js"></script>
+    <script src="../reload/reload.js"></script>
   </body>
 </html>
