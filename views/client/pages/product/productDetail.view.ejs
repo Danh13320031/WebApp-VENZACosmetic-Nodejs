@@ -121,14 +121,21 @@
                 </div>
 
                 <div class="mb-3">
-                  <span class="title-font product-info-discount h5"
+                  <span
+                    class="title-font fw-bold product-info-discount h5"
+                    style="color: var(--primary-color)"
                     ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(Number.parseFloat(product.price - (product.price / 100 *
                     product.discount))) %></span
                   >
+                  <% if(product.discount > 0) { %>
                   <span class="product-info-price content-font text-decoration-line-through"
                     ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(product.price) %></span
+                  >
+                  <% } %>
+                  <span class="product-info-discount content-font"
+                    >-- <b>Giảm giá: </b>-<%= product.discount ? product.discount : 0 %>%</span
                   >
                 </div>
 
@@ -142,7 +149,7 @@
 
                   <dt class="product-info-brand brand-title col-4">Thương hiệu:</dt>
                   <dd class="product-info-brand brand-content content-font col-8">
-                    <%= product.brand ? product.brand : '' %>
+                    <%= productBrand ? productBrand.title : '' %>
                   </dd>
                 </div>
 

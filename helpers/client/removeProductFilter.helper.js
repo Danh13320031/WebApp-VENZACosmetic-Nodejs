@@ -16,11 +16,6 @@ const removeProductFilterHelper = (reqQuery) => {
       query: reqQuery.to,
     },
     {
-      keyword: 'freeship',
-      title: 'Miễn phái vận chuyển',
-      query: reqQuery.freeship,
-    },
-    {
       keyword: 'sale',
       title: 'Đang giảm giá',
       query: reqQuery.sale,
@@ -29,6 +24,11 @@ const removeProductFilterHelper = (reqQuery) => {
       keyword: 'featured',
       title: 'Đang nổi bật',
       query: reqQuery.featured,
+    },
+    {
+      keyword: 'brand',
+      title: 'Thương hiệu',
+      query: reqQuery.brand,
     },
     {
       keyword: 'quantity',

@@ -12,6 +12,67 @@ $(document).ready(function () {
       '<button class="slick-arrow slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
   });
 
+  $('.card-brand-slider').slick({
+    infinite: true,
+    speed: 5000,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 5,
+    autoplay: true,
+    arrows: false,
+    slidesToScroll: 1,
+    autoplay: true,
+    focusOnSelect: true,
+    pauseOnHover: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          speed: 5000,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          arrows: false,
+          autoplaySpeed: 0,
+          cssEase: 'linear',
+          focusOnSelect: true,
+          pauseOnHover: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          speed: 5000,
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          arrows: false,
+          autoplaySpeed: 0,
+          cssEase: 'linear',
+          focusOnSelect: true,
+          pauseOnHover: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          speed: 5000,
+          slidesToShow: 2,
+          infinite: true,
+          autoplay: true,
+          slidesToScroll: 1,
+          arrows: false,
+          cssEase: 'linear',
+          autoplaySpeed: 0,
+          focusOnSelect: true,
+          pauseOnHover: false,
+        },
+      },
+    ],
+  });
+
   $('.card-feature-slider').slick({
     infinite: false,
     speed: 300,

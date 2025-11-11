@@ -13,52 +13,53 @@ import accountModel from '../../models/account.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import { StatusCodes } from 'http-status-codes';
+import productBrandModel from '../../models/productBrand.model.js';
 
 // GET: /admin/products
 const product = async (req, res) => {
-  const find = { deleted: false };
-
-  // Status Filter
-  const statusList = [
-    { name: 'Tất cả', class: '', status: '' },
-    { name: 'Hoạt động', class: '', status: 'active' },
-    { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
-  ];
-
-  const activeStatus = statusFilterHelper(req.query, statusList);
-  if (req.query.status) find.status = req.query.status;
-
-  // Price Filter
-  const valueRange = priceFilterHelper(req.query);
-  if (req.query.min && req.query.max) {
-    find.$and = [{ price: { $gt: valueRange.min } }, { price: { $lt: valueRange.max } }];
-  }
-
-  // Search
-  const objSearch = searchHelper(req.query);
-  if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
-
-  // Pagination
-  const paginationObj = {
-    limit: 8,
-    currentPage: 1,
-  };
-  const productTotal = await productModel.countDocuments(find);
-  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
-
-  // Sort
-  const sort = sortHelper(req.query);
-  const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
-
   try {
+    const find = { deleted: false };
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    const activeStatus = statusFilterHelper(req.query, statusList);
+    if (req.query.status) find.status = req.query.status;
+
+    // Price Filter
+    const valueRange = priceFilterHelper(req.query);
+    if (req.query.min && req.query.max) {
+      find.$and = [{ price: { $gt: valueRange.min } }, { price: { $lt: valueRange.max } }];
+    }
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const productTotal = await productModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
+    // Sort
+    const sort = sortHelper(req.query);
+    const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
     const productList = await productModel
       .find(find)
       .sort(sort)
       .limit(objPagination.limit)
       .skip(objPagination.productSkip);
 
+    // Handle account created and updated
     for (const product of productList) {
-      // Get account full name of createdBy
       const accountCreated = await accountModel
         .findById(product.createdBy.account_id)
         .select('fullName');
@@ -67,7 +68,6 @@ const product = async (req, res) => {
         product.accountFullNameCreate = accountCreated.fullName;
       }
 
-      // Get account full name of updatedBy
       const updatedBy = product.updatedBy[product.updatedBy.length - 1];
       if (updatedBy) {
         const accountUpdated = await accountModel.findById(updatedBy.account_id).select('fullName');
@@ -104,14 +104,19 @@ const createProductGet = async (req, res) => {
       deleted: false,
     };
 
+    // Handle product category list
     const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
+
+    // Handle product brand list
+    const productBrandList = await productBrandModel.find(find).select('title');
 
     res.render(
       './admin/pages/product/create.view.ejs',
       {
         pageTitle: 'Thêm mới sản phẩm',
         categoryList: newCategoryList,
+        productBrandList,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
@@ -178,8 +183,12 @@ const updateProductGet = async (req, res) => {
       throw err;
     }
 
+    // Handle product category list
     const categoryList = await productCategoryModel.find(find);
     const newCategoryList = categoryTreeHelper(categoryList);
+
+    // Handle product brand list
+    const productBrandList = await productBrandModel.find(find).select('title');
 
     res.render(
       './admin/pages/product/update.view.ejs',
@@ -187,6 +196,7 @@ const updateProductGet = async (req, res) => {
         pageTitle: 'Chỉnh sửa sản phẩm',
         product,
         categoryList: newCategoryList,
+        productBrandList,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
@@ -497,9 +507,16 @@ const detailProduct = async (req, res) => {
       _id: req.params.id,
       deleted: false,
     };
+
+    // Handle product category
     const product = await productModel.findOne(find);
     const category = await productCategoryModel
       .findOne({ _id: product.category, deleted: false })
+      .select('title');
+
+    // Handle product brand
+    const productBrand = await productBrandModel
+      .findOne({ _id: product.brand_id, deleted: false })
       .select('title');
 
     res.render(
@@ -508,6 +525,7 @@ const detailProduct = async (req, res) => {
         pageTitle: 'Chi tiết sản phẩm',
         product,
         category,
+        productBrand,
       },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);

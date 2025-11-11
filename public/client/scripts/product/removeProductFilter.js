@@ -24,11 +24,6 @@ if (filterRemoveItemList.length > 0) {
             window.location.href = url.href;
             break;
 
-          case 'freeship':
-            url.searchParams.delete('freeship');
-            window.location.href = url.href;
-            break;
-
           case 'sale':
             url.searchParams.delete('sale');
             window.location.href = url.href;
@@ -36,6 +31,11 @@ if (filterRemoveItemList.length > 0) {
 
           case 'featured':
             url.searchParams.delete('featured');
+            window.location.href = url.href;
+            break;
+
+          case 'brand':
+            url.searchParams.delete('brand');
             window.location.href = url.href;
             break;
 

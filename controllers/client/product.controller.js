@@ -7,12 +7,14 @@ import filterByFeaturedProductHelper from '../../helpers/client/filterByFeatured
 import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
 import filterByQuantityHelper from '../../helpers/client/filterByQuantity.helper.js';
 import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
+import filterByBrandHelper from '../../helpers/client/product/filterByBrand.helper.js';
 import handleProductCommentHelper from '../../helpers/client/product/handleProductComment.helper.js';
 import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import productModel from '../../models/product.model.js';
+import productBrandModel from '../../models/productBrand.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import productLikeModel from '../../models/productLike.model.js';
 
@@ -24,6 +26,12 @@ const product = async (req, res) => {
     const categoryTree = categoryTreeHelper(categoryList);
     const pageUrl = createPageUrlHelper(req);
     const productMaxPrice = await productModel.findOne(find).sort({ price: 'desc' });
+
+    // Handle product brand
+    const productBrandList = await productBrandModel
+      .find(find)
+      .sort({ createdAt: 'desc' })
+      .select('title thumbnail slug');
 
     // Filter product by search
     const objSearch = searchHelper(req.query);
@@ -51,6 +59,17 @@ const product = async (req, res) => {
       };
       filterByCategoryActive = objectFilterByCategory.categoryTitle.toLowerCase();
     }
+
+    // Filter by brand
+    const filterByBrandList = filterByBrandHelper(req.query, productBrandList);
+    if (filterByBrandList.length > 0) {
+      find.brand_id = { $in: filterByBrandList.map((brand) => brand._id) };
+      filterByBrandList.forEach((brand) => {
+        productBrandList.map((brandItem) => {
+          if (brandItem.slug === brand.slug) brandItem.isActive = true;
+        });
+      });
+    } else delete find.brand;
 
     // Filter by product quantity
     let productLimit;
@@ -97,6 +116,7 @@ const product = async (req, res) => {
         categoryTree: categoryTree,
         pageUrl: pageUrl,
         productList: productList,
+        productBrandList: productBrandList,
         keyword: objSearch.keyword,
         priceFilter: objectFilterByPrice,
         productMaxPrice: productMaxPrice,
@@ -146,8 +166,14 @@ const getProductDetail = async (req, res) => {
       })
       .select('title parent_id');
 
+    // Handle product brand
+    const productBrand = await productBrandModel
+      .findOne({ _id: product.brand_id, deleted: false })
+      .select('title');
+
+    // Handle related product with product brand
     const relatedProductList = await productModel.find({
-      $and: [find, { brand: product.brand }, { _id: { $ne: product._id } }],
+      $and: [find, { brand_id: product.brand_id }, { _id: { $ne: product._id } }],
     });
 
     // Handle Product like
@@ -174,6 +200,7 @@ const getProductDetail = async (req, res) => {
         categoryTree: categoryTree,
         product: product,
         category: category,
+        productBrand: productBrand,
         relatedProductList: relatedProductList,
         productCommentList: productComment.productCommentList,
         objPagination: productComment.objPagination,

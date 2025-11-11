@@ -26,7 +26,7 @@ const cart = async (req, res) => {
       for (let i = 0; i < cart.products.length; i++) {
         const product = await productModel
           .findById(cart.products[i].product_id)
-          .select('title thumbnail price slug discount stock brand');
+          .select('title thumbnail price slug discount stock brand_id');
 
         if (product) {
           cart.products[i].productInfo = product;
@@ -37,10 +37,13 @@ const cart = async (req, res) => {
           const idProduct = product._id;
           if (!productIdCartList.includes(idProduct)) productIdCartList.push(idProduct);
 
-          const brand = product.brand;
-          if (!productBrandCartList.includes(brand)) productBrandCartList.push(brand);
+          const idProductBrand = product.brand_id;
+          if (!productBrandCartList.includes(idProductBrand))
+            productBrandCartList.push(idProductBrand);
         }
       }
+
+      console.log(productBrandCartList);
 
       cart.totalPrice =
         Number.parseFloat(
@@ -70,7 +73,7 @@ const cart = async (req, res) => {
         $and: [
           find,
           { _id: { $nin: productIdCartList } },
-          { brand: { $in: productBrandCartList } },
+          { brand_id: { $in: productBrandCartList } },
         ],
       })
       .sort({ createdAt: 'desc' })

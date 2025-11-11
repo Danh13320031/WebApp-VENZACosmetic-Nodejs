@@ -47,10 +47,10 @@
           <div class="row">
             <div class="col-12">
               <h1 class="heading-font pb-0 text-start fs-1"><%= pageTitle %></h1>
-              <div class="d-flex justify-content-between post-info mt-3">
+              <div class="d-flex justify-content-between flex-wrap mt-3 mb-5 post-info">
                 <time
                   datetime="<%= post.postedBy.postedAt %>"
-                  class="content-font opacity-50 d-block mb-5"
+                  class="content-font opacity-50 d-block"s
                   ><i class="bi bi-clock me-1"></i> Đăng lúc
                   <span class="fw-bold"
                     ><%= moment(post.postedBy.postedAt).tz(timezone).format('HH:mm - DD/MM/YYYY')

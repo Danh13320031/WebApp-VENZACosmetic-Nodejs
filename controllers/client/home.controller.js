@@ -1,10 +1,10 @@
-import { timezone, productFlashSaleDurationMsConst } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import handleFlashSaleHelper from '../../helpers/client/home/handleFlashSale.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import postModel from '../../models/post.model.js';
 import productModel from '../../models/product.model.js';
+import productBrandModel from '../../models/productBrand.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
-import moment from '../../node_modules/moment/moment.js';
 
 // GET: /
 const home = async (req, res) => {
@@ -28,6 +28,12 @@ const home = async (req, res) => {
       });
     }
 
+    // Handle product brand
+    const productBrandList = await productBrandModel
+      .find(find)
+      .sort({ createdAt: 'desc' })
+      .select('thumbnail title');
+
     // Handle featured product
     const productFeatureList = productList.filter((product) => {
       if (product.featured === '1') return product;
@@ -39,31 +45,9 @@ const home = async (req, res) => {
     });
 
     // Handle flash sale product
-    const productFlashSaleList = productList.filter((product) => {
-      if (
-        product.discount !== 0 &&
-        product.discountExpiredAt !== null &&
-        product.discountExpiredAt - moment(Date.now()).tz(timezone).toDate() <
-          productFlashSaleDurationMsConst
-      )
-        return product;
-    });
-
-    const productDiscountExpiredAtMax = await productModel
-      .find(find)
-      .sort({ discountExpiredAt: 'desc' })
-      .limit(1);
-
-    const duration = moment.duration(
-      productDiscountExpiredAtMax[0].discountExpiredAt - moment(Date.now()).tz(timezone).toDate()
-    );
-
-    const productFlashSaleDuration = {
-      dayNumber: duration.days(),
-      hourNumber: duration.hours(),
-      minuteNumber: duration.minutes(),
-      secondNumber: duration.seconds(),
-    };
+    const flashSaleProduct = handleFlashSaleHelper(productList);
+    const productFlashSaleList = flashSaleProduct.productFlashSaleList;
+    const productFlashSaleDuration = flashSaleProduct.productFlashSaleDuration;
 
     // Handle post
     const findPost = { status: 'active', deleted: false, published: true };
@@ -73,6 +57,7 @@ const home = async (req, res) => {
       .select('-content')
       .limit(3);
 
+    // Handle post featured
     const postFeatured = await postModel
       .findOne({
         ...findPost,
@@ -87,6 +72,7 @@ const home = async (req, res) => {
       {
         pageTitle: 'Trang chủ',
         categoryTree: categoryTree,
+        productBrandList,
         productFeatureList,
         productSaleList,
         productFlashSaleList,
