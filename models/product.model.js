@@ -14,7 +14,7 @@ const objSchema = {
   warranty: { type: String },
   stock: { type: Number, require: true },
   category: { type: String, require: true },
-  brand: { type: String, require: true },
+  brand_id: { type: String, require: true },
   thumbnail: { type: String, require: true },
   images: { type: Array, require: true },
   status: { type: String, require: true, enum: ['active', 'inactive'], default: 'inactive' },

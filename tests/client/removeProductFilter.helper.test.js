@@ -14,19 +14,19 @@ const reqQuery4 = {
   sale: 'true',
 };
 const reqQuery5 = {
-  freeship: 'true',
+  brand: 'true',
 };
 const reqQuery6 = {
   featured: 'true',
 };
 const reqQuery7 = {
   sale: 'true',
-  freeship: 'true',
+  brand: 'true',
   featured: 'true',
 };
 const reqQuery8 = {
   sale: 'true',
-  freeship: 'true',
+  brand: 'true',
   featured: 'true',
   keyword: 'abc',
   category: 'vsbsbfs',
@@ -72,10 +72,10 @@ describe('Unit testing removeProductFilterHelper function', () => {
   });
 
   // Test case 05
-  test('freeship = "true"', () => {
+  test('brand = "true"', () => {
     expect(removeProductFilterHelper(reqQuery5)).toContainEqual({
-      keyword: 'freeship',
-      title: 'Miễn phái vận chuyển',
+      keyword: 'brand',
+      title: 'Thương hiệu',
       query: 'true',
     });
   });
@@ -90,15 +90,15 @@ describe('Unit testing removeProductFilterHelper function', () => {
   });
 
   // Test case 07
-  test('sale = "true" && freeship = "true" && featured = "true"', () => {
+  test('sale = "true" && brand = "true" && featured = "true"', () => {
     expect(removeProductFilterHelper(reqQuery7)).toContainEqual({
       keyword: 'sale',
       title: 'Đang giảm giá',
       query: 'true',
     });
     expect(removeProductFilterHelper(reqQuery7)).toContainEqual({
-      keyword: 'freeship',
-      title: 'Miễn phái vận chuyển',
+      keyword: 'brand',
+      title: 'Thương hiệu',
       query: 'true',
     });
     expect(removeProductFilterHelper(reqQuery7)).toContainEqual({
@@ -109,7 +109,7 @@ describe('Unit testing removeProductFilterHelper function', () => {
   });
 
   // Test case 08
-  test('sale = "true" && freeship = "true" && featured = "true" && search = "abc" && category = "vsbsbfs" && from = "0" && to = "23.67"', () => {
+  test('sale = "true" && brand = "true" && featured = "true" && search = "abc" && category = "vsbsbfs" && from = "0" && to = "23.67"', () => {
     expect(removeProductFilterHelper(reqQuery8)).toContainEqual({
       keyword: 'search',
       title: 'Tìm kiếm',
@@ -131,8 +131,8 @@ describe('Unit testing removeProductFilterHelper function', () => {
       query: 'true',
     });
     expect(removeProductFilterHelper(reqQuery8)).toContainEqual({
-      keyword: 'freeship',
-      title: 'Miễn phái vận chuyển',
+      keyword: 'brand',
+      title: 'Thương hiệu',
       query: 'true',
     });
     expect(removeProductFilterHelper(reqQuery8)).toContainEqual({

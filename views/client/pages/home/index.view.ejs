@@ -117,93 +117,112 @@
           </div>
         </div>
       </section>
-      <%# End Banner Header %> <%# Product Type Card %>
+      <%# End Banner Header %> <%# Product Brand %>
+      <section class="card-brand">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card-brand-slider button-trans">
+                <% productBrandList.forEach((brand) => { %>
+                <div
+                  class="d-flex flex-column justify-content-between align-items-center h-100 mx-1 card-brand-item"
+                  title="<%= brand.title %>"
+                >
+                  <img src="<%= brand.thumbnail %>" alt="<%= brand.title %>" width="140px" />
+                </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <%# End Product Brand %> <%# Product Type Card %>
       <section class="product-type">
         <div class="container">
-          <h3 class="heading-text text-center product-type-title">Các Loại Sản Phẩm</h3>
+          <h3 class="heading-font text-center product-type-title">Danh mục sản phẩm</h3>
           <div class="row g-2">
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
-                  <span class="content-font card-content">Chăm sóc móng</span>
+                  <a
+                    href="/products?category=haircare"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Hair care</a
+                  >
+                  <span class="content-font card-content">Chăm sóc tóc</span>
                 </div>
-                <img
-                  src="https://file.hstatic.net/200000073977/file/cac-buoc-trang-diem-cho-da-dau_af42aec374df4d48abfee094b920598a.jpeg"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
-                  <span class="content-font card-content">Chăm sóc móng</span>
+                  <a
+                    href="/products?category=skincare"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Skin care</a
+                  >
+                  <span class="content-font card-content">Chăm sóc da</span>
                 </div>
-                <img
-                  src="https://png.pngtree.com/background/20211216/original/pngtree-plant-beauty-daytime-cosmetics-indoor-still-life-posing-photography-map-with-picture-image_1540535.jpg"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
-                  <span class="content-font card-content">Chăm sóc móng</span>
+                  <a
+                    href="/products?category=bodycare"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Body care</a
+                  >
+                  <span class="content-font card-content">Chăm sóc cơ thể</span>
                 </div>
-                <img
-                  src="https://nuochoamc.com/upload/images/bai-viet/336/nuoc-hoa-creed-mui-thom-nhat-nam-2024.webp"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
+                  <a
+                    href="/products?category=nailcare"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Nail care</a
+                  >
                   <span class="content-font card-content">Chăm sóc móng</span>
                 </div>
-                <img
-                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
-                  <span class="content-font card-content">Chăm sóc móng</span>
+                  <a
+                    href="/products?category=makeup"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Make up</a
+                  >
+                  <span class="content-font card-content">Trang điểm</span>
                 </div>
-                <img
-                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-6 product-type-item">
+            <div class="col-lg-2 col-md-4 col-6 product-type-item">
               <div class="card-bg">
                 <div class="card-overlay"></div>
                 <div class="card-text">
-                  <div class="title-font card-title">Nail care</div>
-                  <span class="content-font card-content">Chăm sóc móng</span>
+                  <a
+                    href="/products?category=perfume"
+                    class="content-font text-decoration-none fw-bold card-title"
+                    >Perfume</a
+                  >
+                  <span class="content-font card-content">Nước hoa</span>
                 </div>
-                <img
-                  src="https://thevigocorp.com/wp-content/uploads/2023/11/Authorized_Profressional_Slider-img-rsc.com2_.jpg-copy-768x536.jpg"
-                  alt=""
-                  class="card-img"
-                />
+                <img src="/client/images/category/category (1).jpg" alt="" class="card-img" />
               </div>
             </div>
           </div>
@@ -401,7 +420,7 @@
                     Flash Sale
                   </h3>
                   <div
-                    class="heading-font py-0 card-flash-sale-time"
+                    class="heading-font py-0 text-center card-flash-sale-time"
                     style="
                       color: var(--light-primary-color);
                       text-shadow: 0px 0px 10px var(--light-primary-color);
@@ -491,27 +510,7 @@
           </div>
         </div>
       </section>
-      <% } %> <%# Google Map - Location %>
-      <section class="location">
-        <div class="container">
-          <h3 class="heading-font text-center location-title">Vị Trí</h3>
-          <div class="row">
-            <div class="col-12">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3724.015028146711!2d105.84933997508097!3d21.032084680618116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zNyBQaOG7kSBIb8OgbmcsIFjDoyBMw6ogVmnhu4d0IMOdLCBIdXnhu4duIE3huqFjIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1730821024370!5m2!1svi!2s"
-                width="100%"
-                height="300"
-                class="p-1"
-                style="border: 1px solid #ccc"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-      <%# End Google Map - Location %>
+      <% } %>
 
       <section class="card-post">
         <div class="container">

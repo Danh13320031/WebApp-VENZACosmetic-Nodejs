@@ -1,12 +1,16 @@
+import 'dotenv/config';
+
 export const productLimitConst = 16;
-export const productFlashSaleDurationMsConst = 3 * 24 * 60 * 60 * 1000;
+export const limitListAdminConst = 10;
+export const limitListClientConst = 16;
+export const productFlashSaleMsConst = 3 * 24 * 60 * 60 * 1000;
 
 export const saltRoundsConst = 10;
-export const verifyTokenExpiresIn = 5 * 60 * 1000;
-export const accessTokenExpiresIn = 15 * 60 * 1000;
-export const refreshTokenExpiresIn = 30 * 24 * 60 * 60 * 1000;
-export const otpExpiresIn = 3 * 60 * 1000;
-export const emailConst = 'danh13320031@gmail.com';
+export const verifyTokenExpiresIn = Number.parseInt(process.env.VERIFY_TOKEN_EXPIRES_IN);
+export const accessTokenExpiresIn = Number.parseInt(process.env.ACCESS_TOKEN_EXPIRES_IN);
+export const refreshTokenExpiresIn = Number.parseInt(process.env.REFRESH_TOKEN_EXPIRES_IN);
+export const otpExpiresIn = Number.parseInt(process.env.OTP_EXPIRES_IN);
+export const emailConst = process.env.GOOGLE_USER_EMAIL;
 
 export const maxAgeCartStorage = 30 * 24 * 60 * 60 * 1000;
 export const maxAgeProductLikeStorage = 30 * 24 * 60 * 60 * 1000;

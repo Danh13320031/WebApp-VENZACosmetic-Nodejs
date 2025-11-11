@@ -48,6 +48,7 @@ const checkPostTimeJob = (postScheduleCheck) => {
       };
 
       const result = await postModel.updateMany(find, { $set: { published: true } });
+      
       if (result.modifiedCount > 0)
         console.log(`Đã có ${result.modifiedCount} bài viết được xuất bản`);
       else console.log('Không có bài viết được xuất bản');

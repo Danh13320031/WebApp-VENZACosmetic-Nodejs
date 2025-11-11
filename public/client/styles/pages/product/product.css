@@ -48,20 +48,20 @@
   background: var(--dark-gray-color);
 }
 .product-filter .product-filter-sale label,
-.product-filter .product-filter-freeship label,
-.product-filter .product-filter-featured label {
+.product-filter .product-filter-featured label,
+.product-filter .product-filter-brand label {
   color: var(--dark-gray-color);
   cursor: pointer;
   transition: 0.4s ease-out;
 }
 .product-filter .product-filter-sale label.active,
-.product-filter .product-filter-freeship label.active,
-.product-filter .product-filter-featured label.active {
+.product-filter .product-filter-featured label.active,
+.product-filter .product-filter-brand label.active {
   color: var(--primary-color);
 }
 .product-filter .product-filter-sale label:hover,
-.product-filter .product-filter-freeship label:hover,
-.product-filter .product-filter-featured label:hover {
+.product-filter .product-filter-featured label:hover,
+.product-filter .product-filter-brand label:hover {
   color: var(--primary-color);
 }
 .product-filter .product-filter-delete .product-filter-close {

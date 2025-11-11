@@ -87,13 +87,13 @@ button.slick-next.slick-arrow i:hover {
   left: 0;
   content: '';
   background: var(--primary-overlay-color);
-  transform: scale(0);
+  /* transform: scale(0); */
   z-index: 800;
 }
-.product-type .card-bg:hover .card-overlay {
+/* .product-type .card-bg:hover .card-overlay {
   transform: scale(1);
   transition: 0.2s ease;
-}
+} */
 .product-type .card-bg .card-text {
   position: absolute;
   width: 100%;
@@ -107,7 +107,7 @@ button.slick-next.slick-arrow i:hover {
 .product-type .card-bg .card-text .card-title {
   color: var(--primary-color);
   font-family: var(--primary-font-family);
-  transform: scale(0);
+  /* transform: scale(0); */
   position: relative;
 }
 .product-type .card-bg .card-text .card-title::after {
@@ -129,13 +129,7 @@ button.slick-next.slick-arrow i:hover {
 }
 .product-type .card-bg .card-text .card-content {
   font-family: var(--primary-font-family);
-  color: rgba(216, 216, 216, 0.789);
-  transform: scale(0);
-}
-.product-type .card-bg:hover .card-text .card-title,
-.card-bg:hover .card-text .card-content {
-  transform: scale(1);
-  transition: 0.2s ease 0.25s;
+  color: var(--light-gray-color);
 }
 .product-type .card-bg .card-img {
   width: 100%;
@@ -297,13 +291,26 @@ button.slick-next.slick-arrow i:hover {
 /* Product Card */
 .card-feature .button-trans,
 .card-sale .button-trans,
-.card-flash-sale .button-trans {
+.card-flash-sale .button-trans,
+.card-brand .button-trans {
   display: flex;
 }
 .card-feature .button-trans .slick-list,
 .card-sale .button-trans .slick-list,
-.card-flash-sale .button-trans .slick-list {
+.card-flash-sale .button-trans .slick-list,
+.card-brand .button-trans .slick-list {
   padding: 40px 0px;
+}
+.card-brand .button-trans .slick-list {
+  padding: 0px;
+}
+.card-feature .button-trans .slick-list .slick-track,
+.card-sale .button-trans .slick-list .slick-track,
+.card-flash-sale .button-trans .slick-list .slick-track,
+.card-brand .button-trans .slick-list .slick-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .card-feature .card-bg,
 .card-sale .card-bg,

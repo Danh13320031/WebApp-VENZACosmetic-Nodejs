@@ -59,6 +59,13 @@ const createProductValidate = (req, res, next) => {
     return;
   }
 
+  // Check brand
+  if (!req.body.brand_id) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn thương hiệu');
+    res.redirect('back');
+    return;
+  }
+
   next();
 };
 
@@ -105,12 +112,12 @@ const updateProductValidate = (req, res, next) => {
     return;
   }
 
-  // // Check discount expired at
-  // if (req.body.discountExpiredAt <= moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm')) {
-  //   alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
-  //   res.redirect('back');
-  //   return;
-  // }
+  // Check brand
+  if (!req.body.brand_id) {
+    alertMessageHelper(req, 'alertFailure', 'Vui lí chọn thương hiệu');
+    res.redirect('back');
+    return;
+  }
 
   next();
 };
