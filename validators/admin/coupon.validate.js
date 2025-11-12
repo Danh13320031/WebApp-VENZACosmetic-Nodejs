@@ -46,7 +46,7 @@ const createCouponValidate = (req, res, next) => {
   }
 
   // Check public type
-  if (!req.body.publicType) {
+  if (!req.body.publishType) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn loại khuyến mãi');
     res.redirect('back');
     return;
@@ -129,14 +129,11 @@ const updateCouponValidate = (req, res, next) => {
     return;
   }
 
-  if (moment(req.body.startedAt).tz(timezone).isBefore(moment().tz(timezone))) {
-    alertMessageHelper(req, 'alertFailure', 'Thời gian bắt đầu phải sau thời gian hiện tại');
-    res.redirect('back');
-    return;
-  }
-
-  if (moment(req.body.endedAt).tz(timezone).isBefore(moment(req.body.startedAt).tz(timezone))) {
-    alertMessageHelper(req, 'alertFailure', 'Thời gian kết thúc phải sau thời gian bắt đầu');
+  if (
+    moment(req.body.startedAt).tz(timezone).toDate() >=
+    moment(req.body.endedAt).tz(timezone).toDate()
+  ) {
+    alertMessageHelper(req, 'alertFailure', 'Thời gian bắt đầu không hợp lệ');
     res.redirect('back');
     return;
   }

@@ -104,13 +104,17 @@ const updateCouponPatch = async (req, res) => {
       return;
     }
 
+    if (req.body.startedAt) req.body.startedAt = moment(req.body.startedAt).tz(timezone).toDate();
+    else delete req.body.startedAt;
+
+    if (req.body.endedAt) req.body.endedAt = moment(req.body.endedAt).tz(timezone).toDate();
+    else delete req.body.endedAt;
+
     if (req.body.value) req.body.value = Number.parseFloat(req.body.value);
     if (req.body.minAmount) req.body.minAmount = Number.parseFloat(req.body.minAmount);
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     if (req.body.limit) req.body.limit = Number.parseInt(req.body.limit);
     if (req.body.limitPerUser) req.body.limitPerUser = Number.parseInt(req.body.limitPerUser);
-    if (req.body.startedAt) req.body.startedAt = moment(req.body.startedAt).tz(timezone).toDate();
-    if (req.body.endedAt) req.body.endedAt = moment(req.body.endedAt).tz(timezone).toDate();
 
     await couponModel.findByIdAndUpdate(id, req.body);
     alertMessageHelper(req, 'alertSuccess', 'Cập nhật thông tin');

@@ -196,12 +196,12 @@
                           <%= moment(coupon.endedAt).tz(timezone).format('DD/MM/YYYY HH:mm') %>
                         </td>
                         <td>
-                          <% if (moment(Date.now()).tz(timezone).isBefore(coupon.startedAt) &&
+                          <% if (moment(Date.now()).tz(timezone).toDate() < moment(coupon.startedAt).tz(timezone).toDate() &&
                           !coupon.published) { %>
                           <span class="badge" style="background: var(--warning-color-admin)">
                             Chưa phát hành
                           </span>
-                          <% } else if (moment(Date.now()).tz(timezone).isAfter(coupon.expiredAt) &&
+                          <% } else if (moment(Date.now()).tz(timezone).toDate() > moment(coupon.endedAt).tz(timezone).toDate() &&
                           !coupon.published) { %>
                           <span class="badge" style="background: var(--error-color-admin)">
                             Đã hết hạn

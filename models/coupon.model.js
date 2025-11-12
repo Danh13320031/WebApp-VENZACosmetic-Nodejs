@@ -15,7 +15,7 @@ const objSchema = {
   deleted: { type: Boolean, default: false },
   position: { type: Number, require: true, default: 1 },
   startedAt: { type: Date, require: true },
-  endedAt: { type: Date, require: true, expires: 0 },
+  endedAt: { type: Date, require: true },
   deletedAt: { type: Date },
 };
 
