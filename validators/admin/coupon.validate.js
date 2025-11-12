@@ -1,8 +1,9 @@
 import moment from 'moment-timezone';
 import { timezone } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import productModel from '../../models/product.model.js';
 
-const createCouponValidate = (req, res, next) => {
+const createCouponValidate = async (req, res, next) => {
   // Check prefix code type
   if (!req.body.prefixCode) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mã khuyến mãi');
@@ -18,8 +19,20 @@ const createCouponValidate = (req, res, next) => {
   }
 
   // Check min amout order
+  const productList = await productModel
+    .find({ deleted: false })
+    .sort({ price: 'asc' })
+    .limit(1)
+    .select('price');
+
   if (!req.body.minAmount) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số tiền tối thiểu');
+    res.redirect('back');
+    return;
+  }
+
+  if (Number(req.body.minAmount) < productList[0].price) {
+    alertMessageHelper(req, 'alertFailure', `Số tiền tối thiểu phải > ${productList[0].price} VNĐ`);
     res.redirect('back');
     return;
   }

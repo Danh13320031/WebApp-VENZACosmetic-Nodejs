@@ -1,8 +1,13 @@
 import moment from 'moment-timezone';
 import { couponCodePrefixRule, notFoundPage, timezone } from '../../constants/constant.js';
+import expireFilterHelper from '../../helpers/admin/coupon/expireFilter.helper.js';
 import generateCouponCodeHelper from '../../helpers/admin/coupon/generateCouponCode.helper.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import paginationHelper from '../../helpers/pagination.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
+import sortHelper from '../../helpers/sort.helper.js';
+import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import couponModel from '../../models/coupon.model.js';
 import { StatusCodes } from '../../node_modules/http-status-codes/build/cjs/status-codes.js';
 
@@ -10,11 +15,75 @@ import { StatusCodes } from '../../node_modules/http-status-codes/build/cjs/stat
 const coupon = async (req, res) => {
   try {
     const find = { deleted: false };
-    const couponList = await couponModel.find(find).sort({ createdAt: 'desc' });
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    const activeStatus = statusFilterHelper(req.query, statusList);
+    if (req.query.status) find.status = req.query.status;
+
+    // Expired Filter
+    const expireList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Chưa phát hành', class: '', status: 'release' },
+      { name: 'Đang sử dụng', class: '', status: 'using' },
+      { name: 'Đã hết hạn', class: '', status: 'expired' },
+    ];
+
+    const currentDate = moment().tz(timezone).format('YYYY-MM-DD HH:mm');
+    const activeExpire = expireFilterHelper(req.query, expireList);
+    console.log(activeExpire);
+    if (req.query.expire === 'release') {
+      find.startedAt = { $gt: currentDate };
+      find.published = false;
+    } else if (req.query.expire === 'using') {
+      find.startedAt = { $lte: currentDate };
+      find.endedAt = { $gte: currentDate };
+      find.published = true;
+    } else if (req.query.expire === 'expired') {
+      find.endedAt = { $lt: currentDate };
+      find.published = false;
+    }
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.code = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const couponTotal = await couponModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, couponTotal);
+
+    // Sort
+    const sort = sortHelper(req.query);
+    const sortValue = Object.keys(sort)[0] + '-' + Object.values(sort)[0];
+
+    const couponList = await couponModel
+      .find(find)
+      .sort(sort)
+      .limit(objPagination.limit)
+      .skip(objPagination.productSkip);
 
     res.render(
       './admin/pages/coupon/coupon.view.ejs',
-      { pageTitle: 'Danh sách mã giảm giá', couponList },
+      {
+        pageTitle: 'Danh sách mã giảm giá',
+        couponList,
+        statusList,
+        activeStatus,
+        keyword: objSearch.keyword,
+        objPagination,
+        sortValue,
+        expireList,
+        activeExpire,
+      },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
         res.send(html);
