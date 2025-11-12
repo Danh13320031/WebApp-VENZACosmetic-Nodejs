@@ -5,29 +5,41 @@
       <% sortOption.forEach((item) => { %>
         <option class="sort-option" value="<%= item %>" <% if(sortValue === item) {%>selected<% } %>>
           <% if(item === 'total-asc' || item === 'price-asc') {%>
-            Giá tăng dần 💵↑
+            Giá tăng dần
           <% } else if(item === 'total-desc' || item === 'price-desc') {%>
-            Giá giảm dần 💵↓
+            Giá giảm dần
           <% } else if (item === 'orderCode-asc') { %>
-            Mã đơn hàng A - Z 🇦🇿
+            Mã đơn hàng A - Z
           <% } else if (item === 'orderCode-desc') { %>
-            Mã đơn hàng Z - A z🇦
+            Mã đơn hàng Z - A
           <% } else if (item === 'position-asc') { %>
-            Vị trí tăng dần ⬆
+            Vị trí tăng dần
           <% } else if (item === 'position-desc') { %>
-            Vị trí giảm dần ⬇
+            Vị trí giảm dần
           <% } else if (item === 'title-asc') { %>
-            Tiêu đề A - Z 🇦🇿
+            Tiêu đề A - Z
           <% } else if (item === 'title-desc') { %>
-            Tiêu đề Z - A z🇦
+            Tiêu đề Z - A
           <% } else if (item === 'content-asc') { %>
-            Nội dung A - Z 🇦🇿
+            Nội dung A - Z
           <% } else if (item === 'content-desc') { %>
-            Nội dung Z - A z🇦
+            Nội dung Z - A
           <% } else if (item === 'createdAt-asc') { %>
             Ngày tạo cũ đến mới
           <% } else if (item === 'createdAt-desc') { %>
             Ngày tạo mới đến cũ
+          <% } else if (item === 'startedAt-asc') { %>
+            Ngày tạo cũ đến mới
+          <% } else if (item === 'startedAt-desc') { %>
+            Ngày tạo mới đến cũ
+          <% } else if (item === 'endedAt-asc') { %>
+            Ngày kết thúc cũ đến mới
+          <% } else if (item === 'endedAt-desc') { %>
+            Ngày kết thúc đến cũ
+          <% } else if (item === 'code-asc') { %>
+            Mã giảm giá A - Z
+          <% } else if (item === 'code-desc') { %>
+            Mã giảm giá Z - A
           <% } %>
         </option>
       <% }) %>

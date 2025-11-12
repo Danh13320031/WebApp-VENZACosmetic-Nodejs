@@ -35,7 +35,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6 col-12">
-            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tên sản phẩm..."}) %>
+            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập mã giảm giá..."}) %>
           </div>
         </div>
 
@@ -44,14 +44,11 @@
           <div class="card-body">
             <div class="container-fluid">
               <div class="row gap-md-0 gap-2">
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                  <%#-include("../../partials/statusFilter.view.ejs") %>
+                <div class="col-lg-6 col-md-6 col-12">
+                  <%-include("../../partials/statusFilter.view.ejs") %>
                 </div>
-                <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
-                  <%#-include("../../partials/categoryFilter.view.ejs") %>
-                </div>
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                  <%#-include("../../partials/priceFilter.view.ejs") %>
+                <div class="col-lg-6 col-md-6 col-12">
+                  <%-include("../../partials/expireFilter.view.ejs") %>
                 </div>
               </div>
             </div>
@@ -60,18 +57,18 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
-                  'products', type: 'product' }) %>
+                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  'coupons', type: 'coupon' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%#-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
-                  'position-desc', 'price-asc', 'price-desc', 'title-asc', 'title-desc']}) %>
+                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  'position-desc', 'code-asc', 'code-desc', 'startedAt-asc', 'startedAt-desc', 'endedAt-asc', 'endedAt-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
                   <%# if(roleAuth.permission.includes('coupon-add')) {%>
@@ -91,7 +88,7 @@
                 <div class="col-12 overflow-x-scroll">
                   <% if (couponList.length == 0) {%>
                   <div class="text-center text-white bg-danger p-2">
-                    Không tìm thấy sản phẩm nào trong kho
+                    Không tìm thấy mã giảm giá nào
                   </div>
                   <% } %>
                   <table class="table table-hover table-sm w-100">
@@ -299,7 +296,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%#-include("../../partials/pagination.view.ejs") %>
+              <%-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
               <a href="<%#= prefixAdmin %>/products/garbage" class="btn btn-primary w-100 float-end"
@@ -328,6 +325,7 @@
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/statusFilter.js"></script>
+    <script src="/admin/scripts/coupon/expireFilter.js"></script>
     <script src="/admin/scripts/search.js"></script>
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/displayModalConfirm.js"></script>

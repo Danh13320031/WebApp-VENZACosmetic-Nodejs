@@ -464,6 +464,50 @@
                   <% }) %>
                 </tr>
 
+                <%# Các quyền dành cho mã giảm giá %>
+                <tr>
+                  <td class="bg-body-secondary"><b>Các quyền về mã giảm giá</b></td>
+                  <% roleList.forEach(role => { %>
+                  <td class="bg-body-secondary"></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-view">
+                  <td>Xem</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-change-status">
+                  <td>Đổi trạng thái</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-update">
+                  <td>Chỉnh sửa</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-sort-delete">
+                  <td>Xóa mềm</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-restore">
+                  <td>Khôi phục</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+                <tr data-name="coupon-hard-delete">
+                  <td>Xóa cứng</td>
+                  <% roleList.forEach(role => { %>
+                  <td class="text-center"><input type="checkbox" /></td>
+                  <% }) %>
+                </tr>
+
                 <%# Các quyền dành cho nhóm quyền %>
                 <tr>
                   <td class="bg-body-secondary"><b>Các quyền về nhóm quyền</b></td>

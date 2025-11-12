@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-start flex-wrap align-items-center gap-2">
-  <label class="form-label mb-0 fw-bold">Trạng thái:</label>
-  <% activeStatus.forEach(btnActive => { %>
+  <label class="form-label mb-0 fw-bold">Hạn sử dụng:</label>
+  <% activeExpire.forEach(btnActive => { %>
   <button
     class="btn btn-outline-primary btn-sm flex-fill <%= btnActive.class %>"
-    btn-status-filter="<%= btnActive.status %>"
+    btn-expire-filter="<%= btnActive.status %>"
   >
     <%= btnActive.name %>
   </button>
