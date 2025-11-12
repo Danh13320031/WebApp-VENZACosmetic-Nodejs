@@ -30,6 +30,7 @@ export const notFoundPage = '/error/404';
 // cron jobs
 export const checkDiscountConst = '* * * * *';
 export const checkPostConst = '* * * * *';
+export const checkCouponConst = '* * * * *';
 
 // Coupon
 export const couponCodePrefixRule = {

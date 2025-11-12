@@ -121,6 +121,9 @@
                         Hạn sử dụng
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Phạm vi sử dụng
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Vị trí
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
@@ -193,12 +196,13 @@
                           <%= moment(coupon.endedAt).tz(timezone).format('DD/MM/YYYY HH:mm') %>
                         </td>
                         <td>
-                          <% if (moment(Date.now()).tz(timezone).isBefore(coupon.startedAt)) { %>
-                          <span class="badge" style="background: var(--info-color-admin)">
-                            Chưa sử dụng
+                          <% if (moment(Date.now()).tz(timezone).toDate() < moment(coupon.startedAt).tz(timezone).toDate() &&
+                          !coupon.published) { %>
+                          <span class="badge" style="background: var(--warning-color-admin)">
+                            Chưa phát hành
                           </span>
-                          <% } else if (moment(Date.now()).tz(timezone).isAfter(coupon.expiredAt)) {
-                          %>
+                          <% } else if (moment(Date.now()).tz(timezone).toDate() > moment(coupon.endedAt).tz(timezone).toDate() &&
+                          !coupon.published) { %>
                           <span class="badge" style="background: var(--error-color-admin)">
                             Đã hết hạn
                           </span>
@@ -207,6 +211,50 @@
                             Đang sử dụng
                           </span>
                           <% } %>
+                        </td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <select
+                              name="publishType"
+                              id="status"
+                              data-id="<%= coupon._id %>"
+                              change-status-select
+                              class="badge p-2 form-control"
+                              <% if (coupon.publishType === 'all') { %>
+                                style="color: var(--warning-color-admin); border-color: var(--warning-color-admin)"
+                              <% } else if (coupon.publishType === 'user') { %>
+                                style="color: var(--success-color-admin); border-color: var(--success-color-admin)"
+                              <% } else if (coupon.publishType === 'guest') { %>
+                                style="color: var(--info-color-admin); border-color: var(--info-color-admin)"
+                              <% } %>
+                              value="<%= coupon.publishType %>"
+                            >
+                              <option
+                                <% if (coupon.publishType === 'all') { %> selected <% } %>
+                                value="all"
+                                class="text-light"
+                                style="background: var(--warning-color-admin)"
+                              >
+                                Tất cả
+                              </option>
+                              <option
+                                <% if (coupon.publishType === 'user') { %> selected <% } %>
+                                value="user"
+                                class="text-light"
+                                style="background: var(--success-color-admin)"
+                              >
+                                Người dùng
+                              </option>
+                              <option
+                                <% if (coupon.publishType === 'guest') { %> selected <% } %>
+                                value="guest"
+                                class="text-light"
+                                style="background: var(--info-color-admin)"
+                              >
+                                Khách hàng
+                              </option>
+                            </select>
+                          </div>
                         </td>
                         <td><%= coupon.position %></td>
                         <td>

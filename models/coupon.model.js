@@ -9,13 +9,13 @@ const objSchema = {
   minAmount: { type: Number, require: true, default: 0 },
   status: { type: String, require: true, enum: ['active', 'inactive'], default: 'active' },
   published: { type: Boolean, require: true, default: false },
-  publicType: { type: String, require: true, enum: ['all', 'user', 'guest'], default: 'all' },
+  publishType: { type: String, require: true, enum: ['all', 'user', 'guest'], default: 'all' },
   limit: { type: Number, require: true, default: 1 },
   limitPerUser: { type: Number, require: true, default: 1 },
   deleted: { type: Boolean, default: false },
   position: { type: Number, require: true, default: 1 },
   startedAt: { type: Date, require: true },
-  endedAt: { type: Date, require: true, expires: 0 },
+  endedAt: { type: Date, require: true },
   deletedAt: { type: Date },
 };
 

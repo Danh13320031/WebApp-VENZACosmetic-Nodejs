@@ -1,8 +1,9 @@
 import moment from 'moment-timezone';
 import cron from 'node-cron';
 import { timezone } from '../constants/constant.js';
-import productModel from '../models/product.model.js';
+import couponModel from '../models/coupon.model.js';
 import postModel from '../models/post.model.js';
+import productModel from '../models/product.model.js';
 
 // Check product discount expired
 const checkDiscountTimeJob = (discountScheduleCheck) => {
@@ -22,8 +23,8 @@ const checkDiscountTimeJob = (discountScheduleCheck) => {
 
       const result = await productModel.updateMany(find, { $set: { discount: 0 } });
       if (result.modifiedCount > 0)
-        console.log(`Đã có ${result.modifiedCount} sản phẩm hết hạn giảm giá`);
-      else console.log('Không có sản phẩm hết hạn giảm giá');
+        console.log(`\nĐã có ${result.modifiedCount} sản phẩm hết hạn giảm giá`);
+      else console.log('\nKhông có sản phẩm hết hạn giảm giá');
     } catch (error) {
       console.log('Check discount time fail: ', error);
     }
@@ -44,11 +45,11 @@ const checkPostTimeJob = (postScheduleCheck) => {
       const find = {
         deleted: false,
         'postedBy.postedAt': { $lte: currentDate },
-        published: { $ne: true },
+        published: false,
       };
 
       const result = await postModel.updateMany(find, { $set: { published: true } });
-      
+
       if (result.modifiedCount > 0)
         console.log(`Đã có ${result.modifiedCount} bài viết được xuất bản`);
       else console.log('Không có bài viết được xuất bản');
@@ -60,9 +61,54 @@ const checkPostTimeJob = (postScheduleCheck) => {
   cron.schedule(postScheduleCheck, checkPostScheduler, options);
 };
 
+const checkCouponTimeJob = (couponScheduleCheck) => {
+  const options = {
+    name: 'checkCouponTimeJob',
+    timezone: timezone,
+  };
+
+  const checkCouponScheduler = async () => {
+    try {
+      const currentDate = moment().tz(timezone).toDate();
+
+      const startFind = {
+        deleted: false,
+        status: 'active',
+        startedAt: { $lte: currentDate },
+        endedAt: { $gte: currentDate },
+        published: false,
+      };
+
+      const startResult = await couponModel.updateMany(startFind, { $set: { published: true } });
+
+      if (startResult.modifiedCount > 0)
+        console.log(`Đã có ${startResult.modifiedCount} mã giảm giá được phát hành`);
+      else console.log('Không có mã giảm giá nào được phát hành');
+
+      const endFind = {
+        deleted: false,
+        status: 'active',
+        endedAt: { $lt: currentDate },
+        published: true,
+      };
+
+      const endResult = await couponModel.updateMany(endFind, { $set: { published: false } });
+
+      if (endResult.modifiedCount > 0)
+        console.log(`Đã có ${endResult.modifiedCount} mã giảm giá hết hạn`);
+      else console.log('Không có mã giảm giá nào hết hạn');
+    } catch (error) {
+      console.log('Check coupon time fail: ', error);
+    }
+  };
+
+  cron.schedule(couponScheduleCheck, checkCouponScheduler, options);
+};
+
 const cronJobs = {
   checkDiscountTimeJob,
   checkPostTimeJob,
+  checkCouponTimeJob,
 };
 
 export default cronJobs;

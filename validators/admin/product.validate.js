@@ -98,6 +98,13 @@ const updateProductValidate = (req, res, next) => {
     return;
   }
 
+  // Check discount expired at
+  if (req.body.discountExpiredAt <= moment(Date.now()).tz(timezone).format('YYYY-MM-DD')) {
+    alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
+    res.redirect('back');
+    return;
+  }
+
   // Check status
   if (!req.body.status) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn trạng thái');
