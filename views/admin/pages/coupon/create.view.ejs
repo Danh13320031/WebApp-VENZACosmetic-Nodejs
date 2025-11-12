@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include("../../partials/seoMeta.view.ejs", { pageTitle: pageTitle}) %> <%# Style Library &
+    Framework %>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <%# Style File %>
+    <link rel="stylesheet" href="/admin/setup.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/header.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
+    <link rel="stylesheet" href="/admin/styles/pages/product/product.css" />
+  </head>
+  <body>
+    <%-include("../../partials/header.view.ejs") %>
+
+    <div class="body">
+      <%-include("../../partials/sider.view.ejs") %>
+      <div class="main">
+        <%-include("../../partials/alertMessage.view.ejs") %> <%
+        if(roleAuth.permission.includes('product-add')) {%>
+        <h1 class="heading-font text-primary py-0 text-start"><%= pageTitle %></h1>
+        <form action="<%= prefixAdmin %>/coupons/create" method="POST" id="form-handle">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-3 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="prefixCode" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span> Loại mã giảm giá
+                  </label>
+                  <select name="prefixCode" id="prefixCode" class="form-control">
+                    <option value="" disabled selected>-- Chọn loại --</option>
+                    <% Object.entries(couponCodePrefixRule).map(([groupKey, groupValue]) => { %>
+                    <optgroup
+                      key="<%= groupKey %>"
+                      label="<%=
+                          groupKey === 'event' ? 'Sự kiện' 
+                          : groupKey === 'sale' ? 'Giảm giá' 
+                          : groupKey === 'role' ? 'Người dùng' 
+                          : 'Thông thường'
+                      %>"
+                    >
+                      <% Object.entries(groupValue).map(([key, value]) => { %>
+                      <option value="<%= value %>"><%= key %></option>
+                      <% }) %>
+                    </optgroup>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="value" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Giá trị (vnđ / %)
+                  </label>
+                  <input
+                    type="number"
+                    value="0"
+                    min="0"
+                    step="0.01"
+                    name="value"
+                    placeholder="Nhập giá trị mã giảm giá..."
+                    required
+                    class="form-control"
+                    id="value"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="minAmount" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Cho đơn hàng từ
+                  </label>
+                  <input
+                    type="number"
+                    name="minAmount"
+                    min="0"
+                    value="0"
+                    placeholder="Nhập tổng tiền thấp nhất..."
+                    class="form-control"
+                    id="minAmount"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="position" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Vị trí
+                  </label>
+                  <input
+                    type="number"
+                    name="position"
+                    min="1"
+                    placeholder="Tự động tăng"
+                    class="form-control"
+                    id="position"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group mb-4">
+                  <label for="description" class="fw-bold"
+                    ><span class="text-danger"><b>*</b></span>
+                    Mô tả ngắn
+                  </label>
+                  <textarea
+                    name="description"
+                    placeholder="Nhập mô tả..."
+                    class="form-control"
+                    id="description"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-12">
+                <div class="form-group mb-4">
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span>
+                    Trạng thái
+                  </label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="active"
+                    checked
+                    class="form-check-input"
+                    id="status-active"
+                  />
+                  <label for="status-active" class="me-4">Hoạt động</label>
+                  <input
+                    type="radio"
+                    name="status"
+                    value="inactive"
+                    class="form-check-input"
+                    id="status-inactive"
+                  />
+                  <label for="status-inactive">Ngừng hoạt động</label>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-12">
+                <div class="form-group mb-4">
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span>
+                    Phân loại giá trị
+                  </label>
+                  <input
+                    type="radio"
+                    name="valueType"
+                    value="amount"
+                    checked
+                    class="form-check-input"
+                    id="valueType-amount"
+                  />
+                  <label for="valueType-amount" class="me-4">Giảm theo tiền</label>
+                  <input
+                    type="radio"
+                    name="valueType"
+                    value="percent"
+                    class="form-check-input"
+                    id="valueType-percent"
+                  />
+                  <label for="valueType-percent">Giảm theo %</label>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-12">
+                <div class="form-group mb-4">
+                  <label for="" class="fw-bold d-block"
+                    ><span class="text-danger"><b>*</b></span>
+                    Phân loại phạm vi
+                  </label>
+                  <input
+                    type="radio"
+                    name="publicType"
+                    value="all"
+                    checked
+                    class="form-check-input"
+                    id="publicType-all"
+                  />
+                  <label for="publicType-all" class="me-4">Tất cả</label>
+                  <input
+                    type="radio"
+                    name="publicType"
+                    value="guest"
+                    class="form-check-input"
+                    id="publicType-guest"
+                  />
+                  <label for="publicType-guest" class="me-4">Khách hàng</label>
+                  <input
+                    type="radio"
+                    name="publicType"
+                    value="user"
+                    class="form-check-input"
+                    id="publicType-user"
+                  />
+                  <label for="publicType-user">Người dùng</label>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="limit" class="fw-bold">Giới hạn số lượng</label>
+                  <input
+                    type="number"
+                    name="limit"
+                    min="1"
+                    value="1"
+                    placeholder="Nhập số lượng..."
+                    class="form-control"
+                    id="limit"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="limitPerUser" class="fw-bold">Giới hạn dùng</label>
+                  <input
+                    type="number"
+                    name="limitPerUser"
+                    min="1"
+                    value="1"
+                    placeholder="Nhập số lần sử dụng..."
+                    class="form-control"
+                    id="limitPerUser"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="startedAt" class="fw-bold">Thời gian bắt đầu giảm giá</label>
+                  <input
+                    type="datetime-local"
+                    min="<%= moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm') %>"
+                    name="startedAt"
+                    class="form-control"
+                    id="startedAt"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group mb-4">
+                  <label for="endedAt" class="fw-bold">Thời gian kết thúc giảm giá</label>
+                  <input
+                    type="datetime-local"
+                    min="<%= moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm') %>"
+                    name="endedAt"
+                    class="form-control"
+                    id="endedAt"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary w-100 form-create">
+              <i class="bi bi-plus-lg me-1"></i>Thêm mới mã giảm giá
+            </button>
+          </div>
+        </form>
+        <% } %>
+      </div>
+    </div>
+
+    <%-include("../../partials/footer.view.ejs") %> <%# Script File %>
+    <script src="/admin/scripts/sidebarToggle.js"></script>
+    <script src="/admin/scripts/activeSidebarLink.js"></script>
+    <script src="/admin/scripts/previewImage.js"></script>
+    <script src="/admin/scripts/product/previewImageArray.js"></script>
+    <script src="/admin/scripts/toggleAccountInfo.js"></script>
+
+    <%# Script Library & Framwork %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script src="/admin/scripts/tinymce.js"></script>
+    <script src="../../reload/reload.js"></script>
+  </body>
+</html>

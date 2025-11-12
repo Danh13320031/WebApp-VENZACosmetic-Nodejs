@@ -3,6 +3,7 @@ import authMiddleware from '../../middlewares/admin/auth.middleware.js';
 import settingMiddleware from '../../middlewares/setting.middleware.js';
 import accountRoute from './account.route.js';
 import authRoute from './auth.route.js';
+import couponRoute from './coupon.route.js';
 import dashboardRoute from './dashboard.route.js';
 import orderRoute from './order.route.js';
 import orderStatisticRoute from './orderStatistic.route.js';
@@ -46,6 +47,7 @@ const routerAdmin = (app) => {
   app.use(`${systemConfig.prefixAdmin}/permissions`, authMiddleware.requireAuth, permissionRoute);
   app.use(`${systemConfig.prefixAdmin}/auth`, authRoute);
   app.use(`${systemConfig.prefixAdmin}/profile`, authMiddleware.requireAuth, profileRoute);
+  app.use(`${systemConfig.prefixAdmin}/coupons`, authMiddleware.requireAuth, couponRoute);
   app.use(`${systemConfig.prefixAdmin}/orders`, authMiddleware.requireAuth, orderRoute);
   app.use(
     `${systemConfig.prefixAdmin}/order-statistics`,

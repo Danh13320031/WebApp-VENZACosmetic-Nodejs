@@ -30,3 +30,25 @@ export const notFoundPage = '/error/404';
 // cron jobs
 export const checkDiscountConst = '* * * * *';
 export const checkPostConst = '* * * * *';
+
+// Coupon
+export const couponCodePrefixRule = {
+  event: {
+    tet: 'TET',
+    newYear: 'NEW_YEAR',
+    halloween: 'HALLOWEEN',
+    womanDay: 'WOMAN_DAY',
+  },
+  sale: {
+    sale: 'SALE',
+    flash: 'FLASH',
+    hot: 'HOT',
+  },
+  role: {
+    vip: 'VIP',
+    user: 'USER',
+  },
+  normal: {
+    normal: 'VENZA',
+  },
+};

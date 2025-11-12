@@ -26,8 +26,8 @@
       <%-include("../../partials/sider.view.ejs") %>
 
       <div class="main">
-        <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('product-view')) { %>
+        <%#-include("../../partials/alertMessage.view.ejs") %> <%#
+        if(roleAuth.permission.includes('coupon-view')) { %>
 
         <div class="row gap-md-0 gap-2 justify-content-between">
           <div class="col-lg-8 col-md-4 col-12">
@@ -35,7 +35,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6 col-12">
-            <%-include("../../partials/search.view.ejs", { placeholder: "Nhập tên sản phẩm..."}) %>
+            <%#-include("../../partials/search.view.ejs", { placeholder: "Nhập tên sản phẩm..."}) %>
           </div>
         </div>
 
@@ -45,13 +45,13 @@
             <div class="container-fluid">
               <div class="row gap-md-0 gap-2">
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                  <%-include("../../partials/statusFilter.view.ejs") %>
+                  <%#-include("../../partials/statusFilter.view.ejs") %>
                 </div>
                 <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
-                  <%-include("../../partials/categoryFilter.view.ejs") %>
+                  <%#-include("../../partials/categoryFilter.view.ejs") %>
                 </div>
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                  <%-include("../../partials/priceFilter.view.ejs") %>
+                  <%#-include("../../partials/priceFilter.view.ejs") %>
                 </div>
               </div>
             </div>
@@ -60,28 +60,28 @@
 
         <div class="card mb-3">
           <div class="title-font card-header">
-            Danh sách (trang hiện tại: <%= objPagination.currentPage %>)
+            Danh sách (trang hiện tại: <%#= objPagination.currentPage %>)
           </div>
           <div class="card-body">
             <div class="container-fluid p-2 p-md-2">
               <div class="row gap-md-0 gap-2">
                 <div class="col-lg-4 col-12">
-                  <%-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
+                  <%#-include("../../partials/changeMulti.view.ejs", { statusList: statusList, url:
                   'products', type: 'product' }) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
+                  <%#-include("../../partials/sort.view.ejs", {sortOption: ['position-asc',
                   'position-desc', 'price-asc', 'price-desc', 'title-asc', 'title-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <% if(roleAuth.permission.includes('product-add')) {%>
+                  <%# if(roleAuth.permission.includes('coupon-add')) {%>
                   <a
-                    href="<%= prefixAdmin %>/products/create"
+                    href="<%= prefixAdmin %>/coupons/create"
                     class="btn btn-primary w-100 float-end"
                   >
-                    <i class="bi bi-plus-lg me-1"></i>Thêm mới sản phẩm
+                    <i class="bi bi-plus-lg me-1"></i>Thêm mới mã giảm giá
                   </a>
-                  <% } %>
+                  <%# } %>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
             <div class="container-fluid w-100">
               <div class="row">
                 <div class="col-12 overflow-x-scroll">
-                  <% if (productList.length == 0) {%>
+                  <% if (couponList.length == 0) {%>
                   <div class="text-center text-white bg-danger p-2">
                     Không tìm thấy sản phẩm nào trong kho
                   </div>
@@ -100,23 +100,26 @@
                         <input type="checkbox" name="checkall" class="me-5" />STT
                       </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Hình ảnh
+                        Mã giảm giá
                       </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">Giảm</th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Tiêu đề
+                        Áp dụng
                       </th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Người tạo
-                      </th>
-                      <th class="bg-primary-subtle text-primary text-decoration-underline">
-                        Người cập nhật
-                      </th>
-                      <% if(roleAuth.permission.includes('product-change-status')) {%>
+                      <%# if(roleAuth.permission.includes('coupon-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
-                      <% } %>
+                      <%# } %>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Thời gian bắt đầu
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Thời gian kết thúc
+                      </th>
+                      <th class="bg-primary-subtle text-primary text-decoration-underline">
+                        Hạn sử dụng
+                      </th>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Vị trí
                       </th>
@@ -126,71 +129,40 @@
                     </thead>
 
                     <tbody class="content-font">
-                      <% productList.forEach((product, index) => { %>
-                      <tr title="<%= product.title %>">
+                      <% couponList.forEach((coupon, index) => { %>
+                      <tr>
                         <td>
                           <input
                             type="checkbox"
                             name="checkid"
-                            value="<%= product._id %>"
+                            value="<%= coupon._id %>"
                             class="me-5"
                           />
                           <%= index + 1 %>
                         </td>
                         <td>
-                          <img
-                            src="<%= product.thumbnail %>"
-                            alt="<%= product.title %>"
-                            width="100px"
-                          />
+                          <div class="text-wrap fw-bold"><%= coupon.code %></div>
                         </td>
-                        <td><%= product.title %></td>
                         <td>
-                          <b class="fw-bold" style="color: var(--error-color-admin)"
-                            ><i
-                              ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-                              'VND' }).format(Number.parseFloat(product.price - (product.price / 100
-                              * product.discount))) %>
-                            </i>
-                          </b>
-                          <span class="text-decoration-line-through"
-                            ><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                            }).format(product.price) %>
+                          <div class="fw-bold" style="color: var(--primary-color-admin)">
+                            <% if(coupon.valueType === 'percent') { %> <%= coupon.value %>% <% }
+                            else { %> <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
+                            currency: 'VND' }).format(coupon.value) %> <% } %>
+                          </div>
+                        </td>
+                        <td>
+                          Cho đơn hàng từ
+                          <span class="fw-bold">
+                            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
+                            }).format(coupon.minAmount) %>
                           </span>
                         </td>
+                        <%# if(roleAuth.permission.includes('coupon-change-status')) {%>
                         <td>
-                          <p>
-                            <i class="fa-solid fa-user me-1"></i><%= product.accountFullNameCreate%>
-                          </p>
-                          <% if(product.accountFullNameCreate) { %>
-                          <p>
-                            <i class="fa-solid fa-clock me-1"></i><%=
-                            moment(product.createdBy.createdAt).format('DD/MM/YYYY - h:mm:ss')%>
-                          </p>
-                          <% } else { %>
-                          <p>Không tìm thấy</p>
-                          <% } %>
-                        </td>
-                        <td>
-                          <% let updatedBy = product.updatedBy.slice(-1)[0] %> <% if(updatedBy) { %>
-                          <p>
-                            <i class="fa-solid fa-user me-1"></i><%= updatedBy.accountFullNameUpdate
-                            %>
-                          </p>
-                          <p>
-                            <i class="fa-solid fa-clock me-1"></i><%=
-                            moment(updatedBy.updatedAt).format('DD/MM/YYYY - h:mm:ss')%>
-                          </p>
-                          <% } else { %>
-                          <p>Không tìm thấy</p>
-                          <% } %>
-                        </td>
-                        <% if(roleAuth.permission.includes('product-change-status')) {%>
-                        <td>
-                          <% if(product.status === 'active') {%>
+                          <% if(coupon.status === 'active') {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= product._id %>"
+                            data-id="<%#= coupon._id %>"
                             data-status="active"
                             change-status
                             class="badge"
@@ -201,7 +173,7 @@
                           <% } else {%>
                           <a
                             href="javascript:;"
-                            data-id="<%= product._id %>"
+                            data-id="<%= coupon._id %>"
                             data-status="inactive"
                             change-status
                             class="badge"
@@ -211,36 +183,60 @@
                           </a>
                           <% } %>
                         </td>
-                        <% } %>
-                        <td><%= product.position %></td>
+                        <%# } %>
                         <td>
-                          <% if(roleAuth.permission.includes('product-update')) {%>
+                          <i class="fa-solid fa-clock me-1"></i>
+                          <%= moment(coupon.startedAt).tz(timezone).format('DD/MM/YYYY HH:mm') %>
+                        </td>
+                        <td>
+                          <i class="fa-solid fa-clock me-1"></i>
+                          <%= moment(coupon.endedAt).tz(timezone).format('DD/MM/YYYY HH:mm') %>
+                        </td>
+                        <td>
+                          <% if (moment(Date.now()).tz(timezone).isBefore(coupon.startedAt)) { %>
+                          <span class="badge" style="background: var(--info-color-admin)">
+                            Chưa sử dụng
+                          </span>
+                          <% } else if (moment(Date.now()).tz(timezone).isAfter(coupon.expiredAt)) {
+                          %>
+                          <span class="badge" style="background: var(--error-color-admin)">
+                            Đã hết hạn
+                          </span>
+                          <% } else { %>
+                          <span class="badge" style="background: var(--success-color-admin)">
+                            Đang sử dụng
+                          </span>
+                          <% } %>
+                        </td>
+                        <td><%= coupon.position %></td>
+                        <td>
+                          <%# if(roleAuth.permission.includes('coupon-update')) {%>
                           <a
-                            href="<%= prefixAdmin %>/products/update/<%= product._id %>"
-                            data-id="<%= product._id %>"
+                            href="<%= prefixAdmin %>/coupons/update/<%= coupon._id %>"
+                            data-id="<%= coupon._id %>"
                             class="btn btn-primary btn-sm mb-1 btn-update"
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <% } %>
+                          <%# } %>
                           <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-sort-delete')) {%>
+                          <%# if(roleAuth.permission.includes('coupon-sort-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
-                            data-id="<%= product._id %>"
+                            data-id="<%= coupon._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
-                          <% } %>
+                          <%# } %>
                           <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-view')) {%>
+                          <%# if(roleAuth.permission.includes('coupon-view')) {%>
                           <a
-                            href="<%= prefixAdmin %>/products/detail/<%= product._id %>"
+                            href="<%= prefixAdmin %>/products/detail/<%= coupon._id %>"
                             class="btn btn-outline-black text-black border-black btn-sm mb-1 ml-1 btn-detail"
                           >
                             Chi tiết<i class="bi bi-arrow-right-short ml-1"></i>
                           </a>
-                          <% } %>
+                          <%# } %>
                         </td>
                       </tr>
                       <% }); %>
@@ -255,30 +251,30 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-9 col-md-9 col-12">
-              <%-include("../../partials/pagination.view.ejs") %>
+              <%#-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
-              <a href="<%= prefixAdmin %>/products/garbage" class="btn btn-primary w-100 float-end"
+              <a href="<%#= prefixAdmin %>/products/garbage" class="btn btn-primary w-100 float-end"
                 ><i class="bi bi-trash me-2"></i>Thùng rác
               </a>
             </div>
           </div>
         </div>
 
-        <% } %>
+        <%# } %>
       </div>
     </div>
 
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
-      action="<%= prefixAdmin %>/products"
+      action="<%#= prefixAdmin %>/products"
       method="POST"
       class="d-none"
       form-change-status
     ></form>
 
-    <form action="<%= prefixAdmin %>/products" method="POST" class="d-none" form-delete></form>
+    <form action="<%#= prefixAdmin %>/products" method="POST" class="d-none" form-delete></form>
 
     <%# Script File %>
     <script src="/admin/scripts/sidebarToggle.js"></script>
