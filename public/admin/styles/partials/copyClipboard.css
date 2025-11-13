@@ -1,0 +1,20 @@
+.btn-copy.copied {
+  position: relative;
+  background: var(--light-primary-color-admin);
+  border-color: var(--primary-color-admin);
+  color: var(--primary-color-admin);
+}
+.btn-copy.copied::after {
+  content: 'Copied';
+  position: absolute;
+  bottom: 90%;
+  left: 90%;
+  background: var(--light-primary-color-admin);
+  font-family: var(--primary-font-family);
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--primary-color-admin);
+  font-size: var(--content-font-size);
+  color: var(--primary-color-admin);
+}

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/admin/styles/partials/alert.css" />
     <link rel="stylesheet" href="/admin/styles/partials/header.css" />
     <link rel="stylesheet" href="/admin/styles/partials/sider.css" />
+    <link rel="stylesheet" href="/admin/styles/partials/copyClipboard.css">
     <link rel="stylesheet" href="/admin/styles/partials/footer.css" />
   </head>
   <body>
@@ -133,7 +134,12 @@
                       <% if (orderList && orderList.length > 0) { %> <% orderList.forEach((order,
                       index) => { %>
                       <tr>
-                        <td class="fw-bold"><%= order.orderCode %></td>
+                        <td class="fw-bold">
+                          <div class="d-flex align-items-center gap-1">
+                            <i class="fa-regular fa-copy me-1 btn btn-light btn-copy" data-id="<%= order._id %>" btn-copy></i>
+                            <div class="text-wrap fw-bold text-copy" data-id="<%= order._id %>" text-copy><%= order.orderCode %></div>
+                          </div>
+                        </td>
                         <td>
                           <div class="text-wrap"><i class="fa-solid fa-user me-1"></i><%= order.userOrderInfo.fullname %></div>
                           <div class="text-wrap"><i class="fa-solid fa-envelope me-1"></i><%= order.userOrderInfo.email %></div>
@@ -356,6 +362,7 @@
     <script src="/admin/scripts/pagination.js"></script>
     <script src="/admin/scripts/delete.js"></script>
     <script src="/admin/scripts/changeStatusSelect.js"></script>
+    <script src="/admin/scripts/copyClipboard.js"></script>
     <script src="/admin/scripts/order/statisticByQuarter.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
