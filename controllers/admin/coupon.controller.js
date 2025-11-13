@@ -226,6 +226,88 @@ const changeStatusCoupon = async (req, res) => {
   }
 };
 
+// PATCH: /admin/coupons/change-multi?_method=PATCH
+const changeMultiCoupon = async (req, res) => {
+  try {
+    if (req.body.type && req.body.ids) {
+      const { type, ids } = req.body;
+      const idsArr = ids.split(', ');
+
+      switch (type) {
+        case 'active': {
+          try {
+            await couponModel.updateMany({ _id: { $in: idsArr } }, { $set: { status: 'active' } });
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'inactive': {
+          try {
+            await couponModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { status: 'inactive' } }
+            );
+            alertMessageHelper(req, 'alertSuccess', `Cập nhật trạng thái thành công`);
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'soft-delete': {
+          try {
+            await couponModel.updateMany(
+              { _id: { $in: idsArr } },
+              { $set: { deleted: true, deletedAt: new Date() } }
+            );
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'restore': {
+          try {
+            await couponModel.updateMany({ _id: { $in: idsArr } }, { $set: { deleted: false } });
+            alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        case 'hard-delete': {
+          try {
+            await couponModel.deleteMany({ _id: { $in: idsArr } });
+            alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+          } catch (err) {
+            alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+          } finally {
+            res.redirect('back');
+            break;
+          }
+        }
+        default:
+          break;
+      }
+    } else {
+      res.redirect('back');
+    }
+  } catch (err) {
+    console.log('Change multi status fail: ', err);
+    alertMessageHelper(req, 'alertFailure', 'Thay đổi thất bại');
+    res.redirect('back');
+  }
+};
+
 // PATCH: /admin/coupons/delete/:id?_method=PATCH
 const deleteCoupon = async (req, res) => {
   try {
@@ -256,6 +338,7 @@ const couponController = {
   updateCouponGet,
   updateCouponPatch,
   changeStatusCoupon,
+  changeMultiCoupon,
   deleteCoupon,
 };
 
