@@ -32,7 +32,10 @@ const createProductValidate = (req, res, next) => {
   }
 
   // Check discount expired at
-  if (req.body.discountExpiredAt <= moment(Date.now()).tz(timezone).format('YYYY-MM-DD')) {
+  if (
+    moment(req.body.discountExpiredAt).tz(timezone).format('YYYY-MM-DDTHH:mm') <=
+    moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm')
+  ) {
     alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
     res.redirect('back');
     return;
