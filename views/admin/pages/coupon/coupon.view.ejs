@@ -26,7 +26,7 @@
       <%-include("../../partials/sider.view.ejs") %>
 
       <div class="main">
-        <%#-include("../../partials/alertMessage.view.ejs") %> <%#
+        <%-include("../../partials/alertMessage.view.ejs") %> <%
         if(roleAuth.permission.includes('coupon-view')) { %>
 
         <div class="row gap-md-0 gap-2 justify-content-between">
@@ -71,14 +71,14 @@
                   'position-desc', 'code-asc', 'code-desc', 'startedAt-asc', 'startedAt-desc', 'endedAt-asc', 'endedAt-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <%# if(roleAuth.permission.includes('coupon-add')) {%>
+                  <% if(roleAuth.permission.includes('coupon-add')) {%>
                   <a
                     href="<%= prefixAdmin %>/coupons/create"
                     class="btn btn-primary w-100 float-end"
                   >
                     <i class="bi bi-plus-lg me-1"></i>Thêm mới mã giảm giá
                   </a>
-                  <%# } %>
+                  <% } %>
                 </div>
               </div>
             </div>
@@ -103,11 +103,11 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Áp dụng
                       </th>
-                      <%# if(roleAuth.permission.includes('coupon-change-status')) {%>
+                      <% if(roleAuth.permission.includes('coupon-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
-                      <%# } %>
+                      <% } %>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Thời gian bắt đầu
                       </th>
@@ -157,12 +157,12 @@
                             }).format(coupon.minAmount) %>
                           </span>
                         </td>
-                        <%# if(roleAuth.permission.includes('coupon-change-status')) {%>
+                        <% if(roleAuth.permission.includes('coupon-change-status')) {%>
                         <td>
                           <% if(coupon.status === 'active') {%>
                           <a
                             href="javascript:;"
-                            data-id="<%#= coupon._id %>"
+                            data-id="<%= coupon._id %>"
                             data-status="active"
                             change-status
                             class="badge"
@@ -183,7 +183,7 @@
                           </a>
                           <% } %>
                         </td>
-                        <%# } %>
+                        <% } %>
                         <td>
                           <i class="fa-solid fa-clock me-1"></i>
                           <%= moment(coupon.startedAt).tz(timezone).format('DD/MM/YYYY HH:mm') %>
@@ -255,7 +255,7 @@
                         </td>
                         <td><%= coupon.position %></td>
                         <td>
-                          <%# if(roleAuth.permission.includes('coupon-update')) {%>
+                          <% if(roleAuth.permission.includes('coupon-update')) {%>
                           <a
                             href="<%= prefixAdmin %>/coupons/update/<%= coupon._id %>"
                             data-id="<%= coupon._id %>"
@@ -263,25 +263,16 @@
                           >
                             <i class="bi bi-pencil-square me-1"></i>Sửa
                           </a>
-                          <%# } %>
+                          <% } %>
                           <%#--------------------------------------------------------------------------------%>
-                          <%# if(roleAuth.permission.includes('coupon-sort-delete')) {%>
+                          <% if(roleAuth.permission.includes('coupon-sort-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
                             data-id="<%= coupon._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
-                          <%# } %>
-                          <%#--------------------------------------------------------------------------------%>
-                          <%# if(roleAuth.permission.includes('coupon-view')) {%>
-                          <a
-                            href="<%= prefixAdmin %>/products/detail/<%= coupon._id %>"
-                            class="btn btn-outline-black text-black border-black btn-sm mb-1 ml-1 btn-detail"
-                          >
-                            Chi tiết<i class="bi bi-arrow-right-short ml-1"></i>
-                          </a>
-                          <%# } %>
+                          <% } %>
                         </td>
                       </tr>
                       <% }); %>
@@ -299,27 +290,26 @@
               <%-include("../../partials/pagination.view.ejs") %>
             </div>
             <div class="col-lg-3 col-md-3 col-12">
-              <a href="<%#= prefixAdmin %>/products/garbage" class="btn btn-primary w-100 float-end"
+              <a href="<%= prefixAdmin %>/coupons/garbage" class="btn btn-primary w-100 float-end"
                 ><i class="bi bi-trash me-2"></i>Thùng rác
               </a>
             </div>
           </div>
         </div>
-
-        <%# } %>
+        <% } %>
       </div>
     </div>
 
     <%-include("../../partials/footer.view.ejs") %>
 
     <form
-      action="<%#= prefixAdmin %>/products"
+      action="<%= prefixAdmin %>/coupons"
       method="POST"
       class="d-none"
       form-change-status
     ></form>
 
-    <form action="<%#= prefixAdmin %>/products" method="POST" class="d-none" form-delete></form>
+    <form action="<%= prefixAdmin %>/coupons" method="POST" class="d-none" form-delete></form>
 
     <%# Script File %>
     <script src="/admin/scripts/sidebarToggle.js"></script>
