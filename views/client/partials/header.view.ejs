@@ -1,4 +1,4 @@
-<!-- Top Header -->
+<%# Top Header %>
 <div class="top-header">
   <div class="container">
     <div class="row">
@@ -16,9 +16,7 @@
     </div>
   </div>
 </div>
-<!-- End Top Header -->
-
-<!-- Header -->
+<%# End Top Header %> <%# Header %>
 <header class="header">
   <div class="container">
     <div class="row">
@@ -48,6 +46,7 @@
 
       <div class="col-lg-4 col-12 header-others">
         <div class="header-others-box mt-2">
+          <%# Mini Cart %>
           <div class="header-others-cart">
             <i class="bi bi-bag-check-fill"></i>
             <% if(miniCart) { %>
@@ -63,7 +62,7 @@
                 (<%= miniCart ? miniCart.totalQuantityOrder : 0 %>)
               </h4>
               <% if(miniCart.productListCart.length <= 0) { %>
-              <div class="my-2 text-center header-others-cart-empty">
+              <div class="content-font my-2 text-center header-others-cart-empty">
                 Ko có đơn hàng nào trong giỏ hàng.
                 <a href="/products">Mua ngay</a>
               </div>
@@ -131,18 +130,22 @@
                 class="button-secondary text-center text-decoration-none header-others-cart-button"
                 >Đi Tới Giỏ Hàng</a
               >
+              <% if(miniCart.productListCart.length > 0) { %>
               <a
                 href="/payment"
                 class="button-primary text-center text-decoration-none header-others-cart-button"
                 >Tiến hành thanh toán</a
               >
+              <% } %>
             </div>
           </div>
 
+          <%# Notification %>
           <div class="header-others-notice">
             <i class="fa-solid fa-bell"></i>
           </div>
 
+          <%# Auth %>
           <div class="header-others-auth">
             <div class="auth-avatar">
               <% if(user) { %>
@@ -193,9 +196,7 @@
     </div>
   </div>
 </header>
-<!-- End Header -->
-
-<!-- Nav -->
+<%# End Header %> <%# Nav %>
 <nav class="shadow navheader">
   <div class="container">
     <div class="row">
@@ -265,4 +266,4 @@
     </div>
   </div>
 </nav>
-<!-- End Nav -->
+<%# End Nav %>

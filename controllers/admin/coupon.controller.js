@@ -33,10 +33,9 @@ const coupon = async (req, res) => {
       { name: 'Đang sử dụng', class: '', status: 'using' },
       { name: 'Đã hết hạn', class: '', status: 'expired' },
     ];
-
     const currentDate = moment().tz(timezone).format('YYYY-MM-DD HH:mm');
     const activeExpire = expireFilterHelper(req.query, expireList);
-    console.log(activeExpire);
+
     if (req.query.expire === 'release') {
       find.startedAt = { $gt: currentDate };
       find.published = false;

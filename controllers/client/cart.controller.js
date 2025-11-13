@@ -25,7 +25,7 @@ const cart = async (req, res) => {
     if (cart.products.length > 0) {
       for (let i = 0; i < cart.products.length; i++) {
         const product = await productModel
-          .findById(cart.products[i].product_id)
+          .findOne({ _id: cart.products[i].product_id, deleted: false, status: 'active' })
           .select('title thumbnail price slug discount stock brand_id');
 
         if (product) {
@@ -40,10 +40,11 @@ const cart = async (req, res) => {
           const idProductBrand = product.brand_id;
           if (!productBrandCartList.includes(idProductBrand))
             productBrandCartList.push(idProductBrand);
+        } else {
+          cart.products.splice(i, 1);
+          await cart.save();
         }
       }
-
-      console.log(productBrandCartList);
 
       cart.totalPrice =
         Number.parseFloat(
@@ -140,7 +141,17 @@ const addProductToCart = async (req, res) => {
       cartId = cart._id;
     }
 
-    const product = await productModel.findById(productId);
+    const product = await productModel.findOne({
+      _id: productId,
+      deleted: false,
+      status: 'active',
+    });
+
+    if (!product) {
+      alertMessageHelper(req, 'alertFailure', 'Sản phẩm đã bị xóa / ngừng hoạt động');
+      res.redirect('back');
+      return;
+    }
 
     if (product.stock <= 0) {
       alertMessageHelper(req, 'alertFailure', 'Đã hết hàng trong kho');
@@ -182,7 +193,19 @@ const deleteProductInCart = async (req, res) => {
     const productId = req.params.productId;
     const cartId = req.cookies.cartId;
 
-    await cartModel.findByIdAndUpdate(cartId, { $pull: { products: { product_id: productId } } });
+    const product = await productModel.findOne({
+      _id: productId,
+      deleted: false,
+      status: 'active',
+    });
+
+    if (!product) {
+      alertMessageHelper(req, 'alertFailure', 'Sản phẩm đã bị xóa / ngừng hoạt động');
+      res.redirect('back');
+      return;
+    }
+
+    await cartModel.findByIdAndUpdate(cartId, { $pull: { products: { product_id: product._id } } });
     alertMessageHelper(req, 'alertSuccess', 'Đã xóa sản phẩm khỏi giỏ hàng');
     res.redirect('back');
     return;
