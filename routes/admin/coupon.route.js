@@ -13,5 +13,6 @@ couponRoute.patch(
   couponValidate.updateCouponValidate,
   couponController.updateCouponPatch
 );
+couponRoute.patch('/delete/:id', couponController.deleteCoupon);
 
 export default couponRoute;

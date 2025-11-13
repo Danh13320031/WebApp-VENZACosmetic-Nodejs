@@ -185,11 +185,34 @@ const updateCouponPatch = async (req, res) => {
     if (req.body.limitPerUser) req.body.limitPerUser = Number.parseInt(req.body.limitPerUser);
 
     await couponModel.findByIdAndUpdate(id, req.body);
-    alertMessageHelper(req, 'alertSuccess', 'Cập nhật thông tin');
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật thành công');
     res.redirect('back');
   } catch (error) {
     console.log('Update coupon fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
+// PATCH: /admin/coupons/delete/:id?_method=PATCH
+const deleteCoupon = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await couponModel.findByIdAndUpdate(id, { deleted: true });
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete coupon fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
     res.redirect('back');
     return;
   }
@@ -201,6 +224,7 @@ const couponController = {
   createCouponPost,
   updateCouponGet,
   updateCouponPatch,
+  deleteCoupon,
 };
 
 export default couponController;
