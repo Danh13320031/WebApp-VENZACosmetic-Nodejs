@@ -56,7 +56,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50%;
+  width: 500px;
+  max-width: 90%;
   transform: translate(-50%, -50%);
 }
 
@@ -73,6 +74,11 @@
 .product-info-button .product-info-quantity {
   color: var(--dark-gray-color);
   border-color: var(--primary-color) !important;
+}
+
+.product-format-detail-content img {
+  width: 500px;
+  max-width: 100%;
 }
 
 /* Product Card */

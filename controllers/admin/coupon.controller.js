@@ -195,6 +195,37 @@ const updateCouponPatch = async (req, res) => {
   }
 };
 
+// PATCH: /admin/coupons/change-status/:status/:id?_method=PATCH
+const changeStatusCoupon = async (req, res) => {
+  try {
+    const { id, status } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    const find = { _id: id, deleted: false };
+    const coupon = await couponModel.findOne(find);
+
+    if (!coupon) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await couponModel.findByIdAndUpdate(id, { status: status });
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật trạng thái thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Update coupon fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật trạng thái thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/coupons/delete/:id?_method=PATCH
 const deleteCoupon = async (req, res) => {
   try {
@@ -224,6 +255,7 @@ const couponController = {
   createCouponPost,
   updateCouponGet,
   updateCouponPatch,
+  changeStatusCoupon,
   deleteCoupon,
 };
 
