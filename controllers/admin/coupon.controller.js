@@ -308,6 +308,37 @@ const changeMultiCoupon = async (req, res) => {
   }
 };
 
+// PATCH: /admin/coupons/change-user-scope/:publishType/:id?_method=PATCH
+const changeUserScopeCoupon = async (req, res) => {
+  try {
+    const { id, publishType } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    const find = { _id: id, deleted: false };
+    const coupon = await couponModel.findOne(find);
+
+    if (!coupon) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await couponModel.findByIdAndUpdate(id, { publishType: publishType });
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật	thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Change user scope fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 // PATCH: /admin/coupons/delete/:id?_method=PATCH
 const deleteCoupon = async (req, res) => {
   try {
@@ -339,6 +370,7 @@ const couponController = {
   updateCouponPatch,
   changeStatusCoupon,
   changeMultiCoupon,
+  changeUserScopeCoupon,
   deleteCoupon,
 };
 

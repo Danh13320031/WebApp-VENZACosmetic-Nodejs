@@ -312,7 +312,7 @@
       class="d-none"
       form-change-status
     ></form>
-
+    <form action="<%= prefixAdmin %>/coupons/change-user-scope" method="POST" class="d-none" form-coupon-change-scope-select></form>
     <form action="<%= prefixAdmin %>/coupons" method="POST" class="d-none" form-delete></form>
 
     <%# Script File %>
@@ -325,6 +325,7 @@
     <script src="/admin/scripts/displayModalConfirm.js"></script>
     <script src="/admin/scripts/changeStatus.js"></script>
     <script src="/admin/scripts/delete.js"></script>
+    <script src="/admin/scripts/changeStatusSelect.js"></script>
     <script src="/admin/scripts/changeMulti.js"></script>
     <script src="/admin/scripts/copyClipboard.js"></script>
     <script src="/admin/scripts/sort.js"></script>
