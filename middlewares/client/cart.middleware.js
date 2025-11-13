@@ -10,7 +10,7 @@ const cartStorage = async (req, res, next) => {
 
     if (userId) {
       cart = await cartModel.findOne({ user_id: userId });
-      
+
       if (!cart) {
         cart = new cartModel({ user_id: userId, products: [] });
         await cart.save();
@@ -30,25 +30,33 @@ const cartStorage = async (req, res, next) => {
       }
     }
 
-    const totalQuantityProduct = cart.products.reduce(
-      (total, product) => total + product.quantity,
-      0
-    );
-    const totalQuantityOrder = cart.products.length;
-
     let productListCart = [];
     let totalPriceCart = 0;
 
     for (let i = 0; i < cart.products.length; i++) {
-      const product = await productModel.findById(cart.products[i].product_id);
+      const product = await productModel.findOne({
+        _id: cart.products[i].product_id,
+        deleted: false,
+        status: 'active',
+      });
+
       if (product) {
         const productData = product.toObject();
         productData.quantity = cart.products[i].quantity;
         productListCart.push(productData);
         totalPriceCart +=
           (product.price - (product.price * product.discount) / 100) * cart.products[i].quantity;
+      } else {
+        cart.products.splice(i, 1);
+        await cart.save();
       }
     }
+
+    const totalQuantityProduct = cart.products.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+    const totalQuantityOrder = cart.products.length;
 
     cart.totalQuantityProduct = totalQuantityProduct;
     cart.totalQuantityOrder = totalQuantityOrder;

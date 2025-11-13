@@ -24,7 +24,17 @@ const payment = async (req, res) => {
     // Handle check product stock
     if (cart && cart.products.length > 0) {
       for (const prd of cart.products) {
-        const product = await productModel.findById(prd.product_id);
+        const product = await productModel.findOne({
+          _id: prd.product_id,
+          deleted: false,
+          status: 'active',
+        });
+
+        if (!product) {
+          alertMessageHelper(req, 'alertFailure', 'Sản phẩm ngừng hoạt động');
+          res.redirect('back');
+          return;
+        }
 
         if (product && product.stock <= 0) {
           alertMessageHelper(req, 'alertFailure', `Sản phẩm ${product.title} đã hết hàng`);
@@ -99,8 +109,13 @@ const createOfflinePayment = async (req, res) => {
         };
 
         const product = await productModel
-          .findById(cart.products[i].product_id)
+          .findOne({ _id: cart.products[i].product_id, deleted: false, status: 'active' })
           .select('title thumbnail price discount stock');
+
+        if (!product) {
+          res.redirect('/payment/payment-fail');
+          return;
+        }
 
         productInfo.title = product.title;
         productInfo.thumbnail = product.thumbnail;

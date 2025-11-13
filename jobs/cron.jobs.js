@@ -23,8 +23,8 @@ const checkDiscountTimeJob = (discountScheduleCheck) => {
 
       const result = await productModel.updateMany(find, { $set: { discount: 0 } });
       if (result.modifiedCount > 0)
-        console.log(`\nĐã có ${result.modifiedCount} sản phẩm hết hạn giảm giá`);
-      else console.log('\nKhông có sản phẩm hết hạn giảm giá');
+        console.log(`\n--- Đã có ${result.modifiedCount} sản phẩm hết hạn giảm giá`);
+      else console.log('\n--- Không có sản phẩm hết hạn giảm giá');
     } catch (error) {
       console.log('Check discount time fail: ', error);
     }
@@ -51,8 +51,8 @@ const checkPostTimeJob = (postScheduleCheck) => {
       const result = await postModel.updateMany(find, { $set: { published: true } });
 
       if (result.modifiedCount > 0)
-        console.log(`Đã có ${result.modifiedCount} bài viết được xuất bản`);
-      else console.log('Không có bài viết được xuất bản');
+        console.log(`\n--- Đã có ${result.modifiedCount} bài viết được xuất bản`);
+      else console.log('\n--- Không có bài viết được xuất bản');
     } catch (error) {
       console.log('Check post time fail: ', error);
     }
@@ -82,8 +82,8 @@ const checkCouponTimeJob = (couponScheduleCheck) => {
       const startResult = await couponModel.updateMany(startFind, { $set: { published: true } });
 
       if (startResult.modifiedCount > 0)
-        console.log(`Đã có ${startResult.modifiedCount} mã giảm giá được phát hành`);
-      else console.log('Không có mã giảm giá nào được phát hành');
+        console.log(`\n--- Đã có ${startResult.modifiedCount} mã giảm giá được phát hành`);
+      else console.log('\n--- Không có mã giảm giá nào được phát hành');
 
       const endFind = {
         deleted: false,
@@ -95,8 +95,8 @@ const checkCouponTimeJob = (couponScheduleCheck) => {
       const endResult = await couponModel.updateMany(endFind, { $set: { published: false } });
 
       if (endResult.modifiedCount > 0)
-        console.log(`Đã có ${endResult.modifiedCount} mã giảm giá hết hạn`);
-      else console.log('Không có mã giảm giá nào hết hạn');
+        console.log(`--- Đã có ${endResult.modifiedCount} mã giảm giá hết hạn`);
+      else console.log('--- Không có mã giảm giá nào hết hạn');
     } catch (error) {
       console.log('Check coupon time fail: ', error);
     }

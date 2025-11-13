@@ -27,7 +27,7 @@
 
       <div class="main">
         <%-include("../../partials/alertMessage.view.ejs") %> <%
-        if(roleAuth.permission.includes('product-view')) { %>
+        if(roleAuth.permission.includes('post-view')) { %>
 
         <div class="row gap-md-0 gap-2 justify-content-between">
           <div class="col-lg-8 col-md-4 col-12">
@@ -69,7 +69,7 @@
                   'position-desc', 'title-asc', 'title-desc']}) %>
                 </div>
                 <div class="col-lg-4 col-12">
-                  <% if(roleAuth.permission.includes('product-add')) {%>
+                  <% if(roleAuth.permission.includes('post-add')) {%>
                   <a href="<%= prefixAdmin %>/posts/create" class="btn btn-primary w-100 float-end">
                     <i class="bi bi-plus-lg me-1"></i>Thêm mới bài viết
                   </a>
@@ -103,7 +103,7 @@
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Tác giả
                       </th>
-                      <% if(roleAuth.permission.includes('product-change-status')) {%>
+                      <% if(roleAuth.permission.includes('post-change-status')) {%>
                       <th class="bg-primary-subtle text-primary text-decoration-underline">
                         Trạng thái
                       </th>
@@ -150,7 +150,7 @@
                           <i class="fa-solid fa-user me-1"></i><%= post.author ? post.author :
                           'Không tìm thấy' %>
                         </td>
-                        <% if(roleAuth.permission.includes('product-change-status')) {%>
+                        <% if(roleAuth.permission.includes('post-change-status')) {%>
                         <td>
                           <% if(post.status === 'active') {%>
                           <a
@@ -176,7 +176,7 @@
                           </a>
                           <% } %>
                         </td>
-                        <% } %> <% if(roleAuth.permission.includes('product-change-status')) {%>
+                        <% } %> <% if(roleAuth.permission.includes('post-change-status')) {%>
                         <td>
                           <% if(post.published === true) {%>
                           <span class="badge" style="background: var(--info-color-admin)">
@@ -191,7 +191,7 @@
                         <% } %>
                         <td><%= post.position %></td>
                         <td>
-                          <% if(roleAuth.permission.includes('product-update')) {%>
+                          <% if(roleAuth.permission.includes('post-update')) {%>
                           <a
                             href="<%= prefixAdmin %>/posts/update/<%= post._id %>"
                             data-id="<%= post._id %>"
@@ -201,22 +201,13 @@
                           </a>
                           <% } %>
                           <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-sort-delete')) {%>
+                          <% if(roleAuth.permission.includes('post-sort-delete')) {%>
                           <button
                             class="btn btn-danger btn-sm mb-1 ml-1 btn-delete"
                             data-id="<%= post._id %>"
                           >
                             <i class="bi bi-trash3 me-1"></i>Xóa
                           </button>
-                          <% } %>
-                          <%#--------------------------------------------------------------------------------%>
-                          <% if(roleAuth.permission.includes('product-view')) {%>
-                          <a
-                            href="<%= prefixAdmin %>/posts/detail/<%= post._id %>"
-                            class="btn btn-outline-black text-black border-black btn-sm mb-1 ml-1 btn-detail"
-                          >
-                            Chi tiết<i class="bi bi-arrow-right-short ml-1"></i>
-                          </a>
                           <% } %>
                         </td>
                       </tr>

@@ -28,9 +28,9 @@ export const timezone = 'Asia/Ho_Chi_Minh';
 export const notFoundPage = '/error/404';
 
 // cron jobs
-export const checkDiscountConst = '* * * * *';
-export const checkPostConst = '* * * * *';
-export const checkCouponConst = '* * * * *';
+export const checkDiscountConst = '*/10 * * * * *';
+export const checkPostConst = '*/10 * * * * *';
+export const checkCouponConst = '*/10 * * * * *';
 
 // Coupon
 export const couponCodePrefixRule = {
