@@ -497,12 +497,26 @@ const deleteOrder = async (req, res) => {
 const garbageOrder = async (req, res) => {
   const find = { deleted: true };
 
+  // Search
+  const objSearch = searchHelper(req.query);
+  if (objSearch.rexKeywordString) find.orderCode = objSearch.rexKeywordString;
+
+  // Pagination
+  const paginationObj = {
+    limit: 8,
+    currentPage: 1,
+  };
+  const productTotal = await orderModel.countDocuments(find);
+  const objPagination = paginationHelper(req.query, paginationObj, productTotal);
+
   const orderList = await orderModel.find(find).sort({ deletedAt: 'desc' });
 
   res.render('./admin/pages/order/garbage.view.ejs', {
     pageTitle: 'Thùng rác đơn hàng',
     orderList,
     statusList: [],
+    keyword: objSearch.keyword,
+    objPagination: objPagination,
   });
 };
 

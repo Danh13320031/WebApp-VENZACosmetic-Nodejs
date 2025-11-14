@@ -362,6 +362,101 @@ const deleteCoupon = async (req, res) => {
   }
 };
 
+// GET: /admin/coupons/garbage
+const garbageCoupon = async (req, res) => {
+  try {
+    const find = { deleted: true };
+
+    // Status Filter
+    const statusList = [
+      { name: 'Tất cả', class: '', status: '' },
+      { name: 'Hoạt động', class: '', status: 'active' },
+      { name: 'Ngừng hoạt động', class: '', status: 'inactive' },
+    ];
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.code = objSearch.rexKeywordString;
+
+    // Pagination
+    const paginationObj = {
+      limit: 8,
+      currentPage: 1,
+    };
+    const couponTotal = await couponModel.countDocuments(find);
+    const objPagination = paginationHelper(req.query, paginationObj, couponTotal);
+
+    const couponList = await couponModel
+      .find(find)
+      .sort({ createdAt: 'desc' })
+      .skip(objPagination.productSkip)
+      .limit(objPagination.limit);
+
+    res.render(
+      './admin/pages/coupon/garbage.view.ejs',
+      {
+        pageTitle: 'Thùng rác mã giảm giá',
+        couponList,
+        statusList,
+        keyword: objSearch.keyword,
+        objPagination,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// PATCH: /admin/coupons/restore-garbage/:id?_method=PATCH
+const restoreGarbageCoupon = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await couponModel.findByIdAndUpdate(id, { deleted: false });
+
+    alertMessageHelper(req, 'alertSuccess', 'Khôi phục thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Restore product fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Khôi phục thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
+// DELETE: /admin/coupons/delete-garbage/:id?_method=DELETE
+const deleteGarbageCoupon = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      res.redirect(notFoundPage);
+      return;
+    }
+
+    await couponModel.findByIdAndDelete(id);
+
+    alertMessageHelper(req, 'alertSuccess', 'Xóa thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    console.log('Delete garbage fail: ', error);
+    alertMessageHelper(req, 'alertFailure', 'Xóa thất bại');
+    res.redirect('back');
+    return;
+  }
+};
+
 const couponController = {
   coupon,
   createCouponGet,
@@ -372,6 +467,9 @@ const couponController = {
   changeMultiCoupon,
   changeUserScopeCoupon,
   deleteCoupon,
+  garbageCoupon,
+  restoreGarbageCoupon,
+  deleteGarbageCoupon,
 };
 
 export default couponController;

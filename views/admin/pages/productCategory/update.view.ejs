@@ -58,6 +58,7 @@
                   <label for="parent_id" class="fw-bold">Danh mục cha</label>
                   <select name="parent_id" id="parent_id" class="form-control">
                     <option disabled>-- Chọn danh mục cha --</option>
+                    <option value="">Không có danh mục cha</option>
                     <% if(categoryList.length > 0) {%>
                     <%-include("../../partials/selecttree.view.ejs", {categoryList, level: 1,
                     parent_id: category.parent_id}) %> <% } %>
