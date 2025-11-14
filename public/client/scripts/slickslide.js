@@ -1,5 +1,5 @@
 const productFlashSaleList = $('.card-flash-sale-slider');
-const productFlashSaleListLength = productFlashSaleList.attr('data-length');
+const productFlashSaleListLength = Number.parseInt(productFlashSaleList.attr('data-length'));
 
 $(document).ready(function () {
   $('.herobanner-slider').slick({
@@ -133,7 +133,7 @@ $(document).ready(function () {
   $('.card-flash-sale-slider').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: productFlashSaleListLength,
+    slidesToShow: productFlashSaleListLength > 5 ? 5 : productFlashSaleListLength,
     slidesToScroll: 1,
     autoplay: true,
     prevArrow:
