@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
+    <link rel="stylesheet" href="/client/styles/partials/copyClipboard.css" />
     <link rel="stylesheet" href="/client/styles/pages/cart/cart.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <!-- End Styles File -->
@@ -48,6 +49,79 @@
 
     <main class="main">
       <%-include('../../partials/breadcrumb.view.ejs', { pageTitle: pageTitle, pageUrl: pageUrl })%>
+
+      <%# Available Coupon List %>
+      <section class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center cart-coupon-list" id="cart-coupon-modal">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 cart-coupon-overlay" id="cart-coupon-overlay"></div>
+        <div class="position-absolute shadow d-flex flex-column justify-content-center align-items-center coupon-list-box">
+          <div class="coupon-list-modal">
+            <div class="title-font p-4 d-flex justify-content-between align-items-center rounded-top-2 bg-white border border-bottom-1 card-coupon-title">
+              Các mã giảm giá có thể sử dụng
+              <i class="button-icon-primary bi bi-x-lg" card-coupon-hide></i>
+            </div>
+            <ul class="d-flex flex-column gap-2 overflow-y-scroll bg-white p-4 rounded-bottom-2 coupon-list">
+            <% if(couponList && couponList.length > 0) { %>
+            <% couponList.forEach((coupon) => { %>
+              <li class="coupon-item">
+                <div class="card-bg-coupon">
+                <div
+                  class="w-100 h-100 border border-1 border-gray position-relative bg-white px-1 py-3 d-flex align-items-center card-content"
+                  style="filter: drop-shadow(1px 0px 0.5px black)"
+                >
+                  <div
+                    class="position-absolute h-100 top-0 start-0 translate-middle-x z-1 bg-white card-image-line"
+                  >
+                    <img
+                      src="/client/images/coupon/coupon-line-01.png"
+                      alt="coupon"
+                      height="100%"
+                      class="card-thumbnail"
+                      style="filter: drop-shadow(-1px 0px 0.5px black)"
+                    />
+                  </div>
+                  <div class="h-100 d-flex gap-2 align-items-center">
+                    <div
+                      class="h-100 d-flex align-items-center border border-right-1 border-left-0 border-top-0 border-bottom-0 card-value"
+                    >
+                      <div
+                        class="heading-font p-2 m-2 rounded-2 text-white"
+                        style="background-color: var(--dark-gray-color)"
+                      >
+                        -<%= coupon.valueType === 'amount' ? coupon.value / 1000 + 'K' :
+                        coupon.value + '%' %>
+                      </div>
+                    </div>
+                    <div class="card-info">
+                      <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <div
+                          class="content-font fw-bold text-copy card-code"
+                          data-id="<%= coupon._id %>" text-copy
+                        >
+                          <span style="color: var(--primary-color)"><%= coupon.code %></span>
+                          <i class="py-1 px-2 rounded-1 fa-regular fa-copy btn-copy" data-id="<%= coupon._id %>" btn-copy></i>
+                        </div>
+                      </div>
+                      <div class="content-font card-description">
+                        <span>
+                          <%= coupon.description %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </li>
+            <% }) %>
+            <% } else { %>
+              <li class="content-font d-flex align-items-center justify-content-center">
+                <i class="bi bi-emoji-frown me-1"></i>
+                Không có mã giảm giá
+              </li>
+            <% } %>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <section class="cart-list">
         <div class="container">
@@ -173,7 +247,8 @@
                     </div>
                     <button
                       type="button"
-                      class="button-primary w-100 text-center text-decoration-none cart-coupon-btn-link"
+                      class="button-primary w-100 text-center text-decoration-none cart-coupon-btn-show"
+                      card-coupon-show
                     >
                       Các mã giảm giá có thể sử dụng
                     </button>
@@ -340,8 +415,10 @@
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/copyClipboard.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
+    <script src="/client/scripts/cart/showCouponModal.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 

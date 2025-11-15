@@ -1,6 +1,7 @@
 import { maxAgeCartStorage, notFoundPage, productLimitConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
+import getCouponListHelper from '../../helpers/client/cart/getCouponList.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
@@ -94,6 +95,9 @@ const cart = async (req, res) => {
       });
     }
 
+    // Handle coupon list
+    const couponList = await getCouponListHelper(cart, productIdCartList, productBrandCartList);
+
     res.render(
       './client/pages/cart/cart.view.ejs',
       {
@@ -102,6 +106,7 @@ const cart = async (req, res) => {
         pageUrl: pageUrl,
         cart: cart,
         relatedProductList: relatedProductList,
+        couponList: couponList,
         objPagination: objPagination,
       },
       (err, html) => {
