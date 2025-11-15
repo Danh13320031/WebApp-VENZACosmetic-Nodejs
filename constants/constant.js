@@ -3,7 +3,7 @@ import 'dotenv/config';
 export const productLimitConst = 16;
 export const limitListAdminConst = 10;
 export const limitListClientConst = 16;
-export const productFlashSaleMsConst = 3 * 24 * 60 * 60 * 1000;
+export const productFlashSaleMsConst = 10 * 24 * 60 * 60 * 1000;
 
 export const saltRoundsConst = 10;
 export const verifyTokenExpiresIn = Number.parseInt(process.env.VERIFY_TOKEN_EXPIRES_IN);

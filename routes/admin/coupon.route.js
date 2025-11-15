@@ -15,7 +15,6 @@ couponRoute.patch(
 );
 couponRoute.patch('/change-status/:status/:id', couponController.changeStatusCoupon);
 couponRoute.patch('/change-multi', couponController.changeMultiCoupon);
-couponRoute.patch('/change-user-scope/:publishType/:id', couponController.changeUserScopeCoupon);
 couponRoute.patch('/delete/:id', couponController.deleteCoupon);
 couponRoute.get('/garbage', couponController.garbageCoupon);
 couponRoute.patch('/restore-garbage/:id', couponController.restoreGarbageCoupon);

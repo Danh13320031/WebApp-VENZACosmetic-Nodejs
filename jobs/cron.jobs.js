@@ -33,6 +33,7 @@ const checkDiscountTimeJob = (discountScheduleCheck) => {
   cron.schedule(discountScheduleCheck, checkDiscountScheduler, options);
 };
 
+// Check post time
 const checkPostTimeJob = (postScheduleCheck) => {
   const options = {
     name: 'checkPostTimeJob',
@@ -61,6 +62,7 @@ const checkPostTimeJob = (postScheduleCheck) => {
   cron.schedule(postScheduleCheck, checkPostScheduler, options);
 };
 
+// Check coupon time expired
 const checkCouponTimeJob = (couponScheduleCheck) => {
   const options = {
     name: 'checkCouponTimeJob',

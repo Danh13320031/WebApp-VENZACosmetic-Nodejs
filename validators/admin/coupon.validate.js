@@ -57,12 +57,33 @@ const createCouponValidate = async (req, res, next) => {
     res.redirect('back');
     return;
   }
+  if (req.body.valueType === 'percent') {
+    if (!req.body.maxDiscountAmount) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập giá trị tối đa');
+      res.redirect('back');
+      return;
+    }
+  }
 
   // Check public type
-  if (!req.body.publishType) {
+  if (!req.body.scope) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn loại khuyến mãi');
     res.redirect('back');
     return;
+  }
+  if (req.body.scope === 'product') {
+    if (!req.body.productIds) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn sản phẩm');
+      res.redirect('back');
+      return;
+    }
+  }
+  if (req.body.scope === 'brand') {
+    if (!req.body.brandIds) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn thương hiệu');
+      res.redirect('back');
+      return;
+    }
   }
 
   // Check started at
@@ -93,13 +114,6 @@ const createCouponValidate = async (req, res, next) => {
 };
 
 const updateCouponValidate = (req, res, next) => {
-  // Check code
-  if (!req.body.code) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập mã khuyến mãi');
-    res.redirect('back');
-    return;
-  }
-
   // Check value
   if (!req.body.value) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập giá trị khuyến mãi');
@@ -134,12 +148,33 @@ const updateCouponValidate = (req, res, next) => {
     res.redirect('back');
     return;
   }
+  if (req.body.valueType === 'percent') {
+    if (!req.body.maxDiscountAmount) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập giá trị tối đa');
+      res.redirect('back');
+      return;
+    }
+  }
 
   // Check public type
-  if (!req.body.publishType) {
+  if (!req.body.scope) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn loại khuyến mãi');
     res.redirect('back');
     return;
+  }
+  if (req.body.scope === 'product') {
+    if (!req.body.productIds) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn sản phẩm');
+      res.redirect('back');
+      return;
+    }
+  }
+  if (req.body.scope === 'brand') {
+    if (!req.body.brandIds) {
+      alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn thương hiệu');
+      res.redirect('back');
+      return;
+    }
   }
 
   if (

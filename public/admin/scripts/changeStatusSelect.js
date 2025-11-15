@@ -20,7 +20,7 @@ if (selectChangeStatusList.length > 0) {
             'form[form-payment-change-status-select]'
           );
 
-        if (selectName === 'publishType') {
+        if (selectName === 'scope') {
           formChangeStatusSelect = document.querySelector('form[form-coupon-change-scope-select]');
         }
 
