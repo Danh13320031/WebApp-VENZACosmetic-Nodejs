@@ -24,7 +24,7 @@
 
 /* Header */
 .header {
-  position: sticky;
+  position: fixed;
   z-index: 999;
   top: 0px;
   width: 100%;
@@ -226,7 +226,7 @@
 
 /* Nav */
 .navheader {
-  position: sticky;
+  position: fixed;
   top: 100px;
   left: 0;
   z-index: 980;
@@ -312,7 +312,7 @@
 
 /* Header Mobie */
 .header-mobie {
-  position: sticky;
+  position: fixed;
   top: 0px;
   left: 0px;
   z-index: 999;

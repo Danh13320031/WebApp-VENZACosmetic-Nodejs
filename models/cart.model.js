@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const objSchema = {
   user_id: { type: String },
+  coupon_id: { type: String },
   products: [
     {
       product_id: { type: String, require: true },

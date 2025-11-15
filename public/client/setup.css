@@ -20,6 +20,16 @@ body.no-scroll {
   height: 100vh;
 }
 
+body main.main {
+  margin-top: 110px;
+}
+
+@media screen and (max-width: 992px) {
+  body main.main {
+    margin-top: 50px;
+  }
+}
+
 /* Color setup */
 :root {
   --primary-color: #f5b607;

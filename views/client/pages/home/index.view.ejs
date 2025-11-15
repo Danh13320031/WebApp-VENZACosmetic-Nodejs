@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonMailTo.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
+    <link rel="stylesheet" href="/client/styles/partials/couponDetail.css">
+    <link rel="stylesheet" href="/client/styles/partials/copyClipboard.css">
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <%# End Styles File %> 
     
@@ -44,7 +46,7 @@
 
     <main class="main">
       <%# Banner Header %>
-      <section class="mt-3 mt-md-4 herobanner">
+      <section class="pt-4 herobanner">
         <div class="container">
           <div class="row gap-md-0 px-2">
             <div class="col-lg-8 col-md-8 col-12 p-0">
@@ -281,12 +283,12 @@
                       product.discount))) %>
                     </h5>
                     <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
-                      <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
+                      <button class="border-0 d-md-block d-none btn-add-favorite" data-id="<%= product.id %>">
                         <i class="bi bi-suit-heart-fill"></i>
                       </button>
                     </div>
                   </div>
-                  <div class="content-font text-danger text-decoration-line-through">
+                  <div class="content-font d-lg-block d-none text-danger text-decoration-line-through">
                     Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(product.price) %>
                   </div>
@@ -374,12 +376,12 @@
                       product.discount)))%>
                     </h5>
                     <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
-                      <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
+                      <button class="border-0 d-md-block d-none btn-add-favorite" data-id="<%= product.id %>">
                         <i class="bi bi-suit-heart-fill"></i>
                       </button>
                     </div>
                   </div>
-                  <div class="content-font text-danger text-decoration-line-through">
+                  <div class="content-font d-lg-block d-none text-danger text-decoration-line-through">
                     Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
                     }).format(product.price) %>
                   </div>
@@ -404,6 +406,12 @@
         </div>
       </section>
       <%# End Sale Card Slide %>
+
+      <div class="card-coupon-detail-list">
+        <% couponList.forEach((coupon) => { %>
+          <%-include('../../partials/couponDetail.view.ejs', { coupon: coupon }) %>
+        <% }) %>
+      </div>
 
       <%#  Coupon Card Slide %>
       <section class="card-coupon">
@@ -446,17 +454,19 @@
                       <div class="card-info">
                         <div class="d-flex flex-wrap gap-2 align-items-center">
                           <div
-                            class="content-font fw-bold card-code"
-                            style="color: var(--primary-color)"
+                            class="content-font fw-bold text-copy card-code"
+                            data-id="<%= coupon._id %>" text-copy
                           >
-                            <%= coupon.code %>
+                            <span style="color: var(--primary-color)"><%= coupon.code %></span>
+                            <i class="py-1 px-2 rounded-1 fa-regular fa-copy btn-copy" data-id="<%= coupon._id %>" btn-copy></i>
                           </div>
-                          <i class="py-1 px-2 bg-light rounded-1 fa-regular fa-copy"></i>
                         </div>
                         <div class="content-font card-description">
-                          Áp dụng cho đơn hàng từ <%= new Intl.NumberFormat('vi-VN', { style:
-                          'currency', currency: 'VND' }).format(coupon.minAmount) %>.
-                          <button class="text-decoration-underline border-0 bg-transparent fw-bold">Xem chi tiết</button>
+                          <span class="d-md-block d-none">
+                            Áp dụng cho đơn hàng từ <%= new Intl.NumberFormat('vi-VN', { style:
+                            'currency', currency: 'VND' }).format(coupon.minAmount) %>.
+                          </span>
+                          <button class="text-decoration-underline border-0 bg-transparent fw-bold" card-coupon-detail data-id="<%= coupon._id %>">Xem chi tiết</button>
                         </div>
                       </div>
                     </div>
@@ -562,12 +572,12 @@
                         product.discount)))%>
                       </h5>
                       <div class="card-favorite <% if(product.isLike) { %>active<% } %>">
-                        <button class="border-0 btn-add-favorite" data-id="<%= product.id %>">
+                        <button class="border-0 d-md-block d-none btn-add-favorite" data-id="<%= product.id %>">
                           <i class="bi bi-suit-heart-fill"></i>
                         </button>
                       </div>
                     </div>
-                    <div class="content-font text-danger text-decoration-line-through">
+                    <div class="content-font d-lg-block d-none text-danger text-decoration-line-through">
                       Giá gốc: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
                       'VND' }).format(product.price) %>
                     </div>
@@ -674,7 +684,7 @@
                         <%= `${post.title.substring(0, 50)}${post.title.length > 50 ? '...' : ''}`
                         %>
                       </a>
-                      <p class="content-font mb-0 text-justify card-summary">
+                      <p class="content-font mb-0 d-lg-block d-none text-justify card-summary">
                         <%= `${post.summary.substring(0, 100)}${post.summary.length > 100 ? '...' :
                         ''}` %>
                       </p>
@@ -744,6 +754,8 @@
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/displayCouponDetail.js"></script>
+    <script src="/client/scripts/copyClipboard.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/home/flashSaleDurationClock.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
