@@ -1,0 +1,61 @@
+<%# Coupon Card Detail %>
+<div class="position-fixed top-0 start-0 w-100 h-100 p-3 d-flex justify-content-center align-items-center card-coupon-detail" card-coupon-detail data-id="<%= coupon._id %>">
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 card-coupon-overlay" card-coupon-overlay data-id="<%= coupon._id %>"></div>
+  <ul class="p-4 rounded-1 bg-white shadow position-absolute d-flex flex-column gap-2 card-coupon-content">
+    <li class="content-font">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="heading-font py-0 d-flex align-items-center">
+          Chi tiết
+        </div>
+        <i class="button-icon-primary bi bi-x-lg" card-coupon-close data-id="<%= coupon._id %>"></i>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="fw-bold"><i class="fa-solid fa-code me-1"></i>Mã khuyến mãi:</div>
+        <div class="title-font d-flex gap-2">
+          <div class="text-wrap fw-bold text-copy" data-id="<%= coupon._id %>" text-copy style="color: var(--primary-color)"><%= coupon.code %></div>
+          <i class="py-1 px-2 rounded-1 fa-regular fa-copy btn-copy" data-id="<%= coupon._id %>" btn-copy></i>
+        </div>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="fw-bold mb-2"><i class="bi bi-clock me-1"></i>Thời hạn sử dụng:</div>
+      <div class="d-flex flex-column">
+        <div>Từ: <span class="content-font fw-bold"><%= moment(coupon.startedAt).tz(timezone).format('HH:mm, DD/MM/YYYY') %></span></div>
+        <div>Đến: <span class="content-font fw-bold"><%= moment(coupon.endedAt).tz(timezone).format('HH:mm, DD/MM/YYYY') %></span></div>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="fw-bold mb-2"><i class="bi bi-text-paragraph me-1"></i>Nội dung:</div>
+      <div class="d-flex flex-column">
+        <div class="heading-font p-3 text-white flex-fill d-flex justify-content-between align-items-center text-center rounded-2" style="background-color: var(--primary-color);">
+          <i class="fa-solid fa-gift"></i>
+          <% if(coupon.valueType === 'amount') { %>
+            -<%= coupon.value / 1000 + 'K' %>
+          <% } else { %>
+            -<%= coupon.value + '%' %>
+          <% } %>
+        </div>
+        <div class="flex-fill">
+          <div><%= coupon.description %></div>
+          <div>
+            <% if(coupon.maxDiscountAmount) { %>
+              Giảm tối đa: 
+              <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(coupon.maxDiscountAmount) %>
+            <% } %>
+          </div>
+          <div>
+            Có hiệu lực từ: 
+            <%= moment(coupon.startedAt).tz(timezone).format('HH:mm, DD/MM/YYYY') %> - 
+            <%= moment(coupon.endedAt).tz(timezone).format('HH:mm, DD/MM/YYYY') %>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<%# End Coupon Card Detail %>

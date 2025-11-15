@@ -52,6 +52,7 @@
       <section class="cart-list">
         <div class="container">
           <div class="row g-3">
+            <%# Cart Table %>
             <div class="col-lg-9 col-md-8 col-12">
               <div class="overflow-x-scroll w-100 cart-table-wrapper">
                 <table class="w-100 table cart-table">
@@ -149,30 +150,39 @@
               </div>
             </div>
 
+            <%# Cart Form & Info %>
             <div class="col-lg-3 col-md-4 col-12">
               <div class="d-flex flex-column cart-info">
+                <% if(cart.products.length > 0) { %>
                 <div class="cart-coupon">
                   <h4 class="fw-bold title-font text-uppercase cart-coupon-heading">Mã giảm giá</h4>
-                  <form action="" class="d-flex flex-column gap-2 cart-coupon-form">
+                  <form method="POST" action="/cart/apply-coupon?_method=PATCH" class="d-flex flex-column gap-2 cart-coupon-form">
                     <input
-                      name="coupon"
+                      name="couponCode"
                       type="text"
                       class="input-type01 cart-coupon-input"
                       placeholder="Nhập mã giảm giá..."
                     />
-                    <button type="submit" class="button-primary w-100 cart-coupon-btn-apply">
-                      Áp dụng
-                    </button>
-                    <a
-                      href="/user/profile"
+                    <div class="d-flex gap-1 flex-wrap">
+                      <button type="submit" class="button-primary flex-fill cart-coupon-btn-apply">
+                        Áp dụng
+                      </button>
+                      <button type="button" class="button-primary flex-fill cart-coupon-btn-remove">
+                        Xóa
+                      </button>
+                    </div>
+                    <button
+                      type="button"
                       class="button-primary w-100 text-center text-decoration-none cart-coupon-btn-link"
                     >
-                      Mã giảm giá của tôi
-                    </a>
+                      Các mã giảm giá có thể sử dụng
+                    </button>
                   </form>
                   <hr />
                 </div>
+                <% } %>
 
+                <% if(cart.products.length > 0) { %>
                 <div class="cart-coupon">
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">
                     Phí vận chuyển
@@ -182,12 +192,13 @@
                       >Cộng thêm:
                       <b
                         >+<%=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                        }).format(12000) %></b
-                      ></span
-                    >
+                        }).format(12000) %>
+                      </b>
+                    </span>
                   </div>
                   <hr />
                 </div>
+                <% } %>
 
                 <div class="cart-total">
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
@@ -327,10 +338,10 @@
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
-    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
-    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/pagination.js"></script>
+    <script src="/client/scripts/cart/deleteProductInCart.js"></script>
+    <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 
