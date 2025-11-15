@@ -46,7 +46,10 @@
                     type="text"
                     value="<%= coupon.code %>"
                     name="code"
+                    placeholder="Nhập mã giảm giá..."
+                    required
                     readonly
+                    disabled
                     class="form-control"
                     id="code"
                   />
@@ -115,11 +118,23 @@
                     ><span class="text-danger"><b>*</b></span>
                     Trạng thái
                   </label>
-                  <input type="radio" name="status" value="active" <% if(coupon.status === 'active')
-                  {%> checked <% } %> class="form-check-input" id="status-active" />
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="active" 
+                    <% if(coupon.status === 'active') { %> checked <% } %> 
+                    class="form-check-input" 
+                    id="status-active" 
+                  />
                   <label for="status-active" class="me-4">Hoạt động</label>
-                  <input type="radio" name="status" value="inactive" <% if(coupon.status ===
-                  'inactive') {%> checked <% } %> class="form-check-input" id="status-inactive" />
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="inactive" 
+                    <% if(coupon.status === 'inactive') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="status-inactive" 
+                  />
                   <label for="status-inactive">Ngừng hoạt động</label>
                 </div>
               </div>
@@ -130,11 +145,25 @@
                     ><span class="text-danger"><b>*</b></span>
                     Phân loại giá trị
                   </label>
-                  <input type="radio" name="valueType" value="amount" <% if(coupon.valueType ===
-                  'amount') {%> checked <% } %> class="form-check-input" id="valueType-amount" />
+                  <input 
+                    type="radio" 
+                    name="valueType" 
+                    value="amount" 
+                    <% if(coupon.valueType === 'amount') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="valueType-amount"
+                    input-check-show 
+                  />
                   <label for="valueType-amount" class="me-4">Giảm theo tiền</label>
-                  <input type="radio" name="valueType" value="percent" <% if(coupon.valueType ===
-                  'percent') {%> checked <% } %> class="form-check-input" id="valueType-percent" />
+                  <input 
+                    type="radio" 
+                    name="valueType" 
+                    value="percent" 
+                    <% if(coupon.valueType === 'percent') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="valueType-percent"
+                    input-check-show 
+                  />
                   <label for="valueType-percent">Giảm theo %</label>
                 </div>
               </div>
@@ -143,17 +172,103 @@
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span>
-                    Phân loại phạm vi
+                    Phạm vi giảm giá
                   </label>
-                  <input type="radio" name="publishType" value="all" <% if(coupon.publishType ===
-                  'all') {%> checked <% } %> class="form-check-input" id="publishType-all" />
-                  <label for="publishType-all" class="me-4">Tất cả</label>
-                  <input type="radio" name="publishType" value="guest" <% if(coupon.publishType ===
-                  'guest') {%> checked <% } %> class="form-check-input" id="publishType-guest" />
-                  <label for="publishType-guest" class="me-4">Khách hàng</label>
-                  <input type="radio" name="publishType" value="user" <% if(coupon.publishType ===
-                  'user') {%> checked <% } %> class="form-check-input" id="publishType-user" />
-                  <label for="publishType-user">Người dùng</label>
+                  <input 
+                    type="radio" 
+                    name="scope" value="all" <% if(coupon.scope === 'all') {%>
+                    checked <% } %> 
+                    class="form-check-input" id="scope-all" 
+                    input-check-show 
+                  />
+                  <label for="scope-all" class="me-4">Tất cả</label>
+                  <input 
+                    type="radio" 
+                    name="scope" 
+                    value="product" 
+                    <% if(coupon.scope === 'product') { %> checked <% } %> 
+                    class="form-check-input" 
+                    id="scope-product" 
+                    input-check-show
+                  />
+                  <label for="scope-product" class="me-4">Sản phẩm</label>
+                  <input 
+                    type="radio" 
+                    name="scope" 
+                    value="brand" 
+                    <% if(coupon.scope === 'brand') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="scope-brand" 
+                    input-check-show 
+                  />
+                  <label for="scope-brand">Thương hiệu</label>
+                </div>
+              </div>
+
+              <% if(coupon.valueType === 'percent') { %>
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label
+                    for="maxDiscountAmount"
+                    class="fw-bold <% if(coupon.valueType === 'amount') { %> d-none <% }%>"
+                    ><span class="text-danger"><b>*</b></span>
+                    Giá tối đa khi áp dụng giảm theo % (vnđ)
+                  </label>
+                  <input 
+                    type="number" 
+                    value="<%= coupon.maxDiscountAmount %>" 
+                    min="0"
+                    name="maxDiscountAmount" 
+                    placeholder="Nhập giá tối đa khi áp dụng %..." 
+                    required
+                    <% if(coupon.valueType === 'amount') { %> disabled <% }%> 
+                    class="form-control <% if(coupon.valueType === 'amount') { %> d-none <% }%>" 
+                    id="maxDiscountAmount" />
+                </div>
+              </div>
+              <% } %>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="productIds" class="fw-bold <% if(coupon.scope !== 'product') { %> d-none <% }%>"
+                    ><span class="text-danger"><b>*</b></span> Sản phẩm (Ctrl + Click)
+                  </label>
+                  <select
+                    name="productIds"
+                    multiple
+                    aria-label="multiple select example"
+                    <% if(coupon.scope !== 'product') { %> disabled <% }%>
+                    id="productIds"
+                    class="form-control <% if(coupon.scope !== 'product') { %> d-none <% }%>"
+                    style="height: 200px"
+                  >
+                    <option value="" disabled selected>-- Chọn các sản phẩm --</option>
+                    <% productList.forEach(product => { %>
+                      <option value="<%= product._id %>" <% if(product.checked) { %> selected <% } %> ><%= product.title %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="brandIds" class="fw-bold <% if(coupon.scope !== 'brand') { %> d-none <% }%>"
+                    ><span class="text-danger"><b>*</b></span> Thương hiệu (Ctrl + Click)
+                  </label>
+                  <select
+                    name="brandIds"
+                    multiple
+                    aria-label="multiple select example"
+                    <% if(coupon.scope !== 'brand') { %> disabled <% }%>
+                    id="brandIds"
+                    class="form-control <% if(coupon.scope !== 'brand') { %> d-none <% }%>"
+                    style="height: 200px"
+                  >
+                    <option value="" disabled selected>-- Chọn các thương hiệu --</option>
+                    <% productBrandList.forEach(brand => { %>
+                    <option value="<%= brand._id %>" <% if(brand.checked) { %> selected <% } %> ><%= brand.title %></option>
+                    <% }) %>
+                  </select>
                 </div>
               </div>
 
@@ -168,9 +283,7 @@
                     placeholder="Nhập mô tả..."
                     class="form-control"
                     id="description"
-                  >
-<%= coupon.description %></textarea
-                  >
+                  ><%= coupon.description %></textarea>
                 </div>
               </div>
 
@@ -235,8 +348,7 @@
     <%-include("../../partials/footer.view.ejs") %> <%# Script File %>
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
-    <script src="/admin/scripts/previewImage.js"></script>
-    <script src="/admin/scripts/product/previewImageArray.js"></script>
+    <script src="/admin/scripts/coupon/displayField.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <%# Script Library & Framwork %>

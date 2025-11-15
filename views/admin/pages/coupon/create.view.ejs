@@ -152,6 +152,7 @@
                     checked
                     class="form-check-input"
                     id="valueType-amount"
+                    input-check-show
                   />
                   <label for="valueType-amount" class="me-4">Giảm theo tiền</label>
                   <input
@@ -160,6 +161,7 @@
                     value="percent"
                     class="form-check-input"
                     id="valueType-percent"
+                    input-check-show
                   />
                   <label for="valueType-percent">Giảm theo %</label>
                 </div>
@@ -169,33 +171,100 @@
                 <div class="form-group mb-4">
                   <label for="" class="fw-bold d-block"
                     ><span class="text-danger"><b>*</b></span>
-                    Phân loại phạm vi
+                    Phạm vi giảm giá
                   </label>
                   <input
                     type="radio"
-                    name="publishType"
+                    name="scope"
                     value="all"
                     checked
                     class="form-check-input"
-                    id="publishType-all"
+                    id="scope-all"
+                    input-check-show
                   />
-                  <label for="publishType-all" class="me-4">Tất cả</label>
+                  <label for="scope-all" class="me-4">Tất cả</label>
                   <input
                     type="radio"
-                    name="publishType"
-                    value="guest"
+                    name="scope"
+                    value="product"
                     class="form-check-input"
-                    id="publishType-guest"
+                    id="scope-product"
+                    input-check-show
                   />
-                  <label for="publishType-guest" class="me-4">Khách hàng</label>
+                  <label for="scope-product" class="me-4">Sản phẩm</label>
                   <input
                     type="radio"
-                    name="publishType"
-                    value="user"
+                    name="scope"
+                    value="brand"
                     class="form-check-input"
-                    id="publishType-user"
+                    id="scope-brand"
+                    input-check-show
                   />
-                  <label for="publishType-user">Người dùng</label>
+                  <label for="scope-brand">Thương hiệu</label>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="maxDiscountAmount" class="fw-bold d-none"
+                    ><span class="text-danger"><b>*</b></span>
+                    Giá tối đa khi áp dụng giảm theo % (vnđ)
+                  </label>
+                  <input
+                    type="number"
+                    value="0"
+                    min="0"
+                    name="maxDiscountAmount"
+                    placeholder="Nhập giá tối đa khi áp dụng %..."
+                    disabled
+                    required
+                    class="form-control d-none"
+                    id="maxDiscountAmount"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="productIds" class="fw-bold d-none"
+                    ><span class="text-danger"><b>*</b></span> Sản phẩm (Ctrl + Click)
+                  </label>
+                  <select
+                    name="productIds"
+                    multiple
+                    aria-label="multiple select example"
+                    disabled
+                    id="productIds"
+                    class="form-control d-none"
+                    style="height: 200px"
+                  >
+                    <option value="" disabled selected>-- Chọn các sản phẩm --</option>
+                    <% productList.forEach(product => { %>
+                    <option value="<%= product._id %>"><%= product.title %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group mb-4">
+                  <label for="brandIds" class="fw-bold d-none"
+                    ><span class="text-danger"><b>*</b></span> Thương hiệu (Ctrl + Click)
+                  </label>
+                  <select
+                    name="brandIds"
+                    multiple
+                    aria-label="multiple select example"
+                    disabled
+                    id="brandIds"
+                    class="form-control d-none"
+                    style="height: 200px"
+                  >
+                    <option value="" disabled selected>-- Chọn các sản phẩm --</option>
+                    <% productBrandList.forEach(brand => { %>
+                    <option value="<%= brand._id %>"><%= brand.title %></option>
+                    <% }) %>
+                  </select>
                 </div>
               </div>
 
@@ -282,8 +351,7 @@
     <%-include("../../partials/footer.view.ejs") %> <%# Script File %>
     <script src="/admin/scripts/sidebarToggle.js"></script>
     <script src="/admin/scripts/activeSidebarLink.js"></script>
-    <script src="/admin/scripts/previewImage.js"></script>
-    <script src="/admin/scripts/product/previewImageArray.js"></script>
+    <script src="/admin/scripts/coupon/displayField.js"></script>
     <script src="/admin/scripts/toggleAccountInfo.js"></script>
 
     <%# Script Library & Framwork %>

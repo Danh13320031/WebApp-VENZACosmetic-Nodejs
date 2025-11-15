@@ -298,7 +298,8 @@ button.slick-next.slick-arrow i:hover {
 .card-feature .button-trans .slick-list,
 .card-sale .button-trans .slick-list,
 .card-flash-sale .button-trans .slick-list,
-.card-brand .button-trans .slick-list {
+.card-brand .button-trans .slick-list,
+.card-coupon .button-trans .slick-list {
   padding: 40px 0px;
 }
 .card-brand .button-trans .slick-list {
@@ -307,7 +308,8 @@ button.slick-next.slick-arrow i:hover {
 .card-feature .button-trans .slick-list .slick-track,
 .card-sale .button-trans .slick-list .slick-track,
 .card-flash-sale .button-trans .slick-list .slick-track,
-.card-brand .button-trans .slick-list .slick-track {
+.card-brand .button-trans .slick-list .slick-track,
+.card-coupon .button-trans .slick-list .slick-track {
   display: flex;
   align-items: center;
   justify-content: space-between;

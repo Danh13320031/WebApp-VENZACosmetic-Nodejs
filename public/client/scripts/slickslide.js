@@ -130,6 +130,78 @@ $(document).ready(function () {
     ],
   });
 
+  $('.card-coupon-slider').slick({
+    infinite: false,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    prevArrow:
+      '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+    nextArrow:
+      '<button class="slick-arrow slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+    responsive: [
+      {
+        breakpoint: 1290,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          loop: true,
+          speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
+        },
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          loop: true,
+          speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-right"></i></button>',
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          loop: true,
+          speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          loop: true,
+          speed: 300,
+          prevArrow:
+            '<button class="slick-arrow slick-prev"><i class="fa-solid fa-chevron-left"></i></button>',
+          nextArrow:
+            '<button class="slick-arrow slick-next"><i class="fa-solid fa-chevron-right"></i></button>',
+        },
+      },
+    ],
+  });
+
   $('.card-flash-sale-slider').slick({
     infinite: false,
     speed: 300,

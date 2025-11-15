@@ -75,8 +75,13 @@
   color: var(--dark-gray-color);
   border-color: var(--primary-color) !important;
 }
-
-.product-format-detail-content img {
+.product-format-detail-content figure {
+  display: flex;
+  justify-content: center;
+}
+.product-format-detail-content img,
+.product-format-detail-content figure img {
+  margin: 0 auto;
   width: 500px;
   max-width: 100%;
 }

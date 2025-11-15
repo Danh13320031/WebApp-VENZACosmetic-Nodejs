@@ -10,6 +10,8 @@ import sortHelper from '../../helpers/sort.helper.js';
 import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import couponModel from '../../models/coupon.model.js';
 import { StatusCodes } from '../../node_modules/http-status-codes/build/cjs/status-codes.js';
+import productModel from '../../models/product.model.js';
+import productBrandModel from '../../models/productBrand.model.js';
 
 // GET: /admin/coupons
 const coupon = async (req, res) => {
@@ -96,9 +98,14 @@ const coupon = async (req, res) => {
 // GET: /admin/coupons/create
 const createCouponGet = async (req, res) => {
   try {
+    const find = { deleted: false, status: 'active' };
+
+    const productList = await productModel.find(find).select('_id title');
+    const productBrandList = await productBrandModel.find(find).select('_id title');
+
     res.render(
       './admin/pages/coupon/create.view.ejs',
-      { pageTitle: 'Tạo mới mã giảm giá', couponCodePrefixRule },
+      { pageTitle: 'Tạo mới mã giảm giá', couponCodePrefixRule, productList, productBrandList },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
         res.send(html);
@@ -121,6 +128,8 @@ const createCouponPost = async (req, res) => {
     if (req.body.limitPerUser) req.body.limitPerUser = Number.parseInt(req.body.limitPerUser);
     if (req.body.startedAt) req.body.startedAt = moment(req.body.startedAt).tz(timezone).toDate();
     if (req.body.endedAt) req.body.endedAt = moment(req.body.endedAt).tz(timezone).toDate();
+    if (req.body.productIds) req.body.appliedIds = req.body.productIds;
+    if (req.body.brandIds) req.body.appliedIds = req.body.brandIds;
     if (req.body.position) req.body.position = Number.parseInt(req.body.position);
     else req.body.position = countRecord + 1;
 
@@ -128,7 +137,7 @@ const createCouponPost = async (req, res) => {
     await newCoupon.save();
 
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
-    res.redirect('back');
+    res.redirect('/admin/coupons');
     return;
   } catch (error) {
     handleErrorHelper(req, res, error);
@@ -148,10 +157,31 @@ const updateCouponGet = async (req, res) => {
 
     const find = { _id: id, deleted: false };
     const coupon = await couponModel.findOne(find);
+    const productList = await productModel
+      .find({ deleted: false, status: 'active' })
+      .select('_id title');
+    const productBrandList = await productBrandModel
+      .find({ deleted: false, status: 'active' })
+      .select('_id title');
+
+    for (const product of productList) {
+      const productId = product._id;
+      if (coupon.appliedIds.includes(productId)) product.checked = true;
+    }
+
+    for (const brand of productBrandList) {
+      const brandId = brand._id;
+      if (coupon.appliedIds.includes(brandId)) brand.checked = true;
+    }
 
     res.render(
       './admin/pages/coupon/update.view.ejs',
-      { pageTitle: 'Cập nhật mã giảm giá', coupon },
+      {
+        pageTitle: 'Cập nhật mã giảm giá',
+        coupon,
+        productList,
+        productBrandList,
+      },
       (err, html) => {
         if (err) handleErrorHelper(req, res, err);
         res.send(html);
@@ -308,37 +338,6 @@ const changeMultiCoupon = async (req, res) => {
   }
 };
 
-// PATCH: /admin/coupons/change-user-scope/:publishType/:id?_method=PATCH
-const changeUserScopeCoupon = async (req, res) => {
-  try {
-    const { id, publishType } = req.params;
-
-    if (!id) {
-      res.redirect(notFoundPage);
-      return;
-    }
-
-    const find = { _id: id, deleted: false };
-    const coupon = await couponModel.findOne(find);
-
-    if (!coupon) {
-      res.redirect(notFoundPage);
-      return;
-    }
-
-    await couponModel.findByIdAndUpdate(id, { publishType: publishType });
-
-    alertMessageHelper(req, 'alertSuccess', 'Cập nhật	thành công');
-    res.redirect('back');
-    return;
-  } catch (error) {
-    console.log('Change user scope fail: ', error);
-    alertMessageHelper(req, 'alertFailure', 'Cập nhật thất bại');
-    res.redirect('back');
-    return;
-  }
-};
-
 // PATCH: /admin/coupons/delete/:id?_method=PATCH
 const deleteCoupon = async (req, res) => {
   try {
@@ -465,7 +464,6 @@ const couponController = {
   updateCouponPatch,
   changeStatusCoupon,
   changeMultiCoupon,
-  changeUserScopeCoupon,
   deleteCoupon,
   garbageCoupon,
   restoreGarbageCoupon,

@@ -5,7 +5,8 @@
   color: var(--primary-color-admin);
 }
 .btn-copy.copied::after {
-  content: 'Copied';
+  content: 'Đã sao chép';
+  width: max-content;
   position: absolute;
   bottom: 90%;
   left: 90%;

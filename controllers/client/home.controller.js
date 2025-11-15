@@ -1,6 +1,7 @@
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleFlashSaleHelper from '../../helpers/client/home/handleFlashSale.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import couponModel from '../../models/coupon.model.js';
 import postModel from '../../models/post.model.js';
 import productModel from '../../models/product.model.js';
 import productBrandModel from '../../models/productBrand.model.js';
@@ -39,6 +40,10 @@ const home = async (req, res) => {
       if (product.featured === '1') return product;
     });
 
+    // Handle coupon
+    const findCoupon = { ...find, published: true };
+    const couponList = await couponModel.find(findCoupon).sort({ createdAt: 'desc' });
+
     // Handle sale product
     const productSaleList = productList.filter((product) => {
       if (product.discount !== 0) return product;
@@ -75,6 +80,7 @@ const home = async (req, res) => {
         productBrandList,
         productFeatureList,
         productSaleList,
+        couponList,
         productFlashSaleList,
         productList: productList,
         productFlashSaleDuration,
