@@ -298,12 +298,36 @@ const applyCouponToCart = async (req, res) => {
   }
 };
 
+// [PATCH]: /cart/remove-coupon
+const removeCouponFromCart = async (req, res) => {
+  try {
+    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
+    const cart = await cartModel.findById(cartId);
+
+    if (!cart.coupon_id) {
+      alertMessageHelper(req, 'alertFailure', 'Chưa áp dụng mã giảm giá');
+      res.redirect('back');
+      return;
+    }
+
+    cart.coupon_id = null;
+    await cart.save();
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật giỏ hàng thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
 const cartController = {
   cart,
   addProductToCart,
   deleteProductInCart,
   changeProductQuantity,
   applyCouponToCart,
+  removeCouponFromCart,
 };
 
 export default cartController;

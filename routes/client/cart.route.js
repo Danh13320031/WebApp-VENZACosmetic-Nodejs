@@ -12,5 +12,6 @@ cartRoute.patch(
   cartValidate.applyCouponToCartValidate,
   cartController.applyCouponToCart
 );
+cartRoute.patch('/remove-coupon', cartController.removeCouponFromCart);
 
 export default cartRoute;
