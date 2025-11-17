@@ -1,4 +1,4 @@
-import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
+import filterByPriceHelper from '../../helpers/client/product/filterByPrice.helper.js';
 
 const reqQuery1 = {
   from: '0',

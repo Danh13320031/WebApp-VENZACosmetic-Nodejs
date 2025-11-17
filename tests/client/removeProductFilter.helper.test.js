@@ -1,4 +1,4 @@
-import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
+import removeProductFilterHelper from '../../helpers/client/product/removeProductFilter.helper.js';
 
 const reqQuery1 = {
   keyword: 'abc',

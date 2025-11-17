@@ -102,13 +102,16 @@ const updateProductValidate = (req, res, next) => {
   }
 
   // Check discount expired at
-  if (
-    moment(req.body.discountExpiredAt).tz(timezone).format('YYYY-MM-DDTHH:mm') <=
-    moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm')
-  ) {
-    alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
-    res.redirect('back');
-    return;
+  if (!req.body.discountExpiredAt) delete req.body.discountExpiredAt;
+  else {
+    if (
+      moment(req.body.discountExpiredAt).tz(timezone).format('YYYY-MM-DDTHH:mm') <
+      moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm')
+    ) {
+      alertMessageHelper(req, 'alertFailure', 'Hạn giảm giá không hợp lệ');
+      res.redirect('back');
+      return;
+    }
   }
 
   // Check status

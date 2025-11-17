@@ -1,4 +1,4 @@
-import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
+import filterByFeaturedProductHelper from '../../helpers/client/filterByFeatured.helper.js';
 
 const reqQuery1 = {
   featured: 'true',

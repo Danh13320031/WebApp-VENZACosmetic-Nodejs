@@ -51,9 +51,13 @@ const objSchema = {
   ],
   coupons: {
     coupon_id: { type: String },
-    code: { type: String },
-    discount: { type: Number, default: 0 },
-    expiredAt: { type: Date },
+    code: { type: String, require: true },
+    discountAmount: { type: Number, require: true, default: 0 },
+    valueType: { type: String, enum: ['amount', 'percent'], require: true, default: 'amount' },
+    value: { type: Number, require: true, default: 0 },
+    minAmount: { type: Number, default: 0 },
+    maxDiscountAmount: { type: Number, default: 0 },
+    description: { type: String, default: '' },
   },
   shippings: {
     method: { type: String, require: true },

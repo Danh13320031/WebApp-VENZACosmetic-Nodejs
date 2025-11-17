@@ -1,7 +1,6 @@
 import cartModel from '../../../models/cart.model.js';
 
 const handleCartLoginHelper = async (req, user) => {
-  // Xử lý cart
   const cartId = req.cookies.cartId || null;
   let userCart = await cartModel.findOne({ user_id: user._id });
   let guestCart = null;
