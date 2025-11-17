@@ -31,6 +31,7 @@ const cartStorage = async (req, res, next) => {
       }
     }
 
+    // Handle cart list and cart total
     let productListCart = [];
     let totalPriceCart = 0;
 
@@ -65,7 +66,7 @@ const cartStorage = async (req, res, next) => {
     cart.totalPriceOrder = Number.parseFloat(totalPriceCart);
     cart.total = cart.totalPriceOrder;
 
-    // Handle reset cart with coupon
+    // Handle cart with coupon
     if (cart.coupon_id) {
       const coupon = await couponModel.findOne({
         _id: cart.coupon_id,
