@@ -1,5 +1,6 @@
 import { maxAgeCartStorage } from '../../constants/constant.js';
 import cartModel from '../../models/cart.model.js';
+import couponModel from '../../models/coupon.model.js';
 import productModel from '../../models/product.model.js';
 
 const cartStorage = async (req, res, next) => {
@@ -62,6 +63,50 @@ const cartStorage = async (req, res, next) => {
     cart.totalQuantityOrder = totalQuantityOrder;
     cart.productListCart = productListCart;
     cart.totalPriceOrder = Number.parseFloat(totalPriceCart);
+    cart.total = cart.totalPriceOrder;
+
+    // Handle reset cart with coupon
+    if (cart.coupon_id) {
+      const coupon = await couponModel.findOne({
+        _id: cart.coupon_id,
+        deleted: false,
+        status: 'active',
+        published: true,
+      });
+
+      let couponDiscount = 0;
+
+      if (!coupon) {
+        cart.coupon_id = null;
+        cart.couponAmount = 0;
+        cart.finalTotal = cart.total;
+      } else {
+        if (coupon.valueType === 'percent') {
+          couponDiscount = (cart.total * coupon.value) / 100;
+
+          couponDiscount > coupon.maxDiscountAmount
+            ? (couponDiscount = coupon.maxDiscountAmount)
+            : couponDiscount;
+        }
+
+        if (coupon.valueType === 'amount') couponDiscount = coupon.value;
+
+        if (cart.total < coupon.minAmount) {
+          cart.coupon_id = null;
+          cart.couponAmount = 0;
+          cart.finalTotal = cart.total;
+        } else {
+          cart.couponAmount = couponDiscount;
+          cart.finalTotal = cart.total - couponDiscount === 0 ? 0 : cart.total - couponDiscount;
+        }
+      }
+    } else {
+      cart.coupon_id = null;
+      cart.couponAmount = 0;
+      cart.finalTotal = cart.total;
+    }
+
+    await cart.save();
 
     res.locals.miniCart = cart;
     next();

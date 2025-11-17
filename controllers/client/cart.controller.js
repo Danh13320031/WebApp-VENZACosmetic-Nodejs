@@ -1,4 +1,4 @@
-import { maxAgeCartStorage, notFoundPage, productLimitConst } from '../../constants/constant.js';
+import { maxAgeCartStorage, productLimitConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import getCouponListHelper from '../../helpers/client/cart/getCouponList.helper.js';
@@ -6,6 +6,7 @@ import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import cartModel from '../../models/cart.model.js';
+import couponModel from '../../models/coupon.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 
@@ -18,6 +19,7 @@ const cart = async (req, res) => {
     const pageUrl = createPageUrlHelper(req);
     const cartId = req.cookies.cartId;
     const cart = await cartModel.findById(cartId);
+    const user = res.locals.user || null;
 
     let productIdCartList = [];
     let productBrandCartList = [];
@@ -47,7 +49,7 @@ const cart = async (req, res) => {
         }
       }
 
-      cart.totalPrice =
+      cart.total =
         Number.parseFloat(
           cart.products.reduce(
             (total, product) => total + product.productInfo.newPrice * product.quantity,
@@ -57,7 +59,7 @@ const cart = async (req, res) => {
 
       // Pagination
       const paginationObj = {
-        limit: 5 || productLimitConst,
+        limit: 4 || productLimitConst,
         currentPage: 1,
       };
       const productTotal = await cart.products.length;
@@ -95,8 +97,21 @@ const cart = async (req, res) => {
       });
     }
 
-    // Handle coupon list
-    const couponList = await getCouponListHelper(cart, productIdCartList, productBrandCartList);
+    // Handle coupon
+    const coupon = await couponModel.findOne({
+      _id: cart.coupon_id,
+      deleted: false,
+      status: 'active',
+      published: true,
+    });
+    if (coupon) cart.coupon = coupon;
+
+    const couponList = await getCouponListHelper(
+      cart,
+      productIdCartList,
+      productBrandCartList,
+      user
+    );
 
     res.render(
       './client/pages/cart/cart.view.ejs',
@@ -125,7 +140,7 @@ const addProductToCart = async (req, res) => {
     const productId = req.params.productId;
     const quantity = req.body.quantity ? Number.parseInt(req.body.quantity) : 1;
 
-    let cartId = req.cookies.cartId;
+    let cartId = req.cookies.cartId || null;
     let cart = null;
 
     const objectOrder = { product_id: productId, quantity };
@@ -187,6 +202,7 @@ const addProductToCart = async (req, res) => {
     await cartModel.findByIdAndUpdate(cartId, { $push: { products: objectOrder } });
     alertMessageHelper(req, 'alertSuccess', 'Thêm vào giỏ hàng thành công');
     res.redirect('back');
+    return;
   } catch (error) {
     handleErrorHelper(req, res, error);
   }
@@ -224,7 +240,7 @@ const changeProductQuantity = async (req, res) => {
   try {
     const productId = req.params.productId;
     const quantity = req.params.quantity;
-    const cartId = req.cookies.cartId;
+    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
     const product = await productModel.findById(productId).select('stock');
 
     if (quantity > product.stock) {
@@ -251,11 +267,43 @@ const changeProductQuantity = async (req, res) => {
   }
 };
 
+// [PATCH]: /cart/apply-coupon?_method=PATCH
+const applyCouponToCart = async (req, res) => {
+  try {
+    const coupon = await couponModel.findOne({ code: req.body.couponCode });
+
+    if (!coupon) {
+      alertMessageHelper(req, 'alertFailure', 'Mã giảm giá không tồn tại');
+      res.redirect('back');
+      return;
+    }
+
+    if (coupon.status === 'inactive' || coupon.deleted === true || coupon.published === false) {
+      alertMessageHelper(req, 'alertFailure', 'Mã giảm giá đã ngừng hoạt động');
+      res.redirect('back');
+      return;
+    }
+
+    const cartId = req.cookies.cartId ? req.cookies.cartId : null;
+    const cart = await cartModel.findById(cartId);
+
+    cart.coupon_id = coupon._id;
+    await cart.save();
+
+    alertMessageHelper(req, 'alertSuccess', 'Cập nhật giỏ hàng thành công');
+    res.redirect('back');
+    return;
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
 const cartController = {
   cart,
   addProductToCart,
   deleteProductInCart,
   changeProductQuantity,
+  applyCouponToCart,
 };
 
 export default cartController;

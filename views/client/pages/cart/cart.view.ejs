@@ -59,7 +59,7 @@
               Các mã giảm giá có thể sử dụng
               <i class="button-icon-primary bi bi-x-lg" card-coupon-hide></i>
             </div>
-            <ul class="d-flex flex-column gap-2 overflow-y-scroll bg-white p-4 rounded-bottom-2 coupon-list">
+            <ul class="d-flex flex-column gap-2 overflow-y-scroll bg-white p-4 mb-0 rounded-bottom-2 coupon-list">
             <% if(couponList && couponList.length > 0) { %>
             <% couponList.forEach((coupon) => { %>
               <li class="coupon-item">
@@ -170,7 +170,7 @@
                       </td>
                       <td class="cart-body-cell cart-cell">
                         <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                        }).format(product.productInfo.newPrice) %>
+                        }).format(product.productInfo.price) %>
                       </td>
                       <td class="cart-body-cell cart-cell"><%= product.productInfo.discount %>%</td>
                       <td class="cart-body-cell cart-cell" style="width: 10%">
@@ -237,6 +237,17 @@
                       class="input-type01 cart-coupon-input"
                       placeholder="Nhập mã giảm giá..."
                     />
+                    <% if (cart.coupon) { %>
+                      <div class="d-flex flex-column gap-1">
+                        <span class="badge w-100 cart-coupon-code-applied" style="background-color: var(--primary-color);">
+                          <i class="fa-solid fa-ticket-simple me-1"></i>Đang sử dụng: 
+                        <span class="text-dark"><%= cart.coupon.code %></span>
+                        </span>
+                        <span class="badge w-100 cart-coupon-code-applied" style="background-color: var(--primary-color);">
+                          <%= 'Giảm: ' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cart.couponAmount) %>
+                        </span>
+                      </div>
+                    <% } %>
                     <div class="d-flex gap-1 flex-wrap">
                       <button type="submit" class="button-primary flex-fill cart-coupon-btn-apply">
                         Áp dụng
@@ -279,11 +290,17 @@
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
                   <div class="d-flex justify-content-between align-items-center cart-total-price">
                     <span class="cart-total-price-title">Tổng chi phí:</span>
-                    <span class="heading-font fw-bold text-danger py-0 cart-total-price-value">
-                      <% if (cart.totalPrice || cart.totalPrice === 0) { %> <%= new
-                      Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                      }).format(cart.totalPrice) %> <% } %>
+                    <% if(cart.finalTotal) { %>
+                      <span class="heading-font fw-bold text-danger py-0 cart-total-price-value">
+                        <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cart.finalTotal) %>
+                      </span>
+                    <% } else { %>
+                      <span class="heading-font fw-bold text-danger py-0 cart-total-price-value">
+                        <% if (cart.total || cart.total === 0) { %> 
+                          <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cart.total) %> 
+                        <% } %>
                     </span>
+                    <% } %>
                   </div>
                   <hr />
                 </div>
@@ -316,7 +333,7 @@
               <div class="card-bg" title="<%= product.title %>">
                 <% if(product.discount > 0) { %>
                 <div class="card-discount-badge">
-                  <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                  <img src="/client/images/product/sale-badge/sale-badge (1).png" width="40px" />
                 </div>
                 <span class="content-font text-white card-discount-text"
                   >-<%= product.discount %>%</span
@@ -419,7 +436,6 @@
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/cart/showCouponModal.js"></script>
-    <script src="/client/scripts/scrollReload.js"></script>
     <!-- End Scripts File -->
 
     <!-- Scripts Library & Framework Link -->

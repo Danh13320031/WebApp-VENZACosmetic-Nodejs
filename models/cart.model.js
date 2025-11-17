@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 const objSchema = {
   user_id: { type: String },
   coupon_id: { type: String },
+  couponAmount: { type: Number, require: true, default: 0 },
+  total: { type: Number, require: true, default: 0 },
+  finalTotal: { type: Number, require: true, default: 0 },
   products: [
     {
       product_id: { type: String, require: true },
