@@ -119,10 +119,15 @@
               <h4 class="title-font my-2 text-capitalize text-center header-others-cart-title">
                 <i class="bi bi-bag-check-fill"></i>
                 Tổng tiền:
-                <span class="fw-bold text-danger header-others-cart-total">
-                  <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                  }).format(miniCart.totalPriceOrder) %>
-                </span>
+                <% if(miniCart.finalTotal) { %>
+                  <span class="fw-bold text-danger header-others-cart-total">
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(miniCart.finalTotal) %>
+                  </span>
+                <% } else { %>
+                  <span class="fw-bold text-danger header-others-cart-total">
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(miniCart.total) %>
+                  </span>
+                <% } %>
               </h4>
               <% } %>
               <a

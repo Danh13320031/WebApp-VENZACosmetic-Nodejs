@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  user_id: { type: String },
   code: { type: String, require: true, unique: true, trim: true, uppercase: true },
   description: { type: String, require: true, default: '' },
   valueType: { type: String, require: true, enum: ['amount', 'percent'], default: 'percent' },

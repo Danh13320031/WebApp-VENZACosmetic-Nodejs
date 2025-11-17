@@ -135,8 +135,11 @@
                   >
                   <% } %>
                   <span class="product-info-discount content-font"
-                    >-- <b>Giảm giá: </b>-<%= product.discount ? product.discount : 0 %>%</span
-                  >
+                    >-- <b>Giảm giá: </b>-<%= product.discount ? product.discount : 0 %>%.
+                  </span>
+                  <div class="content-font product-info-discount-expired">
+                    <b>Giảm giá tới: </b><%= product?.discountExpiredAt ? moment(product.discountExpiredAt).tz(timezone).format('HH:mm DD/MM/YYYY') : ''  %>
+                  </div>
                 </div>
 
                 <p class="content-font product-info-description mb-4"><%= product.description %></p>
@@ -336,7 +339,7 @@
               <div class="card-bg" title="<%= product.title %>">
                 <% if(product.discount > 0) { %>
                 <div class="card-discount-badge">
-                  <img src="/client/images/sale-badge/sale-badge (1).png" width="40px" />
+                  <img src="/client/images/product/sale-badge/sale-badge (1).png" width="40px" />
                 </div>
                 <span class="content-font text-white card-discount-text"
                   >-<%= product.discount %>%</span

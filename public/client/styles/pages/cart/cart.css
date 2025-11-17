@@ -1,3 +1,56 @@
+/* Coupon Modal */
+.cart-coupon-list {
+  z-index: 2500;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+}
+.cart-coupon-list.show {
+  opacity: 1;
+  visibility: visible;
+}
+.cart-coupon-list .cart-coupon-overlay {
+  z-index: 2400;
+  cursor: pointer;
+}
+.cart-coupon-list .coupon-list-box {
+  z-index: 2450;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+  padding: 20px;
+}
+.cart-coupon-list.show .coupon-list-box {
+  opacity: 1;
+  visibility: visible;
+}
+.cart-coupon-list .coupon-list-box .coupon-list-modal {
+  width: 500px;
+  max-width: 100%;
+  transform: translateY(-15%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s ease-out;
+}
+.cart-coupon-list.show .coupon-list-box .coupon-list-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0%);
+}
+.cart-coupon-list .coupon-list-box .card-coupon-title {
+  width: 100%;
+}
+.cart-coupon-list .coupon-list-box .coupon-list {
+  width: 100%;
+  height: 500px;
+}
+
 /* Product Card */
 .card-bg {
   width: 100%;
