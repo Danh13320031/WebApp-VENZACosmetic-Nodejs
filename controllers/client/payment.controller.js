@@ -10,6 +10,8 @@ import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import userModel from '../../models/user.model.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
+import getProductListInCartHelper from '../../helpers/client/payment/getProductListInCart.helper.js';
+import handleOrderCouponHelper from '../../helpers/client/payment/handleOrderCoupon.helper.js';
 
 // [GET]: /payment
 const payment = async (req, res) => {
@@ -91,50 +93,15 @@ const createOfflinePayment = async (req, res) => {
     const orderCount = await orderModel.countDocuments();
     const cart = await cartModel.findById(cartId);
 
-    let products = [];
-    let total = 0;
-
-    if (cart.products.length > 0) {
-      for (let i = 0; i < cart.products.length; i++) {
-        const productInfo = {
-          product_id: cart.products[i].product_id,
-          title: '',
-          thumbnail: '',
-          brand: '',
-          warranty: '',
-          dimension: { width: 0, height: 0, depth: 0 },
-          price: 0,
-          discount: 0,
-          quantity: cart.products[i].quantity,
-        };
-
-        const product = await productModel
-          .findOne({ _id: cart.products[i].product_id, deleted: false, status: 'active' })
-          .select('title thumbnail price discount stock');
-
-        if (!product) {
-          res.redirect('/payment/payment-fail');
-          return;
-        }
-
-        productInfo.title = product.title;
-        productInfo.thumbnail = product.thumbnail;
-        productInfo.brand = product.brand;
-        productInfo.warranty = product.warranty;
-        productInfo.dimension = product.dimension;
-        productInfo.price = product.price;
-        productInfo.discount = product.discount;
-
-        total +=
-          (product.price - (product.price * product.discount) / 100) * cart.products[i].quantity;
-        products.push(productInfo);
-      }
-    }
-
-    if (products.length === 0 || !cartId) {
+    // Handle get product info list in cart
+    if (cart.products.length <= 0 || !cartId) {
       res.redirect('/payment/payment-fail');
       return;
     }
+    const products = await getProductListInCartHelper(cart);
+
+    // Handle order coupon
+    const couponOrder = await handleOrderCouponHelper(cart, 0, userId);
 
     const orderBody = {
       cart_id: cartId,
@@ -145,9 +112,9 @@ const createOfflinePayment = async (req, res) => {
       payments: payments,
       products: products,
       shippings: shippings,
+      coupons: couponOrder.coupons,
+      total: Number.parseFloat(couponOrder.total),
     };
-
-    orderBody.total = Number.parseFloat(total);
 
     const order = new orderModel(orderBody);
     await order.save();
@@ -157,12 +124,12 @@ const createOfflinePayment = async (req, res) => {
       await cartModel.updateOne({ _id: cartId }, { products: [] });
 
       // Handle update stock
-      products.forEach(async (product) => {
+      for (const product of products) {
         await productModel.updateOne(
           { _id: product.product_id },
           { $inc: { stock: -product.quantity } }
         );
-      });
+      }
 
       // Handle notify mail payment success
       const html = await ejs.renderFile('./views/client/pages/payment/paymentSuccess.view.ejs', {

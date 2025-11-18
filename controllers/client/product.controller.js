@@ -3,13 +3,13 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import filterByCategoryHelper from '../../helpers/client/filterByCategory.helper.js';
-import filterByFeaturedProductHelper from '../../helpers/client/filterByFeaturedProduct.helper.js';
-import filterByPriceHelper from '../../helpers/client/filterByPrice.helper.js';
+import filterByFeaturedHelper from '../../helpers/client/filterByFeatured.helper.js';
+import filterByPriceHelper from '../../helpers/client/product/filterByPrice.helper.js';
 import filterByQuantityHelper from '../../helpers/client/filterByQuantity.helper.js';
-import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
+import filterBySaleHelper from '../../helpers/client/product/filterBySale.helper.js';
 import filterByBrandHelper from '../../helpers/client/product/filterByBrand.helper.js';
 import handleProductCommentHelper from '../../helpers/client/product/handleProductComment.helper.js';
-import removeProductFilterHelper from '../../helpers/client/removeProductFilter.helper.js';
+import removeProductFilterHelper from '../../helpers/client/product/removeProductFilter.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
@@ -47,7 +47,7 @@ const product = async (req, res) => {
     if (objectFilterSale.flag) find.discount = { $gt: 0 };
 
     // Filter product by featured product
-    const objectFilterByFeatured = filterByFeaturedProductHelper(req.query);
+    const objectFilterByFeatured = filterByFeaturedHelper(req.query);
     if (objectFilterByFeatured.flag) find.featured = '1';
 
     // Filter product by category

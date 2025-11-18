@@ -1,4 +1,4 @@
-import filterBySaleHelper from '../../helpers/client/filterBySale.helper.js';
+import filterBySaleHelper from '../../helpers/client/product/filterBySale.helper.js';
 
 const reqQuery1 = {
   sale: 'true',
