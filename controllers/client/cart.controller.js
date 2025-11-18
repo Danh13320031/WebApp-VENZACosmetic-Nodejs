@@ -1,14 +1,15 @@
-import { maxAgeCartStorage, productLimitConst } from '../../constants/constant.js';
+import { maxAgeCartStorage } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import getCouponListHelper from '../../helpers/client/cart/getCouponList.helper.js';
+import getProductListHelper from '../../helpers/client/cart/getProductList.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
-import paginationHelper from '../../helpers/pagination.helper.js';
 import cartModel from '../../models/cart.model.js';
 import couponModel from '../../models/coupon.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
+import userCouponModel from '../../models/userCoupon.model.js';
 
 // [GET]: /cart
 const cart = async (req, res) => {
@@ -21,55 +22,12 @@ const cart = async (req, res) => {
     const cart = await cartModel.findById(cartId);
     const user = res.locals.user || null;
 
-    let productIdCartList = [];
-    let productBrandCartList = [];
-    let objPagination = {};
-
-    if (cart.products.length > 0) {
-      for (let i = 0; i < cart.products.length; i++) {
-        const product = await productModel
-          .findOne({ _id: cart.products[i].product_id, deleted: false, status: 'active' })
-          .select('title thumbnail price slug discount stock brand_id');
-
-        if (product) {
-          cart.products[i].productInfo = product;
-          cart.products[i].productInfo.newPrice = Number.parseFloat(
-            product.price - (product.price * product.discount) / 100
-          );
-
-          const idProduct = product._id;
-          if (!productIdCartList.includes(idProduct)) productIdCartList.push(idProduct);
-
-          const idProductBrand = product.brand_id;
-          if (!productBrandCartList.includes(idProductBrand))
-            productBrandCartList.push(idProductBrand);
-        } else {
-          cart.products.splice(i, 1);
-          await cart.save();
-        }
-      }
-
-      cart.total =
-        Number.parseFloat(
-          cart.products.reduce(
-            (total, product) => total + product.productInfo.newPrice * product.quantity,
-            0
-          )
-        ) || 0;
-
-      // Pagination
-      const paginationObj = {
-        limit: 4 || productLimitConst,
-        currentPage: 1,
-      };
-      const productTotal = await cart.products.length;
-      objPagination = paginationHelper(req.query, paginationObj, productTotal);
-
-      cart.products = cart.products.slice(
-        objPagination.productSkip,
-        objPagination.productSkip + objPagination.limit
-      );
-    }
+    // Handle product info list
+    const productListObj = await getProductListHelper(req.query, cart);
+    const updatedCart = productListObj.cart;
+    const productIdCartList = productListObj.productIdCartList;
+    const productBrandCartList = productListObj.productBrandCartList;
+    const objPagination = productListObj.objPagination;
 
     // Handle related product with product brand
     const relatedProductList = await productModel
@@ -99,15 +57,15 @@ const cart = async (req, res) => {
 
     // Handle coupon
     const coupon = await couponModel.findOne({
-      _id: cart.coupon_id,
+      _id: updatedCart.coupon_id,
       deleted: false,
       status: 'active',
       published: true,
     });
-    if (coupon) cart.coupon = coupon;
+    if (coupon) updatedCart.coupon = coupon;
 
     const couponList = await getCouponListHelper(
-      cart,
+      updatedCart,
       productIdCartList,
       productBrandCartList,
       user
@@ -284,8 +242,27 @@ const applyCouponToCart = async (req, res) => {
       return;
     }
 
+    if (coupon.limit <= 0) {
+      alertMessageHelper(req, 'alertFailure', 'Mã giảm giá hết số lượng');
+      res.redirect('back');
+      return;
+    }
+
     const cartId = req.cookies.cartId ? req.cookies.cartId : null;
     const cart = await cartModel.findById(cartId);
+
+    const user = res.locals.user;
+    const userId = user ? user._id : null;
+
+    if (user && userId) {
+      const userCoupon = await userCouponModel.findOne({ coupon_id: coupon._id, user_id: userId });
+
+      if (userCoupon && userCoupon.usedCount >= coupon.limitPerUser) {
+        alertMessageHelper(req, 'alertFailure', 'Số lần sử dụng mã này đã hết');
+        res.redirect('back');
+        return;
+      }
+    }
 
     cart.coupon_id = coupon._id;
     await cart.save();
