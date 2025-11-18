@@ -11,7 +11,8 @@ import productCategoryModel from '../../models/productCategory.model.js';
 import userModel from '../../models/user.model.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import getProductListInCartHelper from '../../helpers/client/payment/getProductListInCart.helper.js';
-import handleOrderCouponHelper from '../../helpers/client/payment/handleOrderCoupon.helper.js';
+import getCouponInCartHelper from '../../helpers/client/payment/getCouponInCart.helper.js';
+import updateCouponAfterOrderHelper from '../../helpers/client/payment/updateCouponAfterOrder.helper.js';
 
 // [GET]: /payment
 const payment = async (req, res) => {
@@ -100,8 +101,8 @@ const createOfflinePayment = async (req, res) => {
     }
     const products = await getProductListInCartHelper(cart);
 
-    // Handle order coupon
-    const couponOrder = await handleOrderCouponHelper(cart, 0, userId);
+    // Handle get coupon info
+    const couponOrder = await getCouponInCartHelper(cart, 0);
 
     const orderBody = {
       cart_id: cartId,
@@ -122,6 +123,9 @@ const createOfflinePayment = async (req, res) => {
     if (order) {
       // Handle clear cart
       await cartModel.updateOne({ _id: cartId }, { products: [] });
+
+      // Handle update coupon
+      await updateCouponAfterOrderHelper(order.coupons.coupon_id, order.userOrderInfo.user_id);
 
       // Handle update stock
       for (const product of products) {
