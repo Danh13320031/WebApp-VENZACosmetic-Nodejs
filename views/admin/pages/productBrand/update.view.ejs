@@ -37,7 +37,7 @@
         >
           <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-4 col-md-6 col-12">
+              <div class="col-lg-3 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="title" class="fw-bold"
                     ><span class="text-danger"><b>*</b></span> Tiêu đề
@@ -54,7 +54,7 @@
                 </div>
               </div>
 
-              <div class="col-lg-4 col-md-6 col-12">
+              <div class="col-lg-3 col-md-6 col-12">
                 <div class="form-group mb-4">
                   <label for="position" class="fw-bold">Vị trí</label>
                   <input
@@ -69,24 +69,63 @@
                 </div>
               </div>
 
-              <div class="col-lg-4 col-md-6 col-12">
+              <div class="col-lg-3 col-md-6 col-12">
                 <div class="form-group mb-4">
-                  <label for="" class="fw-bold d-block"
-                    ><span class="text-danger"><b>*</b></span> Trạng thái</label
-                  >
-                  <input type="radio" name="status" value="active" <% if(productBrand.status ===
-                  'active') {%>checked<% } %> class="form-check-input" id="status-active" />
+                  <label for="" class="fw-bold d-block">
+                    <span class="text-danger"><b>*</b></span> 
+                    Trạng thái
+                  </label>
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="active" 
+                    <% if(productBrand.status === 'active') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="status-active" 
+                  />
                   <label for="status-active" class="me-4">Hoạt động</label>
-                  <input type="radio" name="status" value="inactive" <% if(productBrand.status ===
-                  'inactive') {%>checked<% } %> class="form-check-input" id="status-inactive" />
+                  <input 
+                    type="radio" 
+                    name="status" 
+                    value="inactive" <% if(productBrand.status === 'inactive') {%> checked <% } %> 
+                    class="form-check-input" 
+                    id="status-inactive" 
+                  />
                   <label for="status-inactive">Ngừng hoạt động</label>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-6 col-6">
+                <div class="form-group mb-4">
+                  <label for="" class="fw-bold d-block">
+                    <span class="text-danger"><b>*</b></span>
+                    Nổi bật
+                  </label>
+                  <input 
+                    type="radio" 
+                    name="featured" 
+                    value="1"
+                    <% if(productBrand.featured=== '1') {%> checked <% } %>
+                    class="form-check-input"
+                    id="featured1" 
+                  />
+                  <label for="featured1" class="me-4">Có</label>
+                  <input 
+                    type="radio" 
+                    name="featured" 
+                    value="0" 
+                    <% if(productBrand.featured === '0') {%> checked <% } %> 
+                    class="form-check-input"
+                    id="featured0"
+                  />
+                  <label for="featured0">Ko</label>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-group mb-4">
-                  <label for="description" class="fw-bold"
-                    ><span class="text-danger"><b>*</b></span>
+                  <label for="description" class="fw-bold">
+                    <span class="text-danger"><b>*</b></span>
                     Mô tả chi tiết
                   </label>
                   <textarea
@@ -94,9 +133,7 @@
                     placeholder="Nhập nội dung..."
                     class="form-control product-brand-description"
                     id="description"
-                  >
-<%= productBrand.description %></textarea
-                  >
+                  ><%= productBrand.description %></textarea>
                 </div>
               </div>
 

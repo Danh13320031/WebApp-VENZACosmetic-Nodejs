@@ -2,6 +2,7 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
+import searchHelper from '../../helpers/search.helper.js';
 import accountModel from '../../models/account.model.js';
 import postModel from '../../models/post.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
@@ -23,6 +24,10 @@ const post = async (req, res) => {
     const postFeatured = await postModel
       .findOne({ ...find, featured: '1', published: true })
       .select('-content');
+
+    // Search
+    const objSearch = searchHelper(req.query);
+    if (objSearch.rexKeywordString) find.title = objSearch.rexKeywordString;
 
     // Product pagination
     const paginationObj = {
@@ -89,7 +94,7 @@ const postDetail = async (req, res) => {
     const account = await accountModel
       .findOne({ _id: post.postedBy.account_id })
       .select('fullName');
-      
+
     post.poster = account ? account.fullName : '';
 
     res.render(

@@ -33,7 +33,7 @@ const home = async (req, res) => {
     const productBrandList = await productBrandModel
       .find(find)
       .sort({ createdAt: 'desc' })
-      .select('thumbnail title');
+      .select('-status -deleted -createdAt -updatedAt');
 
     // Handle featured product
     const productFeatureList = productList.filter((product) => {
