@@ -155,6 +155,9 @@ const createOfflinePayment = async (req, res) => {
   }
 };
 
+// [POST]: /payment/payment-create-online
+const createOnlinePayment = async (req, res) => {};
+
 // [GET]: /payment/payment-success/:orderId
 const notifySuccessPayment = async (req, res) => {
   try {

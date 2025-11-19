@@ -8,6 +8,7 @@ const objSchema = {
   description: { type: String, require: true },
   thumbnail: { type: String, require: true },
   status: { type: String, require: true, enum: ['active', 'inactive'], default: 'inactive' },
+  featured: { type: String, require: true, default: '0' },
   position: { type: Number, require: true, default: 1 },
   slug: { type: String, slug: 'title', unique: true },
   deleted: { type: Boolean, require: true, default: false },

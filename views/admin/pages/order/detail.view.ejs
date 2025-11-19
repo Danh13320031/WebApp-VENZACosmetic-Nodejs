@@ -472,6 +472,159 @@
             </div>
           </div>
 
+          <% if(orderDetail.coupons.coupon_id) { %>
+          <div class="card-header">
+            <div class="d-md-flex justify-content-between align-items-center d-block">
+              <h5 class="title-font mb-2 mb-md-0">
+                Thông tin mã giảm giá
+              </h5>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="container-fluid w-100">
+              <div class="row">
+                <div class="col-12">
+                  <div class="d-md-flex d-block align-items-end justify-content-between gap-2 order-coupon-box">
+                    <div class="order-coupon-info">
+                      <ul class="ps-0 mb-0 d-flex flex-column gap-1 order-coupon-info-list">
+                        <li class="d-flex align-items-center gap-1 order-coupon-info-item">
+                          <span class="fs-6 text-wrap order-coupon-info-code">
+                            <b>Mã áp dụng: </b>
+                          </span>
+                          <h5 class="mb-0 text-primary text-wrap order-coupon-info-code">
+                            <%= orderDetail.coupons.code %>
+                          </h5>
+                        </li>
+                        <li class="order-coupon-infi-item">
+                          <span class="fs-6 text-wrap order-coupon-info-type">
+                            <b>Loại giá trị: </b><%= orderDetail.coupons.valueType === 'percent' ? 'Giá trị %' : 'Giá trị tiền' %>
+                          </span>
+                        </li>
+                        <li class="order-coupon-infi-item">
+                          <span class="fs-6 text-wrap order-coupon-info-value">
+                            <b>Giá trị: </b>
+                            <%= orderDetail.coupons.valueType === 'percent' ? orderDetail.coupons.value + '%'
+                            : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.value) %>
+                          </span>
+                        </li>
+                        <% if(orderDetail.coupons.valueType === 'percent') { %>
+                        <li class="order-coupon-infi-item">
+                          <span class="fs-6 text-wrap order-coupon-info-max-discount">
+                            <b>Giảm tối đa: </b>
+                            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.maxDiscountAmount) %>
+                          </span>
+                        </li>
+                        <% } %>
+                        <li class="order-coupon-infi-item">
+                          <span class="fs-6 text-wrap order-coupon-info-min-order">
+                            <b>Áp dụng cho đơn hàng từ: </b>
+                            <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.minAmount) %>
+                          </span>
+                        </li>
+                        <% if(couponOrder) { %>
+                        <li class="order-person-order-item">
+                          <span class="fs-6 text-wrap order-person-order-value">
+                            <b>Hạn sử dụng: </b>
+                          </span>
+                          <% if (moment(couponOrder.endedAt).tz(timezone).format('YYYY/MM/DDTHH:mm') < moment(Date.now()).tz(timezone).format('YYYY/MM/DDTHH:mm')) { %>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--error-color-admin)"
+                          >
+                            Đã hết hạn
+                          </span>
+                          <% } else if (moment(couponOrder.startedAt).tz(timezone).format('YYYY/MM/DDTHH:mm') > moment(Date.now()).tz(timezone).format('YYYY/MM/DDTHH:mm')) { %>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--warning-color-admin)"
+                          >
+                            Chưa phát hành
+                          </span>
+                          <% } else { %>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--success-color-admin)"
+                          >
+                            Đang sử dụng
+                          </span>
+                          <% } %>
+                        </li>
+                        <li class="order-person-order-item">
+                          <span class="fs-6 text-wrap order-person-order-value">
+                            <b>Tình trạng: </b>
+                          </span>
+                          <% if (couponOrder.deleted) { %>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--error-color-admin)"
+                          >
+                            Đã bị xóa mềm
+                          </span>
+                          <% } else { %>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--info-color-admin)"
+                          >
+                            Đang lưu trong hệ thống
+                          </span>
+                          <% } %>
+                        </li>
+                        <% } else { %>
+                        <li class="order-person-order-item">
+                          <span class="fs-6 text-wrap order-person-order-value">
+                            <b>Tồn tại: </b>
+                          </span>
+                          <span
+                            class="badge badge-primary order-person-order-value"
+                            style="background: var(--error-color-admin)"
+                          >
+                            Đã bị xóa khỏi hệ thống
+                          </span>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </div>
+
+                    <% if(couponOrder) { %>
+                      <% if(couponOrder.deleted) { %>
+                      <a
+                        href="<%= prefixAdmin %>/coupons/garbage"
+                        class="btn btn-primary order-coupon-button-garbage"
+                        ><i class="me-1 bi bi-arrow-clockwise"></i>
+                        Thùng rác
+                      </a>
+                      <% } else { %>
+                      <a
+                        href="<%= prefixAdmin %>/coupons/update/<%= couponOrder._id %>"
+                        class="btn btn-primary order-coupon-button-update"
+                        ><i class="me-1 bi bi-pencil-square"></i>
+                        Chi tiết
+                      </a>
+                      <% } %> 
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="container-fluid">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-12">
+                  <div>Giảm giá: </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                  <div class="fw-bold text-lg-end text-left">
+                    -<%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.discountAmount) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
           <div class="card-footer">
             <div class="container-fluid">
               <div class="row justify-content-between align-items-center">

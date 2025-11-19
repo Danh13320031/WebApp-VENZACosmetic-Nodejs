@@ -13,6 +13,8 @@ import statusFilterHelper from '../../helpers/statusFilter.helper.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
 import userModel from '../../models/user.model.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
+import couponModel from '../../models/coupon.model.js';
 
 // GET: /admin/accounts
 const order = async (req, res) => {
@@ -631,6 +633,10 @@ const detailOrder = async (req, res) => {
       objPagination.productSkip + objPagination.limit
     );
 
+    console.log(order);
+
+    const couponOrder = await couponModel.findOne({ _id: order.coupons.coupon_id });
+
     res.render('./admin/pages/order/detail.view.ejs', {
       pageTitle: `Đơn hàng ${order.orderCode}`,
       orderDetail: order,
@@ -638,11 +644,12 @@ const detailOrder = async (req, res) => {
       productList,
       productListInOrder,
       orderTotal,
+      couponOrder,
       keyword: objSearch.keyword,
       objPagination,
     });
   } catch (error) {
-    handleError(req, res, error);
+    handleErrorHelper(req, res, error);
   }
 };
 

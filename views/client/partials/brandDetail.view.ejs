@@ -1,0 +1,28 @@
+<%# Coupon Card Detail %>
+<div class="position-fixed top-0 start-0 w-100 h-100 p-3 d-flex justify-content-center align-items-center card-brand-detail" card-brand-detail data-id="<%= brand._id %>">
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 card-brand-overlay" card-brand-overlay data-id="<%= brand._id %>"></div>
+  <ul class="p-4 rounded-1 bg-white shadow position-absolute d-flex flex-column gap-2 card-brand-content">
+    <li class="content-font">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="heading-font py-0 d-flex align-items-center">
+          Thương hiệu <%= brand.title %>
+        </div>
+        <i class="button-icon-primary bi bi-x-lg" card-brand-close data-id="<%= brand._id %>"></i>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="d-flex justify-content-center align-items-center card-brand-image">
+        <img src="<%= brand.thumbnail %>" alt="<%= brand.title %>" width="200px"/>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="d-flex flex-column mt-3 card-brand-description">
+        <div><%- brand.description %></div>
+      </div>
+      <hr>
+    </li>
+  </ul>
+</div>
+<%# End Coupon Card Detail %>

@@ -25,13 +25,19 @@ const getCouponListHelper = async (cart, productIdCartList, productBrandCartList
     if (coupon.scope === 'brand')
       return productBrandCartList.some((brandId) => coupon.appliedIds.includes(brandId));
 
-    const userCoupon = userCouponList
-      ? userCouponList.find((userCoupon) => userCoupon.coupon_id === coupon._id)
-      : null;
-    if (!userCoupon) return false;
-    if (userCoupon.usedCount < coupon.limitPerUser) return true;
-
     return false;
+  });
+
+  couponList = couponList.filter((coupon) => {
+    if (!userId) return true;
+
+    const userCoupon = userCouponList.find(
+      (item) => item.coupon_id.toString() === coupon._id.toString()
+    );
+
+    if (!userCoupon) return true;
+
+    return coupon.limitPerUser > userCoupon.usedCount;
   });
 
   return couponList;
