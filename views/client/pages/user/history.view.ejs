@@ -3,7 +3,7 @@
   <head>
     <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
 
-    <!-- Styles File -->
+    <%# Styles File %>
     <link rel="stylesheet" href="/client/setup.css" />
     <link rel="stylesheet" href="/client/styles/partials/alert.css" />
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
     <link rel="stylesheet" href="/client/styles/pages/user/profile.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
-    <!-- End Styles File -->
+    <%# End Styles File %>
 
-    <!-- Styles Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Styles Library & Framework Link %>
+    <%# Bootstrap %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -30,15 +30,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- BoxIcon -->
+    <%# BoxIcon %>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <link
       rel="stylesheet"
       type="text/css"
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
-    <!-- End Styles Library & Framework Link -->
+    <%# End Styles Library & Framework Link %>
   </head>
   <body>
     <%-include('../../partials/alertMessage.view.ejs') %>
@@ -308,24 +308,27 @@
       id="form-add-favorite"
     ></form>
 
-    <!-- Scripts File -->
+    <%# Scripts File %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/scripts/initSocketClient.js"></script>
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/displayChatBox.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/previewImage.js"></script>
     <script src="/client/scripts/pagination.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
-    <!-- End Scripts File -->
+    <%# End Scripts File %>
 
-    <!-- Scripts Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Scripts Library & Framework Link %>
+    <%# Bootstrap %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FontAwesome -->
+    <%# FontAwesome %>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
       type="text/javascript"
@@ -333,8 +336,8 @@
     ></script>
     <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
 
-    <!-- <script src="./scripts/googlemap.js"></script> -->
-    <!-- End Scripts Library & Framework Link -->
+    <%# <script src="./scripts/googlemap.js"></script> %>
+    <%# End Scripts Library & Framework Link %>
     <script
       src="https://cdn.tiny.cloud/1/j8bmm28z8l7u8m5at9v64rveeytj143ibxpezl0aks1g6uzx/tinymce/8/tinymce.min.js"
       referrerpolicy="origin"
