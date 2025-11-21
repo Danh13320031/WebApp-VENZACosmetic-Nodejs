@@ -212,7 +212,22 @@
                           </div>
                         </td>
                         <% if (order.payments.method === 'online') { %>
-                        <td><span class="badge text-wrap" style="background: var(--info-color-admin);">Thanh toán trực tuyến - <%= order.payments.bank %></span></td>
+                        <td>
+                          <div class="d-flex flex-column gap-1">
+                            <span 
+                            class="badge text-wrap" 
+                            style="background: var(--info-color-admin);"
+                            >
+                              Thanh toán trực tuyến
+                            </span>
+                            <span
+                              class="badge text-wrap" 
+                              style="background: var(--info-color-admin);"
+                            >
+                              <%= order?.payments?.bank ? 'Ngân hàng ' + order.payments.bank : 'Không tìm thấy ngân hàng' %>
+                            </span>
+                          </div>
+                        </td>
                         <% } else { %>
                         <td>
                           <div class="badge text-wrap" style="background: var(--warning-color-admin);">Thanh toán khi nhận hàng</div>

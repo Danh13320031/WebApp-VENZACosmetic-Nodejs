@@ -56,6 +56,20 @@
       </tbody>
     </table>
 
+    <h3>Mã giảm giá</h3>
+    <% if (orderDetail.coupons.coupon_id) { %>
+    <p>Mã giảm giá: <%= orderDetail.coupons.code %></p>
+    <p>Loại giá trị: <%= orderDetail.coupons.valueType === 'percent' ? 'Tính theo %' : 'Tính theo tiền' %></p>
+    <p>Giá trị: <%= orderDetail.coupons.valueType === 'percent' ? orderDetail.coupons.value + '%' : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.value) %></p>
+    <% if(orderDetail.coupons.valueType === 'percent') { %>
+    <p>Giảm tối đa: <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.maxDiscountAmount) %></p>
+    <% } %>
+    <p>Chi tiết: <%= orderDetail.coupons.description %></p>
+    <p>Giảm giá: -<%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orderDetail.coupons.discountAmount) %></p>
+    <% } else { %>
+    <p>Không sử dụng mã giảm giá</p>
+    <% } %>
+
     <h3>Tổng kết</h3>
     <p>
       <strong>Thành tiền:</strong>

@@ -273,7 +273,7 @@
                         class="badge badge-primary order-person-order-value"
                         style="background: var(--info-color-admin)"
                       >
-                        Thanh toán trực tuyến
+                        Thanh toán trực tuyến <%= orderDetail.payments.bank ? '- Ngân hàng ' + orderDetail.payments.bank : 'Không tìm thấy ngân hàng' %>
                       </span>
                       <% } %>
                     </li>
@@ -498,7 +498,7 @@
                         </li>
                         <li class="order-coupon-infi-item">
                           <span class="fs-6 text-wrap order-coupon-info-type">
-                            <b>Loại giá trị: </b><%= orderDetail.coupons.valueType === 'percent' ? 'Giá trị %' : 'Giá trị tiền' %>
+                            <b>Loại giá trị: </b><%= orderDetail.coupons.valueType === 'percent' ? 'Tính theo %' : 'Tính theo tiền' %>
                           </span>
                         </li>
                         <li class="order-coupon-infi-item">

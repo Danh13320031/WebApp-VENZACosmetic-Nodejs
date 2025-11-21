@@ -15,7 +15,13 @@ import { socketIOPackageConfig } from './configs/socketIoPackage.config.js';
 import systemConfig from './configs/system.config.js';
 import templateEngineConfig from './configs/templateEngine.config.js';
 import tinyMcePackageConfig from './configs/tinyMcePackage.config.js';
-import { checkCouponConst, checkDiscountConst, checkPostConst, timezone } from './constants/constant.js';
+import {
+  checkCouponConst,
+  checkDiscountConst,
+  checkOrderConst,
+  checkPostConst,
+  timezone,
+} from './constants/constant.js';
 import cronJobs from './jobs/cron.jobs.js';
 import routerAdmin from './routes/admin/index.route.js';
 import routerClient from './routes/client/index.route.js';
@@ -27,6 +33,7 @@ socketIOPackageConfig(server);
 
 connect();
 
+// Config App Locals
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.timezone = timezone;
 app.locals.moment = moment;
@@ -49,14 +56,16 @@ flashPackageConfig(app);
 app.use(googleStrategyOauthConfig().initialize());
 app.use(googleStrategyOauthConfig().session());
 
+// App Routers
 routerClient(app);
 routerAdmin(app);
 routerError(app);
 
-// Auto cron jobs
+// Auto Cron Jobs
 cronJobs.checkDiscountTimeJob(checkDiscountConst);
 cronJobs.checkPostTimeJob(checkPostConst);
 cronJobs.checkCouponTimeJob(checkCouponConst);
+cronJobs.clearPendingOrderOnlineJob(checkOrderConst);
 
 reload(app)
   .then(() => {

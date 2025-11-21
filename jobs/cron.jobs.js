@@ -107,10 +107,39 @@ const checkCouponTimeJob = (couponScheduleCheck) => {
   cron.schedule(couponScheduleCheck, checkCouponScheduler, options);
 };
 
+const clearPendingOrderOnlineJob = (orderSchedulerCheck) => {
+  const options = {
+    name: 'clearPendingOrderOnlineJob',
+    timezone: timezone,
+  };
+
+  const checkOrderScheduler = async () => {
+    try {
+      const result = await orderModel.updateMany(
+        {
+          'payments.method': 'online',
+          'payments.status': 'pending',
+          deleted: false,
+        },
+        { $set: { deleted: true } }
+      );
+
+      if (result.modifiedCount > 0)
+        console.log(`\n--- Đã xóa mềm ${result.modifiedCount} đơn hàng online pending`);
+      else console.log('\n--- Không có đơn hàng online pending nào');
+    } catch (error) {
+      console.log('Check order time fail: ', error);
+    }
+  };
+
+  cron.schedule(orderSchedulerCheck, checkOrderScheduler, options);
+};
+
 const cronJobs = {
   checkDiscountTimeJob,
   checkPostTimeJob,
   checkCouponTimeJob,
+  clearPendingOrderOnlineJob,
 };
 
 export default cronJobs;
