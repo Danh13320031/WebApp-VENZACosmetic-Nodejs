@@ -139,7 +139,6 @@
                   <label for="discountExpiredAt" class="fw-bold">Thời gian kết thúc giảm giá</label>
                   <input
                     type="datetime-local"
-                    min="<%= moment(Date.now()).tz(timezone).format('YYYY-MM-DDTHH:mm') %>"
                     value="<%= moment(product.discountExpiredAt).tz(timezone).format('YYYY-MM-DDTHH:mm') %>"
                     name="discountExpiredAt"
                     class="form-control"

@@ -8,9 +8,16 @@ paymentRoute.get('/', authMiddleware.requireLogin, paymentController.payment);
 paymentRoute.post(
   '/payment-create-offline',
   authMiddleware.requireLogin,
-  paymentValidate.createOfflinePaymentValidate,
+  paymentValidate.createPaymentValidate,
   paymentController.createOfflinePayment
 );
+paymentRoute.post(
+  '/payment-create-online',
+  authMiddleware.requireLogin,
+  paymentValidate.createPaymentValidate,
+  paymentController.createPaymentOnline
+);
+paymentRoute.get('/vnpay/return', paymentController.getPaymentOnlineReturn);
 paymentRoute.get('/payment-success/:orderCode', paymentController.notifySuccessPayment);
 paymentRoute.get('/payment-fail', paymentController.notifyFailPayment);
 

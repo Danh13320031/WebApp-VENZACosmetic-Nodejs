@@ -1,10 +1,11 @@
 const generateOrderCodeHelper = () => {
   const prefix = 'ORD-';
-  const timeString = Date.now().toString().slice(-5);
-  const randomNumberString = Math.floor(Math.random() * 1000000)
+  const timestamp = Date.now().toString();
+  const randomString = Math.floor(Math.random() * 1000000)
     .toString()
-    .padStart(3, '0');
-  return prefix + timeString + randomNumberString;
+    .padStart(6, '0');
+
+  return prefix + timestamp + randomString;
 };
 
 export default generateOrderCodeHelper;

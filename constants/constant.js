@@ -5,6 +5,7 @@ export const limitListAdminConst = 10;
 export const limitListClientConst = 16;
 export const productFlashSaleMsConst = 10 * 24 * 60 * 60 * 1000;
 
+// Token
 export const saltRoundsConst = 10;
 export const verifyTokenExpiresIn = Number.parseInt(process.env.VERIFY_TOKEN_EXPIRES_IN);
 export const accessTokenExpiresIn = Number.parseInt(process.env.ACCESS_TOKEN_EXPIRES_IN);
@@ -12,6 +13,7 @@ export const refreshTokenExpiresIn = Number.parseInt(process.env.REFRESH_TOKEN_E
 export const otpExpiresIn = Number.parseInt(process.env.OTP_EXPIRES_IN);
 export const emailConst = process.env.GOOGLE_USER_EMAIL;
 
+// Cookie
 export const maxAgeCartStorage = 30 * 24 * 60 * 60 * 1000;
 export const maxAgeProductLikeStorage = 30 * 24 * 60 * 60 * 1000;
 
@@ -22,6 +24,7 @@ export const passwordRegex =
   /(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
 export const otpRegex = /^[0-9]{5}$/;
 
+// Time
 export const timezone = 'Asia/Ho_Chi_Minh';
 
 // Page error
@@ -31,6 +34,7 @@ export const notFoundPage = '/error/404';
 export const checkDiscountConst = '*/10 * * * * *';
 export const checkPostConst = '*/10 * * * * *';
 export const checkCouponConst = '*/10 * * * * *';
+export const checkOrderConst = '0 */30 * * * *';
 
 // Coupon
 export const couponCodePrefixRule = {
@@ -53,3 +57,9 @@ export const couponCodePrefixRule = {
     normal: 'VENZA',
   },
 };
+
+// Vnpay
+export const vnpTmnCodeConst = process.env.VNP_TMNCODE;
+export const vnpHashSecretConst = process.env.VNP_HASHSECRET;
+export const vnpUrlConst = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
+export const vnpReturnUrlConst = process.env.VNP_RETURNURL;

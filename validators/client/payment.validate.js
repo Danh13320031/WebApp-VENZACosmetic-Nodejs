@@ -1,6 +1,6 @@
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
-const createOfflinePaymentValidate = (req, res, next) => {
+const createPaymentValidate = (req, res, next) => {
   if (!req.body.fullname) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập tên người nhận');
     res.redirect('back');
@@ -35,7 +35,7 @@ const createOfflinePaymentValidate = (req, res, next) => {
 };
 
 const paymentValidate = {
-  createOfflinePaymentValidate,
+  createPaymentValidate,
 };
 
 export default paymentValidate;

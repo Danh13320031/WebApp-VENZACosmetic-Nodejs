@@ -3,16 +3,17 @@ import { emailConst, notFoundPage } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
 import generateOrderCodeHelper from '../../helpers/client/generateOrderCode.helper.js';
+import buildVnpayPaymentUrlHelper from '../../helpers/client/payment/buildVnpayPaymentUrl.helper.js';
+import getCouponInCartHelper from '../../helpers/client/payment/getCouponInCart.helper.js';
+import getProductListInCartHelper from '../../helpers/client/payment/getProductListInCart.helper.js';
+import updateCouponAfterOrderHelper from '../../helpers/client/payment/updateCouponAfterOrder.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 import userModel from '../../models/user.model.js';
-import handleErrorHelper from '../../helpers/handleError.helper.js';
-import getProductListInCartHelper from '../../helpers/client/payment/getProductListInCart.helper.js';
-import getCouponInCartHelper from '../../helpers/client/payment/getCouponInCart.helper.js';
-import updateCouponAfterOrderHelper from '../../helpers/client/payment/updateCouponAfterOrder.helper.js';
 
 // [GET]: /payment
 const payment = async (req, res) => {
@@ -100,9 +101,14 @@ const createOfflinePayment = async (req, res) => {
       return;
     }
     const products = await getProductListInCartHelper(cart);
+    const orderTotal = products.reduce(
+      (total, product) =>
+        total + (product.price - (product.price * product.discount) / 100) * product.quantity,
+      0
+    );
 
     // Handle get coupon info
-    const couponOrder = await getCouponInCartHelper(cart, 0);
+    const couponOrder = await getCouponInCartHelper(cart, orderTotal);
 
     const orderBody = {
       cart_id: cartId,
@@ -156,7 +162,178 @@ const createOfflinePayment = async (req, res) => {
 };
 
 // [POST]: /payment/payment-create-online
-const createOnlinePayment = async (req, res) => {};
+const createPaymentOnline = async (req, res) => {
+  try {
+    const body = req.body;
+    const cartId = req.cookies.cartId;
+    const user = res.locals.user;
+    const userId = user ? user._id : null;
+    const userOrder = await userModel.findById(userId);
+
+    const userOrderInfo = {
+      user_id: userOrder._id,
+      fullname: userOrder.fullname,
+      email: userOrder.email,
+      phone: userOrder.phone,
+      address: userOrder.address,
+      avatar: userOrder.avatar,
+    };
+
+    const userConsigneeInfo = {
+      fullname: body.fullname,
+      email: body.email,
+      phone: body.phone,
+      address: body.address,
+      note: body.note,
+    };
+
+    const payments = { method: body.payment_method };
+    const shippings = { method: body.shipping_method };
+
+    // Handle generate order code
+    const orderCode = await generateOrderCodeHelper();
+
+    const orderCount = await orderModel.countDocuments();
+    const cart = await cartModel.findById(cartId);
+
+    // Handle get product info list in cart
+    if (cart.products.length <= 0 || !cartId) {
+      res.redirect('/payment/payment-fail');
+      return;
+    }
+    const products = await getProductListInCartHelper(cart);
+    const orderTotal = products.reduce(
+      (total, product) =>
+        total + (product.price - (product.price * product.discount) / 100) * product.quantity,
+      0
+    );
+
+    if (orderTotal < 5000) {
+      alertMessageHelper(req, 'alertFailure', 'Giá trị đơn hàng tối thiểu là 5000 đồng');
+      res.redirect('back');
+      return;
+    }
+
+    if (orderTotal > 1000000000) {
+      alertMessageHelper(req, 'alertFailure', 'Giá trị đơn hàng tối đa là 1 tỷ đồng');
+      res.redirect('back');
+      return;
+    }
+
+    // Handle get coupon info
+    const couponOrder = await getCouponInCartHelper(cart, orderTotal);
+
+    const orderBody = {
+      cart_id: cartId,
+      orderCode: orderCode,
+      position: orderCount + 1,
+      userOrderInfo: userOrderInfo,
+      userConsigneeInfo: userConsigneeInfo,
+      payments: payments,
+      products: products,
+      shippings: shippings,
+      coupons: couponOrder.coupons,
+      total: Number.parseFloat(couponOrder.total),
+    };
+
+    const order = new orderModel(orderBody);
+    await order.save();
+
+    if (order) {
+      const orderCodeVnpay = order.orderCode.toString().trim().replace('-', '');
+      const orderTotalVnpay = order.total;
+
+      if (orderCodeVnpay && orderTotalVnpay) {
+        const paymentUrl = await buildVnpayPaymentUrlHelper(req, orderCodeVnpay, orderTotalVnpay);
+        res.redirect(paymentUrl);
+        return;
+      }
+
+      res.redirect('/payment/payment-fail');
+      return;
+    } else {
+      res.redirect('/payment/payment-fail');
+      return;
+    }
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
+
+// [GET]: /payment/payment-create-online/return
+const getPaymentOnlineReturn = async (req, res) => {
+  try {
+    const cartId = req.cookies.cartId;
+
+    let orderCode = req.query.vnp_TxnRef ? req.query.vnp_TxnRef.replace('ORD', 'ORD-') : null;
+    const order = await orderModel.findOne({
+      orderCode: orderCode,
+      status: 'pending',
+      'payments.method': 'online',
+      deleted: false,
+    });
+
+    if (req.query.vnp_OrderInfo)
+      req.query.vnp_OrderInfo = req.query.vnp_OrderInfo.replace('ORD', 'ORD-');
+
+    const responseCode = req.query.vnp_ResponseCode ? req.query.vnp_ResponseCode : null;
+    const transactionStatus = req.query.vnp_TransactionStatus
+      ? req.query.vnp_TransactionStatus
+      : null;
+
+    if (responseCode !== '00' || transactionStatus !== '00') {
+      if (order) {
+        await orderModel.updateOne(
+          { _id: order._id },
+          { status: 'cancelled', 'payments.status': 'failed' }
+        );
+      }
+
+      res.redirect('/payment/payment-fail');
+      return;
+    }
+
+    if (order) {
+      let bankCode = req.query.vnp_BankCode;
+
+      await orderModel.updateOne(
+        { _id: order._id },
+        { status: 'delivered', 'payments.status': 'success', 'payments.bank': bankCode }
+      );
+
+      // Handle clear cart
+      await cartModel.updateOne({ _id: cartId }, { products: [] });
+
+      // Handle update coupon
+      await updateCouponAfterOrderHelper(order.coupons.coupon_id, order.userOrderInfo.user_id);
+
+      // Handle update stock
+      for (const product of order.products) {
+        await productModel.updateOne(
+          { _id: product.product_id },
+          { $inc: { stock: -product.quantity } }
+        );
+      }
+
+      // Handle notify mail payment success
+      const html = await ejs.renderFile('./views/client/pages/payment/paymentSuccess.view.ejs', {
+        ...res.locals,
+        pageTitle: 'Thanh toán thành công',
+        orderCode: order.orderCode,
+      });
+
+      // order.userOrderInfo.email
+      await sendMailHelper(emailConst, `VENZA - THANH TOÁN THÀNH CÔNG`, html);
+      res.redirect('/payment/payment-success/' + order.orderCode);
+      return;
+    }
+
+    res.redirect('/payment/payment-fail');
+    return;
+  } catch (error) {
+    handleErrorHelper(req, res, error);
+  }
+};
 
 // [GET]: /payment/payment-success/:orderId
 const notifySuccessPayment = async (req, res) => {
@@ -202,6 +379,8 @@ const paymentController = {
   createOfflinePayment,
   notifySuccessPayment,
   notifyFailPayment,
+  createPaymentOnline,
+  getPaymentOnlineReturn,
 };
 
 export default paymentController;
