@@ -3,7 +3,7 @@
   <head>
     <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
 
-    <!-- Styles File -->
+    <%# Styles File %>
     <link rel="stylesheet" href="/client/setup.css" />
     <link rel="stylesheet" href="/client/styles/partials/alert.css">
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="/client/styles/pages/product/product.responsive.css" />
     <link rel="stylesheet" href="/client/styles/partials/pagination.css">
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
-    <!-- End Styles File -->
+    <%# End Styles File %>
 
-    <!-- Styles Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Styles Library & Framework Link %>
+    <%# Bootstrap %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -31,15 +31,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- BoxIcon -->
+    <%# BoxIcon %>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <link
       rel="stylesheet"
       type="text/css"
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
-    <!-- End Styles Library & Framework Link -->
+    <%# End Styles Library & Framework Link %>
   </head>
   <body>
     <%-include('../../partials/alertMessage.view.ejs') %>
@@ -52,7 +52,7 @@
 
       <div class="container">
         <div class="row">
-          <!-- Filter -->
+          <%# Filter %>
           <div class="col-lg-3 col-md-4 col-12">
             <div class="product-filter p-3">
               <div class="product-filter-delete mb-4 justify-content-between align-items-center">
@@ -177,10 +177,10 @@
               </div>
             </div>
           </div>
-          <!-- End filter -->
+          <%# End filter %>
 
           <div class="col-lg-9 col-md-8 col-12">
-            <!-- Filter close -->
+            <%# Filter close %>
             <div class="product-filter-remove mb-1">
               <ul class="filter-remove-list d-flex gap-1 flex-wrap p-0 mb-2">
                 <% removeFilterArr.forEach((filterItem) => {%>
@@ -209,9 +209,9 @@
               <%} %>
               </div>
             </div>
-            <!-- End filter close -->
+            <%# End filter close %>
 
-            <!-- Product filter mobile -->
+            <%# Product filter mobile %>
             <div class="product-filter-mobile justify-content-between mb-1">
               <div class="content-font product-filter-quantity">
                 <select name="quantity" class="filter-quantity-limit">
@@ -226,15 +226,15 @@
                 <button class="filter-button-show">Bộ lọc<i class="bi bi-filter ms-2"></i></button>
               </div>
             </div>
-            <!-- End product filter mobile -->
+            <%# End product filter mobile %>
 
             <div class="product-list">
-              <!-- Product list -->
+              <%# Product list %>
               <div class="row g-2">
                 <% if(productList.length === 0) { %><span class="content-font text-center"
                   >(Không tìm thấy sản phẩm phù hợp)</span
                 ><% } %> <% productList.forEach(product => { %>
-                <!-- Card -->
+                <%# Card %>
                 <div class="col-lg-3 col-md-4 col-6">
                   <div class="card-bg" title="<%= product.title %>">
                   <% if(product.discount > 0) {  %>
@@ -288,18 +288,18 @@
                     </div>
                   </div>
                 </div>
-                <!-- End card -->
+                <%# End card %>
                 <% }) %>
               </div>
-              <!-- End product list -->
+              <%# End product list %>
 
-              <!-- Product Pagination -->
+              <%# Product Pagination %>
               <div class="row g-2">
                 <div class="product-pagination mt-5 d-flex justify-content-center">
                   <%-include("../../partials/pagination.view.ejs", { objPagination: objPagination }) %>
                 </div>
               </div>
-              <!-- End product pagination -->
+              <%# End product pagination %>
             </div>
           </div>
         </div>
@@ -334,11 +334,14 @@
       id="form-add-favorite">
     </form>
 
-    <!-- Scripts File -->
+    <%# Scripts File %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/scripts/initSocketClient.js"></script>
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
     <script src="/client/scripts/customInputRange.js"></script>
+    <script src="/client/scripts/displayChatBox.js"></script>
     <script src="/client/scripts/product/showProductFilter.js"></script>
     <script src="/client/scripts/product/filterByPrice.js"></script>
     <script src="/client/scripts/product/filterBySale.js"></script>
@@ -353,14 +356,14 @@
     <script src="/client/scripts/pagination.js"></script>
     <script src="/client/scripts/addProductLike.js"></script>
     <script src="/client/scripts/scrollReload.js"></script>
-    <!-- End Scripts File -->
+    <%# End Scripts File %>
 
-    <!-- Scripts Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Scripts Library & Framework Link %>
+    <%# Bootstrap %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FontAwesome -->
+    <%# FontAwesome %>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <!-- SlickSlide -->
+    <%# SlickSlide %>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
       type="text/javascript"
@@ -368,8 +371,8 @@
     ></script>
     <script type="text/javascript" src="/client/scripts/slickslide.js"></script>
 
-    <!-- <script src="./scripts/googlemap.js"></script> -->
-    <!-- End Scripts Library & Framework Link -->
+    <%# <script src="./scripts/googlemap.js"></script> %>
+    <%# End Scripts Library & Framework Link %>
 
     <script src="/reload/reload.js"></script>
   </body>

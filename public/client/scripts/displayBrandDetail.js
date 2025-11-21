@@ -40,13 +40,13 @@ if (cardBrandDetailCloseList && cardBrandDetailCloseList.length > 0) {
   });
 }
 
-if (cardCouponDetailOverlayList && cardCouponDetailOverlayList.length > 0) {
-  cardCouponDetailOverlayList.forEach((button) => {
+if (cardBrandDetailOverlayList && cardBrandDetailOverlayList.length > 0) {
+  cardBrandDetailOverlayList.forEach((button) => {
     button.addEventListener('click', () => {
-      const cardCouponDetailList = document.querySelectorAll('div[card-brand-detail]');
+      const cardBrandDetailList = document.querySelectorAll('div[card-brand-detail]');
 
-      if (cardCouponDetailList && cardCouponDetailList.length > 0) {
-        cardCouponDetailList.forEach((card) => {
+      if (cardBrandDetailList && cardBrandDetailList.length > 0) {
+        cardBrandDetailList.forEach((card) => {
           card.classList.remove('active');
           document.body.classList.remove('no-scroll');
         });

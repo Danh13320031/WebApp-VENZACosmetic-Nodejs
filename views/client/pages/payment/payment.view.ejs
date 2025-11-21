@@ -3,7 +3,7 @@
   <head>
     <%-include('../../partials/seoMeta.view.ejs', { pageTitle: pageTitle}) %>
 
-    <!-- Styles File -->
+    <%# Styles File %>
     <link rel="stylesheet" href="/client/setup.css" />
     <link rel="stylesheet" href="/client/styles/partials/alert.css" />
     <link rel="stylesheet" href="/client/styles/partials/header.css" />
@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="/client/styles/partials/buttonChatBot.css" />
     <link rel="stylesheet" href="/client/styles/pages/payment/payment.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
-    <!-- End Styles File -->
+    <%# End Styles File %>
 
-    <!-- Styles Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Styles Library & Framework Link %>
+    <%# Bootstrap %>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -29,16 +29,16 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <!-- BoxIcon -->
+    <%# BoxIcon %>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-    <!-- Leaflet Geocoder CSS -->
+    <%# Leaflet Geocoder CSS %>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
     />
-    <!-- End Styles Library & Framework Link -->
+    <%# End Styles Library & Framework Link %>
   </head>
   <body>
     <%-include('../../partials/alertMessage.view.ejs') %>
@@ -333,32 +333,35 @@
       id="form-change-quantity-cart"
     ></form>
 
-    <!-- Validator -->
+    <%# Validator %>
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
 
-    <!-- Scripts File -->
+    <%# Scripts File %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/scripts/initSocketClient.js"></script>
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/displayChatBox.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
     <script src="/client/scripts/cart/deleteProductInCart.js"></script>
     <script src="/client/scripts/cart/changeProductQuantity.js"></script>
     <script src="/client/scripts/payment/submitPaymentForm.js"></script>
-    <!-- End Scripts File -->
+    <%# End Scripts File %>
 
-    <!-- Scripts Library & Framework Link -->
-    <!-- Bootstrap -->
+    <%# Scripts Library & Framework Link %>
+    <%# Bootstrap %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FontAwesome -->
+    <%# FontAwesome %>
     <script src="https://kit.fontawesome.com/aaf479b433.js" crossorigin="anonymous"></script>
-    <!-- Leaflet Geocoder JS -->
+    <%# Leaflet Geocoder JS %>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="/client/scripts/payment/displayMapAddress.js"></script>
     <script src="/client/scripts/payment/selectItemAddress.js"></script>
 
-    <!-- <script src="./scripts/googlemap.js"></script> -->
-    <!-- End Scripts Library & Framework Link -->
+    <%# <script src="./scripts/googlemap.js"></script> %>
+    <%# End Scripts Library & Framework Link %>
 
     <script src="/reload/reload.js"></script>
   </body>
