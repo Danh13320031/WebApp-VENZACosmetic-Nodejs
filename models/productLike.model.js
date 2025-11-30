@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  user_id: { type: String, require: true },
+  user_id: { type: String },
   products: [{ product_id: String, likedAt: Date }],
-  deleted: { type: Boolean, require: true, default: false },
+  deleted: { type: Boolean, required: true, default: false },
   deletedAt: { type: Date },
 };
 

@@ -4,8 +4,9 @@
   </div>
 </button>
 
-<div class="position-fixed chatbot-container" id="chatbot-container">
+<div class="position-fixed chatbot-container d-none" id="chatbot-container">
   <div class="card border-0 shadow chatbot">
+    
     <div 
       class="d-flex justify-content-between align-items-center card-header border-0 chatbot-header" 
       style="background: var(--dark-gray-color);"
@@ -16,6 +17,7 @@
       </div>
       <i class="fas fa-times chatbot-header-close" id="chatbot-header-close" style="color: var(--light-gray-color)"></i>
     </div>
+
     <div class="card-body overflow-y-scroll chatbot-message-container">
       <ul class="ps-0 d-flex flex-column gap-2 chat-message-list">
         <li class="p-2 rounded-2 chat-message-item" style="background: var(--light-gray-color);">
@@ -24,58 +26,28 @@
             <div class="title-font fw-bold">VENZA Chatbot</div>
           </div>
           <div class="chat-message-item-content">
-            Chào mừng bạn đến với VENZA Chatbot
-          </div>
-        </li>
-
-        <li class="p-2 rounded-2 chat-message-item" style="background: var(--light-gray-color);">
-          <div class="d-flex gap-2 align-items-center">
-            <img src="/client/images/chatbot.png" alt="chatbot" width="30px" />
-            <div class="title-font fw-bold">VENZA Chatbot</div>
-          </div>
-          <div class="chat-message-item-content">
-            Chào mừng bạn đến với VENZA Chatbot
-          </div>
-        </li>
-
-        <li class="p-2 rounded-2 chat-message-item" style="background: var(--light-gray-color);">
-          <div class="d-flex gap-2 align-items-center">
-            <img src="/client/images/chatbot.png" alt="chatbot" width="30px" />
-            <div class="title-font fw-bold">VENZA Chatbot</div>
-          </div>
-          <div class="chat-message-item-content">
-            Chào mừng bạn đến với VENZA Chatbot
-          </div>
-        </li>
-
-        <li class="p-2 rounded-2 chat-message-item" style="background: var(--light-gray-color);">
-          <div class="d-flex gap-2 align-items-center">
-            <img src="/client/images/chatbot.png" alt="chatbot" width="30px" />
-            <div class="title-font fw-bold">VENZA Chatbot</div>
-          </div>
-          <div class="chat-message-item-content">
-            Chào mừng bạn đến với VENZA Chatbot
-          </div>
-        </li>
-
-        <li class="p-2 rounded-2 chat-message-item" style="background: var(--light-gray-color);">
-          <div class="d-flex gap-2 align-items-center">
-            <img src="/client/images/chatbot.png" alt="chatbot" width="30px" />
-            <div class="title-font fw-bold">VENZA Chatbot</div>
-          </div>
-          <div class="chat-message-item-content">
-            Chào mừng bạn đến với VENZA Chatbot
+            Chào mừng bạn đến với VENZA Chatbot! Mình có thể giúp gì cho bạn?
           </div>
         </li>
       </ul>
     </div>
+
     <div class="card-footer border-0 chatbot-input" style="background: var(--dark-gray-color);">
       <div class="d-flex align-items-center justify-content-between gap-2 chatbot-input-text">
-        <textarea name="" id="" cols="30" rows="1" placeholder="Nhập tin nhắn..." class="textarea-type01 content-font rounded-5 p-2"></textarea>
-        <i class="button-secondary rounded-5 p-2 fas fa-paper-plane"></i>
+        <textarea 
+          name="" 
+          cols="30" 
+          rows="1" 
+          placeholder="Nhập tin nhắn..." 
+          class="textarea-type01 content-font rounded-5 p-2 chatbot-input-textarea"
+          id="chatbot-input-textarea" 
+        ></textarea>
+        <i class="button-secondary rounded-5 p-2 fas fa-paper-plane" id="chatbot-input-send"></i>
       </div>
     </div>
+
   </div>
+  
   <div 
     class="position-absolute top-100 end-0 chatbot-arrow" 
     style="width: 12px; height: 12px; background: var(--dark-gray-color); transform: translate(-100%, -50%) rotate(45deg);">

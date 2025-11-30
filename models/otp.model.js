@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  email: { type: String, require: true },
-  otp: { type: String, require: true },
-  expiredAt: { type: Date, require: true, expires: 0 },
+  email: { type: String, required: true },
+  otp: { type: String, required: true },
+  expiredAt: { type: Date, required: true, expires: 0 },
 };
 
 const otpSchema = new Schema(objSchema, { timestamps: true }, { collection: 'Otp' });

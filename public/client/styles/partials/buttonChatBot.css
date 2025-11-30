@@ -126,6 +126,9 @@
 }
 
 .chatbot-container {
+  margin: 10px;
+  width: 350px;
+  max-width: 100%;
   position: fixed;
   bottom: 220px;
   right: 20px;

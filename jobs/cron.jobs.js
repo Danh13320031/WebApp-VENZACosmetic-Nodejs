@@ -2,6 +2,7 @@ import moment from 'moment-timezone';
 import cron from 'node-cron';
 import { timezone } from '../constants/constant.js';
 import couponModel from '../models/coupon.model.js';
+import orderModel from '../models/order.model.js';
 import postModel from '../models/post.model.js';
 import productModel from '../models/product.model.js';
 

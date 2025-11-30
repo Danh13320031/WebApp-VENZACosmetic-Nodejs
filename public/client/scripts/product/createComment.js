@@ -71,14 +71,14 @@ if (btnCommentOwner) {
     };
 
     if (socket && textareaCommentOwner) {
-      socket.emit('sendComment', data);
+      socket.emit('CLIENT_SEND_COMMENT', data);
       textareaCommentOwner.value = '';
     }
   });
 }
 
-socket.off('newComment');
-socket.on('newComment', (comment) => {
+socket.off('CLIENT_CREATE_NEW_COMMENT');
+socket.on('CLIENT_CREATE_NEW_COMMENT', (comment) => {
   if (comment === null) {
     window.location.href = '/login';
     return;
