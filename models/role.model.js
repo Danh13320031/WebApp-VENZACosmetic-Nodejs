@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  title: { type: String, require: true },
-  description: { type: String, require: true },
-  permission: { type: Array, require: true, default: [] },
-  deleted: { type: Boolean, require: true, default: false },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  permission: { type: [String], required: true, default: [] },
+  deleted: { type: Boolean, required: true, default: false },
   deletedAt: { type: Date },
 };
 

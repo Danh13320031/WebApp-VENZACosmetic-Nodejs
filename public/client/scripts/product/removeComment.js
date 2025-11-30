@@ -13,13 +13,11 @@ if (panelCommentBox) {
       return;
     }
 
-    socket.emit('removeComment', { id, user_id: userId });
+    socket.emit('CLIENT_REMOVE_COMMENT', { id, user_id: userId });
   });
 
-  socket.on('deleteComment', (comment) => {
+  socket.on('CLIENT_DELETE_COMMENT', (comment) => {
     if (!comment) return;
-
-    
 
     const commentBlock = panelCommentBox
       .querySelector(

@@ -63,3 +63,7 @@ export const vnpTmnCodeConst = process.env.VNP_TMNCODE;
 export const vnpHashSecretConst = process.env.VNP_HASHSECRET;
 export const vnpUrlConst = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
 export const vnpReturnUrlConst = process.env.VNP_RETURNURL;
+
+// Chatbot cloud
+export const chatbotCloudApiKey = process.env.CHATBOT_CLOUD_API_KEY;
+export const chatbotCloudModelName = 'gemini-2.5-flash-lite';

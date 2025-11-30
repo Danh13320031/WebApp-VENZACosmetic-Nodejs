@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 const objSchema = {
   name: { type: String },
-  phone: { type: String, require: true },
-  email: { type: String, unique: true, require: true },
+  phone: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
   shortIntro: { type: String },
   seoMetaDescription: { type: String },
   seoMetaKeyword: { type: String },
   copyright: { type: String },
-  mainAddress: { type: String, require: true },
-  address: { type: Array, length: 5, require: true },
+  mainAddress: { type: String, required: true },
+  address: { type: Array, length: 5, required: true },
   tiktok: { type: String },
   facebook: { type: String },
   instagram: { type: String },

@@ -2,16 +2,16 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  user_id: { type: String, require: true },
-  product_id: { type: String, require: true },
+  user_id: { type: String, required: true },
+  product_id: { type: String, required: true },
   parent_id: { type: String },
-  content: { type: String, require: true },
+  content: { type: String, required: true },
   images: { type: Array },
   likes: { type: Number, default: 0 },
   rating: { type: Number, default: 0 },
-  status: { type: String, require: true, default: 'active' },
-  position: { type: Number, require: true, default: 1 },
-  deleted: { type: Boolean, require: true, default: false },
+  status: { type: String, required: true, default: 'active' },
+  position: { type: Number, required: true, default: 1 },
+  deleted: { type: Boolean, required: true, default: false },
   deletedAt: { type: Date },
 };
 

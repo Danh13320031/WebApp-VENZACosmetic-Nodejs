@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  user_id: { type: String, require: true },
-  coupon_id: { type: String, require: true },
-  usedCount: { type: Number, require: true, default: 0 },
-  deleted: { type: Boolean, require: true, default: false },
+  user_id: { type: String, required: true },
+  coupon_id: { type: String, required: true },
+  usedCount: { type: Number, required: true, default: 0 },
+  deleted: { type: Boolean, required: true, default: false },
   deletedAt: { type: Date },
 };
 

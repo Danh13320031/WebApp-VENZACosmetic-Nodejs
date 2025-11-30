@@ -73,10 +73,12 @@ const createOfflinePayment = async (req, res) => {
       user_id: userOrder._id,
       fullname: userOrder.fullname,
       email: userOrder.email,
-      phone: userOrder.phone,
-      address: userOrder.address,
+      phone: userOrder.phone || req.body.phone,
+      address: userOrder.address || req.body.address,
       avatar: userOrder.avatar,
     };
+
+    console.log(userOrderInfo);
 
     const userConsigneeInfo = {
       fullname: body.fullname,
@@ -174,10 +176,12 @@ const createPaymentOnline = async (req, res) => {
       user_id: userOrder._id,
       fullname: userOrder.fullname,
       email: userOrder.email,
-      phone: userOrder.phone,
-      address: userOrder.address,
+      phone: userOrder.phone || req.body.phone,
+      address: userOrder.address || req.body.address,
       avatar: userOrder.avatar,
     };
+
+    console.log(userOrderInfo);
 
     const userConsigneeInfo = {
       fullname: body.fullname,

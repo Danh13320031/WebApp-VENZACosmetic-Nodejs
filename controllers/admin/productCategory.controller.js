@@ -88,7 +88,7 @@ const createProductCategoryPost = async (req, res) => {
     const newCategory = new productCategoryModel(req.body);
     await newCategory.save();
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
-    res.redirect(`${systemConfig.prefixAdmin}/categories`);
+    res.redirect(`${systemConfig.prefixAdmin}/product-categories`);
   } catch (error) {
     console.log('Create category fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');

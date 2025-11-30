@@ -31,7 +31,7 @@ const createProductComment = async (data) => {
 
   const io = IO();
 
-  io.emit('newComment', commentCreateBlock);
+  io.emit('CLIENT_CREATE_NEW_COMMENT', commentCreateBlock);
 };
 
 const removeProductComment = async (data) => {
@@ -49,7 +49,7 @@ const removeProductComment = async (data) => {
         { deleted: true, deletedAt: new Date() }
       );
 
-      io.emit('deleteComment', {
+      io.emit('CLIENT_DELETE_COMMENT', {
         productCommentId: data.id,
         productCommentUserId: data.user_id,
       });

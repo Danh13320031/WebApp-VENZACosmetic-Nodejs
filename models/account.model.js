@@ -9,15 +9,15 @@ const objSchema = {
   phone: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 8 },
   token: { type: String, unique: true, default: generateTokenHelper(100) },
-  roleId: { type: String, require: true },
-  status: { type: String, require: true, enum: ['active', 'inactive'], default: 'active' },
+  roleId: { type: String, required: true },
+  status: { type: String, required: true, enum: ['active', 'inactive'], default: 'active' },
   avatar: {
     type: String,
     default:
       'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg',
-    require: true,
+    required: true,
   },
-  deleted: { type: Boolean, default: false },
+  deleted: { type: Boolean, required: true, default: false },
   deletedAt: { type: Date },
 };
 

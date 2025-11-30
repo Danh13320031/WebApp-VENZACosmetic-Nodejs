@@ -4,13 +4,13 @@ mongoose.plugin(slug);
 const Schema = mongoose.Schema;
 
 const objSchema = {
-  title: { type: String, require: true },
-  description: { type: String, require: true },
-  thumbnail: { type: String, require: true },
-  status: { type: String, require: true, enum: ['active', 'inactive'], default: 'inactive' },
-  deleted: { type: Boolean, require: true, default: false },
-  position: { type: Number, require: true },
-  parent_id: { type: String, require: true, default: '' },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  thumbnail: { type: String, required: true },
+  status: { type: String, required: true, enum: ['active', 'inactive'], default: 'inactive' },
+  deleted: { type: Boolean, required: true, default: false },
+  position: { type: Number, required: true },
+  parent_id: { type: String, required: true, default: '' },
   deletedAt: { type: Date },
   slug: { type: String, slug: 'title', unique: true },
 };
