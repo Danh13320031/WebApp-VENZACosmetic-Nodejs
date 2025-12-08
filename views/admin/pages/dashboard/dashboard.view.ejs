@@ -122,71 +122,206 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
+
+        <div class="row mb-2">
+          <div class="col-lg-3 col-md-6 col-12 mb-3">
             <div class="card">
-              <div class="card-body bg-primary-subtle border border-primary rounded">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional content.
-                </p>
-                <a href="#" class="btn btn-primary">Sản phẩm</a>
+              <div 
+                class="card-body bg-warning-subtle border border-warning rounded d-flex flex-column align-items-center" 
+                style="color: var(--warning-color-admin);">
+                <h1 class="card-text text-center fw-bold">
+                  <%= orderTotalPerDay %>
+                </h1>
+                <div class="title-font" style="color: var(--warning-color-admin);">Đơn hàng hôm nay</div>
+                <a href="<%= prefixAdmin %>/orders" type="button" class="btn btn-outline-warning mt-2">Xem danh sách đơn hàng</a>
               </div>
             </div>
           </div>
 
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
+          <div class="col-lg-3 col-md-6 col-12 mb-3">
             <div class="card">
-              <div class="card-body bg-primary-subtle border border-primary rounded">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional content.
-                </p>
-                <a href="#" class="btn btn-primary">Danh mục</a>
+              <div 
+                class="card-body bg-success-subtle border border-success rounded d-flex flex-column align-items-center" 
+                style="color: var(--success-color-admin);">
+                <h1 class="card-text text-center fw-bold">
+                  <%= productTotalInStock %>
+                </h1>
+                <div class="title-font" style="color: var(--success-color-admin);">Sản phẩm còn hàng</div>
+                <a href="<%= prefixAdmin %>/products" type="button" class="btn btn-outline-success mt-2">Xem danh sách sản phẩm</a>
               </div>
             </div>
           </div>
 
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
+          <div class="col-lg-3 col-md-6 col-12 mb-3">
             <div class="card">
-              <div class="card-body bg-primary-subtle border border-primary rounded">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional content.
-                </p>
-                <a href="#" class="btn btn-primary">Đơn hàng</a>
+              <div 
+                class="card-body bg-info-subtle border border-info rounded d-flex flex-column align-items-center" 
+                style="color: var(--info-color-admin);">
+                <h1 class="card-text text-center fw-bold">
+                  <%= userTotalActive %>
+                </h1>
+                <div class="title-font" style="color: var(--info-color-admin);">Người dùng</div>
+                <a href="<%= prefixAdmin %>/users" type="button" class="btn btn-outline-info mt-2">Xem danh sách người dùng</a>
               </div>
             </div>
           </div>
 
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
+          <div class="col-lg-3 col-md-6 col-12 mb-3">
             <div class="card">
-              <div class="card-body bg-primary-subtle border border-primary rounded">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional content.
-                </p>
-                <a href="#" class="btn btn-primary">Tài khoản</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-3">
-            <div class="card">
-              <div class="card-body bg-primary-subtle border border-primary rounded">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional content.
-                </p>
-                <a href="#" class="btn btn-primary">Nhóm quyền</a>
+              <div 
+                class="card-body bg-danger-subtle border border-danger rounded d-flex flex-column align-items-center" 
+                style="color: var(--error-color-admin);">
+                <h1 class="card-text text-center fw-bold">
+                  <%= unpublishedPostTotal %>
+                </h1>
+                <div class="title-font" style="color: var(--error-color-admin);">Bài viết chưa xuất bản</div>
+                <a href="<%= prefixAdmin %>/posts" type="button" class="btn btn-outline-danger mt-2">Xem danh sách bài viết</a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
-            <canvas id="myChart"></canvas>
+        <div class="row row-gap-4">
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product-table card p-2 overflow-x-scroll">
+              <div class="title-font card-header bg-primary-subtle text-primary text-center py-2">5 sản phẩm bán chạy nhất trong tháng</div>
+              <table class="table table-hover table-sm w-100">
+                <thead class="content-font">
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">STT</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline" style="width: 200px">Tiêu đề</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Ảnh</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Giảm giá</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Số lượng</th>
+                </thead>
+                <tbody class="content-font">
+                  <% if(bestSellingProductList && bestSellingProductList.length > 0) { %>
+                    <% bestSellingProductList.forEach((product, index) => { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= product.title %></td>
+                        <td><img src="<%= product.thumbnail %>" width="50px" /></td>
+                        <td class="fw-bold"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price) %></td>
+                        <td><%= product.discount %>%</td>
+                        <td class="fw-bold" style="color: var(--primary-color-admin)"><%= product.quantity %></td>
+                      </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product-chart h-100 d-flex align-items-center p-2">
+              <%-include("../../partials/chart/barChart.view.ejs", { 
+                name: 'Biểu đồ so sánh 5 sản phẩm bán chạy nhất trong tháng', 
+                data: bestSellingProductChart.data, 
+                labels: bestSellingProductChart.labels,
+                axis: false,
+              }) %>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product-chart h-100 d-flex align-items-center p-2">
+              <%-include("../../partials/chart/barChart.view.ejs", { 
+                name: 'Biểu đồ so sánh 5 sản phẩm mang doanh thu cao nhất trong tháng', 
+                data: highestRevenueProductChart.data, 
+                labels: highestRevenueProductChart.labels,
+                axis: false,
+              }) %>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product card p-2 overflow-x-scroll">
+              <div class="title-font card-header bg-primary-subtle text-primary text-center py-2">5 sản phẩm mang lại doanh thu cao nhất trong tháng</div>
+              <table class="table table-hover table-sm w-100">
+                <thead class="content-font">
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">STT</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline" style="width: 200px">Tiêu đề</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Ảnh</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Giá</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Số lượng</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Tổng doanh thu</th>
+                </thead>
+                <tbody class="content-font">
+                  <% if(highestRevenueProductList && highestRevenueProductList.length > 0) { %>
+                    <% highestRevenueProductList.forEach((product, index) => { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= product.title %></td>
+                        <td><img src="<%= product.thumbnail %>" width="50px" /></td>
+                        <td class="fw-bold"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price) %></td>
+                        <td><%= product.quantity %></td>
+                        <td class="fw-bold" style="color: var(--primary-color-admin)"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.total) %></td>
+                      </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product card p-2 overflow-x-scroll">
+              <div class="title-font card-header bg-primary-subtle text-primary text-center py-2">5 đơn hàng có doanh thu cao nhất trong tháng</div>
+              <table class="table table-hover table-sm w-100">
+                <thead class="content-font">
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">STT</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Mã đơn hàng</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Tông tiền</th>
+                  <th class="bg-primary-subtle text-primary text-decoration-underline">Hành động</th>
+                </thead>
+                <tbody class="content-font">
+                  <% if(highestOrderList && highestOrderList.length > 0) { %>
+                    <% highestOrderList.forEach((order, index) => { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td class="fw-bold"><%= order.orderCode %></td>
+                        <td class="fw-bold" style="color: var(--primary-color-admin)"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.total) %></td>
+                        <td>
+                          <div class="d-flex flex-wrap gap-1">
+                          <a
+                            href="<%= prefixAdmin %>/orders/detail/<%= order._id %>"
+                            class="btn btn-outline-black text-black border-black btn-sm"
+                            >Chi tiết<i class="bi bi-arrow-right-short ml-1"></i></a>
+                          <a
+                            href="<%= prefixAdmin %>/orders/print/<%= order._id %>"
+                            class="btn btn-outline-black text-black border-black btn-sm btn-print"
+                          >
+                            <i class="bi bi-printer"></i>
+                          </a>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-12">
+            <div class="dashboard-best-selling-product-chart h-100 d-flex align-items-center p-2">
+              <%-include("../../partials/chart/barChart.view.ejs", { 
+                name: 'Biểu đồ so sánh 5 đơn hàng có doanh thu cao nhất trong tháng', 
+                data: highestOrderChart.data, 
+                labels: highestOrderChart.labels,
+                axis: false,
+              }) %>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-12">
+            <div class="dashboard-data-statistic-chart">
+              <%-include("../../partials/chart/pieChart.view.ejs", { 
+                name: 'Biểu đồ thống kê tổng số bản ghi hệ thống', 
+                data: chartData.data, 
+                labels: chartData.labels,
+              }) %>
+            </div>
           </div>
         </div>
       </div>
@@ -208,7 +343,8 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/admin/scripts/configs/chartjs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="/admin/scripts/setChart.js"></script>
 
     <script src="../reload/reload.js"></script>
   </body>

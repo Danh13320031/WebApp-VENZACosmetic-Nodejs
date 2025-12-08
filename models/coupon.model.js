@@ -11,7 +11,7 @@ const objSchema = {
   status: { type: String, required: true, enum: ['active', 'inactive'], default: 'active' },
   published: { type: Boolean, required: true, default: false },
   scope: { type: String, required: true, enum: ['all', 'product', 'brand'], default: 'all' },
-  appliedIds: { type: Array },
+  appliedIds: { type: [String] },
   limit: { type: Number, required: true, default: 1 },
   limitPerUser: { type: Number, required: true, default: 1 },
   deleted: { type: Boolean, required: true, default: false },

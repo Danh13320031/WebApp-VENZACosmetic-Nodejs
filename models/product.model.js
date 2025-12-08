@@ -16,7 +16,7 @@ const objSchema = {
   category: { type: String, required: true },
   brand_id: { type: String, required: true },
   thumbnail: { type: String, required: true },
-  images: { type: Array, required: true },
+  images: { type: [String], required: true },
   status: { type: String, required: true, enum: ['active', 'inactive'], default: 'inactive' },
   featured: { type: String, required: true, default: '0' },
   createdBy: {
