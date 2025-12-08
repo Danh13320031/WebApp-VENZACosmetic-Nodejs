@@ -13,7 +13,6 @@ const objSchema = {
   },
   discount: { type: Number, required: true, default: 0 },
   total: { type: Number, required: true, default: 0 },
-  shippingFee: { type: Number, required: true, default: 0 },
   payments: {
     method: { type: String, required: true, enum: ['offline', 'online'], default: 'offline' },
     bank: { type: String },

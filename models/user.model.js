@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const objSchema = {
   google_id: { type: String },
   loginType: { type: String, enum: ['email', 'google'] },
-  loginMethod: { type: Array, required: true, default: [] },
+  loginMethod: { type: [String], required: true, default: [] },
   fullname: { type: String, required: true },
   birthDay: { type: String },
   email: { type: String, required: true, unique: true },
