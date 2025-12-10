@@ -24,7 +24,9 @@ const buildVnpayPaymentUrlHelper = (req, orderCode, orderTotal) => {
   let tmnCode = vnpTmnCodeConst || process.env.VNP_TMNCODE;
   let secretKey = vnpHashSecretConst || process.env.VNP_HASHSECRET;
   let vnpUrl = vnpUrlConst || 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-  let returnUrl = vnpReturnUrlConst || process.env.VNP_RETURNURL;
+  let returnUrl = process.env.NODE_ENV
+    ? process.env.DOMAIN_PRODUCTION + vnpReturnUrlConst
+    : process.env.DOMAIN_LOCAL + vnpReturnUrlConst;
 
   let date = new Date();
   let createDate = moment(date).tz(timezone).format('YYYYMMDDHHmmss');
