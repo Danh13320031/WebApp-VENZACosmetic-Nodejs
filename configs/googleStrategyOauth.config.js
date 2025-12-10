@@ -8,7 +8,9 @@ const googleStrategyOauthConfig = (app) => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_REDIRECT_URL,
+        callbackURL: process.env.NODE_ENV
+          ? process.env.DOMAIN_PRODUCTION + process.env.GOOGLE_REDIRECT_URL
+          : process.env.DOMAIN_LOCAL + process.env.GOOGLE_REDIRECT_URL,
         passReqToCallback: true,
       },
       (req, accessToken, refreshToken, profile, done) => {
@@ -22,7 +24,7 @@ const googleStrategyOauthConfig = (app) => {
           isVerified: true,
           loginType: 'google',
         };
-        
+
         return done(null, user);
       }
     )
