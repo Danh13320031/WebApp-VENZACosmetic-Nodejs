@@ -7,6 +7,8 @@ if (filterCategoryLink.length > 0) {
       const categoryTitle = categoryItem.getAttribute('category');
       const url = new URL(window.location.href);
 
+      if (url.searchParams.get('category') === categoryTitle) return;
+
       url.searchParams.set('category', categoryTitle);
       window.location.href = url.href;
     });

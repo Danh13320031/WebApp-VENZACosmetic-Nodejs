@@ -4,7 +4,6 @@ import http from 'http';
 import methodOverride from 'method-override';
 import moment from 'moment-timezone';
 import path from 'path';
-import reload from 'reload';
 import { fileURLToPath } from 'url';
 import bodyParserPackageConfig from './configs/bodyParserPackage.config.js';
 import flashPackageConfig from './configs/flashPackage.config.js';
@@ -67,12 +66,20 @@ cronJobs.checkPostTimeJob(checkPostConst);
 cronJobs.checkCouponTimeJob(checkCouponConst);
 cronJobs.clearPendingOrderOnlineJob(checkOrderConst);
 
-reload(app)
-  .then(() => {
-    server.listen(process.env.PORT, process.env.HOSTNAME, () => {
-      console.log(`Start Server: http://${process.env.HOSTNAME}:${process.env.PORT}/`);
-    });
-  })
-  .catch((error) => {
-    console.log('Reload Fail: ', error);
-  });
+if (process.env.NODE_ENV !== 'production') {
+  try {
+    const reload = await import('reload');
+    await reload.default(app);
+  } catch (error) {
+    console.error('Reload server fail::: ', error.message);
+  }
+}
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`Local: http://localhost:${PORT}/`);
+  }
+});

@@ -13,9 +13,18 @@
     >
       <div class="title-font d-flex align-items-center gap-2 chatbot-header-title" style="color: var(--light-gray-color)">
         <img src="/client/images/chatbot.png" alt="chatbot" width="30px" class="chatbot-image-icon"/>
-        VENZA Chatbot
       </div>
-      <i class="fas fa-times chatbot-header-close" id="chatbot-header-close" style="color: var(--light-gray-color)"></i>
+      <div class="d-flex align-items-center gap-1">
+        <select 
+          name="" 
+          id="" 
+          class="outline-0 bg-transparent rounded-5 py-1 px-2 chatbot-header-select" 
+          style="border: 1px solid var(--primary-color); color: var(--primary-color); outline: none;">
+          <option value="" selected>Gemini 2.5 flash</option>
+          <option value="">Venza chatbot</option>
+        </select>
+        <i class="fas fa-times chatbot-header-close" id="chatbot-header-close" style="color: var(--light-gray-color)"></i>
+      </div>
     </div>
 
     <div class="card-body overflow-y-scroll chatbot-message-container">

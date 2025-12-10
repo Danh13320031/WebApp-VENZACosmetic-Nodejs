@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --inspect --exec babel-node app.js"
+    "start": "node app.js",
+    "dev": "nodemon --inspect --exec babel-node app.js"
   },
   "keywords": [],
   "author": "Danh Bùi",

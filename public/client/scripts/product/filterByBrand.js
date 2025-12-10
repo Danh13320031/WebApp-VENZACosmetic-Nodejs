@@ -17,15 +17,13 @@ if (filterBrandApplyButton) {
         }
       });
 
+      if (brandSlugList.length === 0 || brandSlugList.length === filterBrandInputList.length)
+        return;
+
       const brandSlugListString = brandSlugList.join(',');
 
       url.searchParams.set('brand', brandSlugListString);
       window.location.href = url.href;
-
-      if (brandSlugList.length === 0 || brandSlugList.length === filterBrandInputList.length) {
-        url.searchParams.delete('brand');
-        window.location.href = url.href;
-      }
     }
   });
 }
@@ -34,9 +32,9 @@ if (filterBrandRemoveButton) {
   filterBrandRemoveButton.addEventListener('click', () => {
     const url = new URL(window.location.href);
 
-    if (url) {
-      url.searchParams.delete('brand');
-      window.location.href = url.href;
-    }
+    if (!url || !url.searchParams.has('brand')) return;
+
+    url.searchParams.delete('brand');
+    window.location.href = url.href;
   });
 }
