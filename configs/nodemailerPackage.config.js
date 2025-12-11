@@ -9,6 +9,9 @@ const transporter = nodemailer.createTransport({
     user: process.env.GOOGLE_USER_EMAIL,
     pass: process.env.GOOGLE_APP_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
   connectionTimeout: 10000,
 });
 
