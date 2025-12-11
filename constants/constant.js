@@ -13,6 +13,16 @@ export const refreshTokenExpiresIn = Number.parseInt(process.env.REFRESH_TOKEN_E
 export const otpExpiresIn = Number.parseInt(process.env.OTP_EXPIRES_IN);
 export const emailConst = process.env.GOOGLE_USER_EMAIL;
 
+// Mail
+export const localMailHost = 'smtp.gmail.com';
+export const localMailPort = 465;
+export const localMailUser = process.env.GOOGLE_USER_EMAIL;
+export const localMailPass = process.env.GOOGLE_APP_PASSWORD;
+export const prodMailHost = 'smtp-relay.brevo.com';
+export const prodMailPort = 587;
+export const prodMailUser = process.env.BREVO_USER_EMAIL;
+export const prodMailPass = process.env.BREVO_APP_PASSWORD;
+
 // Cookie
 export const maxAgeCartStorage = 30 * 24 * 60 * 60 * 1000;
 export const maxAgeProductLikeStorage = 30 * 24 * 60 * 60 * 1000;
