@@ -6,8 +6,8 @@ if (buttonChatBoxToggle) {
   const chatbotInputTextArea = document.getElementById('chatbot-input-textarea');
 
   if (
-    window.localStorage.getItem('chatbot').includes('show') &&
-    !window.localStorage.getItem('chatbot').includes('d-none')
+    window.localStorage.getItem('chatbot') === 'd-none show' ||
+    window.localStorage.getItem('chatbot') === 'd-none'
   ) {
     chatbotContainer
       ? chatbotContainer.classList.remove('d-none')
