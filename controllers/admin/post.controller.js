@@ -4,8 +4,8 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import sortHelper from '../../helpers/sort.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import sortHelper from '../../helpers/admin/sort.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import postModel from '../../models/post.model.js';
 import moment from '../../node_modules/moment/moment.js';
@@ -307,6 +307,7 @@ const deletePost = async (req, res) => {
   }
 };
 
+// GET: /admin/posts/garbage
 const garbagePost = async (req, res) => {
   try {
     const find = {
@@ -348,6 +349,7 @@ const garbagePost = async (req, res) => {
   }
 };
 
+// PATCH: /admin/posts/restore-garbage/:id?_method=PATCH
 const restoreGarbagePost = async (req, res) => {
   try {
     const { id } = req.params;

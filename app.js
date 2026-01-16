@@ -56,8 +56,8 @@ app.use(googleStrategyOauthConfig().initialize());
 app.use(googleStrategyOauthConfig().session());
 
 // App Routers
-routerClient(app);
 routerAdmin(app);
+routerClient(app);
 routerError(app);
 
 // Auto Cron Jobs

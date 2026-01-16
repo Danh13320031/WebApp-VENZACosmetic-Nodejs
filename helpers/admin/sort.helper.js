@@ -1,4 +1,4 @@
-const sortHelper = (reqQuery) => {
+const sortHelper = (reqQuery) => {  
   const sort = {};
   if (reqQuery.sortBy && reqQuery.sortType) {
     sort[reqQuery.sortBy] = reqQuery.sortType;

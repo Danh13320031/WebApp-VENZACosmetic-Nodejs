@@ -15,7 +15,7 @@ import {
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleCartLoginHelper from '../../helpers/client/auth/handleCartLogin.helper.js';
 import handleProductLikeLoginHelper from '../../helpers/client/auth/handleProductLikeLogin.helper.js';
-import generateOtpHelper from '../../helpers/generateOtp.helper.js';
+import generateOtpHelper from '../../helpers/client/auth/generateOtp.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
 import cartModel from '../../models/cart.model.js';
@@ -39,7 +39,7 @@ const registerGet = async (req, res) => {
   }
 };
 
-// [POST]: /register
+// [POST]: /register-create
 const registerPost = async (req, res) => {
   try {
     const body = req.body;
@@ -90,7 +90,7 @@ const registerVerifyGet = async (req, res) => {
   }
 };
 
-// [GET]: /register-change-isverified/:verifyToken
+// [PATCH]: /register-change-isverified/:verifyToken
 const regiterVerifyPatch = async (req, res) => {
   try {
     const token = req.params.verifyToken;

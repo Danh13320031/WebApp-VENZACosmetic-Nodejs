@@ -1,5 +1,11 @@
+const cardSaleList = $('.card-sale-slider');
+const cardSaleListLength = Number.parseInt(cardSaleList.attr('data-length'));
+
 const productFlashSaleList = $('.card-flash-sale-slider');
 const productFlashSaleListLength = Number.parseInt(productFlashSaleList.attr('data-length'));
+
+const cardCouponList = $('.card-coupon-slider');
+const cardCouponListLength = Number.parseInt(cardCouponList.attr('data-length'));
 
 $(document).ready(function () {
   $('.herobanner-slider').slick({
@@ -133,7 +139,7 @@ $(document).ready(function () {
   $('.card-coupon-slider').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: 3,
+    slidesToShow: cardCouponListLength > 3 ? 3 : cardCouponListLength,
     slidesToScroll: 1,
     autoplay: true,
     prevArrow:
@@ -144,7 +150,7 @@ $(document).ready(function () {
       {
         breakpoint: 1290,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: cardCouponListLength > 2 ? 2 : cardCouponListLength,
           slidesToScroll: 1,
           infinite: true,
           autoplay: true,
@@ -259,7 +265,7 @@ $(document).ready(function () {
   $('.card-sale-slider').slick({
     infinite: false,
     speed: 300,
-    slidesToShow: 5,
+    slidesToShow: cardSaleListLength > 5 ? 5 : cardSaleListLength,
     slidesToScroll: 1,
     autoplay: true,
     prevArrow:
@@ -270,7 +276,7 @@ $(document).ready(function () {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: cardSaleListLength > 3 ? 3 : cardSaleListLength,
           slidesToScroll: 1,
           infinite: true,
           autoplay: true,
@@ -284,7 +290,7 @@ $(document).ready(function () {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: cardSaleListLength > 2 ? 2 : cardSaleListLength,
           slidesToScroll: 1,
           autoplay: true,
           speed: 300,
@@ -297,7 +303,7 @@ $(document).ready(function () {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: cardSaleListLength > 2 ? 2 : cardSaleListLength,
           slidesToScroll: 1,
           autoplay: true,
           speed: 300,

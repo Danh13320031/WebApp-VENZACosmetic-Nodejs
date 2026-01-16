@@ -92,7 +92,7 @@ const cart = async (req, res) => {
   }
 };
 
-// [POST]: /cart/:productId
+// [POST]: /cart/add/:productId
 const addProductToCart = async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -193,7 +193,7 @@ const deleteProductInCart = async (req, res) => {
   }
 };
 
-// [PATCH]: /cart/update/:productId/:quantity
+// [PATCH]: /cart/change-quantity/:productId/:quantity
 const changeProductQuantity = async (req, res) => {
   try {
     const productId = req.params.productId;

@@ -5,7 +5,7 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import accountModel from '../../models/account.model.js';
 import roleModel from '../../models/role.model.js';
 

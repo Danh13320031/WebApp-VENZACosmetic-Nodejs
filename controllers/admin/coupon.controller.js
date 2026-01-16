@@ -6,12 +6,12 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import sortHelper from '../../helpers/sort.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import sortHelper from '../../helpers/admin/sort.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import couponModel from '../../models/coupon.model.js';
-import { StatusCodes } from '../../node_modules/http-status-codes/build/cjs/status-codes.js';
 import productModel from '../../models/product.model.js';
 import productBrandModel from '../../models/productBrand.model.js';
+import { StatusCodes } from '../../node_modules/http-status-codes/build/cjs/status-codes.js';
 
 // GET: /admin/coupons
 const coupon = async (req, res) => {
@@ -37,6 +37,8 @@ const coupon = async (req, res) => {
     ];
     const currentDate = moment().tz(timezone).format('YYYY-MM-DD HH:mm');
     const activeExpire = expireFilterHelper(req.query, expireList);
+
+    console.log(activeExpire);
 
     if (req.query.expire === 'release') {
       find.startedAt = { $gt: currentDate };

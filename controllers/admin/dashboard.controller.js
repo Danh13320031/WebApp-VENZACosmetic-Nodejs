@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import { timezone } from '../../constants/constant.js';
 import handleBestSellingProductHelper from '../../helpers/admin/dashboard/handleBestSellingProduct.helper.js';
+import handleHighestOrderHelper from '../../helpers/admin/dashboard/handleHighestOrder.helper.js';
 import handleHighestRevenueProductHelper from '../../helpers/admin/dashboard/handleHighestRevenueProduct.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import accountModel from '../../models/account.model.js';
@@ -13,7 +14,6 @@ import productCategoryModel from '../../models/productCategory.model.js';
 import productCommentModel from '../../models/productComment.model.js';
 import roleModel from '../../models/role.model.js';
 import userModel from '../../models/user.model.js';
-import handleHighestOrderHelper from '../../helpers/admin/dashboard/handleHighestOrder.helper.js';
 
 // GET: /admin/dashobard
 const dashboard = async (req, res) => {

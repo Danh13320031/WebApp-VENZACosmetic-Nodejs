@@ -1,5 +1,4 @@
 const statusFilterHelper = (reqQuery, activeStatus) => {
-
   if (reqQuery.status) {
     const idxActiveStatus = activeStatus.findIndex((item) => item.status === reqQuery.status);
     activeStatus[idxActiveStatus].class = 'active';

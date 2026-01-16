@@ -10,7 +10,7 @@ const objSchema = {
   status: { type: String, required: true, enum: ['active', 'inactive'], default: 'inactive' },
   deleted: { type: Boolean, required: true, default: false },
   position: { type: Number, required: true },
-  parent_id: { type: String, required: true, default: '' },
+  parent_id: { type: String, required: false, default: '' },
   deletedAt: { type: Date },
   slug: { type: String, slug: 'title', unique: true },
 };

@@ -14,11 +14,7 @@ const exportToExcelHelper = async (find, data, res) => {
     worksheet.getCell('A1').font = { size: 16, bold: true };
     worksheet.getCell('A1').alignment = { horizontal: 'center' };
 
-    const columnStyle = {
-      font: {
-        size: 13,
-      },
-    };
+    const columnStyle = { font: { size: 13 } };
 
     worksheet.addRow([
       'STT',

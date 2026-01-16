@@ -17,7 +17,7 @@ const role = async (req, res) => {
     const roleList = await roleModel.find(find);
 
     res.render('./admin/pages/role/role.view.ejs', {
-      pageTitle: 'Nhóm quyền',
+      pageTitle: 'Danh sách vai trò quản trị viên',
       roleList,
       keyword: objSearch.keyword,
     });
