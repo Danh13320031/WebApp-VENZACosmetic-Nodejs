@@ -313,12 +313,13 @@
       <%# End Banner Image %> 
       
       <%# Sale Card Slide %>
+      <%  if(productSaleList.length > 0) { %>
       <section class="card-sale">
         <div class="container">
           <h3 class="heading-font text-center card-sale-heading">Sản Phẩm Đang Giảm Giá</h3>
           <div class="row">
             <div class="col-12">
-              <div class="card-sale-slider button-trans">
+              <div class="card-sale-slider button-trans" data-length="<%= productSaleList.length %>">
                 <% productSaleList.forEach((product) => { %>
                 <div class="mx-1 card-bg" title="<%= product.title %>">
                   <% if(product.discount > 0) { %>
@@ -385,8 +386,10 @@
           </div>
         </div>
       </section>
+      <% } %>
       <%# End Sale Card Slide %>
 
+      <% if(couponList.length > 0) { %>
       <div class="card-coupon-detail-list">
         <% couponList.forEach((coupon) => { %>
           <%-include('../../partials/modal/couponDetail.view.ejs', { coupon: coupon }) %>
@@ -401,7 +404,7 @@
           </h3>
           <div class="row">
             <div class="col-12">
-              <div class="w-100 d-flex justify-content-center card-coupon-slider button-trans">
+              <div class="w-100 d-flex justify-content-center card-coupon-slider button-trans" data-length="<%= couponList.length %>">
                 <% couponList.forEach((coupon) => { %>
                 <div class="mx-2 card-bg">
                   <div
@@ -458,6 +461,7 @@
           </div>
         </div>
       </section>
+      <% } %>
       <%# End Coupon Card Slide %>
 
       <%# Flash Sale Card Slide %> 

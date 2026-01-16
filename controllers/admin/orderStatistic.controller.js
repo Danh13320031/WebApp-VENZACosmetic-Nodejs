@@ -1,3 +1,4 @@
+import exportToExcelHelper from '../../helpers/admin/orderStatistic/exportToExcel.helper.js';
 import orderStatisticByDayHelper from '../../helpers/admin/orderStatistic/orderStatisticByDay.helper.js';
 import orderStatisticByMonthHelper from '../../helpers/admin/orderStatistic/orderStatisticByMonth.helper.js';
 import orderStatisticByQuarterHelper from '../../helpers/admin/orderStatistic/orderStatisticByQuarter.helper.js';
@@ -6,7 +7,6 @@ import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import orderModel from '../../models/order.model.js';
-import exportToExcelHelper from '../../helpers/admin/orderStatistic/exportToExcel.helper.js';
 
 // GET: /admin/order-statistic/day
 const statisticOrderByDay = async (req, res) => {
@@ -72,7 +72,7 @@ const statisticOrderByDay = async (req, res) => {
 // GET: /admin/order-statistic/day/export?minDay=...&maxDay=...
 const exportDayOrderStatisticToExcel = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
     const statisticOrderByDay = await orderStatisticByDayHelper(find, req.query);
 
     const data = {
@@ -96,7 +96,7 @@ const exportDayOrderStatisticToExcel = async (req, res) => {
 // GET: /admin/order-statistic/month
 const statisticOrderByMonth = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
 
     // Statistic order by month
     const statisticByMonth = await orderStatisticByMonthHelper(find, req.query);
@@ -157,7 +157,7 @@ const statisticOrderByMonth = async (req, res) => {
 // GET: /admin/order-statistic/month/export?month=...
 const exportMonthOrderStatisticToExcel = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
     const statisticOrderByMonth = await orderStatisticByMonthHelper(find, req.query);
 
     const data = {
@@ -181,7 +181,7 @@ const exportMonthOrderStatisticToExcel = async (req, res) => {
 // GET: /admin/order-statistic/quarter
 const statisticOrderByQuarter = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
 
     // Statistic order by quarter
     const statisticByQuarter = await orderStatisticByQuarterHelper(find, req.query);
@@ -242,7 +242,7 @@ const statisticOrderByQuarter = async (req, res) => {
 // GET: /admin/order-statistic/quarter/export?quarter=...&year=...
 const exportQuarterOrderStatisticToExcel = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
     const statisticOrderByQuarter = await orderStatisticByQuarterHelper(find, req.query);
 
     const data = {
@@ -266,7 +266,7 @@ const exportQuarterOrderStatisticToExcel = async (req, res) => {
 // GET: /admin/order-statistic/year
 const statisticOrderByYear = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
 
     // Statistic order by year
     const statisticByYear = await orderStatisticByYearHelper(find, req.query);
@@ -327,7 +327,7 @@ const statisticOrderByYear = async (req, res) => {
 // GET: /admin/order-statistic/year/export?year=...
 const exportYearOrderStatisticToExcel = async (req, res) => {
   try {
-    const find = { deleted: false };
+    const find = { deleted: false, 'payments.status': 'success' };
     const statisticOrderByYear = await orderStatisticByYearHelper(find, req.query);
 
     const data = {

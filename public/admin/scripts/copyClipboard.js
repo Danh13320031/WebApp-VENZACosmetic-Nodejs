@@ -13,7 +13,7 @@ if (btnCopyList && btnCopyList.length > 0) {
           const textCopyId = text.getAttribute('data-id');
 
           if (btnCopyId === textCopyId) {
-            navigator.clipboard.writeText(text.textContent);
+            window.navigator.clipboard.writeText(text.textContent);
             e.target.classList.add('copied');
 
             const setClassCopied = setTimeout(() => {

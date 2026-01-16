@@ -4,17 +4,17 @@ import moment from 'moment-timezone';
 import { emailConst } from '../../constants/constant.js';
 import handleReturnToStockHelper from '../../helpers/admin/order/handleReturnToStock.helper.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
+import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
-import priceFilterHelper from '../../helpers/priceFilter.helper.js';
+import priceFilterHelper from '../../helpers/admin/priceFilter.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
 import sendMailHelper from '../../helpers/sendMail.helper.js';
-import sortHelper from '../../helpers/sort.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import sortHelper from '../../helpers/admin/sort.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
+import couponModel from '../../models/coupon.model.js';
 import orderModel from '../../models/order.model.js';
 import productModel from '../../models/product.model.js';
 import userModel from '../../models/user.model.js';
-import handleErrorHelper from '../../helpers/handleError.helper.js';
-import couponModel from '../../models/coupon.model.js';
 
 // GET: /admin/accounts
 const order = async (req, res) => {
@@ -283,7 +283,7 @@ const changeStatusOrder = async (req, res) => {
   }
 };
 
-// PATCH: /admin/orders/order-change-payment/:status/:id?_method=PATCH
+// PATCH: /admin/orders/payment-change-status/:status/:id?_method=PATCH
 const changeStatusPayment = async (req, res) => {
   try {
     const { id, status } = req.params;

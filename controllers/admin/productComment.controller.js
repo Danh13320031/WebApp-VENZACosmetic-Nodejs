@@ -2,8 +2,8 @@ import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import sortHelper from '../../helpers/sort.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import sortHelper from '../../helpers/admin/sort.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import productModel from '../../models/product.model.js';
 import productCommentModel from '../../models/productComment.model.js';
 import userModel from '../../models/user.model.js';
@@ -49,7 +49,7 @@ const productComment = async (req, res) => {
       for (const comment of productCommentList) {
         const userComment = await userModel.findById(comment.user_id).select('fullname avatar');
         const product = await productModel.findById(comment.product_id).select('title thumbnail');
-        
+
         if (userComment) comment.userInfo = userComment;
         if (product) comment.productInfo = product;
       }

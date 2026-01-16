@@ -5,8 +5,8 @@ import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import handleErrorHelper from '../../helpers/handleError.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import sortHelper from '../../helpers/sort.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import sortHelper from '../../helpers/admin/sort.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import productCategoryModel from '../../models/productCategory.model.js';
 
 // GET: /admin/product-categories
@@ -87,8 +87,10 @@ const createProductCategoryPost = async (req, res) => {
 
     const newCategory = new productCategoryModel(req.body);
     await newCategory.save();
+
     alertMessageHelper(req, 'alertSuccess', 'Tạo thành công');
     res.redirect(`${systemConfig.prefixAdmin}/product-categories`);
+    return;
   } catch (error) {
     console.log('Create category fail: ', error);
     alertMessageHelper(req, 'alertFailure', 'Tạo thất bại');
@@ -113,11 +115,18 @@ const updateProductCategoryGet = async (req, res) => {
       deleted: false,
     });
 
-    res.render('./admin/pages/productCategory/update.view.ejs', {
-      pageTitle: 'Chỉnh sửa danh mục sản phẩm',
-      category,
-      categoryList: newCategoryList,
-    });
+    res.render(
+      './admin/pages/productCategory/update.view.ejs',
+      {
+        pageTitle: 'Chỉnh sửa danh mục sản phẩm',
+        category,
+        categoryList: newCategoryList,
+      },
+      (err, html) => {
+        if (err) handleErrorHelper(req, res, err);
+        res.send(html);
+      }
+    );
   } catch (error) {
     console.log('Not Found: ', error);
     alertMessageHelper(req, 'alertFailure', 'Not Found');

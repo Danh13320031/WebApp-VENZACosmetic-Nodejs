@@ -3,7 +3,7 @@ import adminSettingModel from '../../models/adminSetting.model.js';
 import clientModel from '../../models/clientSetting.model.js';
 import generalSettingModel from '../../models/generalSetting.model.js';
 
-// [GET]: /settings/general
+// [GET]: /admin/settings/general
 const settingGeneralGet = async (req, res) => {
   res.render('./admin/pages/setting/settingGeneral.view.ejs', {
     pageTitle: 'Cài đặt chung',

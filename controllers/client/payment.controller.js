@@ -2,7 +2,7 @@ import ejs from 'ejs';
 import { emailConst, notFoundPage } from '../../constants/constant.js';
 import categoryTreeHelper from '../../helpers/categoryTree.helper.js';
 import createPageUrlHelper from '../../helpers/client/createPageUrl.helper.js';
-import generateOrderCodeHelper from '../../helpers/client/generateOrderCode.helper.js';
+import generateOrderCodeHelper from '../../helpers/client/order/generateOrderCode.helper.js';
 import buildVnpayPaymentUrlHelper from '../../helpers/client/payment/buildVnpayPaymentUrl.helper.js';
 import getCouponInCartHelper from '../../helpers/client/payment/getCouponInCart.helper.js';
 import getProductListInCartHelper from '../../helpers/client/payment/getProductListInCart.helper.js';

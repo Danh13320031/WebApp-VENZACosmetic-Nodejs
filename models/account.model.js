@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import generateTokenHelper from '../helpers/generateToken.helper.js';
+import generateTokenHelper from '../helpers/admin/auth/generateToken.helper.js';
 const Schema = mongoose.Schema;
 
 const objSchema = {

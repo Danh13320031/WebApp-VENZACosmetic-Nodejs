@@ -4,7 +4,7 @@ import { saltRoundsConst } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 import paginationHelper from '../../helpers/pagination.helper.js';
 import searchHelper from '../../helpers/search.helper.js';
-import statusFilterHelper from '../../helpers/statusFilter.helper.js';
+import statusFilterHelper from '../../helpers/admin/statusFilter.helper.js';
 import userModel from '../../models/user.model.js';
 
 // GET: /admin/users

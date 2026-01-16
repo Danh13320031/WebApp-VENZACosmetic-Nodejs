@@ -55,7 +55,8 @@ const loginPost = async (req, res) => {
     res.cookie('token', account.token, {
       httpOnly: true,
       maxAge: maxAge,
-      secure: true,
+      secure: false,
+      path: systemConfig.prefixAdmin,
     });
 
     alertMessageHelper(req, 'alertSuccess', 'Đăng nhập thành công');
