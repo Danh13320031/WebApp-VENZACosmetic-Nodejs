@@ -1,0 +1,114 @@
+<div class="position-fixed top-0 start-0 w-100 h-100 p-3 d-flex justify-content-center align-items-center card-order-detail" card-order-detail data-id="<%= order._id %>">
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-black bg-opacity-50 card-order-overlay" card-order-overlay data-id="<%= order._id %>"></div>
+  <ul class="p-4 rounded-1 bg-white shadow position-absolute h-75 overflow-y-scroll d-flex flex-column gap-2 card-order-content">
+    <li class="content-font">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="heading-font py-0 d-flex align-items-center">
+          Chi tiết đơn hàng
+        </div>
+        <i class="button-icon-primary bi bi-x-lg" card-order-close data-id="<%= order._id %>"></i>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div>Mã đơn hàng: <span class="fw-bold"><%= order.orderCode %></span></div>
+      <div>Ngày đặt hàng: <span class="fw-bold"><%= moment(order.createdAt).tz(timezone).format('HH:mm, DD/MM/YYYY') %></span></div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="fw-bold mb-2">Sản phẩm đã mua:</div>
+      <div class="d-flex flex-column gap-2 w-100 overflow-x-scroll">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th class="cart-head-cell cart-cell cell-image">Hình ảnh</th>
+              <th class="cart-head-cell cart-cell cell-title">Tên sản phẩm</th>
+              <th class="cart-head-cell cart-cell cell-discount">Giảm giá</th>
+              <th class="cart-head-cell cart-cell cell-quantity">Số lượng</th>
+              <th class="cart-head-cell cart-cell cell-price">Giá</th>
+            </tr>
+          </thead>
+          <tbody class="content-font cart-body">
+            <% order.products.forEach((item) => { %>
+            <tr>
+              <td class="cart-body-cell cart-cell cell-image">
+                <img src="<%= item.thumbnail %>" alt="<%= item.title %>" class="img-fluid" style="max-width: 80px;">
+              </td>
+              <td class="cart-body-cell cart-cell cell-title text-wrap w-100"><%= item.title %></td>
+              <td class="cart-body-cell cart-cell cell-discount">
+                <% if(item.discount && item.discount > 0) { %>
+                  <%= item.discount %>%
+                <% } else { %>
+                  Không
+                <% } %>
+              </td>
+              <td class="cart-body-cell cart-cell cell-quantity"><%= item.quantity %></td>
+              <td class="cart-body-cell cart-cell cell-price"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price) %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+    </li>
+    <li>
+      <div class="fw-bold mb-2">Địa chỉ nhận hàng:</div>
+      <div>
+        <div><span class="fw-bold">Họ tên: </span><span><%= order.userConsigneeInfo.fullname %></span></div>
+        <div><span class="fw-bold">Số điện thoại: </span><span><%= order.userConsigneeInfo.phone %></span></div>
+        <div><span class="fw-bold">Địa chỉ: </span><span><%= order.userConsigneeInfo.address %></span></div>
+      </div>
+      <hr>
+    </li>
+    <li>
+      <div class="fw-bold mb-2">Mã giảm giá:</div>
+      <div>
+        <% if(order.coupons && order.coupons.code) { %>
+          <div><span class="fw-bold">Mã: </span><span><%= order.coupons.code %></span></div>
+          <div>
+            <span class="fw-bold">Giá trị: </span>
+            <span>
+              <% if(order.coupons.valueType === 'amount') { %>
+                -<%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.coupons.value) %>
+              <% } else { %>
+                -<%= order.coupons.value + '%' %>
+              <% } %>
+            </span>
+          </div>
+        <% } else { %>
+          <span>Không sử dụng mã giảm giá</span>
+        <% } %>
+      </div>
+      <hr>
+    </li>
+    <li class="content-font">
+      <div class="fw-bold mb-2">Tổng đơn hàng:</div>
+      <div>
+        <span>Phương thức thanh toán: </span>
+        <% if(order.payments.method === 'offline') { %>
+          <span class="badge" style="background: var(--warning-color)">Thanh toán khi nhận hàng</span>
+        <% } else { %>
+          <span class="badge" style="background: var(--primary-color)">Thanh toán online</span>
+        <% } %>
+      </div>
+      <div>
+        <span>Trạng thái thanh toán: </span>
+        <% if(order.payments.status === 'success') { %>
+          <span class="badge" style="background: var(--success-color)">Đã thanh toán</span>
+        <% } else if (order.payments.status === 'pending') { %>
+          <span class="badge" style="background: var(--warning-color)">Chờ thanh toán</span>
+        <% } else if (order.payments.status === 'failed') { %>
+          <span class="badge" style="background: var(--danger-color)">Thanh toán thất bại</span>
+        <% } else if (order.payments.status === 'refunded') { %>
+          <span class="badge" style="background: var(--info-color)">Đã hoàn tiền</span>
+        <% } else { %>
+          <span class="badge" style="background: var(--secondary-color)">Chưa thanh toán</span>
+        <% } %>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <span>Tổng tiền: </span>
+        <h2 class="fw-bold" style="color: var(--error-color)"><%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.total) %></h2>
+      </div>
+    </li>
+  </ul>
+</div>

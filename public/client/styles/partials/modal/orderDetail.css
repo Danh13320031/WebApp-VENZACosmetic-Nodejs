@@ -1,0 +1,37 @@
+.card-order-detail {
+  opacity: 0;
+  z-index: 3500;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+}
+.card-order-detail.active {
+  opacity: 1;
+  visibility: visible;
+}
+.card-order-detail .card-order-overlay {
+  opacity: 0;
+  z-index: 3300;
+  padding: 20px;
+  visibility: hidden;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+}
+.card-order-detail.active .card-order-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+.card-order-detail .card-order-content {
+  width: 80%;
+  max-width: 100%;
+  transform: translateY(-15%);
+  margin: 0px 20px;
+  opacity: 0;
+  z-index: 3400;
+  visibility: hidden;
+  transition: 0.5s ease-out;
+}
+.card-order-detail.active .card-order-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

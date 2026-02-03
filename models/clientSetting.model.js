@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'; //
 const Schema = mongoose.Schema;
 
 const objSchema = {
@@ -7,7 +7,15 @@ const objSchema = {
   general: { type: mongoose.Schema.Types.ObjectId, ref: 'GeneralSetting' },
 };
 
-const clientSettingSchema = new Schema(objSchema, { timestamps: true }, { collection: 'ClientSetting' });
-const clientSettingModel = mongoose.model('clientSettingModel', clientSettingSchema, 'ClientSetting');
+const clientSettingSchema = new Schema(
+  objSchema,
+  { timestamps: true },
+  { collection: 'ClientSetting' }
+);
+const clientSettingModel = mongoose.model(
+  'clientSettingModel',
+  clientSettingSchema,
+  'ClientSetting'
+);
 
 export default clientSettingModel;

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'; //
 const Schema = mongoose.Schema;
 
 const objSchema = {
@@ -10,7 +10,7 @@ const objSchema = {
   seoMetaKeyword: { type: String },
   copyright: { type: String },
   mainAddress: { type: String, required: true },
-  address: { type: Array, length: 5, required: true },
+  address: { type: [String], length: 5, required: true },
   tiktok: { type: String },
   facebook: { type: String },
   instagram: { type: String },

@@ -1,3 +1,4 @@
+import { phoneRegex } from '../../constants/constant.js';
 import alertMessageHelper from '../../helpers/alertMessagge.helper.js';
 
 const createPaymentValidate = (req, res, next) => {
@@ -7,8 +8,15 @@ const createPaymentValidate = (req, res, next) => {
     return;
   }
 
+  const regexPhone = new RegExp(phoneRegex);
+
   if (!req.body.phone) {
     alertMessageHelper(req, 'alertFailure', 'Vui lòng nhập số điện thoại');
+    res.redirect('back');
+    return;
+  }
+  if (!regexPhone.test(req.body.phone)) {
+    alertMessageHelper(req, 'alertFailure', 'Số điện thoại không hợp lệ');
     res.redirect('back');
     return;
   }
@@ -25,11 +33,11 @@ const createPaymentValidate = (req, res, next) => {
     return;
   }
 
-  if (!req.body.shipping_method) {
-    alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn phương thức vận chuyển');
-    res.redirect('back');
-    return;
-  }
+  // if (!req.body.shipping_method) {
+  //   alertMessageHelper(req, 'alertFailure', 'Vui lòng chọn phương thức vận chuyển');
+  //   res.redirect('back');
+  //   return;
+  // }
 
   next();
 };

@@ -58,12 +58,12 @@ const objSchema = {
     maxDiscountAmount: { type: Number, default: 0 },
     description: { type: String, default: '' },
   },
-  shippings: {
-    shipping_id: { type: String },
-    method: { type: String, required: true },
-    shippingFee: { type: Number, required: true, default: 0 },
-    description: { type: String, default: '' },
-  },
+  // shippings: {
+  //   shipping_id: { type: String },
+  //   method: { type: String, required: true },
+  //   shippingFee: { type: Number, required: true, default: 0 },
+  //   description: { type: String, default: '' },
+  // },
   deleted: { type: Boolean, default: false },
   deletedAt: { type: Date },
 };

@@ -89,7 +89,7 @@ const createOfflinePayment = async (req, res) => {
     };
 
     const payments = { method: body.payment_method };
-    const shippings = { method: body.shipping_method };
+    // const shippings = { method: body.shipping_method };
 
     // Handle generate order code
     const orderCode = await generateOrderCodeHelper();
@@ -120,7 +120,7 @@ const createOfflinePayment = async (req, res) => {
       userConsigneeInfo: userConsigneeInfo,
       payments: payments,
       products: products,
-      shippings: shippings,
+      // shippings: shippings,
       coupons: couponOrder.coupons,
       total: Number.parseFloat(couponOrder.total),
     };
