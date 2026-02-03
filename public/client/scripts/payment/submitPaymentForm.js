@@ -82,7 +82,7 @@ if (paymentForm) {
     const emailErr = validateEmail(emailEl);
     const addressErr = validateAddress(addressEl);
     const paymentErr = validateRadio('payment_method');
-    const shippingErr = validateRadio('shipping_method');
+    // const shippingErr = validateRadio('shipping_method');
 
     if (fullnameErr) showError(fullnameEl, fullnameErr);
     if (phoneErr) showError(phoneEl, phoneErr);
@@ -95,13 +95,14 @@ if (paymentForm) {
       document.querySelector('.form-error-checkout').textContent = '';
     }
 
-    if (shippingErr) {
-      document.querySelector('.form-error-shipping').textContent = shippingErr;
-    } else {
-      document.querySelector('.form-error-shipping').textContent = '';
-    }
+    // if (shippingErr) {
+    //   document.querySelector('.form-error-shipping').textContent = shippingErr;
+    // } else {
+    //   document.querySelector('.form-error-shipping').textContent = '';
+    // }
 
-    if (!fullnameErr && !phoneErr && !emailErr && !addressErr && !paymentErr && !shippingErr) {
+    // !shippingErr
+    if (!fullnameErr && !phoneErr && !emailErr && !addressErr && !paymentErr) {
       const paymentMethod = paymentForm.querySelector('input[name="payment_method"]:checked').value;
 
       if (paymentMethod === 'online') {

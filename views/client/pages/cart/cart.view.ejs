@@ -268,24 +268,6 @@
                 </div>
                 <% } %>
 
-                <% if(cart.products.length > 0) { %>
-                <div class="cart-coupon">
-                  <h4 class="fw-bold title-font text-uppercase cart-total-heading">
-                    Phí vận chuyển
-                  </h4>
-                  <div class="d-flex justify-content-between align-items-center cart-total-price">
-                    <span class="cart-total-price-title"
-                      >Cộng thêm:
-                      <b
-                        >+<%=new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'
-                        }).format(12000) %>
-                      </b>
-                    </span>
-                  </div>
-                  <hr />
-                </div>
-                <% } %>
-
                 <div class="cart-total">
                   <h4 class="fw-bold title-font text-uppercase cart-total-heading">Tổng tiền</h4>
                   <div class="d-flex justify-content-between align-items-center cart-total-price">

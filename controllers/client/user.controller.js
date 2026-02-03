@@ -64,6 +64,7 @@ const updateProfilePatch = async (req, res) => {
   }
 };
 
+// [GET]: /user/history
 const historyGet = async (req, res) => {
   try {
     const find = { status: 'active', deleted: false };

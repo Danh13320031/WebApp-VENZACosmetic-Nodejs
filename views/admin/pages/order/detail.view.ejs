@@ -277,40 +277,7 @@
                       </span>
                       <% } %>
                     </li>
-                    <li class="order-person-receiver-item">
-                      <span class="fs-6 text-wrap order-person-order-value">
-                        <b>Phương thức vận chuyển: </b>
-                      </span>
-                      <% if (orderDetail.shippings.method === 'standard') { %>
-                      <span
-                        class="badge badge-primary order-person-order-value"
-                        style="background: var(--warning-color-admin)"
-                      >
-                        Giao hàng tiêu chuẩn
-                      </span>
-                      <% } else if (orderDetail.shippings.method === 'fast') { %>
-                      <span
-                        class="badge badge-primary order-person-order-value"
-                        style="background: var(--info-color-admin)"
-                      >
-                        Giao hàng nhanh
-                      </span>
-                      <% } else if (orderDetail.shippings.method === 'shop') { %>
-                      <span
-                        class="badge badge-primary order-person-order-value"
-                        style="background: var(--secondary-color-admin)"
-                      >
-                        Nhận tại cửa hàng
-                      </span>
-                      <% } else { %>
-                      <span
-                        class="badge badge-primary order-person-order-value"
-                        style="background: var(--error-color-admin)"
-                      >
-                        Chưa xác định
-                      </span>
-                      <% } %>
-                    </li>
+                    
                     <li class="order-person-receiver-item">
                       <span class="fs-6 text-wrap order-person-order-value">
                         <b>Trạng thái đơn hàng: </b>

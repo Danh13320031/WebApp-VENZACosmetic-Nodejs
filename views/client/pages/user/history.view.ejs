@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/client/styles/partials/floatingButton/buttonMailTo.css" />
     <link rel="stylesheet" href="/client/styles/partials/floatingButton/buttonScrollToTop.css" />
     <link rel="stylesheet" href="/client/styles/partials/floatingButton/buttonChatBot.css" />
+    <link rel="stylesheet" href="/client/styles/partials/modal/orderDetail.css" />
     <link rel="stylesheet" href="/client/styles/pages/user/profile.css" />
     <link rel="stylesheet" href="/client/styles/partials/footer.css" />
     <%# End Styles File %>
@@ -153,6 +154,14 @@
         </div>
       </section>
 
+      <% if(orderList && orderList.length > 0) { %>
+      <div class="card-coupon-detail-list">
+        <% orderList.forEach((order) => { %>
+          <%-include('../../partials/modal/orderDetail.view.ejs', { order: order }) %>
+        <% }) %>
+      </div>
+      <% } %>
+
       <section class="history-order">
         <h3 class="heading-font text-center">Lịch sử đơn hàng</h3>
 
@@ -170,6 +179,7 @@
                       <th class="cart-head-cell cart-cell cell-title">Trạng thái</th>
                       <th class="cart-head-cell cart-cell cell-title">Phương thức thanh toán</th>
                       <th class="cart-head-cell cart-cell cell-title">Trạng thái thanh toán</th>
+                      <th class="cart-head-cell cart-cell cell-title">Chi tiết</th>
                     </tr>
                   </thead>
                   <tbody class="content-font cart-body">
@@ -235,7 +245,7 @@
                         <div class="cart-body-order-payment">
                           <% if(order.payments.method === 'offline') { %>
                           <span class="badge" style="background: var(--warning-color)">
-                            Thanh toán khi giao hàng
+                            Thanh toán khi nhận hàng
                           </span>
                           <% } else { %>
                           <span class="badge" style="background: var(--primary-color)">
@@ -269,6 +279,7 @@
                           <% } %>
                         </div>
                       </td>
+                      <td><button class="button-icon-primary" card-order-detail data-id="<%= order._id %>"><i class="bi bi-eye-fill"></i></button></td>
                     </tr>
                     <% }) %> <% } %>
                   </tbody>
@@ -314,6 +325,7 @@
     <script src="/client/scripts/alertMessage.js"></script>
     <script src="/client/scripts/toggleHeaderMobile.js"></script>
     <script src="/client/scripts/scrollToTop.js"></script>
+    <script src="/client/scripts/user/displayOrderDetail.js"></script>
     <script src="/client/scripts/displayChatBox.js"></script>
     <script src="/client/scripts/handleChatbotMessage.js"></script>
     <script src="/client/scripts/product/toggleSearchProduct.js"></script>
